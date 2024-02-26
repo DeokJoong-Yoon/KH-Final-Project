@@ -1,5 +1,8 @@
 package personal;
 
 public class TestMinho {
-dddddddd
+	private void syso() {
+		// TODO Auto-generated method stub
+
+	}
 }
