@@ -1,6 +1,6 @@
-package personal;
+package com.myedumyselect.board;
 
-public class TestMinho {
+public class boardTest {
 	private void syso() {
 		// TODO Auto-generated method stub
 
