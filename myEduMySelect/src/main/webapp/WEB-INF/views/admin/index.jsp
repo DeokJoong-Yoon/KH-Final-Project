@@ -475,7 +475,7 @@
 
           <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/CEO.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="/resources/include/assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>김시온</h4>
                 <span>CEO(Chief Executive Officer)</span>
@@ -492,7 +492,7 @@
           
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/CTO.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="/resources/include/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>윤덕중</h4>
                 <span>CTO(Chief Technology Officer)</span>
@@ -509,7 +509,7 @@
 
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/COO.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="/resources/include/assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>최영민</h4>
                 <span>COO(Chief Operating Officer)</span>
@@ -526,7 +526,7 @@
 
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/CFO.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="/resources/include/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>김나연</h4>
                 <span>CFO(Chief Financial Officer)</span>
@@ -543,7 +543,7 @@
 
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/CIO.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="/resources/include/assets/img/team/team-5.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>강민호</h4>
                 <span>CIO(Chief Information Office)</span>
@@ -576,8 +576,8 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="box">
-              <h3>Free Plan</h3>
-              <h4><sup>$</sup>0<span>per month</span></h4>
+              <h3>비싼 Plan</h3>
+              <h4><sup>원</sup>989,000<span>per day</span></h4>
               <ul>
                 <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
                 <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
