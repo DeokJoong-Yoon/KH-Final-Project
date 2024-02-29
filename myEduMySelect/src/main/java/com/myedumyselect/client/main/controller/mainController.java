@@ -11,6 +11,6 @@ public class mainController {
 	
 	@GetMapping("/")
 	public String mainIndex() {
-		return "index";
+		return "main/main";
 	}
 }
