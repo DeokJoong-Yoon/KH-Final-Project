@@ -115,7 +115,7 @@
         		<table id="searchTable">
         			<tr>
         				<td>지역 선택</td>
-        				<td id="selects">
+        				<td id="selects"> 
         					<select>
         						<option>강남구</option>
         						<option>강동구</option>
