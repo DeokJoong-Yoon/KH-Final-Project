@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.admin.openapi.data.dao.AcademySourceDAO">
+
+
+	<insert id="insertAcademySource" parameterType="academySource">
+		INSERT INTO
+		TB_ACADEMY_SOURCE (
+		ACADEMY_GU_ADDRESS, ACADEMY_TYPE, ACADEMY_NUMBER,
+		ACADEMY_NAME, ACADEMY_ROAD_ADDRESS, ACADEMY_DONG_ADDRESS,
+		ACADEMY_FIELD_NAME, ACADEMY_CURRICULUM_SERIES_NAME,
+		ACADEMY_CURRICULUM_LIST_NAME,
+		ACADEMY_CURRICULUM_NAME,
+		ACADEMY_TOTAL_CAPACITY,
+		ACADEMY_TOTAL_CAPACITY_PER_DAY,
+		ACADEMY_TUITION_PER_PERSON, ACADEMY_TUITION_OPEN_STATUS,
+		ACADEMY_DORMITORY_ACADEMY_STATUS,
+		ACADEMY_ROAD_POSTAL_NUMBER,
+		ACADEMY_REGISTER_STATUS_NAME,
+		ACADEMY_REGISTER_DATE,
+		ACADEMY_CLOSED_START_DATE, ACADEMY_CLOSED_END_DATE, ACADEMY_OPEN_DATE,
+		ACADEMY_LOADING_DATE_TIME
+		) VALUES (
+		#{academyGuAddress},
+		#{academyType}, #{academyNumber},
+		#{academyName},
+		#{academyRoadAddress}, #{academyDongAddress},
+		#{academyFieldName},
+		#{academyCurriculumSeriesName},
+		#{academyCurriculumListName},
+		#{academyCurriculumName}, #{academyTotalCapacity},
+		#{academyTotalCapacityPerDay},
+		#{academyTuitionPerPerson},
+		#{academyTuitionOpenStatus},
+		#{academyDormitoryAcademyStatus},
+		#{academyRoadPostalNumber}, #{academyRegisterStatusName},
+		#{academyRegisterDate},
+		#{academyClosedStartDate},
+		#{academyClosedEndDate}, #{academyOpenDate},
+		#{academyLoadingDateTime}
+		)
+	</insert>
+
+
+
+
+
+
+
+	<insert id="insertAcademySourceList"
+		parameterType="java.util.List">
+		INSERT INTO TB_ACADEMY_SOURCE (
+		ACADEMY_GU_ADDRESS, ACADEMY_TYPE,
+		ACADEMY_NUMBER,
+		ACADEMY_NAME, ACADEMY_ROAD_ADDRESS,
+		ACADEMY_DONG_ADDRESS,
+		ACADEMY_FIELD_NAME,
+		ACADEMY_CURRICULUM_SERIES_NAME, ACADEMY_CURRICULUM_LIST_NAME,
+		ACADEMY_CURRICULUM_NAME, ACADEMY_TOTAL_CAPACITY,
+		ACADEMY_TOTAL_CAPACITY_PER_DAY,
+		ACADEMY_TUITION_PER_PERSON,
+		ACADEMY_TUITION_OPEN_STATUS, ACADEMY_DORMITORY_ACADEMY_STATUS,
+		ACADEMY_ROAD_POSTAL_NUMBER, ACADEMY_REGISTER_STATUS_NAME,
+		ACADEMY_REGISTER_DATE,
+		ACADEMY_CLOSED_START_DATE,
+		ACADEMY_CLOSED_END_DATE, ACADEMY_OPEN_DATE, ACADEMY_LOADING_DATE_TIME
+		) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.academyGuAddress}, #{item.academyType}, #{item.academyNumber},
+			#{item.academyName}, #{item.academyRoadAddress},
+			#{item.academyDongAddress},
+			#{item.academyFieldName},
+			#{item.academyCurriculumSeriesName},
+			#{item.academyCurriculumListName},
+			#{item.academyCurriculumName},
+			#{item.academyTotalCapacity}, #{item.academyTotalCapacityPerDay},
+			#{item.academyTuitionPerPerson}, #{item.academyTuitionOpenStatus},
+			#{item.academyDormitoryAcademyStatus},
+			#{item.academyRoadPostalNumber}, #{item.academyRegisterStatusName},
+			#{item.academyRegisterDate},
+			#{item.academyClosedStartDate},
+			#{item.academyClosedEndDate}, #{item.academyOpenDate},
+			#{item.academyLoadingDateTime}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

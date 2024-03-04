@@ -6,26 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.myedumyselect.admin.openapi.data.service.DataService;
+import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/data/*")
-@Slf4j
 public class DataController {
 
 	@Setter(onMethod_ = @Autowired)
 	private DataService dataService;
 
-	@GetMapping(value = "/academySource", produces = "application/json; charset=UTF-8")
-	public String getAcademySource() throws Exception {
-		log.info("Academy api start");
+	@GetMapping(value = "/insertAcademySource", produces = "application/json; charset=UTF-8")
+	public String insertAcademySource() throws Exception {
 		int listTotalCount = dataService.listTotalCount();
-		StringBuffer sb = null;
-		sb = dataService.getAcademySource(listTotalCount);
+		dataService.insertAcademySourceList(listTotalCount);
 
-		log.info("Academy api close");
-		return "총 학원 수 : " + listTotalCount;
+		return "";
 	}
 }

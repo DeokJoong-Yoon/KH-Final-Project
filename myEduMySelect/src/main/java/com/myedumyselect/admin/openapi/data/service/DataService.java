@@ -1,10 +1,13 @@
 package com.myedumyselect.admin.openapi.data.service;
 
-public interface DataService {
+import java.util.List;
 
-	public StringBuffer getAcademySource(int listTotalCount);
+import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
+
+public interface DataService {
 
 	public int listTotalCount() throws Exception;
 
+	public List<AcademySourceVO> insertAcademySourceList(int listTotalCount) throws Exception;
 
 }
