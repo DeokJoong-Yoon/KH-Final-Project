@@ -10,5 +10,15 @@ public class MatchingTest {
 	public String matchingTest() {
 		return "matching/matchingMain"; 
 	}
+	
+	@GetMapping("/matchingTest2")
+	public String matchingTest2() {
+		return "matching/matchingBoardList"; 
+	}
+	
+	@GetMapping("/matchingTest3")
+	public String matchingTest3() {
+		return "matching/matchingDetail"; 
+	}
 
 }

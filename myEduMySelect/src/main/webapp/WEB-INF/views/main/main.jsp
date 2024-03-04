@@ -289,7 +289,7 @@
 
 				<div class="row">
 
-					<div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+					<div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="100">
 						<div class="member d-flex align-items-start">
 							<div class="pic">
 								<img src="/resources/include/assets/img/team/team-4.jpg"

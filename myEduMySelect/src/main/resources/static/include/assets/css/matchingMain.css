@@ -1,9 +1,9 @@
-#mcHero {
+.mcHero {
 	height: 550px;
 	background-color: #48d1cc;
 }
 
-#mcBanner {
+.mcBanner {
     text-align: center;
     font-size: 45px;
 	font-weight: 600; 
@@ -12,7 +12,7 @@
     margin-top:40px;
 }
 
-#mcDescBox {
+.mcDescBox {
 	background-color : white;
 	color : #37517e;
 	font: 15px bold;
@@ -23,14 +23,18 @@
 	border-radius: 20px;
 }
 
-#mcSelect {
+.mcDescBox span {
+	font-size: 18px;
+}
+
+.mcSelect {
 	background-color : #f3f5fa;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 	padding : 10px;
 }
 
         
-#searchTable {
+.mcSelect table {
     width: 100%;
     border-collapse: collapse;
 }
@@ -44,7 +48,7 @@
     margin-right: 20px;
 }
 
-#searchTable td:nth-child(1) {
+.mcSelect table td:nth-child(1) {
     width: 150px;
     color: #37517e;
     text-align: center;
@@ -52,7 +56,7 @@
 	font-weight: 600;
 }
 
-#searchTable td:nth-child(3) {
+.mcSelect table td:nth-child(3) {
     width: 150px;
     color: #37517e;
     text-align: center;
@@ -60,27 +64,27 @@
 	font-weight: 600;
 }
 
-#searchTable th, #searchTable td {
+.mcSelect table th, .mcSelect table td {
     padding: 15px;
     text-align: left;
 }
 
-#searchTable th {
+.mcSelect table th {
     background-color: #f2f2f2;
 }
 
 
-#searchTable select {
+.mcSelect table select {
     width: 100%;
     padding: 5px;
     margin-top: 5px;
 }
 
-#searchTable input[type="radio"] {
+.mcSelect table input[type="radio"] {
     margin-right: 5px;
 }
 
-#searchTable button {
+.mcSelect table button {
     padding: 10px 20px;
     background-color: #48d1cc;
     color: white;
@@ -92,14 +96,142 @@
     font-weight: 600;
 }
 
-#searchTable button:hover {
+.mcSelect table button:hover {
     background-color: #37517e;
 }
 
-#searchTable tr {
+.mcSelect table tr {
     border-bottom: 1px solid #ddd;
 }
 
-#searchTable label {
+.mcSelect table label {
 	margin-right: 30px;
 }
+
+.mcResultSection{
+	display: none;
+	margin-top : -60px;
+}
+
+.mcResult {
+	background-color : #f3f5fa;
+	padding : 10px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mcResult table {
+	width: 100%;
+    border-collapse: collapse;
+}
+
+.mcResult table th, .mcResult table td {
+    padding: 6px;
+    text-align: center;
+}
+
+.mcResult table thead {
+	color: #37517e;
+	font-size: 18px;
+	font-weight: 600;
+	border-bottom: 1px solid #ddd;
+	height: 50px;
+}
+
+.mcResult table tbody tr:hover {
+    background-color:  rgba(255, 255, 255, 0.7); 
+}
+
+
+
+
+.mcUploadArea button {
+    padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mcUploadArea button:hover {
+    background-color: #37517e;
+}
+
+#mcPublicBtn, #mcPrivateBtn {
+	float: left;
+	margin-top: 20px;
+    margin-right:15px;
+}
+
+.mcUploadArea input {
+	 margin-top: 27px;
+	 margin-left: 10px;
+}
+
+#mcUploadBtn {
+	float: right;
+	height: 75px;
+	clear: both; /* float 속성 해제 */
+	width : 12%;
+}
+
+
+
+
+.mcBoardPreviewSection {
+	background-color : #f3f5fa
+}
+
+.mcBoardPreview {
+	background-color : #fff;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+	padding : 10px;
+}
+
+.mcBoardPreview table {
+	width: 100%;
+    border-collapse: collapse;
+}
+
+.mcBoardPreview table thead {
+	color: #37517e;
+	font-size: 18px;
+	font-weight: 600;
+	border-bottom: 1px solid #ddd;
+	height: 50px;
+}
+
+.mcBoardPreview table th, .mcBoardPreview table td {
+    padding: 6px;
+    text-align: center;
+}
+
+#gotoMcBoard {
+    padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#gotoMcBoard:hover {
+    background-color: #37517e;
+}
+
+#gotoMcBoard {
+	float: right;
+	margin-top: 20px;
+}
+
+
+
+table label {
+	margin-left: 5px;
+}
+
+

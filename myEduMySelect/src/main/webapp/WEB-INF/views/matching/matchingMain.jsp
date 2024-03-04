@@ -39,6 +39,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -74,15 +76,15 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="mcHero" class="d-flex align-items-center">
+  <!-- ======= 설명 영역 ======= -->
+  <section class="mcHero d-flex align-items-center">
 
     <div class="container">
       <div class="row" >
-		<div class="col-12 text-center" id="mcBanner">
+		<div class="col-12 text-center mcBanner">
             맞춤형 학원 검색<br/>
-            <div id="mcDescBox">
-            	<b>내 학원은 내가 결정한다!</b> <br/>
+            <div class="mcDescBox">
+            	<span><b>내 학원은 내가 결정한다!</b></span> <br/>
 				MyEduMySelect에서 당신에게 꼭 맞는 맞춤형 학원을 찾아 보세요. <br/><br/>
 				
 				먼저, 조건을 선택하여 검색 결과를 조회하세요. <br/><br/>
@@ -100,324 +102,229 @@
         </div>  
       </div>
     </div>
-   </section><!-- End Hero -->
+   </section><!-- 설명영역 끝 -->
+
 
   <main id="main">
-
-    
-
-    <!-- ======= About Us Section ======= -->
-    <section id="about" class="about">
+ 
+    <!-- ======= 조건 선택 영역 ======= -->
+    <section class="mcSelectSection">
       <div class="container">
+      	
+      	<div class="section-title">
+          <h2>맞춤 조건 선택</h2>
+        </div>
 
-        <div id="mcSelect">
+        <div class="mcSelect">
         	<form>
-        		<table id="searchTable">
+        		<table>
         			<tr>
         				<td>지역 선택</td>
         				<td id="selects"> 
-        					<select>
-        						<option>강남구</option>
-        						<option>강동구</option>
-        						<option>강북구</option>
-        						<option>강서구</option>
-        						<option>관악구</option>
-        						<option>광진구</option>
-        						<option>구로구</option>
-        						<option>금천구</option>
-        						<option>노원구</option>
-        						<option>도봉구</option>
-        						<option>동대문구</option>
-        						<option>동작구</option>
-        						<option>마포구</option>
-        						<option>서대문구</option>
-        						<option>서초구</option>
-        						<option>성동구</option>
-        						<option>성북구</option>
-        						<option>송파구</option>
-        						<option>양천구</option>
-        						<option>영등포구</option>
-        						<option>용산구</option>
-        						<option>은평구</option>
-        						<option>종로구</option>
-        						<option>중구</option>
-        						<option>중랑구</option>
+        					<select id="gu">
+        						<option value="">-- 구 선택 --</option>
+        						<option value="강남구">강남구</option>
+        						<option value="강동구">강동구</option>
+        						<option value="강북구">강북구</option>
+        						<option value="강서구">강서구</option>
+        						<option value="관악구">관악구</option>
+        						<option value="광진구">광진구</option>
+        						<option value="구로구">구로구</option>
+        						<option value="금천구">금천구</option>
+        						<option value="노원구">노원구</option>
+        						<option value="도봉구">도봉구</option>
+        						<option value="동대문구">동대문구</option>
+        						<option value="동작구">동작구</option>
+        						<option value="마포구">마포구</option>
+        						<option value="서대문구">서대문구</option>
+        						<option value="서초구">서초구</option>
+        						<option value="성동구">성동구</option>
+        						<option value="성북구">성북구</option>
+        						<option value="송파구">송파구</option>
+        						<option value="양천구">양천구</option>
+        						<option value="영등포구">영등포구</option>
+        						<option value="용산구">용산구</option>
+        						<option value="은평구">은평구</option>
+        						<option value="종로구">종로구</option>
+        						<option value="중구">중구</option>
+        						<option value="중랑구">중랑구</option>
         					</select>
-        					<select>
-        					
+        					<select id="dong">
+        						<option value="">-- 동 선택 --</option>
         					</select>
         				</td>
         				<td>학년 선택</td>
-        				<td >
-        					<input type="radio" name="age" id="preSchooler" value="미취학"><label> 미취학</label>
-        					<input type="radio" name="age" id="elementary1" value="초등(저)"><label> 초등(저)</label>
-        					<input type="radio" name="age" id="elementary2" value="초등(고)"><label> 초등(고)</label> <br>
-        					<input type="radio" name="age" id="middleSchool" value="중등"><label> 중등        </label>
-        					<input type="radio" name="age" id="highSchool" value="고등"><label> 고등</label>
-        					<input type="radio" name="age" id="adult" value="성인"><label> 성인</label>
+        				<td>
+        					<input type="radio" name="age" id="preSchooler" value="미취학"><label for="preSchooler"> 미취학</label>
+        					<input type="radio" name="age" id="elementary1" value="초등(저)"><label for="elementary1"> 초등(저)</label>
+        					<input type="radio" name="age" id="elementary2" value="초등(고)"><label for="elementary2"> 초등(고)</label> <br>
+        					<input type="radio" name="age" id="middleSchool" value="중등"><label for="middleSchool"> 중등&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="age" id="highSchool" value="고등"><label for="highSchool">고등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="age" id="adult" value="성인"><label for="adult">성인</label>
         				</td>
         			<tr>
         				<td>과목 선택</td>
         				<td>
-        					<input type="radio" name="subject" id="korean" value="국어"><label> 국어</label>
-        					<input type="radio" name="subject" id="math" value="수학"><label> 수학</label>
-        					<input type="radio" name="subject" id="english" value="영어"><label> 영어</label>
+        					<input type="radio" name="subject" id="korean" value="국어"><label for="korean"> 국어</label>
+        					<input type="radio" name="subject" id="math" value="수학"><label for="math"> 수학</label>
+        					<input type="radio" name="subject" id="english" value="영어"><label for="english"> 영어</label>
         				</td>
         				<td>수강료</td>
         				<td >
-        					<input type="radio" name="fee" id="under20" value="20만원 미만"><label> 20만원 미만</label>
-        					<input type="radio" name="fee" id="under20" value="20만원 이상 30만원 미만"><label> 20만원 이상 30만원 미만</label>
-        					<input type="radio" name="fee" id="under20" value="30만원 이상 40만원 미만"><label> 30만원 이상 40만원 미만</label><br>
-        					<input type="radio" name="fee" id="under20" value="40만원 이상 50만원 미만"><label> 40만원 이상 50만원 미만</label>
-        					<input type="radio" name="fee" id="under20" value="50만원 이상 60만원 미만"><label> 50만원 이상 60만원 미만</label><br>
-        					<input type="radio" name="fee" id="under20" value="60만원 이상 70만원 미만"><label> 60만원 이상 70만원 미만</label>
-        					<input type="radio" name="fee" id="under20" value="70만원 이상"><label> 70만원 이상</label>
-        					<input type="radio" name="fee" id="under20" value="무관"><label> 무관</label>
+        					<input type="radio" name="fee" id="under20" value="20만원 미만"><label for="under20">20만원 미만&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="fee" id="up20under30" value="20만원 이상 30만원 미만"><label for="up20under30">20만원 이상 30만원 미만</label><br>
+        					<input type="radio" name="fee" id="up30under40" value="30만원 이상 40만원 미만"><label for="up30under40">30만원 이상 40만원 미만</label>
+        					<input type="radio" name="fee" id="up40under50" value="40만원 이상 50만원 미만"><label for="up40under50"> 40만원 이상 50만원 미만</label><br>
+        					<input type="radio" name="fee" id="up50under60" value="50만원 이상 60만원 미만"><label for="up50under60"> 50만원 이상 60만원 미만</label>
+        					<input type="radio" name="fee" id="up60under70" value="60만원 이상 70만원 미만"><label for="up60under70"> 60만원 이상 70만원 미만</label><br>
+        					<input type="radio" name="fee" id="up70" value="70만원 이상"><label for="up70"> 70만원 이상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="fee" id="noMatter" value="무관"><label for="noMatter"> 무관</label>
         				</td> 
         			</tr>
         			<tr>
         				<td>키워드 선택</td>
         				<td colspan="3">
-        					<input type="radio" name="keyword" id="fromBasic" value="기초부터"><label> 기초부터</label>
-        					<input type="radio" name="keyword" id="advanced" value="심화수업"><label> 심화수업</label>
-        					<input type="radio" name="keyword" id="kindTeacher" value="친절한 강사"><label> 친절한 강사</label>
-        					<input type="radio" name="keyword" id="management" value="꼼꼼한 관리"><label> 꼼꼼한 관리</label>
-        					<input type="radio" name="keyword" id="noHomework" value="숙제 없음"><label> 숙제 없음</label>
-        					<input type="radio" name="keyword" id="selfDirected" value="자기주도적"><label> 자기주도적</label>
-        					<input type="radio" name="keyword" id="lecture" value="강의식 수업"><label> 강의식 수업</label>
-        					<input type="radio" name="keyword" id="forEntrance" value="입시대비"><label> 입시대비</label>
-        					<input type="radio" name="keyword" id="interesting" value="재밌는 수업"><label> 재밌는 수업</label>
+        					<input type="checkbox" name="keyword" id="fromBasic" value="기초부터"><label for="fromBasic"> 기초부터</label>
+        					<input type="checkbox" name="keyword" id="advanced" value="심화수업"><label for="advanced"> 심화수업</label>
+        					<input type="checkbox" name="keyword" id="kindTeacher" value="친절한 강사"><label for="kindTeacher"> 친절한 강사</label>
+        					<input type="checkbox" name="keyword" id="management" value="꼼꼼한 관리"><label for="management"> 꼼꼼한 관리</label>
+        					<input type="checkbox" name="keyword" id="noHomework" value="숙제 없음"><label for="noHomework"> 숙제 없음</label>
+        					<input type="checkbox" name="keyword" id="selfDirected" value="자기주도적"><label for="selfDirected"> 자기주도적</label>
+        					<input type="checkbox" name="keyword" id="lecture" value="강의식 수업"><label for="lecture"> 강의식 수업</label>
+        					<input type="checkbox" name="keyword" id="forEntrance" value="입시대비"><label for="forEntrance"> 입시대비</label> <br>
+        					<input type="checkbox" name="keyword" id="interesting" value="재밌는 수업"><label for="interesting"> 재밌는 수업</label>
         				</td>
         			<tr>
         				<td colspan="4">
-        					<button>검색 결과 조회하기</button>
+        					<button id="mcSearchBtn" type="button">검색 결과 조회하기</button>
         				</td>
         		</table>
         	</form>
         </div>
 
       </div>
-    </section><!-- End About Us Section -->
+    </section><!-- 조건 선택 영역 끝 -->
 
    
 
 
-    <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
-      <div class="container" data-aos="fade-up">
+    <!-- ======= 검색 결과 영역 ======= -->
+    <section class="mcResultSection">
+      <div class="container" >
 
         <div class="section-title">
-          <h2>Team</h2>
-          <p>우리 개발팀은 혁신적인 아이디어와 최신 기술을 활용하여 문제를 해결하고</p>
-          <p>사용자들에게 효과적이고 혁신적인 솔루션을 제공하는 열정적인 전문가들의 모임입니다.</p>
+          <h2>검색 결과</h2>
         </div>
 
-        <div class="row">
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>김시온</h4>
-                <span>CEO(Chief Executive Officer)</span>
-                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-                <div class="social">
-                  <a href=""><i class="ri-twitter-fill"></i></a>
-                  <a href=""><i class="ri-facebook-fill"></i></a>
-                  <a href=""><i class="ri-instagram-fill"></i></a>
-                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>윤덕중</h4>
-                <span>CTO(Chief Technology Officer)</span>
-                <p>e</p>
-                <div class="social">
-                  <a href=""><i class="ri-twitter-fill"></i></a>
-                  <a href=""><i class="ri-facebook-fill"></i></a>
-                  <a href=""><i class="ri-instagram-fill"></i></a>
-                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>최영민</h4>
-                <span>COO(Chief Operating Officer)</span>
-                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-                <div class="social">
-                  <a href=""><i class="ri-twitter-fill"></i></a>
-                  <a href=""><i class="ri-facebook-fill"></i></a>
-                  <a href=""><i class="ri-instagram-fill"></i></a>
-                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>김나연</h4>
-                <span>CFO(Chief Financial Officer)</span>
-                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-                <div class="social">
-                  <a href=""><i class="ri-twitter-fill"></i></a>
-                  <a href=""><i class="ri-facebook-fill"></i></a>
-                  <a href=""><i class="ri-instagram-fill"></i></a>
-                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
-            <div class="member d-flex align-items-start">
-              <div class="pic"><img src="/resources/include/assets/img/team/team-5.jpg" class="img-fluid" alt=""></div>
-              <div class="member-info">
-                <h4>강민호</h4>
-                <span>CIO(Chief Information Office)</span>
-                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                <div class="social">
-                  <a href=""><i class="ri-twitter-fill"></i></a>
-                  <a href=""><i class="ri-facebook-fill"></i></a>
-                  <a href=""><i class="ri-instagram-fill"></i></a>
-                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div class="mcResult">
+			<table>
+				<thead>
+					<tr>
+						<th>선택</th>
+						<th>학원명</th>
+						<th>주소</th>
+						<th>전화번호</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<input type="checkbox">	
+						</td>
+						<td>학원명1</td>
+						<td>주소1</td>
+						<td>전화번호1</td>
+					</tr>	
+					<tr>
+						<td>
+							<input type="checkbox">	
+						</td>
+						<td>학원명2</td>
+						<td>주소2</td>
+						<td>전화번호2</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="checkbox">	
+						</td>
+						<td>학원명3</td>
+						<td>주소3</td>
+						<td>전화번호3</td>
+					</tr>		
+				</tbody>
+			</table>
+        </div>
+        
+        <div class="mcUploadArea">
+      		<button id="mcPublicBtn">공개 매칭하기</button>
+        	<button id="mcPrivateBtn">비공개 매칭하기</button>
+        	<input type="password" placeholder="비밀번호 입력" disabled> <br/><br/>
+        	<textarea rows="3" style="width:87%" placeholder="덧붙이는 말"></textarea>
+        	<button id="mcUploadBtn">매칭 시작하기</button>
         </div>
 
       </div>
-    </section><!-- End Team Section -->
+    </section><!-- 검색결과 영역 끝 -->
 
-    <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
-      <div class="container" data-aos="fade-up">
+   
 
-        <div class="section-title">
-          <h2>Pricing</h2>
-          <p>학원 고객님에게 제공하는 서비스 요금을 안내해드립니다.</p>
-        </div>
-
-        <div class="center">
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="box">
-              <h3>비싼플랜</h3>
-              <h4><sup>￦</sup>599,000<span>per day</span></h4>
-              <ul>
-                <li><i class="bx bx-check"></i> 홍보 서비스</li>
-                <li><i class="bx bx-check"></i> 매칭 서비스</li>
-                <li><i class="bx bx-check"></i> 상담 서비스</li>
-                <li class="na"><i class="bx bx-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li class="na"><i class="bx bx-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <a href="#" class="buy-btn">Get Started</a>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-    </section><!-- End Pricing Section -->
-
-    <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq section-bg">
-      <div class="container" data-aos="fade-up">
+    <!-- ======= 매칭게시판 미리 보기 ======= -->
+    <section class="mcBoardPreviewSection">
+      <div class="container">
 
         <div class="section-title">
-          <h2>Frequently Asked Questions</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <h2>매칭 게시판</h2>
         </div>
-
-        <div class="faq-list">
-          <ul>
-            <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                <p>
-                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="200">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="300">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="400">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="500">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
-                </p>
-              </div>
-            </li>
-
-          </ul>
-        </div>
-
+	
+		<div class="mcBoardPreview">
+			<table>
+				<thead>
+					<tr>
+						<th>글 번호</th>
+						<th>비밀글 여부</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>등록일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>100</td>
+						<td></td>
+						<td>제목100</td>
+						<td>작성자100</td>
+						<td>등록일100</td>
+					</tr>
+					<tr>
+						<td>99</td>
+						<td>[비밀글]</td>
+						<td>제목99</td>
+						<td>작성자99</td>
+						<td>등록일99</td>
+					</tr>
+					<tr>
+						<td>98</td>
+						<td>[비밀글]</td>
+						<td>제목98</td>
+						<td>작성자98</td>
+						<td>등록일98</td>
+					</tr>
+				</tbody>	
+			</table>
+		</div>
+		<button id="gotoMcBoard">매칭 게시판 전체 보기</button>
       </div>
     </section><!-- End Frequently Asked Questions Section -->
 
-    <!-- ======= Contact Section ======= -->
+    <!-- ======= 매칭게시판 미리보기 끝 ======= -->
+    
+    
+    
   
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="footer-top">
       <div class="container">
@@ -500,6 +407,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/include/assets/js/main.js"></script>
+  <script src="/resources/include/assets/js/matchingMain.js"></script>
 
 </body>
 
