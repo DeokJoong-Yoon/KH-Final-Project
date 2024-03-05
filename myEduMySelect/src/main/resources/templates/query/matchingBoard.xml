@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myedumyselect.matching.board.dao.MatchingBoardDAO">
+
+	<!-- 별칭 일괄 부여 -->
+	<resultMap type="matchingBoard" id="matchingBoardMap">
+		<id column="matching_no" property="matchingNo" />
+		<result column="personal_id" property="personalId" />
+		<result column="matching_private" property="matchingPrivate" />
+		<result column="matching_passwd" property="matchingPasswd" />
+		<result column="matching_register_date" property="matchingRegisterDate" />
+		<result column="matching_edit_date" property="matchingEditDate" />
+		<result column="matching_gu_address" property="matchingGuAddress" />
+		<result column="matching_dong_address" property="matchingDongAddress" />
+		<result column="matching_target_grade" property="matchingTargetGrade" />
+		<result column="matching_target_subject" property="matchingTargetSubject" />
+		<result column="matching_fee" property="matchingFee" />
+		<result column="matching_keyword1" property="matchingKeyword1" />
+		<result column="matching_keyword2" property="matchingKeyword2" />
+		<result column="matching_keyword3" property="matchingKeyword3" />
+		<result column="commentCnt" property="commentCnt" />
+	</resultMap>
+	
+	
+	<!-- 매칭게시판 글 목록 미리보기 조회 -->
+	<select id="mBoardListPreview" parameterType="matchingBoard" resultMap="matchingBoardMap">
+	    <![CDATA[
+	        SELECT * FROM (
+	            SELECT matching_no, matching_private, matching_gu_address, matching_dong_address, 
+	            	matching_target_subject, matching_target_grade, personal_id, 
+	            	to_char(matching_register_date, 'YYYY-MM-DD') as matching_register_date, 
+	            	(SELECT COUNT(matching_comment_no) 
+	            		FROM tb_matching_comment 
+	            		WHERE matching_no = tb_matching_board.matching_no) 
+	            	as commentCnt
+	            FROM tb_matching_board
+	            ORDER BY matching_no DESC
+	        ) WHERE ROWNUM <= 5
+	    ]]>
+	</select>
+
+</mapper>
