@@ -208,6 +208,34 @@
     text-align: center;
 }
 
+.mcBoardPreview table td a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크 색상을 부모 요소에서 상속 */
+}
+
+.mcBoardPreview table td a:hover {
+    text-decoration: underline;
+}
+
+.comment_count {
+	color: brown;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.mcBoardPreview table td:nth-child(1), .mcBoardPreview table th:nth-child(1) {
+	width: 10%;
+}
+
+.mcBoardPreview table td:nth-child(2), .mcBoardPreview table th:nth-child(2) {
+	width: 51%;
+}
+
+.mcBoardPreview table td:nth-child(3), .mcBoardPreview table th:nth-child(3), .mcBoardPreview table td:nth-child(4), .mcBoardPreview table th:nth-child(4) {
+	width: 17%;
+}
+
+
 #gotoMcBoard {
     padding: 10px 20px;
     background-color: #48d1cc;
@@ -232,6 +260,7 @@
 
 table label {
 	margin-left: 5px;
+	
 }
 
 

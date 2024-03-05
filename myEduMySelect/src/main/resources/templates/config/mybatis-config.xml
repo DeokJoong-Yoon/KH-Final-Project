@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	
 	<typeAliases>
+
 		<typeAlias
 			type="com.myedumyselect.admin.openapi.data.vo.AcademySourceVO"
 			alias="academySource" />
+			
+		<typeAlias 
+			type="com.myedumyselect.matching.board.vo.MatchingBoardVO"
+			alias="matchingBoard" />
+			
+		<typeAlias 
+			type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
+			alias="matchingComment" />
+		
 	</typeAliases>
+
 </configuration>

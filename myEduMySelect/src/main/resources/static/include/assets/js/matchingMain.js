@@ -59,7 +59,10 @@ $(function(){
             keywordValue.push($(this).val());
         });
 	
-		if(guValue==undefined || dongValue==undefined || ageValue==undefined || subjectValue==undefined || feeValue==undefined || keywordValue.length == 0) {
+		if(keywordValue.length > 3) {
+			alert("키워드는 3개까지만 선택 가능합니다.");
+		}
+		else if(guValue==undefined || dongValue==undefined || ageValue==undefined || subjectValue==undefined || feeValue==undefined || keywordValue.length == 0) {
 			alert("모든 항목을 선택해 주세요.");
 		}
 		else {		//모든 항목이 선택되었을 때 검색 결과 영역을 띄움
@@ -81,4 +84,14 @@ $(function(){
 		$("input[type='password']").prop("disabled", false);
 		$("tbody input[type='checkbox']").prop("disabled", false);
 	});
+	
+	
+	//게시글 제목 동적 설정 : 상세페이지로 이동하게 추후 설정 필요
+	//$("#mbdLink").attr("href", "https://www.naver.com");
+	
+	
+	//매칭게시판 전체보기
+	$("#gotoMcBoard").on("click", function(){
+		
+	})
 });
