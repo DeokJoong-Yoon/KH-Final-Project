@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.myedumyselect.admin.openapi.data.service.DataService;
-import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
-
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/data/*")
@@ -23,6 +19,6 @@ public class DataController {
 		int listTotalCount = dataService.listTotalCount();
 		dataService.insertAcademySourceList(listTotalCount);
 
-		return "";
+		return "listTotalCount";
 	}
 }
