@@ -59,11 +59,13 @@ public class AdminLoginController {
 	@PostMapping("/login")
 	public String loginProcess(AdminLoginVO login, Model model, RedirectAttributes ras) {
 		AdminLoginVO adminLogin = adminLoginService.loginProcess(login);
-
+		log.info(login.toString());
+		
 		/* 로그인 확인 */
 		if (adminLogin != null) {
 			model.addAttribute("adminLogin", adminLogin);
 		} else {
+			
 			ras.addFlashAttribute("errorMsg", "로그인 실패");
 		}
 		return "redirect:/admin/login";

@@ -75,6 +75,7 @@
 </c:if>
   <c:if test="${not empty adminLogin}">
   	<h3>${adminLogin.adminName} 님 환영합니다.</h3>
+  	<jsp:include page="adminBoard.jsp" />
   	<button type="button" id="logoutBtn" name="logoutBtn">로그아웃</button>
   </c:if>
 <script>
