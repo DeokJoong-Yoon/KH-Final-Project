@@ -3,24 +3,27 @@
 <configuration>
 
    
-   <typeAliases>
-   <!-- ========================admin 영역======================== -->
-      <typeAlias
-         type="com.myedumyselect.admin.openapi.data.vo.AcademySourceVO"
-         alias="academySource" />
-      <typeAlias 
-         type="com.myedumyselect.admin.login.vo.AdminLoginVO" alias="adminLogin" />
+	<typeAliases>
+	<!-- ========================admin 영역======================== -->
+	   <typeAlias
+	      type="com.myedumyselect.admin.openapi.data.vo.AcademySourceVO"
+	      alias="academySource" />
+	   <typeAlias 
+	      type="com.myedumyselect.admin.login.vo.AdminLoginVO" alias="adminLogin" />
+	      
+	<!-- ========================maching 영역======================== -->
+	   <typeAlias 
+	      type="com.myedumyselect.matching.board.vo.MatchingBoardVO"
+	      alias="matchingBoard" />
          
-   <!-- ========================maching 영역======================== -->
-      <typeAlias 
-         type="com.myedumyselect.matching.board.vo.MatchingBoardVO"
-         alias="matchingBoard" />
+		<typeAlias 
+		   type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
+		   alias="matchingComment" />
          
-      <typeAlias 
-         type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
-         alias="matchingComment" />
-         
-         
+ 	<!-- ========================academy 영역======================== -->
+   		<typeAlias 
+         type="com.myedumyselect.academy.vo.AcademyVo"
+         alias="academy" />
 
       
    </typeAliases>
