@@ -39,5 +39,22 @@
 	        ) WHERE ROWNUM <= 5
 	    ]]>
 	</select>
+	
+	
+	<!-- 맞춤형 검색 -->
+	<select id="mResult" parameterType="matchingBoard" resultMap="matchingBoardMap">
+		SELECT * FROM tb_academy 
+		WHERE matching_gu_address = #{gu} 
+				AND matching_dong_address = #{dong}
+				AND matching_target_grade = #{age}
+				AND matching_target_subject = #{subject}
+				AND (matching_fee = #{fee} OR matching_fee = '무관')
+				AND ( 
+					#{keyword[0]} IN (matching_keyword1, matching_keyword2, matching_keyword3, matching_keyword4, matching_keyword5)
+					OR #{keyword[1]} IN (matching_keyword1, matching_keyword2, matching_keyword3, matching_keyword4, matching_keyword5)
+					OR #{keyword[2]} IN (matching_keyword1, matching_keyword2, matching_keyword3, matching_keyword4, matching_keyword5)
+				)
+	</select>
+	
 
 </mapper>

@@ -117,7 +117,7 @@
         </div>
 
         <div class="mcSelect">
-        	<form>
+        	<form id="mcSelectForm">
         		<table>
         			<tr>
         				<td>지역 선택</td>
@@ -217,7 +217,7 @@
           <h2>검색 결과</h2>
         </div>
 
-        <div class="mcResult">
+        <div class="mcResult" id="mcResult">
 			<table>
 				<thead>
 					<tr>
@@ -228,30 +228,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							<input type="checkbox">	
-						</td>
-						<td>학원명1</td>
-						<td>주소1</td>
-						<td>전화번호1</td>
-					</tr>	
-					<tr>
-						<td>
-							<input type="checkbox">	
-						</td>
-						<td>학원명2</td>
-						<td>주소2</td>
-						<td>전화번호2</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="checkbox">	
-						</td>
-						<td>학원명3</td>
-						<td>주소3</td>
-						<td>전화번호3</td>
-					</tr>		
+					<c:forEach items="${mResult}" var="result">
+						<tr>
+							<td>${result. }
+					</c:forEach>
 				</tbody>
 			</table>
         </div>
@@ -260,7 +240,7 @@
       		<button id="mcPublicBtn">공개 매칭하기</button>
         	<button id="mcPrivateBtn">비공개 매칭하기</button>
         	<input type="password" placeholder="비밀번호 입력" disabled> <br/><br/>
-        	<textarea rows="3" style="width:87%" placeholder="덧붙이는 말"></textarea>
+        	<textarea rows="3" style="width:87%" placeholder="덧붙이는 말" id="plusComment"></textarea>
         	<button id="mcUploadBtn">매칭 시작하기</button>
         </div>
 
