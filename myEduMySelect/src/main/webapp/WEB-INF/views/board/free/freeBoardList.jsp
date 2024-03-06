@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -130,7 +131,7 @@
 													<c:forEach var="free" items="${freeList}" varStatus="status">
 														<tr class="text-center" data-num="${free.common_no}">
 															<td scope="row">${free.common_no}</td>
-															<td class="goDetail">${free.common_title}</td>
+															<td class="goDetail text-start">${free.common_title}</td>
 															<td>${free.personal_id}</td>
 															<td>${free.common_register_date}</td>
 															<td>${free.common_readcnt}</td>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.commonboard.free.dao.FreeDAO">
+
+	<resultMap type="freeBoard" id="freeBoardMap">
+		<id column="commonNo" property="common_no" />
+		<result column="personalId" property="personal_id" />
+		<result column="memberTypeId" property="member_type_id" />
+		<result column="commonNickname" property="common_nickname" />
+		<result column="commonTitle" property="common_title" />
+		<result column="commonContent" property="common_content" />
+		<result column="commonRegisterDate" property="common_register_date" />
+		<result column="commonReadcnt" property="common_readcnt" />
+	</resultMap>
+	
+	
+	<select id="freeList" parameterType="freeBoard" resultType="freeBoard">
+		SELECT common_no, personal_id, member_type_id, common_nickname, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date
+		FROM tb_common_board
+		ORDER BY common_no desc
+	</select>
+	
+	<select id="freeDetail" parameterType="freeBoard" resultType="freeBoard">
+		SELECT common_no, personal_id, member_type_id, common_nickname, common_title, common_content, TO_CHAR(COMMON_REGISTER_DATE,'YYYY-MM-DD HH24:MI:SS') AS common_register_date, common_readcnt
+		FROM tb_common_board
+		WHERE common_no = #{common_no}
+	</select>
+	
+</mapper>
