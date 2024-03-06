@@ -44,9 +44,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="/resources/include/assets/css/style.css" rel="stylesheet">
-<link href="/resources/include/assets/css/boardCommon.css"
-	rel="stylesheet">
+<link href="/resources/include/assets/css/free.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -95,86 +93,81 @@
 	</header>
 	<!-- End Header -->
 
-	<!-- ======= Hero Section ======= -->
-
-	<main id="main">
-
+	<!-- ======= 게시판 영역 ======= -->
+	<section id="hero"
+		class="d-flex align-items-center justify-content-center">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
-					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-action active">자유시판</a>
-						<a href="#" class="list-group-item list-group-item-action">홍보게시판</a>
-						<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
+				<div
+					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+					data-aos="fade-up" data-aos-delay="200">
+					<div class="text-center">
+						<h1>자유게시판</h1>
+					</div>
+					<div class="d-flex justify-content-center justify-content-lg-start">
+						<div class="container">
+
+							<div class="row">
+								<div class="col-3 list-group">
+									<a href="/free/freeList" class="list-group-item list-group-item-action">자유게시판</a>
+									<a href="#" class="list-group-item list-group-item-action">홍보게시판</a>
+									<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
+								</div>
+								<div class="col-lg-9 table-container">
+									<table class="table text-center">
+										<thead>
+											<tr>
+												<th class="col-md-1">글번호</th>
+												<th class="col-md-4">제목</th>
+												<th class="col-md-2">작성자</th>
+												<th class="col-md-2">작성시간</th>
+												<th class="col-md-1">조회수</th>
+											</tr>
+										</thead>
+										<tbody id="list" class="table-group-divider">
+											<c:choose>
+												<c:when test="${not empty freeList}">
+													<c:forEach var="free" items="${freeList}" varStatus="status">
+														<tr class="text-center" data-num="${free.common_no}">
+															<td scope="row">${free.common_no}</td>
+															<td class="goDetail">${free.common_title}</td>
+															<td>${free.personal_id}</td>
+															<td>${free.common_register_date}</td>
+															<td>${free.common_readcnt}</td>
+														</tr>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<tr>
+														<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
+													</tr>
+												</c:otherwise>
+											</c:choose>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="search-container">
+								<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-comtrol-sm search-box" />
+								<button type="submit" id="searchData" class="btn btn-primary">검색</button>
+							</div>
+							<div class="text-end">
+								<button type="button" id="freeWriterForm" class="btn btn-primary">글쓰기</button>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-9">
-					<table summarty="자유게시판" class="table">
-						<thead>
-							<tr class="text-center">
-								<th scope="col">글번호</th>
-								<th scope="col">제목</th>
-								<th scope="col">작성자</th>
-								<th scope="col">작성시간</th>
-								<th scope="col">조회수</th>
-							</tr>
-						</thead>
-						<tbody id="list">
-							<c:choose>
-								<c:when test="${not empty freeList}">
-									<c:forEach var="board" items="${freeList}" varStatus="status">
-										<tr class="text-center" data-num="${free.common_no}">
-											<th scope="row" class="text-center">${free.common_no}</th>
-											<td class="goDetail text-center">${free.common_title}</td>
-											<td class="text-center">${free.personal_id}</td>
-											<td class="text-center">${free.common_register_date}</td>
-											<td class="text-center">${free.common_readcnt}</td>
-										</tr>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<td colspan="5" class="text-center">등록된 게시물이 존재하지 않습니다.</td>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
-				</div>
 			</div>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search"
-					placeholder="검색어를 입력하세요" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-			</form>
-			<div class="text-end">
-				<button type="button" id="insertFormBtn" class="btn btn btn-outline-primary">글쓰기</button>
-			</div>
-
+			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200"></div>
 		</div>
+	</section>
 
 
-	</main>
+	<main id="main"></main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
-
-		<div class="footer-newsletter">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6">
-						<h4>Join Our Newsletter</h4>
-						<p>Tamen quem nulla quae legam multos aute sint culpa legam
-							noster magna</p>
-						<form action="" method="post">
-							<input type="email" name="email"><input type="submit"
-								value="Subscribe">
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<div class="footer-top">
 			<div class="container">
@@ -233,21 +226,20 @@
 
 				</div>
 			</div>
-		</div>
 
-		<div class="container footer-bottom clearfix">
-			<div class="copyright">
-				&copy; Copyright <strong><span>MyEduMySelect</span></strong>. All
-				Rights Reserved
+			<div class="container footer-bottom clearfix">
+				<div class="copyright">
+					&copy; Copyright <strong><span>MyEduMySelect</span></strong>. All
+					Rights Reserved
+				</div>
+				<div class="credits">
+					<!-- All the links in the footer should remain intact. -->
+					<!-- You can delete the links only if you purchased the pro version. -->
+					<!-- Licensing information: https://bootstrapmade.com/license/ -->
+					<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/ -->
+					Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+				</div>
 			</div>
-			<div class="credits">
-				<!-- All the links in the footer should remain intact. -->
-				<!-- You can delete the links only if you purchased the pro version. -->
-				<!-- Licensing information: https://bootstrapmade.com/license/ -->
-				<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/ -->
-				Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
 	</footer>
 	<!-- End Footer -->
 
