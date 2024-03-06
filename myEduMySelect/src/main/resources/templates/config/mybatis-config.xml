@@ -24,7 +24,11 @@
    		<typeAlias 
          type="com.myedumyselect.academy.vo.AcademyVo"
          alias="academy" />
-
+	
+ 	<!-- ========================Payment 영역======================== -->
+   		<typeAlias 
+         type="com.myedumyselect.payment.vo.PaymentVO"
+         alias="payment" />
       
    </typeAliases>
 
