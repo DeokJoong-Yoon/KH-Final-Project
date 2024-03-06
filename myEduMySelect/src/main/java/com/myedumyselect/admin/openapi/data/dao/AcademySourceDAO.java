@@ -10,4 +10,5 @@ import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
 public interface AcademySourceDAO {
 	public List<AcademySourceVO> insertAcademySourceList(List<AcademySourceVO> academySourceList);
 	public int insertAcademySource(AcademySourceVO academySourceVO);
+	public int selectAcademySourceCount();
 }

@@ -1,5 +1,18 @@
 package com.myedumyselect.academy.service;
 
+import com.myedumyselect.academy.vo.AcademyVo;
+
+public interface AcademyService {
+
+	AcademyVo getAcademyVo();
+	
+	
+}
+
+/*
+
+package com.myedumyselect.academy.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,3 +31,5 @@ public class AcademyService {
     }
 }
 
+
+*/

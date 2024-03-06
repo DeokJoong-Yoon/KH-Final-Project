@@ -16,6 +16,7 @@ import com.myedumyselect.common.openapi.URLConnectUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class DataServiceImpl implements DataService {
 
 	@Autowired
@@ -43,7 +44,7 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public List<AcademySourceVO> insertAcademySourceList(int listTotalCount) throws Exception {
-		int curIndex = 1;
+		int curIndex = 25562;
 		// http://openapi.seoul.go.kr:8088/446f765142796b6435314753745172/json/neisAcademyInfo/3/3/
 		StringBuffer site = new StringBuffer("http://openapi.seoul.go.kr:8088/");
 		site.append("446f765142796b6435314753745172");
@@ -51,8 +52,7 @@ public class DataServiceImpl implements DataService {
 		OpenApiDTO openApi = null;
 		List<AcademySourceVO> resultList = new ArrayList<>();
 
-		StringBuffer indexSite = new StringBuffer(
-				"http://openapi.seoul.go.kr:8088/446f765142796b6435314753745172/json/neisAcademyInfo/");
+		StringBuffer indexSite = new StringBuffer(site.toString());
 		while (curIndex <= listTotalCount) {
 			indexSite.append(curIndex + "/" + curIndex + "/");
 			openApi = new OpenApiDTO(indexSite.toString(), "GET");
@@ -60,19 +60,21 @@ public class DataServiceImpl implements DataService {
 
 			// 현재 결과를 VO에 매핑
 			AcademySourceVO academySourceVO = mapJsonToAcademySource(currentResult.toString());
-
+			log.info("현재 행  : " + curIndex + " || 학원지정번호 : " + academySourceVO.getAcademyNumber());
 			// VO를 리스트에 추가
 			resultList.add(academySourceVO);
 			academySourceDAO.insertAcademySource(academySourceVO);
+			
 			++curIndex;
+			
 			try {
-				Thread.sleep(500); // 1000 milliseconds = 1 second
+				Thread.sleep(50); // 1000 milliseconds = 1 second
 			} catch (InterruptedException e) {
 				// InterruptedException 처리
 				e.printStackTrace();
 			}
-			indexSite = new StringBuffer(
-					"http://openapi.seoul.go.kr:8088/446f765142796b6435314753745172/json/neisAcademyInfo/");
+			indexSite.delete(0, indexSite.length());
+			indexSite.append(site.toString());
 		}
 
 //		academySourceDAO.insertAcademySourceList(resultList);
@@ -115,6 +117,12 @@ public class DataServiceImpl implements DataService {
 		}
 
 		return null; // 빈 값 반환 또는 예외 처리
+	}
+
+	@Override
+	public int selectAcademySourceCount() {
+		academySourceDAO.selectAcademySourceCount();
+		return 0;
 	}
 
 }
