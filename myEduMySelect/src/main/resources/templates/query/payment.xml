@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.payment.dao.PaymentDAO">
+
+	<insert id="paymentInsert" parameterType="payment">
+		insert into tb_payment(
+		payment_Id,
+		pg,
+		pay_method,
+		merchant_uid,
+		name,
+		amount,
+		academy_id,
+		academy_number,
+		academy_name,
+		academy_manager_name,
+		academy_manager_email,
+		academy_manager_phone,
+		payment_date
+		) values (
+		#{paymentId{,
+		#{pg},
+		#{payMethod},
+		#{merchantUid},
+		#{name},
+		#{amount},
+		#{academyId},
+		#{academyNumber},
+		#{academyName},
+		#{academyManagerName},
+		#{academyManagerEmail},
+		#{academyManagerPhone},
+		#{paymentDate}
+		)
+	</insert>
+
+</mapper>
