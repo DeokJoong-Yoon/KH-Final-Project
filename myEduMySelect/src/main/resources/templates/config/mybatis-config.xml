@@ -22,7 +22,7 @@
 			alias="matchingComment" />
 
 		<!-- ========================academy 영역======================== -->
-		<typeAlias type="com.myedumyselect.academy.vo.AcademyVo"
+		<typeAlias type="com.myedumyselect.academy.vo.AcademyLoginVo"
 			alias="academy" />
 
 		<!-- ========================Payment 영역======================== -->

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myedumyselect.academy.vo.AcademyVo;
+import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.matching.board.dao.MatchingBoardDAO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
@@ -22,7 +22,7 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	}
 
 	@Override
-	public List<AcademyVo> mResult(MatchingBoardVO mbVO) {
+	public List<AcademyLoginVo> mResult(MatchingBoardVO mbVO) {
 		return mbDAO.mResult(mbVO);
 	}
 

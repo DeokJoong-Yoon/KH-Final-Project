@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AcademyVo {
+public class AcademyLoginVo {
    
 	private String academyId;
     private int memberTypeId;
