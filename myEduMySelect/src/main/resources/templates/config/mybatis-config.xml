@@ -29,7 +29,9 @@
    		<typeAlias 
          type="com.myedumyselect.payment.vo.PaymentVO"
          alias="payment" />
-      
+    <!-- ========================Board 영역======================== -->
+    	<typeAlias type="com.myedumyselect.commonboard.free.vo.FreeVO"
+    	alias="freeBoard" />
    </typeAliases>
 
 
