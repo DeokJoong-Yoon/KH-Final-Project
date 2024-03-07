@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AcademyVo {
    
-   private String academyId;
+	private String academyId;
     private int memberTypeId;
     private String academyNumber;
     private String academyJoinDate;

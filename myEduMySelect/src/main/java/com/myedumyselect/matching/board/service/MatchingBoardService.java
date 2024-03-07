@@ -2,6 +2,7 @@ package com.myedumyselect.matching.board.service;
 
 import java.util.List;
 
+import com.myedumyselect.academy.vo.AcademyVo;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 public interface MatchingBoardService {
@@ -9,6 +10,6 @@ public interface MatchingBoardService {
 
 	//public int mPublicUpload(MatchingBoardVO mbVO);
 	
-	public List<MatchingBoardVO> mResult(MatchingBoardVO mbVO);
+	public List<AcademyVo> mResult(MatchingBoardVO mbVO);
 }
 

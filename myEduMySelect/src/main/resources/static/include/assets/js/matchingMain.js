@@ -73,21 +73,29 @@ $(function(){
 		}
 		
 		
+		let value = JSON.stringify({
+			matchingGuAddress : guValue,
+			matchingDongAddress : dongValue,
+			matchingTargetGrade : ageValue,
+			matchingTargetSubject : subjectValue,
+			matchingFee : feeValue,
+			matchingKeyword1 : keywordValue[0],
+			matchingKeyword2 : keywordValue[1],
+			matchingKeyword3 : keywordValue[2]
+		})
+		
+		
 		$.ajax({
 			type:'POST',
 			url : '/matching/result',
-			data: {
-				matchingGuAddress : guValue,
-				matchingDongAddress : dongValue,
-				matchingTargetGrade : ageValue,
-				matchingTargetSubject : subjectValue,
-				matchingFee : feeValue,
-				matchingKeyword1 : keywordValue[0],
-				matchingKeyword2 : keywordValue[1],
-				matchingKeyword3 : keywordValue[2]
+			headers : {
+				"Content-Type" : "application/json"
 			},
+			dataType : "text",
+			data: value,
 			success: function() {
 				console.log("굿");
+				console.log(guValue);
 			},
 			error:function(xhr, textStatus, errorThrown) {
 				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");

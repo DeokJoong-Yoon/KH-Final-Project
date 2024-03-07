@@ -3,7 +3,7 @@
 
 <mapper namespace="com.myedumyselect.matching.board.dao.MatchingBoardDAO">
 
-	<!-- 별칭 일괄 부여 -->
+	<!-- MatchingBoardVO 별칭 일괄 부여 -->
 	<resultMap type="matchingBoard" id="matchingBoardMap">
 		<id column="matching_no" property="matchingNo" />
 		<result column="personal_id" property="personalId" />
@@ -20,6 +20,34 @@
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
 		<result column="commentCnt" property="commentCnt" />
+	</resultMap>
+	
+	<!-- AcademyVo 별칭 일괄 부여 -->
+	<resultMap type="academy" id="academyMap">
+		<id column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="academy_number" property="academyNumber" />
+		<result column="academy_join_date" property="academyJoinDate" />
+		<result column="academy_passwd" property="academyPasswd" />
+		<result column="academy_name" property="academyName" />
+		<result column="academy_gu_address" property="academyGuAddress" />
+		<result column="academy_dong_address" property="academyDongAddress" />
+		<result column="academy_road_address" property="academyRoadAddress" />
+		<result column="academy_phone" property="academyPhone" />
+		<result column="academy_manager_name" property="academyManagerName" />
+		<result column="academy_manager_email" property="academyManagerEmail" />
+		<result column="academy_manager_phone" property="academyManagerPhone" />
+		<result column="academy_target_grade" property="academyTargetGrade" />
+		<result column="academy_target_subject" property="academyTargetSubject" />
+		<result column="academy_keyword1" property="academyKeyword1" />
+		<result column="academy_keyword2" property="academyKeyword2" />
+		<result column="academy_keyword3" property="academyKeyword3" />
+		<result column="academy_keyword4" property="academyKeyword4" />
+		<result column="academy_keyword5" property="academyKeyword5" />
+		<result column="academy_fee" property="academyFee" />
+		<result column="academy_passwd_change_date" property="academyPasswdChangeDate" />
+		<result column="academy_login_fail_count" property="academyLoginFailCount" />
+		<result column="academy_account_banned_date" property="academyAccountBannedDate" />
 	</resultMap>
 	
 	
@@ -42,19 +70,18 @@
 	
 	
 	<!-- 맞춤형 검색 -->
-	<select id="mResult" parameterType="matchingBoard" resultMap="matchingBoardMap">
+	<select id="mResult" parameterType="matchingBoard" resultMap="academyMap">
 		SELECT * FROM tb_academy 
-		WHERE matching_gu_address = #{gu} 
-				AND matching_dong_address = #{dong}
-				AND matching_target_grade = #{age}
-				AND matching_target_subject = #{subject}
-				AND (matching_fee = #{fee} OR matching_fee = '무관')
+		WHERE academy_gu_address = #{matchingGuAddress} 
+				AND academy_dong_address = #{matchingDongAddress}
+				AND academy_target_grade = #{matchingTargetGrade}
+				AND academy_target_subject = #{matchingTargetSubject}
+				AND academy_fee = #{matchingFee}
 				AND ( 
-					#{keyword[0]} IN (matching_keyword1, matching_keyword2, matching_keyword3, matching_keyword4, matching_keyword5)
-					OR #{keyword[1]} IN (matching_keyword1, matching_keyword2, matching_keyword3, matching_keyword4, matching_keyword5)
-					OR #{keyword[2]} IN (matching_keyword1, matching_keyword2, matching_keyword3, matching_keyword4, matching_keyword5)
+					#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5)
+					OR #{matchingKeyword2} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5)
+					OR #{matchingKeyword3} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5)
 				)
-	</select>
-	
+	</select> 
 
 </mapper>

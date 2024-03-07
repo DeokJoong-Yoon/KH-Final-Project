@@ -169,6 +169,7 @@
         					<input type="radio" name="subject" id="korean" value="국어"><label for="korean"> 국어</label>
         					<input type="radio" name="subject" id="math" value="수학"><label for="math"> 수학</label>
         					<input type="radio" name="subject" id="english" value="영어"><label for="english"> 영어</label>
+        					<input type="radio" name="subject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label>
         				</td>
         				<td>수강료</td>
         				<td >
@@ -216,8 +217,8 @@
         <div class="section-title">
           <h2>검색 결과</h2>
         </div>
-
-        <div class="mcResult" id="mcResult">
+		
+        <div class="mcResult" id="">
 			<table>
 				<thead>
 					<tr>
@@ -228,11 +229,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${mResult}" var="result">
-						<tr>
-							<td>${result. }
-					</c:forEach>
-				</tbody>
+					<c:choose>
+					    <c:when test="${not empty mResult}">
+					        <c:forEach items="${mResult}" var="result" varStatus="status">
+					            <tr data-id="${status.index +1 }">
+					                <td><input type="checkbox"></td>
+					                <td>${result.academyName}</td>
+					                <td>${result.academyRoadAddress}</td>
+					                <td>${result.academyPhone}</td>
+					            </tr>
+					        </c:forEach>
+					    </c:when>
+					    <c:otherwise>
+					        <tr>
+					            <td colspan="4">조회 결과가 없습니다.</td>
+					        </tr>
+					    </c:otherwise>
+					</c:choose>
+				</tbody>  
 			</table>
         </div>
         
