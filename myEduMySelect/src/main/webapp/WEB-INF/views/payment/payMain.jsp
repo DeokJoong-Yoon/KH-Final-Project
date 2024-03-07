@@ -100,10 +100,14 @@
 								<div class="row" data-aos="fade-up" data-aos-delay="100">
 									<div class="box">
 										<h3>결제자 정보</h3>
-										<ul>
-											<li>KH아카데미</li>
-											
-											<li class="bx bx-check">윤덕중</li>
+										<ul class="list-group">
+										    <li class="list-group-item border-0" id="academy_id"><span class="bi bi-check"></span>ykdj92</li>
+										    <li class="list-group-item border-0" id="academy_number"><span class="bi bi-check"></span>106358484</li>
+										    <li class="list-group-item border-0" id="academy_name"><span class="bi bi-check"></span>KH 교육센터</li>
+										    <li class="list-group-item border-0" id="academy_status"><span class="bi bi-check"></span>0</li>
+										    <li class="list-group-item border-0" id="academy_manager_name"><span class="bi bi-check"></span>윤덕중</li>
+										    <li class="list-group-item border-0" id="academy_manager_email"><span class="bi bi-check"></span>ykdj92@naver.com</li>
+										    <li class="list-group-item border-0" id="academy_manager_phone"><span class="bi bi-check"></span>01072098826</li>
 										</ul>
 									</div>
 								</div>
