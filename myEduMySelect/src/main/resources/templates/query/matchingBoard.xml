@@ -24,7 +24,7 @@
 	</resultMap>
 	
 	<!-- AcademyVo 별칭 일괄 부여 -->
-	<resultMap type="academy" id="academyMap">
+	<resultMap type="academyLogin" id="academyMap">
 		<id column="academy_id" property="academyId" />
 		<result column="member_type_id" property="memberTypeId" />
 		<result column="academy_number" property="academyNumber" />
