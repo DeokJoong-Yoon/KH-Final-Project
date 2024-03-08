@@ -6,9 +6,13 @@ import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 public interface MatchingBoardService {
+	
 	public List<MatchingBoardVO> mBoardListPreview(MatchingBoardVO mbvo);
 
-	public int publicUpload(MatchingBoardVO mbVO);
 	public List<AcademyLoginVo> mResult(MatchingBoardVO mbVO);
+	
+	public int publicUpload(MatchingBoardVO mbVO);
+	
+	public int privateUpload(MatchingBoardVO mbVO);
 }
 

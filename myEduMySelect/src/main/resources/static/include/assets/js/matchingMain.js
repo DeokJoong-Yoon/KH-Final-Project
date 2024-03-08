@@ -52,6 +52,7 @@ $(function(){
 	$("#mcSearchBtn").on("click", function(){
 		
 		//변수에 선택된 value 저장
+		personalId = $("#personalId").val();
 		guValue = $("#gu").val();
 		dongValue = $("#dong").val();
 		ageValue = $("input[name='matchingTargetGrade']:checked").val();
@@ -151,6 +152,7 @@ $(function(){
 				return false;
 			} else {
 				let formData = new FormData();
+				formData.append('personalId', personalId);
 				formData.append('matchingGuAddress', guValue);
 				formData.append('matchingDongAddress', dongValue);
 				formData.append('matchingTargetGrade', ageValue);
@@ -169,8 +171,7 @@ $(function(){
 		            contentType: false,  // 데이터 형식을 설정하지 않음
 		            success: function() {
 		                alert("공개 매칭 게시글이 정상 등록되었습니다.");
-		                alert(keywordValue[0], keywordValue[1], keywordValue[2]);
-		            
+		                location.reload();
 		            },
 		            error: function(xhr, status, error) {
 		                alert("공개 매칭 게시글이 정상 등록되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
@@ -186,6 +187,47 @@ $(function(){
 		$("input[type='password']").prop("disabled", false);
 		$(".mcResult input[type='checkbox']").prop("disabled", false);
 		$("#mcStartArea").css("display", "block");
+		
+		//매칭시작 버튼 클릭 시
+		$("#mcUploadBtn").on("click", function() {
+			
+			if( !/^\d{4}$/.test($("#mcPwd").val())){
+				alert("비밀번호는 숫자 4자리로 입력해 주세요.");
+				return false;
+			} else if( $("#plusComment").val().replace(/\s/g,"") == "") {
+				alert("덧붙이는 말을 입력해 주세요.");
+				return false;
+			} else {
+				let formData = new FormData();
+				formData.append('personalId', personalId);
+				formData.append('matchingGuAddress', guValue);
+				formData.append('matchingDongAddress', dongValue);
+				formData.append('matchingTargetGrade', ageValue);
+				formData.append('matchingTargetSubject', subjectValue);
+				formData.append('matchingFee', feeValue);
+				formData.append('matchingKeyword1', keywordValue[0]);
+				formData.append('matchingKeyword2', keywordValue[1]);
+				formData.append('matchingKeyword3', keywordValue[2]);
+				formData.append('matchingComment', $("#plusComment").val());
+				formData.append('matchingPasswd', $("#mcPwd").val());
+				
+				$.ajax({
+		            type: "POST",
+		            url: "/matching/privateUpload",
+		            data: formData,
+		            processData: false,  // 데이터를 query 문자열로 변환하지 않음
+		            contentType: false,  // 데이터 형식을 설정하지 않음
+		            success: function() {
+		                alert("비공개 매칭 게시글이 정상 등록되었습니다.");
+		                location.reload();
+		            },
+		            error: function(xhr, status, error) {
+		                alert("비공개 매칭 게시글이 정상 등록되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
+		            }
+		        });
+			}			
+			
+		});
 	});
 	
 	

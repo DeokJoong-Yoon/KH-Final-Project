@@ -52,6 +52,7 @@
 	</resultMap>
 	
 	
+	
 	<!-- 매칭게시판 글 목록 미리보기 조회 -->
 	<select id="mBoardListPreview" parameterType="matchingBoard" resultMap="matchingBoardMap">
 	    <![CDATA[
@@ -94,9 +95,17 @@
 	<!-- 공개매칭 자동 등록 -->
 	<insert id="publicUpload" parameterType="matchingBoard" >
 		INSERT into tb_matching_board
-		VALUES (matching_board_seq.nextval, 'icandoit3058', 'N', null, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
+		VALUES (matching_board_seq.nextval, #{personalId}, 'N', null, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
 					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
-					null, null, null, #{matchingComment}  )
+					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
+	</insert>
+	
+	<!-- 비공개매칭 자동 등록 -->
+	<insert id="privateUpload" parameterType="matchingBoard" >
+		INSERT into tb_matching_board
+		VALUES (matching_board_seq.nextval, #{personalId}, 'Y', #{matchingPasswd}, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
+					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
+					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
 	</insert>
 
 </mapper>

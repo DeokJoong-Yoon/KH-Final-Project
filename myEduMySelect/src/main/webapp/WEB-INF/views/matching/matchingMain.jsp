@@ -42,6 +42,20 @@
   ======================================================== -->
   
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+	<script>
+	    window.onload = function() {
+	        var confirmMessage = "${confirmMessage}";
+	        if (confirmMessage) {
+	            var result = confirm(confirmMessage);
+	            if (result) {
+	                window.location.href = "/useraccount/login"; // 확인이 눌렸을 경우 로그인 페이지로 이동
+	            } else {
+	            	window.location.href = "/";
+	            }
+	        }
+	    };
+	</script>
 </head>
 
 <body>
@@ -110,101 +124,104 @@
  
     <!-- ======= 조건 선택 영역 ======= -->
     <section class="mcSelectSection">
-      <div class="container">
+    	<div class="container">
       	
-      	<div class="section-title">
-          <h2>맞춤 조건 선택</h2>
-        </div>
+	      	<div class="section-title">
+	          <h2>맞춤 조건 선택</h2>
+	        </div>
+	        
+	        <p>${personalLogin.personalId }</p>
+	
+	        <div class="mcSelect">
+	        	<form id="mcSelectForm">
+	        		<input type="hidden" id="personalId" name="personalId" value="${personalLogin.personalId }"/>
+	        		<table>
+	        			<tr>
+	        				<td>지역 선택</td>
+	        				<td id="selects"> 
+	        					<select id="gu" name="matchingGuAddress">
+	        						<option value="">-- 구 선택 --</option>
+	        						<option value="강남구">강남구</option>
+	        						<option value="강동구">강동구</option>
+	        						<option value="강북구">강북구</option>
+	        						<option value="강서구">강서구</option>
+	        						<option value="관악구">관악구</option>
+	        						<option value="광진구">광진구</option>
+	        						<option value="구로구">구로구</option>
+	        						<option value="금천구">금천구</option>
+	        						<option value="노원구">노원구</option>
+	        						<option value="도봉구">도봉구</option>
+	        						<option value="동대문구">동대문구</option>
+	        						<option value="동작구">동작구</option>
+	        						<option value="마포구">마포구</option>
+	        						<option value="서대문구">서대문구</option>
+	        						<option value="서초구">서초구</option>
+	        						<option value="성동구">성동구</option>
+	        						<option value="성북구">성북구</option>
+	        						<option value="송파구">송파구</option>
+	        						<option value="양천구">양천구</option>
+	        						<option value="영등포구">영등포구</option>
+	        						<option value="용산구">용산구</option>
+	        						<option value="은평구">은평구</option>
+	        						<option value="종로구">종로구</option>
+	        						<option value="중구">중구</option>
+	        						<option value="중랑구">중랑구</option>
+	        					</select>
+	        					<select id="dong" name="matchingDongAddress">
+	        						<option value="">-- 동 선택 --</option>
+	        					</select>
+	        				</td>
+	        				<td>학년 선택</td>
+	        				<td>
+	        					<input type="radio" name="matchingTargetGrade" id="preSchooler" value="미취학"><label for="preSchooler"> 미취학</label>
+	        					<input type="radio" name="matchingTargetGrade" id="elementary1" value="초등(저)"><label for="elementary1"> 초등(저)</label>
+	        					<input type="radio" name="matchingTargetGrade" id="elementary2" value="초등(고)"><label for="elementary2"> 초등(고)</label> <br>
+	        					<input type="radio" name="matchingTargetGrade" id="middleSchool" value="중등"><label for="middleSchool"> 중등&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	        					<input type="radio" name="matchingTargetGrade" id="highSchool" value="고등"><label for="highSchool">고등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	        					<input type="radio" name="matchingTargetGrade" id="adult" value="성인"><label for="adult">성인</label>
+	        				</td>
+	        			<tr>
+	        				<td>과목 선택</td>
+	        				<td>
+	        					<input type="radio" name="matchingTargetSubject" id="korean" value="국어"><label for="korean"> 국어</label>
+	        					<input type="radio" name="matchingTargetSubject" id="math" value="수학"><label for="math"> 수학</label>
+	        					<input type="radio" name="matchingTargetSubject" id="english" value="영어"><label for="english"> 영어</label>
+	        					<input type="radio" name="matchingTargetSubject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label>
+	        				</td>
+	        				<td>수강료</td>
+	        				<td >
+	        					<input type="radio" name="matchingFee" id="under20" value="20만원 미만"><label for="under20">20만원 미만&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	        					<input type="radio" name="matchingFee" id="up20under30" value="20만원 이상 30만원 미만"><label for="up20under30">20만원 이상 30만원 미만</label><br>
+	        					<input type="radio" name="matchingFee" id="up30under40" value="30만원 이상 40만원 미만"><label for="up30under40">30만원 이상 40만원 미만</label>
+	        					<input type="radio" name="matchingFee" id="up40under50" value="40만원 이상 50만원 미만"><label for="up40under50"> 40만원 이상 50만원 미만</label><br>
+	        					<input type="radio" name="matchingFee" id="up50under60" value="50만원 이상 60만원 미만"><label for="up50under60"> 50만원 이상 60만원 미만</label>
+	        					<input type="radio" name="matchingFee" id="up60under70" value="60만원 이상 70만원 미만"><label for="up60under70"> 60만원 이상 70만원 미만</label><br>
+	        					<input type="radio" name="matchingFee" id="up70" value="70만원 이상"><label for="up70"> 70만원 이상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	        					<input type="radio" name="matchingFee" id="noMatter" value="무관"><label for="noMatter"> 무관</label>
+	        				</td> 
+	        			</tr>
+	        			<tr>
+	        				<td>키워드 선택</td>
+	        				<td colspan="3">
+	        					<input type="checkbox" name="matchingKeyword" id="fromBasic" value="기초부터"><label for="fromBasic"> 기초부터</label>
+	        					<input type="checkbox" name="matchingKeyword" id="advanced" value="심화수업"><label for="advanced"> 심화수업</label>
+	        					<input type="checkbox" name="matchingKeyword" id="kindTeacher" value="친절한 강사"><label for="kindTeacher"> 친절한 강사</label>
+	        					<input type="checkbox" name="matchingKeyword" id="management" value="꼼꼼한 관리"><label for="management"> 꼼꼼한 관리</label>
+	        					<input type="checkbox" name="matchingKeyword" id="noHomework" value="숙제 없음"><label for="noHomework"> 숙제 없음</label>
+	        					<input type="checkbox" name="matchingKeyword" id="selfDirected" value="자기주도적"><label for="selfDirected"> 자기주도적</label>
+	        					<input type="checkbox" name="matchingKeyword" id="lecture" value="강의식 수업"><label for="lecture"> 강의식 수업</label>
+	        					<input type="checkbox" name="matchingKeyword" id="forEntrance" value="입시대비"><label for="forEntrance"> 입시대비</label> <br>
+	        					<input type="checkbox" name="matchingKeyword" id="interesting" value="재밌는 수업"><label for="interesting"> 재밌는 수업</label>
+	        				</td>
+	        			<tr>
+	        				<td colspan="4">
+	        					<button id="mcSearchBtn" type="button">검색 결과 조회하기</button>
+	        				</td>
+	        		</table>
+	        	</form>
+	        </div>
 
-        <div class="mcSelect">
-        	<form id="mcSelectForm">
-        		<table>
-        			<tr>
-        				<td>지역 선택</td>
-        				<td id="selects"> 
-        					<select id="gu" name="matchingGuAddress">
-        						<option value="">-- 구 선택 --</option>
-        						<option value="강남구">강남구</option>
-        						<option value="강동구">강동구</option>
-        						<option value="강북구">강북구</option>
-        						<option value="강서구">강서구</option>
-        						<option value="관악구">관악구</option>
-        						<option value="광진구">광진구</option>
-        						<option value="구로구">구로구</option>
-        						<option value="금천구">금천구</option>
-        						<option value="노원구">노원구</option>
-        						<option value="도봉구">도봉구</option>
-        						<option value="동대문구">동대문구</option>
-        						<option value="동작구">동작구</option>
-        						<option value="마포구">마포구</option>
-        						<option value="서대문구">서대문구</option>
-        						<option value="서초구">서초구</option>
-        						<option value="성동구">성동구</option>
-        						<option value="성북구">성북구</option>
-        						<option value="송파구">송파구</option>
-        						<option value="양천구">양천구</option>
-        						<option value="영등포구">영등포구</option>
-        						<option value="용산구">용산구</option>
-        						<option value="은평구">은평구</option>
-        						<option value="종로구">종로구</option>
-        						<option value="중구">중구</option>
-        						<option value="중랑구">중랑구</option>
-        					</select>
-        					<select id="dong" name="matchingDongAddress">
-        						<option value="">-- 동 선택 --</option>
-        					</select>
-        				</td>
-        				<td>학년 선택</td>
-        				<td>
-        					<input type="radio" name="matchingTargetGrade" id="preSchooler" value="미취학"><label for="preSchooler"> 미취학</label>
-        					<input type="radio" name="matchingTargetGrade" id="elementary1" value="초등(저)"><label for="elementary1"> 초등(저)</label>
-        					<input type="radio" name="matchingTargetGrade" id="elementary2" value="초등(고)"><label for="elementary2"> 초등(고)</label> <br>
-        					<input type="radio" name="matchingTargetGrade" id="middleSchool" value="중등"><label for="middleSchool"> 중등&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="matchingTargetGrade" id="highSchool" value="고등"><label for="highSchool">고등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="matchingTargetGrade" id="adult" value="성인"><label for="adult">성인</label>
-        				</td>
-        			<tr>
-        				<td>과목 선택</td>
-        				<td>
-        					<input type="radio" name="matchingTargetSubject" id="korean" value="국어"><label for="korean"> 국어</label>
-        					<input type="radio" name="matchingTargetSubject" id="math" value="수학"><label for="math"> 수학</label>
-        					<input type="radio" name="matchingTargetSubject" id="english" value="영어"><label for="english"> 영어</label>
-        					<input type="radio" name="matchingTargetSubject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label>
-        				</td>
-        				<td>수강료</td>
-        				<td >
-        					<input type="radio" name="matchingFee" id="under20" value="20만원 미만"><label for="under20">20만원 미만&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="matchingFee" id="up20under30" value="20만원 이상 30만원 미만"><label for="up20under30">20만원 이상 30만원 미만</label><br>
-        					<input type="radio" name="matchingFee" id="up30under40" value="30만원 이상 40만원 미만"><label for="up30under40">30만원 이상 40만원 미만</label>
-        					<input type="radio" name="matchingFee" id="up40under50" value="40만원 이상 50만원 미만"><label for="up40under50"> 40만원 이상 50만원 미만</label><br>
-        					<input type="radio" name="matchingFee" id="up50under60" value="50만원 이상 60만원 미만"><label for="up50under60"> 50만원 이상 60만원 미만</label>
-        					<input type="radio" name="matchingFee" id="up60under70" value="60만원 이상 70만원 미만"><label for="up60under70"> 60만원 이상 70만원 미만</label><br>
-        					<input type="radio" name="matchingFee" id="up70" value="70만원 이상"><label for="up70"> 70만원 이상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="matchingFee" id="noMatter" value="무관"><label for="noMatter"> 무관</label>
-        				</td> 
-        			</tr>
-        			<tr>
-        				<td>키워드 선택</td>
-        				<td colspan="3">
-        					<input type="checkbox" name="matchingKeyword" id="fromBasic" value="기초부터"><label for="fromBasic"> 기초부터</label>
-        					<input type="checkbox" name="matchingKeyword" id="advanced" value="심화수업"><label for="advanced"> 심화수업</label>
-        					<input type="checkbox" name="matchingKeyword" id="kindTeacher" value="친절한 강사"><label for="kindTeacher"> 친절한 강사</label>
-        					<input type="checkbox" name="matchingKeyword" id="management" value="꼼꼼한 관리"><label for="management"> 꼼꼼한 관리</label>
-        					<input type="checkbox" name="matchingKeyword" id="noHomework" value="숙제 없음"><label for="noHomework"> 숙제 없음</label>
-        					<input type="checkbox" name="matchingKeyword" id="selfDirected" value="자기주도적"><label for="selfDirected"> 자기주도적</label>
-        					<input type="checkbox" name="matchingKeyword" id="lecture" value="강의식 수업"><label for="lecture"> 강의식 수업</label>
-        					<input type="checkbox" name="matchingKeyword" id="forEntrance" value="입시대비"><label for="forEntrance"> 입시대비</label> <br>
-        					<input type="checkbox" name="matchingKeyword" id="interesting" value="재밌는 수업"><label for="interesting"> 재밌는 수업</label>
-        				</td>
-        			<tr>
-        				<td colspan="4">
-        					<button id="mcSearchBtn" type="button">검색 결과 조회하기</button>
-        				</td>
-        		</table>
-        	</form>
-        </div>
-
-      </div>
+    	</div>
     </section><!-- 조건 선택 영역 끝 -->
 
    
@@ -213,7 +230,7 @@
     <!-- ======= 검색 결과 영역 ======= -->
     <section class="mcResultSection">
       <div class="container" >
-
+		
         <div class="section-title">
           <h2>검색 결과</h2>
         </div>
@@ -238,7 +255,7 @@
       		<button id="mcPublicBtn">공개 매칭하기</button>
         	<button id="mcPrivateBtn">비공개 매칭하기</button>
     	    	<div id="mcStartArea">
-	       			<input type="password" placeholder="비밀번호 입력" id="mcPwd"> <br/><br/>
+	       			<input type="password" placeholder="비밀번호 (숫자 4자리)" id="mcPwd" name="matchingPasswd"> <br/><br/>
 	        		<textarea rows="3" style="width:87%" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
 		        	<button id="mcUploadBtn" type="button">매칭 시작하기</button>
 	        	</div>

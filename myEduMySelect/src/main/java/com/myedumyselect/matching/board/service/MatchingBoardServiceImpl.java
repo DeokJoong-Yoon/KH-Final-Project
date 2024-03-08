@@ -33,6 +33,14 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		
 		return result;
 	}
+	
+	@Override
+	public int privateUpload(MatchingBoardVO mbVO) {
+		int result = 0;
+		result = mbDAO.privateUpload(mbVO);
+		
+		return result;
+	}
 
 
 }
