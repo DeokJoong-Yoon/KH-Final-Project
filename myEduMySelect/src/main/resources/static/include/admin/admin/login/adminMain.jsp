@@ -37,7 +37,6 @@
 		}
 
     </style>
-    
 </head>
 <body class="text-center">
 <c:if test="${empty adminLogin}">
@@ -45,7 +44,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <h2 class="text-center text-dark mt-5">Login Admin</h2>
-        <div class="text-center mb-5 text-danger"><h3>Warning!! For Administrator</h3></div>
+        <div class="text-center mb-5 text-danger"><h3>Warning!! For Administrator</h3></h2></div>
         <div class="card my-5">
 
           <form id="loginForm" class="card-body cardbody-color p-lg-5">
@@ -75,7 +74,9 @@
   </div>
 </c:if>
   <c:if test="${not empty adminLogin}">
+  	<h3>${adminLogin.adminName} 님 환영합니다.</h3>
   	<jsp:include page="adminBoard.jsp" />
+  	<button type="button" id="logoutBtn" name="logoutBtn">로그아웃</button>
   </c:if>
 <script>
     $(function() {
@@ -86,7 +87,5 @@
     });
 </script>
 <script src="/resources/include/admin/js/adminLogin.js"></script>
-
-
 </body>
 </html>

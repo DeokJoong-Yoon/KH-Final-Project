@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myedumyselect.admin.login.service.AdminLoginService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +41,7 @@ public class AdminLoginController {
 	@GetMapping("/login")
 	public String loginProcess() {
 		log.info("admin 로그인 화면 호출");
-		return "admin/login/adminMain"; // /WEB-INF/views/admin/main.jsp로 포워드(관리자 페이지로 구분)
+		return "admin/login/adminMain"; 
 	}
 
 	/***********************************************************************************
@@ -93,5 +94,18 @@ public class AdminLoginController {
 		log.info("admin 로그인 아웃 처리");
 		sessionStatus.setComplete();
 		return "redirect:/admin/login";
+	}
+	
+	@GetMapping(value="/myPage")
+	public String myPageView(HttpSession session) {
+		
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		
+		
+		return "/admin/login/myPage";
 	}
 }

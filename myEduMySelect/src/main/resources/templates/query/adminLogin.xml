@@ -4,25 +4,21 @@
 
 	<resultMap type="adminLogin" id="adminLoginMap">
 		<id column="admin_id" property="adminId" />
+		<result column="member_type_id" property="memberTypeId" />
 		<result column="admin_password" property="adminPasswd" />
 		<result column="admin_name" property="adminName" />
-		<!-- 
-		<result column="member_type_id" property="memberTypeId" />
-		
 		<result column="admin_team" property="adminTeam" />
-		
 		<result column="admin_email" property="adminEmail" />
 		<result column="admin_phone" property="adminPhone" />
 		<result column="admin_assigned_date" property="adminAssignedDate" />
 		<result column="admin_password_change_date" property="adminPasswordChangeDate" />
-		 -->
 	</resultMap>
 	
 	<!-- <select id="loginProcess" parameterType="adminLogin" resulType="adminLogin"> -->
 	<select id="loginProcess" parameterType="adminLogin" resultMap="adminLoginMap">
 		/* 로그인 처리 쿼리 */
 		SELECT 
-			admin_id, admin_password, admin_name
+			*
 		FROM tb_admin
 		WHERE admin_id = #{adminId} and admin_password = #{adminPasswd}
 	</select>

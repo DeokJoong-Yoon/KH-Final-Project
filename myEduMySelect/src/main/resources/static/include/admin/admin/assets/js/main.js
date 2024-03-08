@@ -1,10 +1,35 @@
-/**
-* Template Name: NiceAdmin
-* Updated: Jan 29 2024 with Bootstrap v5.3.2
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+$(function() {
+	$(".myPage").on("click", function() {
+		$("#myPageForm").attr({
+			"method" : "post",
+			"action" : "/admin/myPage"
+		});
+		$("#myPageForm").submit();
+	});
+	
+	$(".adminLogin").on("click", function() {
+		$("#adminLoginForm").attr({
+			"method" : "post",
+			"action" : "/admin/login"
+		});
+		$("#adminLoginForm").submit();
+	});
+	
+	
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
 (function() {
   "use strict";
 
