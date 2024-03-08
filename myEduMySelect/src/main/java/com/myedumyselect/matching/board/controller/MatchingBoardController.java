@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.myedumyselect.academy.vo.AcademyVo;
+import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.matching.board.service.MatchingBoardService;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
@@ -74,11 +74,11 @@ public class MatchingBoardController {
 		log.info("mResult() 호출 성공");
 		log.info("MatchingBoardVO : " + mbVO);
 		
-		List<AcademyVo> list = mbService.mResult(mbVO);
+		List<AcademyLoginVo> list = mbService.mResult(mbVO);
 		model.addAttribute("mResult", list);
 		
 		log.info("mResult 리스트 내용:");
-		for (AcademyVo academyVo : list) {
+		for (AcademyLoginVo academyVo : list) {
 			if (academyVo != null) {
 				log.info(academyVo.toString());
 			} else {
