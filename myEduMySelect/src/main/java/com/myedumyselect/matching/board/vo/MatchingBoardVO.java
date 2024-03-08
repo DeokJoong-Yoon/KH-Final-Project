@@ -20,4 +20,6 @@ public class MatchingBoardVO {
 	private String matchingKeyword2 = "";
 	private String matchingKeyword3 = "";
 	private int commentCnt = 0;
+	
+	private String matchingComment = "";
 }

@@ -6,4 +6,6 @@ public interface PaymentService {
 
 	public int paymentInsert(PaymentVO pvo);
 
+	public PaymentVO paymentSelect(PaymentVO pvo);
+
 }

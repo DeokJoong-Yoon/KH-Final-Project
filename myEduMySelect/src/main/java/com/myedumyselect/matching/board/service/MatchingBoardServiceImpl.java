@@ -26,12 +26,13 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		return mbDAO.mResult(mbVO);
 	}
 
+	@Override
+	public int publicUpload(MatchingBoardVO mbVO) {
+		int result = 0;
+		result = mbDAO.publicUpload(mbVO);
+		
+		return result;
+	}
 
-//	@Override
-//	public int mPublicUpload(MatchingBoardVO mbVO) {
-//		int result = 0;
-//		result = mbDAO.mPublicUpload(mbVO);
-//		return result;
-//	}
 
 }

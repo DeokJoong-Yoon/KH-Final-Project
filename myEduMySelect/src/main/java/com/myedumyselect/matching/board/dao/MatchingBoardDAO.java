@@ -14,5 +14,11 @@ public interface MatchingBoardDAO {
 	//public int mPublicUpload(MatchingBoardVO mbVO);
 
 	public List<AcademyLoginVo> mResult(MatchingBoardVO mbVO);
+<<<<<<< HEAD
+=======
+
+	public int publicUpload(MatchingBoardVO mbVO);
+
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 	
 }

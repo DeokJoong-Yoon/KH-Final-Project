@@ -54,14 +54,15 @@ $(function(){
 		//변수에 선택된 value 저장
 		guValue = $("#gu").val();
 		dongValue = $("#dong").val();
-		ageValue = $("input[name='age']:checked").val();
-		subjectValue = $("input[name='subject']:checked").val();
-		feeValue = $("input[name='fee']:checked").val();
+		ageValue = $("input[name='matchingTargetGrade']:checked").val();
+		subjectValue = $("input[name='matchingTargetSubject']:checked").val();
+		feeValue = $("input[name='matchingFee']:checked").val();
 		keywordValue = [];
-		$("input[name='keyword']:checked").each(function() {
+		$("input[name='matchingKeyword']:checked").each(function() {
             keywordValue.push($(this).val());
         });
 	
+		console.log(keywordValue.length);
 		if(keywordValue.length > 3) {
 			alert("키워드는 3개까지만 선택 가능합니다.");
 		}
@@ -72,8 +73,13 @@ $(function(){
 			$(".mcResultSection").css("display", "block");
 		}
 		
+		for (let i = 0; i < keywordValue.length; i++) {
+			$("input[name='matchingKeyword" + (i+1) + "']").val(keywordValue[i]);
+		}
 		
-		let value = JSON.stringify({
+		
+		
+		let value = {
 			matchingGuAddress : guValue,
 			matchingDongAddress : dongValue,
 			matchingTargetGrade : ageValue,
@@ -82,7 +88,10 @@ $(function(){
 			matchingKeyword1 : keywordValue[0],
 			matchingKeyword2 : keywordValue[1],
 			matchingKeyword3 : keywordValue[2]
-		})
+		}
+		
+		console.log(value);
+		
 		
 		
 		$.ajax({
@@ -91,53 +100,84 @@ $(function(){
 			headers : {
 				"Content-Type" : "application/json"
 			},
-			dataType : "text",
-			data: value,
-			success: function() {
-				console.log("굿");
-				console.log(guValue);
+			data: JSON.stringify(value),
+			dataType : "json",
+			success: function(data) {
+				console.log(data);
+				
+				// 서버로부터 받은 JSON 데이터를 테이블 형태로 변환하여 화면에 표시
+		        var result = "";
+		        
+		        if(data != null && data.length > 0) {
+					// JSON 데이터를 순회하며 각 항목을 테이블 행으로 추가
+			        for (var i = 0; i < data.length; i++) {
+			            result += '<tr>';
+			            result += '<td><input type="checkbox" disabled></td>'; 
+			            result += '<td><b>' + data[i].academyName + '</b></td>';
+			            result += '<td>' + data[i].academyRoadAddress + '</td>';
+			            result += '<td>' + data[i].academyPhone.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3') + '</td>';
+			            result += '</tr>';
+			        }
+				} else {
+					result = '<tr><td colspan="4">조회 결과가 없습니다.</td></tr>';
+				}
+		
+		        // 테이블을 #resultDiv에 삽입
+		        $("#resultDiv").html(result);
+		        
 			},
 			error:function(xhr, textStatus, errorThrown) {
 				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
 			}
 		})
-			
+
 	})
 	
 	
+			
 	
 	
-	/*//공개매칭 버튼 클릭 시
+	//공개매칭 버튼 클릭 시
 	$("#mcPublicBtn").on("click", function(){
 		$("input[type='password']").prop("disabled", true);
 		$(".mcResult input[type='checkbox']").prop("disabled", true);
+		$("#mcStartArea").css("display", "block");
 		
-		$(document).on("click", "#mcUploadBtn", function() {
-			$.ajax({
-				url: "/matching/publicUpload",
-				method : "POST",
-				data : {
-					matchingGuAddress : guValue,
-					matchingDongAddress : dongValue,
-					matchingTargetGrade : ageValue,
-					matchingTargetSubject : subjectValue,
-					matchingFee : feeValue,
-					matchingKeyword1 : keywordValue[0],
-					matchingKeyword2 : keywordValue[1],
-					matchingKeyword3 : keywordValue[2]
-				},
-				error : function(xhr, textStatus, errorThrown) {
-						alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
-				},
-				beforeSend : function() {
-					if($("#plusComment").val().replace(/\s/g, "") == "") {
-						alert("덧붙이는 말을 입력해 주세요");
-					}
-				},
-				success : function(){
-					alert("매칭게시판에 글이 등록되었습니다.");
-				}
-			})
+		//매칭시작 버튼 클릭 시
+		$("#mcUploadBtn").on("click", function() {
+			
+			if( $("#plusComment").val().replace(/\s/g,"") == "") {
+				alert("덧붙이는 말을 입력해 주세요.");
+				return false;
+			} else {
+				let formData = new FormData();
+				formData.append('matchingGuAddress', guValue);
+				formData.append('matchingDongAddress', dongValue);
+				formData.append('matchingTargetGrade', ageValue);
+				formData.append('matchingTargetSubject', subjectValue);
+				formData.append('matchingFee', feeValue);
+				formData.append('matchingKeyword1', keywordValue[0]);
+				formData.append('matchingKeyword2', keywordValue[1]);
+				formData.append('matchingKeyword3', keywordValue[2]);
+				formData.append('matchingComment', $("#plusComment").val());
+				
+				$.ajax({
+		            type: "POST",
+		            url: "/matching/publicUpload",
+		            data: formData,
+		            processData: false,  // 데이터를 query 문자열로 변환하지 않음
+		            contentType: false,  // 데이터 형식을 설정하지 않음
+		            success: function() {
+		                alert("공개 매칭 게시글이 정상 등록되었습니다.");
+		                alert(keywordValue[0], keywordValue[1], keywordValue[2]);
+		            
+		            },
+		            error: function(xhr, status, error) {
+		                alert("공개 매칭 게시글이 정상 등록되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
+		            }
+		        });
+			}			
+			
 		});
 	})
 	
@@ -145,8 +185,8 @@ $(function(){
 	$("#mcPrivateBtn").on("click", function(){
 		$("input[type='password']").prop("disabled", false);
 		$(".mcResult input[type='checkbox']").prop("disabled", false);
-		sendDataToServer(guValue, dongValue, ageValue, subjectValue, feeValue, keywordValue) 
-	});*/
+		$("#mcStartArea").css("display", "block");
+	});
 	
 	
 	//게시글 제목 동적 설정 : 상세페이지로 이동하게 추후 설정 필요

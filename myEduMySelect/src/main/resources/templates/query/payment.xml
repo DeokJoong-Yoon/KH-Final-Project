@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myedumyselect.payment.dao.PaymentDAO">
-
+	<resultMap type="payment" id="paymentMap">
+		<id column="payment_id" property="paymentId" />
+		<result column="pg" property="pg" />
+		<result column="pay_method" property="payMethod" />
+		<result column="merchant_uid" property="merchantUid" />
+		<result column="name" property="name" />
+		<result column="amount" property="amount" />
+		<result column="academy_id" property="academyId" />
+		<result column="academy_number" property="academyNumber" />
+		<result column="academy_name" property="academyName" />
+		<result column="academy_manager_name"
+			property="academyManagerName" />
+		<result column="academy_manager_email"
+			property="academyManagerEmail" />
+		<result column="academy_manager_phone"
+			property="academyManagerPhone" />
+		<result column="payment_status" property="paymentStatus" />
+		<result column="payment_date" property="paymentDate" />
+	</resultMap>
+	
+	<select id="paymentSelect" parameterType="payment" resultMap="paymentMap">
+		SELECT * from tb_payment
+		WHERE
+		merchant_uid = #{merchantUid}
+	</select>
+	
 	<insert id="paymentInsert" parameterType="payment">
 		insert into tb_payment(
-		payment_Id,
+		payment_id,
 		pg,
 		pay_method,
 		merchant_uid,
@@ -16,9 +41,10 @@
 		academy_manager_name,
 		academy_manager_email,
 		academy_manager_phone,
+		payment_status,
 		payment_date
 		) values (
-		#{paymentId},
+		payment_seq.nextval,
 		#{pg},
 		#{payMethod},
 		#{merchantUid},
@@ -30,6 +56,7 @@
 		#{academyManagerName},
 		#{academyManagerEmail},
 		#{academyManagerPhone},
+		#{paymentStatus},
 		#{paymentDate}
 		)
 	</insert>

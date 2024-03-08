@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>MyEduMySelect</title>
+<title>결제완료</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -46,13 +46,16 @@
 <!-- Template Main CSS File -->
 <link href="/resources/include/payment/css/style.css" rel="stylesheet">
 
-<!-- =======================================================
-  * Template Name: MyEduMySelect
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+<style>
+    /* 스타일 추가 */
+    .bx-check {
+        font-weight: bold;
+        border: 2px solid #28a745; /* 진한 녹색 테두리 색상 */
+        padding: 8px; /* 내부 여백 */
+        margin: 5px 0; /* 외부 여백 */
+        display: block; /* 한 줄씩 표시 */
+    }
+</style>
 </head>
 
 <body>
@@ -102,9 +105,20 @@
 									<div class="box">
 										<h3>결제 내역</h3>
 										<ul>
-											<li>KH아카데미</li>
-											
-											<li class="bx bx-check">윤덕중</li>
+											<li class="bx bx-check">${paymentVO.paymentId}</li>
+											<li class="bx bx-check">${paymentVO.pg}</li>
+											<li class="bx bx-check">${paymentVO.payMethod}</li>
+											<li class="bx bx-check">${paymentVO.merchantUid}</li>
+											<li class="bx bx-check">${paymentVO.name}</li>
+											<li class="bx bx-check">${paymentVO.amount}</li>
+											<li class="bx bx-check">${paymentVO.academyId}</li>
+											<li class="bx bx-check">${paymentVO.academyNumber}</li>
+											<li class="bx bx-check">${paymentVO.academyName}</li>
+											<li class="bx bx-check">${paymentVO.academyManagerName}</li>
+											<li class="bx bx-check">${paymentVO.academyManagerEmail}</li>
+											<li class="bx bx-check">${paymentVO.academyManagerPhone}</li>
+											<li class="bx bx-check">${paymentVO.paymentStatus}</li>
+											<li class="bx bx-check">${paymentVO.paymentDate}</li>
 										</ul>
 									</div>
 								</div>
