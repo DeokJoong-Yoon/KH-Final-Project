@@ -2,37 +2,41 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-   
+
 	<typeAliases>
-	<!-- ========================admin 영역======================== -->
-	   <typeAlias
-	      type="com.myedumyselect.admin.openapi.data.vo.AcademySourceVO"
-	      alias="academySource" />
-	   <typeAlias 
-	      type="com.myedumyselect.admin.login.vo.AdminLoginVO" alias="adminLogin" />
-	      
-	<!-- ========================maching 영역======================== -->
-	   <typeAlias 
-	      type="com.myedumyselect.matching.board.vo.MatchingBoardVO"
-	      alias="matchingBoard" />
-         
-		<typeAlias 
-		   type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
-		   alias="matchingComment" />
-         
- 	<!-- ========================academy 영역======================== -->
-   		<typeAlias 
-         type="com.myedumyselect.academy.vo.AcademyVo"
-         alias="academy" />
-	
- 	<!-- ========================Payment 영역======================== -->
-   		<typeAlias 
-         type="com.myedumyselect.payment.vo.PaymentVO"
-         alias="payment" />
-    <!-- ========================Board 영역======================== -->
-    	<typeAlias type="com.myedumyselect.commonboard.free.vo.FreeVO"
-    	alias="freeBoard" />
-   </typeAliases>
+		<!-- ========================admin 영역======================== -->
+		<typeAlias
+			type="com.myedumyselect.admin.openapi.data.vo.AcademySourceVO"
+			alias="academySource" />
+		<typeAlias
+			type="com.myedumyselect.admin.login.vo.AdminLoginVO"
+			alias="adminLogin" />
+
+		<!-- ========================maching 영역======================== -->
+		<typeAlias
+			type="com.myedumyselect.matching.board.vo.MatchingBoardVO"
+			alias="matchingBoard" />
+
+		<typeAlias
+			type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
+			alias="matchingComment" />
+
+		<!-- ========================academy 영역======================== -->
+		<typeAlias type="com.myedumyselect.academy.vo.AcademyLoginVo"
+			alias="academy" />
+
+		<!-- ========================Payment 영역======================== -->
+		<typeAlias type="com.myedumyselect.payment.vo.PaymentVO"
+			alias="payment" />
+		<!-- ========================Board 영역======================== -->
+		<typeAlias
+			type="com.myedumyselect.commonboard.free.vo.FreeVO" alias="freeBoard" />
+		<!-- ========================personal 영역======================== -->
+
+		<typeAlias
+			type="com.myedumyselect.personal.vo.PersonalLoginVO"
+			alias="personalLogin" />
+	</typeAliases>
 
 
 </configuration>

@@ -7,4 +7,6 @@ import com.myedumyselect.payment.vo.PaymentVO;
 @Mapper
 public interface PaymentDAO {
 	public int paymentInsert(PaymentVO pvo);
+
+	public PaymentVO paymentSelect(PaymentVO pvo);
 }
