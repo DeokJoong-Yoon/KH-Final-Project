@@ -4,16 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AcademyVo {
-   
+public class AcademyLoginVO {
 	private String academyId;
     private int memberTypeId;
-    private String academyNumber;
-    private String academyJoinDate;
+    private String academyNumber;    
     private String academyPasswd;
     private String academyName;
     private String academyGuAddress;
@@ -31,9 +28,10 @@ public class AcademyVo {
     private String academyKeyword4;
     private String academyKeyword5;
     private String academyFee;
+    private String academyJoinDate;
     private String academyPasswdChangeDate;
     private Integer academyLoginFailCount = 0;
     private String academyAccountBannedDate;
-   
-   
+ 
+
 }

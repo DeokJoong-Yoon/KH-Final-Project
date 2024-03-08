@@ -3,22 +3,28 @@ package com.myedumyselect.academy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myedumyselect.academy.dao.AcademyDao;
-import com.myedumyselect.academy.vo.AcademyVo;
+import com.myedumyselect.academy.dao.AcademyLoginDao;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
+
+import lombok.Setter;
 
 @Service
-public class AcademyServiceImpl implements AcademyService {
-	
-	@Autowired
-	private AcademyDao academyDao;
-	
-	
+public class AcademyLoginServiceImpl implements AcademyLoginService {
+
+	@Setter(onMethod_ = @Autowired)
+	private AcademyLoginDao academyLoginDao;
+
 	@Override
-	public AcademyVo getAcademyVo() {
-		// TODO Auto-generated method stub
-		return null;
+	public AcademyLoginVO loginProcess(AcademyLoginVO login) {
+		AcademyLoginVO academyLogin = academyLoginDao.loginProcess(login);
+		return academyLogin;
 	}
-	
-	
-	
+
+	@Override
+	public int academyInsert(AcademyLoginVO login) {
+		int result = 0;
+		result = academyLoginDao.academyInsert(login);
+		return result;
+	}
+
 }
