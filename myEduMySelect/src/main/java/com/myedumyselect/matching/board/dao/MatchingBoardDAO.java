@@ -14,5 +14,7 @@ public interface MatchingBoardDAO {
 	//public int mPublicUpload(MatchingBoardVO mbVO);
 
 	public List<AcademyVo> mResult(MatchingBoardVO mbVO);
+
+	public int publicUpload(MatchingBoardVO mbVO);
 	
 }

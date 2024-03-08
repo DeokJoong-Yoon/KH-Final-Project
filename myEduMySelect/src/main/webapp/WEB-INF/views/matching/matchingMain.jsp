@@ -122,7 +122,7 @@
         			<tr>
         				<td>지역 선택</td>
         				<td id="selects"> 
-        					<select id="gu">
+        					<select id="gu" name="matchingGuAddress">
         						<option value="">-- 구 선택 --</option>
         						<option value="강남구">강남구</option>
         						<option value="강동구">강동구</option>
@@ -150,51 +150,51 @@
         						<option value="중구">중구</option>
         						<option value="중랑구">중랑구</option>
         					</select>
-        					<select id="dong">
+        					<select id="dong" name="matchingDongAddress">
         						<option value="">-- 동 선택 --</option>
         					</select>
         				</td>
         				<td>학년 선택</td>
         				<td>
-        					<input type="radio" name="age" id="preSchooler" value="미취학"><label for="preSchooler"> 미취학</label>
-        					<input type="radio" name="age" id="elementary1" value="초등(저)"><label for="elementary1"> 초등(저)</label>
-        					<input type="radio" name="age" id="elementary2" value="초등(고)"><label for="elementary2"> 초등(고)</label> <br>
-        					<input type="radio" name="age" id="middleSchool" value="중등"><label for="middleSchool"> 중등&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="age" id="highSchool" value="고등"><label for="highSchool">고등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="age" id="adult" value="성인"><label for="adult">성인</label>
+        					<input type="radio" name="matchingTargetGrade" id="preSchooler" value="미취학"><label for="preSchooler"> 미취학</label>
+        					<input type="radio" name="matchingTargetGrade" id="elementary1" value="초등(저)"><label for="elementary1"> 초등(저)</label>
+        					<input type="radio" name="matchingTargetGrade" id="elementary2" value="초등(고)"><label for="elementary2"> 초등(고)</label> <br>
+        					<input type="radio" name="matchingTargetGrade" id="middleSchool" value="중등"><label for="middleSchool"> 중등&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="matchingTargetGrade" id="highSchool" value="고등"><label for="highSchool">고등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="matchingTargetGrade" id="adult" value="성인"><label for="adult">성인</label>
         				</td>
         			<tr>
         				<td>과목 선택</td>
         				<td>
-        					<input type="radio" name="subject" id="korean" value="국어"><label for="korean"> 국어</label>
-        					<input type="radio" name="subject" id="math" value="수학"><label for="math"> 수학</label>
-        					<input type="radio" name="subject" id="english" value="영어"><label for="english"> 영어</label>
-        					<input type="radio" name="subject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label>
+        					<input type="radio" name="matchingTargetSubject" id="korean" value="국어"><label for="korean"> 국어</label>
+        					<input type="radio" name="matchingTargetSubject" id="math" value="수학"><label for="math"> 수학</label>
+        					<input type="radio" name="matchingTargetSubject" id="english" value="영어"><label for="english"> 영어</label>
+        					<input type="radio" name="matchingTargetSubject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label>
         				</td>
         				<td>수강료</td>
         				<td >
-        					<input type="radio" name="fee" id="under20" value="20만원 미만"><label for="under20">20만원 미만&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="fee" id="up20under30" value="20만원 이상 30만원 미만"><label for="up20under30">20만원 이상 30만원 미만</label><br>
-        					<input type="radio" name="fee" id="up30under40" value="30만원 이상 40만원 미만"><label for="up30under40">30만원 이상 40만원 미만</label>
-        					<input type="radio" name="fee" id="up40under50" value="40만원 이상 50만원 미만"><label for="up40under50"> 40만원 이상 50만원 미만</label><br>
-        					<input type="radio" name="fee" id="up50under60" value="50만원 이상 60만원 미만"><label for="up50under60"> 50만원 이상 60만원 미만</label>
-        					<input type="radio" name="fee" id="up60under70" value="60만원 이상 70만원 미만"><label for="up60under70"> 60만원 이상 70만원 미만</label><br>
-        					<input type="radio" name="fee" id="up70" value="70만원 이상"><label for="up70"> 70만원 이상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        					<input type="radio" name="fee" id="noMatter" value="무관"><label for="noMatter"> 무관</label>
+        					<input type="radio" name="matchingFee" id="under20" value="20만원 미만"><label for="under20">20만원 미만&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="matchingFee" id="up20under30" value="20만원 이상 30만원 미만"><label for="up20under30">20만원 이상 30만원 미만</label><br>
+        					<input type="radio" name="matchingFee" id="up30under40" value="30만원 이상 40만원 미만"><label for="up30under40">30만원 이상 40만원 미만</label>
+        					<input type="radio" name="matchingFee" id="up40under50" value="40만원 이상 50만원 미만"><label for="up40under50"> 40만원 이상 50만원 미만</label><br>
+        					<input type="radio" name="matchingFee" id="up50under60" value="50만원 이상 60만원 미만"><label for="up50under60"> 50만원 이상 60만원 미만</label>
+        					<input type="radio" name="matchingFee" id="up60under70" value="60만원 이상 70만원 미만"><label for="up60under70"> 60만원 이상 70만원 미만</label><br>
+        					<input type="radio" name="matchingFee" id="up70" value="70만원 이상"><label for="up70"> 70만원 이상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        					<input type="radio" name="matchingFee" id="noMatter" value="무관"><label for="noMatter"> 무관</label>
         				</td> 
         			</tr>
         			<tr>
         				<td>키워드 선택</td>
         				<td colspan="3">
-        					<input type="checkbox" name="keyword" id="fromBasic" value="기초부터"><label for="fromBasic"> 기초부터</label>
-        					<input type="checkbox" name="keyword" id="advanced" value="심화수업"><label for="advanced"> 심화수업</label>
-        					<input type="checkbox" name="keyword" id="kindTeacher" value="친절한 강사"><label for="kindTeacher"> 친절한 강사</label>
-        					<input type="checkbox" name="keyword" id="management" value="꼼꼼한 관리"><label for="management"> 꼼꼼한 관리</label>
-        					<input type="checkbox" name="keyword" id="noHomework" value="숙제 없음"><label for="noHomework"> 숙제 없음</label>
-        					<input type="checkbox" name="keyword" id="selfDirected" value="자기주도적"><label for="selfDirected"> 자기주도적</label>
-        					<input type="checkbox" name="keyword" id="lecture" value="강의식 수업"><label for="lecture"> 강의식 수업</label>
-        					<input type="checkbox" name="keyword" id="forEntrance" value="입시대비"><label for="forEntrance"> 입시대비</label> <br>
-        					<input type="checkbox" name="keyword" id="interesting" value="재밌는 수업"><label for="interesting"> 재밌는 수업</label>
+        					<input type="checkbox" name="matchingKeyword" id="fromBasic" value="기초부터"><label for="fromBasic"> 기초부터</label>
+        					<input type="checkbox" name="matchingKeyword" id="advanced" value="심화수업"><label for="advanced"> 심화수업</label>
+        					<input type="checkbox" name="matchingKeyword" id="kindTeacher" value="친절한 강사"><label for="kindTeacher"> 친절한 강사</label>
+        					<input type="checkbox" name="matchingKeyword" id="management" value="꼼꼼한 관리"><label for="management"> 꼼꼼한 관리</label>
+        					<input type="checkbox" name="matchingKeyword" id="noHomework" value="숙제 없음"><label for="noHomework"> 숙제 없음</label>
+        					<input type="checkbox" name="matchingKeyword" id="selfDirected" value="자기주도적"><label for="selfDirected"> 자기주도적</label>
+        					<input type="checkbox" name="matchingKeyword" id="lecture" value="강의식 수업"><label for="lecture"> 강의식 수업</label>
+        					<input type="checkbox" name="matchingKeyword" id="forEntrance" value="입시대비"><label for="forEntrance"> 입시대비</label> <br>
+        					<input type="checkbox" name="matchingKeyword" id="interesting" value="재밌는 수업"><label for="interesting"> 재밌는 수업</label>
         				</td>
         			<tr>
         				<td colspan="4">
@@ -218,7 +218,7 @@
           <h2>검색 결과</h2>
         </div>
 		
-        <div class="mcResult" id="">
+        <div class="mcResult" >
 			<table>
 				<thead>
 					<tr>
@@ -228,34 +228,20 @@
 						<th>전화번호</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:choose>
-					    <c:when test="${not empty mResult}">
-					        <c:forEach items="${mResult}" var="result" varStatus="status">
-					            <tr data-id="${status.index +1 }">
-					                <td><input type="checkbox"></td>
-					                <td>${result.academyName}</td>
-					                <td>${result.academyRoadAddress}</td>
-					                <td>${result.academyPhone}</td>
-					            </tr>
-					        </c:forEach>
-					    </c:when>
-					    <c:otherwise>
-					        <tr>
-					            <td colspan="4">조회 결과가 없습니다.</td>
-					        </tr>
-					    </c:otherwise>
-					</c:choose>
-				</tbody>  
+				
+				<tbody id="resultDiv">
+				</tbody>
 			</table>
         </div>
         
         <div class="mcUploadArea">
       		<button id="mcPublicBtn">공개 매칭하기</button>
         	<button id="mcPrivateBtn">비공개 매칭하기</button>
-        	<input type="password" placeholder="비밀번호 입력" disabled> <br/><br/>
-        	<textarea rows="3" style="width:87%" placeholder="덧붙이는 말" id="plusComment"></textarea>
-        	<button id="mcUploadBtn">매칭 시작하기</button>
+    	    	<div id="mcStartArea">
+	       			<input type="password" placeholder="비밀번호 입력" id="mcPwd"> <br/><br/>
+	        		<textarea rows="3" style="width:87%" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
+		        	<button id="mcUploadBtn" type="button">매칭 시작하기</button>
+	        	</div>
         </div>
 
       </div>
