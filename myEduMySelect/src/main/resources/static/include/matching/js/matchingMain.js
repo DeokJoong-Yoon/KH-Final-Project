@@ -47,6 +47,7 @@ $(function(){
 	
 	//선택된 조건의 내용을 담을 변수 선언
 	let guValue, dongValue, ageValue, subjectValue, feeValue, keywordValue;
+	let privateCheckedName = [];
 	
 	//검색결과 조회하기 버튼 클릭 시
 	$("#mcSearchBtn").on("click", function(){
@@ -62,6 +63,7 @@ $(function(){
 		$("input[name='matchingKeyword']:checked").each(function() {
             keywordValue.push($(this).val());
         });
+        
 	
 		console.log(keywordValue.length);
 		if(keywordValue.length > 3) {
@@ -113,7 +115,7 @@ $(function(){
 					// JSON 데이터를 순회하며 각 항목을 테이블 행으로 추가
 			        for (var i = 0; i < data.length; i++) {
 			            result += '<tr>';
-			            result += '<td><input type="checkbox" disabled></td>'; 
+			            result += '<td><input type="checkbox" name="privateChecked" value="' + data[i].academyName + '" disabled></td>'; 
 			            result += '<td><b>' + data[i].academyName + '</b></td>';
 			            result += '<td>' + data[i].academyRoadAddress + '</td>';
 			            result += '<td>' + data[i].academyPhone.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3') + '</td>';
@@ -149,6 +151,7 @@ $(function(){
 			
 			if( $("#plusComment").val().replace(/\s/g,"") == "") {
 				alert("덧붙이는 말을 입력해 주세요.");
+				$("#plusComment").focus();
 				return false;
 			} else {
 				let formData = new FormData();
@@ -188,16 +191,31 @@ $(function(){
 		$(".mcResult input[type='checkbox']").prop("disabled", false);
 		$("#mcStartArea").css("display", "block");
 		
+		
+		
+		
+		
 		//매칭시작 버튼 클릭 시
 		$("#mcUploadBtn").on("click", function() {
 			
-			if( !/^\d{4}$/.test($("#mcPwd").val())){
+			if($("input[name='privateChecked']:checked").length == 0) {
+				alert("비공개 매칭은 학원 선택 후에만 가능합니다.")
+					location.reload();
+			} else if( !/^\d{4}$/.test($("#mcPwd").val())){
 				alert("비밀번호는 숫자 4자리로 입력해 주세요.");
+				$("#mcPwd").val('');
+				$("#mcPwd").focus();
 				return false;
 			} else if( $("#plusComment").val().replace(/\s/g,"") == "") {
 				alert("덧붙이는 말을 입력해 주세요.");
+				$("#plusComment").focus();
 				return false;
 			} else {
+				
+				$("input[name='privateChecked']:checked").each(function(){
+					privateCheckedName.push($(this).val());
+				})
+				
 				let formData = new FormData();
 				formData.append('personalId', personalId);
 				formData.append('matchingGuAddress', guValue);
@@ -210,22 +228,40 @@ $(function(){
 				formData.append('matchingKeyword3', keywordValue[2]);
 				formData.append('matchingComment', $("#plusComment").val());
 				formData.append('matchingPasswd', $("#mcPwd").val());
+				formData.append('privateChecked', privateCheckedName);
 				
-				$.ajax({
-		            type: "POST",
-		            url: "/matching/privateUpload",
-		            data: formData,
-		            processData: false,  // 데이터를 query 문자열로 변환하지 않음
-		            contentType: false,  // 데이터 형식을 설정하지 않음
-		            success: function() {
-		                alert("비공개 매칭 게시글이 정상 등록되었습니다.");
-		                location.reload();
-		            },
-		            error: function(xhr, status, error) {
-		                alert("비공개 매칭 게시글이 정상 등록되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
-		            }
-		        });
-			}			
+				console.log(privateCheckedName);
+				
+				/*if(privateCheckedName.length == 0) {
+					alert("비공개 매칭은 학원 선택 후에만 가능합니다.")
+					$("#plusComment").val('');
+					$("#mcPwd").val('');
+					
+				}*/
+				
+				if(privateCheckedName.length != 0) {
+					$.ajax({
+			            type: "POST",
+			            url: "/matching/privateUpload",
+			            data: formData,
+			            processData: false,  // 데이터를 query 문자열로 변환하지 않음
+			            contentType: false,  // 데이터 형식을 설정하지 않음
+			            success: function() {
+			                alert("비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되었습니다.");
+			                location.reload();
+			            },
+			            error: function(xhr, status, error) {
+			                alert("비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
+			                location.reload();
+			            }
+			        });
+				}
+								
+				
+			}
+			
+			
+						
 			
 		});
 	});

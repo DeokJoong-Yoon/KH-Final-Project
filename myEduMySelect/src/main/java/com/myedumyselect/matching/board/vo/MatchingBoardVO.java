@@ -1,5 +1,7 @@
 package com.myedumyselect.matching.board.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -22,4 +24,6 @@ public class MatchingBoardVO {
 	private int commentCnt = 0;
 	
 	private String matchingComment = "";
+	
+	private List<String> privateChecked;
 }

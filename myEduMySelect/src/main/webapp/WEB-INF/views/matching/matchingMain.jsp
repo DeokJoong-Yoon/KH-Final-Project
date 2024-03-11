@@ -31,7 +31,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-  <link href="/resources/include/assets/css/matchingMain.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingMain.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -421,7 +421,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/assets/js/matchingMain.js"></script>
+  <script src="/resources/include/matching/js/matchingMain.js"></script>
 
 </body>
 

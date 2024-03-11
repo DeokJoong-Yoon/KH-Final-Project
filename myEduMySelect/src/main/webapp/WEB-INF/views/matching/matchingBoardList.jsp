@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>								
+<%@ page trimDirectiveWhitespaces="true" %>	
+<%@ include file="/WEB-INF/views/common/common.jspf" %>										
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -30,7 +31,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-  <link href="/resources/include/assets/css/matchingBoard.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingBoard.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -109,34 +110,46 @@
 				<thead>
 					<tr>
 						<th>글 번호</th>
-						<th>비밀글 여부</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>등록일</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>100</td>
-						<td></td>
-						<td>제목100</td>
-						<td>작성자100</td>
-						<td>등록일100</td>
-					</tr>
-					<tr>
-						<td>99</td>
-						<td>[비밀글]</td>
-						<td>제목99</td>
-						<td>작성자99</td>
-						<td>등록일99</td>
-					</tr>
-					<tr>
-						<td>98</td>
-						<td>[비밀글]</td>
-						<td>제목98</td>
-						<td>작성자98</td>
-						<td>등록일98</td>
-					</tr>
+				<tbody id="mcBoardList">
+					<c:choose>
+						<c:when test="${not empty mBoardList}">
+							<c:forEach var="matchingBoard" items="${mBoardList }" varStatus="status">
+								<tr data-num="${matchingBoard.matchingNo }">
+									<td>${matchingBoard.matchingNo }</td>
+									<td>
+										<c:choose>
+										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
+										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
+										        <a id="mbdLink" href="">
+										        	${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+										        </a>
+										    </c:when>
+										    <c:otherwise>
+										    	<a id="mbdLink" href="">
+										    		${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+										    	</a>
+										    </c:otherwise>
+										</c:choose>
+										<c:if test="${matchingBoard.commentCnt > 0 }">
+							        		<span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
+							        	</c:if>
+									</td>
+									<td>${matchingBoard.personalId }</td>
+									<td>${matchingBoard.matchingRegisterDate }</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="5">등록된 게시글이 존재하지 않습니다</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
 				</tbody>	
 			</table>
 		</div>
@@ -230,6 +243,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/include/assets/js/main.js"></script>
+  <script src="/resources/include/matching/js/matchingBoard.js"></script>
 
 </body>
 

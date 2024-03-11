@@ -228,11 +228,11 @@
 }
 
 .mcBoardPreview table td:nth-child(2), .mcBoardPreview table th:nth-child(2) {
-	width: 51%;
+	width: 40%;
 }
 
 .mcBoardPreview table td:nth-child(3), .mcBoardPreview table th:nth-child(3), .mcBoardPreview table td:nth-child(4), .mcBoardPreview table th:nth-child(4) {
-	width: 17%;
+	width: 20%;
 }
 
 

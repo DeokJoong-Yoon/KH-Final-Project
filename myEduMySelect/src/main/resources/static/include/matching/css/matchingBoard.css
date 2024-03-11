@@ -51,6 +51,33 @@
     text-align: center;
 }
 
+.mcBoardList table td a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크 색상을 부모 요소에서 상속 */
+}
+
+.mcBoardList table td a:hover {
+    text-decoration: underline;
+}
+
+.comment_count {
+	color: brown;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.mcBoardList table td:nth-child(1), .mcBoardList table th:nth-child(1) {
+	width: 10%;
+}
+
+.mcBoardList table td:nth-child(2), .mcBoardList table th:nth-child(2) {
+	width: 40%;
+}
+
+.mcBoardList table td:nth-child(3), .mcBoardList table th:nth-child(3), .mcBoardList table td:nth-child(4), .mcBoardList table th:nth-child(4) {
+	width: 20%;
+}
+
 
 .mcBoardListSearch {
 	float: right;

@@ -1,12 +1,13 @@
 package com.myedumyselect.matching.board.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.myedumyselect.matching.board.dao.MatchingBoardDAO;
+import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,21 @@ public class MatchingBoardTest {
 		
 		int count = mbDAO.publicUpload(mbVO);
 		log.info("공개 매칭 : " + count);
+	}
+	
+	@Test
+	public void testSearchEmail() {
+		log.info("searchEmail() 메소드 실행");
+		MatchingBoardVO mbVO = new MatchingBoardVO();
+		
+		List<String> list = new ArrayList<>();
+		list.add("대치의수학교습소");
+		list.add("진화수학학원");
+		mbVO.setPrivateChecked(list);
+		
+		List<AcademyLoginVo> list2 = mbDAO.searchEmail(mbVO);
+		for(AcademyLoginVo vo : list2) {
+			log.info(vo.toString());
+		}
 	}
 }
