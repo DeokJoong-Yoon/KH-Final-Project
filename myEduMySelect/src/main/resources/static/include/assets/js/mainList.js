@@ -42,6 +42,18 @@ $(function() {
 		'중랑구': ['면목동', '망우동', '묵동', '상봉동', '신내동', '중화동']
 	}
 
+		
+	$(document).ready(function () {
+		// 특정 ID 위치로 이동 (스무스 스크롤)
+		var targetElement = $("#main");
+		if (targetElement.length) {
+			$('html, body').animate({
+				scrollTop: targetElement.offset().top - 100
+			}, 500);
+		}
+		
+	});
+	
 	$("#mainSearchBtn").click(function() {
 		if (!chkData("#academyGuAddress", "검색할 지역을 ")) return;
 		else if (!chkData("#academyCurriculumName", "과목")) return;
@@ -52,6 +64,8 @@ $(function() {
 			})
 			$("#mainSearchForm").submit();
 		}
+
+
 	});
 });
 (function() {
