@@ -170,9 +170,10 @@
 	<!-- End Hero -->
 
   <main id="main">
-  <%-- <input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
-  <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"> --%>
-    
+  <form id="noticeForm" name="noticeForm">
+  <input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
+  <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+  </form>
     <!-- ======= 매칭게시판 목록 ======= -->
     <section class="mcBoard">
      
@@ -182,44 +183,44 @@
 				<thead>
 					<tr>
 						<th scope="col"><h3>No</h3></th>
-						<th scope="col"><h3>지역구</h3></th>
-						<th scope="col"><h3>학원명</h3></th>
-						<th scope="col"><h3>도로명주소</h3></th>
-						<th scope="col"><h3>과목</h3></th>
+						<th scope="col"><h3>관리자ID</h3></th>
+						<th scope="col"><h3>작성자</h3></th>
+						<th scope="col"><h3>제목</h3></th>
 						<th scope="col"><h3>등록일</h3></th>
+						<th scope="col"><h3>조회수</h3></th>
 					</tr>
 				</thead>
-				<tbody id="mainBoardList" class="table-group-divider">
+				<tbody id="list" class="table-group-divider">
 					<c:choose>
-						<c:when test="${not empty mainSearchList}">
-							<c:forEach var="mainBoard" items="${mainSearchList }" varStatus="statusNumber">
+						<c:when test="${not empty boardList}">
+							<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
 								<tr data-num="${statusNumber.index + 1}">
 									<th scope="row">${statusNumber.index + 1}</th>
-									<td>${mainBoard.academyGuAddress}</td>
-									<td>${mainBoard.academyName}</td>
-									<td>${mainBoard.academyRoadAddress}</td>
-									<td>${mainBoard.academyCurriculumName}</td>
-									<td>${mainBoard.academyRegisterDate}</td>
+									<td>${notice.adminId}</td>
+									<td>${notice.commonNickname}</td>
+									<td>${notice.commonTitle}</td>
+									<td>${notice.commonRegisterDate}</td>
+									<td>${notice.commonReadcnt}</td>
 								</tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<tr>
-								<td colspan="5">조건에 맞는 학원이 없습니다.</td>
+								<td colspan="5">조건에 맞는 공지가 없습니다.</td>
 							</tr>
 						</c:otherwise>
 					</c:choose>
 				</tbody>	
 			</table>
 		</div>
-		<%-- ======================== 페이징 출력 시작 ========================
+		<%-- ======================== 페이징 출력 시작 ========================--%>
           <nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">
 			  <!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
 			  <c:if test="${pageMaker.prev}">
 			  	<li class="page-item">
 			  		<a href="${pageMaker.startPage - 1}" class="page-link">Previous</a>
-			  		<a href="${pageMaker.startPage - 10}" class="page-link">Previous</a>
+			  		<!-- <a href="${pageMaker.startPage - 10}" class="page-link">Previous</a> -->
 			  	</li>
 			  </c:if>
 			  
@@ -237,7 +238,7 @@
 			  </c:if>
 			  
 			  </ul>
-			</nav>--%>
+			</nav>
       </div>
     </section><!-- 매칭게시판 목록 끝 -->
 
@@ -345,7 +346,7 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/js/common.js"></script>
-	<script src="/resources/include/assets/js/mainList.js"></script>
+	<script src="/resources/include/assets/js/noticeBoard.js"></script>
 
 </body>
 
