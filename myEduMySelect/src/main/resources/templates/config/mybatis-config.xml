@@ -31,6 +31,8 @@
 		<!-- ========================Board 영역======================== -->
 		<typeAlias
 			type="com.myedumyselect.commonboard.free.vo.FreeVO" alias="freeBoard" />
+		<typeAlias
+			type="com.myedumyselect.commonboard.notice.vo.NoticeBoardVO" alias="notice" />
 		<!-- ========================personal 영역======================== -->
 
 		<typeAlias
