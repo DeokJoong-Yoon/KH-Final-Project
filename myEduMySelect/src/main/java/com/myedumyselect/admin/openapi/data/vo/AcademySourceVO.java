@@ -1,9 +1,13 @@
 package com.myedumyselect.admin.openapi.data.vo;
 
+import com.myedumyselect.common.vo.CommonVO;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class AcademySourceVO {
+@EqualsAndHashCode(callSuper = false)
+public class AcademySourceVO extends CommonVO{
 
 	private String academyNumber;
 	private String academyGuAddress;

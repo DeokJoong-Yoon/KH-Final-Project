@@ -24,7 +24,7 @@ public class mainController {
 	public String mainIndex() {
 		return "main/main";
 	}
-
+	
 	@PostMapping(value = "/mainSearchList")
 	public String mainSearchList(@ModelAttribute AcademySourceVO avo, Model model) {
 		List<AcademySourceVO> mainSearchList = mainService.mainSearchList(avo);

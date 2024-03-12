@@ -17,24 +17,26 @@ public class MainServiceDAOTests {
 	@Autowired
 	MainServiceDAO mainServiceDAO;
 
-	@Test
-	public void mainSearchList() {
-		AcademySourceVO avo = new AcademySourceVO();
+	/*
+	 * @Test public void mainSearchList() { AcademySourceVO avo = new
+	 * AcademySourceVO();
+	 * 
+	 * avo.setAcademyCurriculumName("보습"); avo.setAcademyGuAddress("강북구");
+	 * avo.setAcademyDongAddress("번동");
+	 * 
+	 * List<AcademySourceVO> list = null; if (null !=
+	 * mainServiceDAO.mainSearchList(avo)) { list =
+	 * mainServiceDAO.mainSearchList(avo); for (AcademySourceVO vo : list) {
+	 * log.info(vo.toString()); } } else { log.info("list 널"); } }
+	 */
 
+	@Test
+	public void mainListCnt() {
+		AcademySourceVO avo = new AcademySourceVO();
 		avo.setAcademyCurriculumName("보습");
 		avo.setAcademyGuAddress("강북구");
 		avo.setAcademyDongAddress("번동");
-
-		List<AcademySourceVO> list = null;
-		if (null != mainServiceDAO.mainSearchList(avo)) {
-			list = mainServiceDAO.mainSearchList(avo);
-			for (AcademySourceVO vo : list) {
-				log.info(vo.toString());
-			}
-		} else {
-			log.info("list 널");
-		}
 		
-
+		log.info("학원 수 : " + mainServiceDAO.mainListCnt(avo));
 	}
 }

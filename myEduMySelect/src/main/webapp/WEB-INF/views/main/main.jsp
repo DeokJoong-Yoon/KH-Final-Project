@@ -62,7 +62,7 @@
 		<div class="container d-flex align-items-center">
 
 			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
+				<a href="/">MyEdu<br />MySelect
 				</a>
 			</h1>
 			<!-- Uncomment below if you prefer to use an image logo -->
@@ -79,7 +79,7 @@
 							<li><a href="#">자유게시판</a></li>
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
+							<li><a href="/">공지게시판</a></li>
 							<li><a href="#">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
@@ -95,7 +95,7 @@
 
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
-
+		
 		<div class="container">
 			<div class="row">
 				<div
@@ -150,6 +150,7 @@
 				
 			</div>
 		</div>
+		
 	</section>
 	<!-- End Hero -->
 

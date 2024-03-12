@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Search result</title>
+<title>noticeBoardList</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -118,7 +118,7 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<h1>전체 조회 / 빠른검색</h1>
+					<h1>noticeBoardList</h1>
 					<h2>여러분의 교육은 여러분이 선택합니다.</h2>
 					<form id="mainSearchForm">
 					<div class="d-flex justify-content-center justify-content-lg-start">

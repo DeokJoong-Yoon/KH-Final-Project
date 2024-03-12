@@ -55,18 +55,37 @@ $(function() {
 	});
 	
 	$("#mainSearchBtn").click(function() {
+		submitForm();
+	});
+	
+	$("mainSearchForm").keydown(function(event) {
+		if(event.keyCode == 13) {
+			event.preventDefault();
+			submitForm();
+		}
+	});
+	
+	function submitForm() {
 		if (!chkData("#academyGuAddress", "검색할 지역을 ")) return;
 		else if (!chkData("#academyCurriculumName", "과목")) return;
 		else {
 			$("#mainSearchForm").attr({
-				"method": "POST",
+				"method": "post",
 				"action": "/mainSearchList"
 			})
 			$("#mainSearchForm").submit();
 		}
-
-
-	});
+	}
+	/* 페이징 처리 이벤트 
+	$(".page-item a").on("click", function(e) {
+		e.preventDefault();
+		$("#mainSearchForm").find("input[name='pageNum']").val($(this).attr("href"));
+			$("#mainSearchForm").attr({
+				"method" : "get",
+				"action" : "/mainSearchList"
+			});
+			$("#mainSearchForm").submit();
+	});*/
 });
 (function() {
 	"use strict";

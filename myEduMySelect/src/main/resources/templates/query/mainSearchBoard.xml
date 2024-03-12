@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myedumyselect.client.main.dao.MainServiceDAO">
+<mapper
+	namespace="com.myedumyselect.client.main.dao.MainServiceDAO">
 	<resultMap type="academySource" id="academySourceMap">
 		<id column="academyNumber" property="academyNumber" />
 		<result column="ACADEMY_GU_ADDRESS" property="academyGuAddress" />
@@ -41,16 +42,32 @@
 		<result column="ACADEMY_LOADING_DATE_TIME"
 			property="academyLoadingDateTime" />
 	</resultMap>
-	<select id="mainSearchList" resultType="academySource" parameterType="academySource"
-		resultMap="academySourceMap">
-		SELECT * FROM
-		( SELECT * FROM tb_academy_source WHERE ACADEMY_GU_ADDRESS
-		= #{academyGuAddress}
-		AND ACADEMY_DONG_ADDRESS LIKE '%' ||  #{academyDongAddress}	|| '%' )
-		WHERE (
-		academy_field_name || academy_curriculum_series_name || academy_curriculum_list_name
-		|| academy_curriculum_name
-		) like '%' || #{academyCurriculumName} || '%'
-	</select>
+	<select id="mainSearchList" resultType="academySource"
+		parameterType="academySource" resultMap="academySourceMap"> SELECT * FROM ( SELECT * FROM
+		tb_academy_source
+		WHERE ACADEMY_GU_ADDRESS = #{academyGuAddress} AND ACADEMY_DONG_ADDRESS
+		LIKE
+		'%' || #{academyDongAddress} || '%' ) WHERE ( academy_field_name ||
+		academy_curriculum_series_name
+		|| academy_curriculum_list_name || academy_curriculum_name ) like '%' ||
+		#{academyCurriculumName} || '%' </select>
+
+	<!-- <select id="mainSearchList" resultType="academySource" parameterType="academySource" 
+		resultMap="academySourceMap"> <if test="academyGuAddress != null and academyGuAddress 
+		!= ''"> ACADEMY_GU_ADDRESS = #{academyGuAddress} </if> <if test="academyDongAddress 
+		!= null and academyDongAddress != ''"> AND ACADEMY_DONG_ADDRESS LIKE '%' 
+		|| #{academyDongAddress} || '%' </if> <if test="academyCurriculumName != 
+		null and academyCurriculumName != ''"> AND (academy_curriculum_name LIKE 
+		'%' || #{academyCurriculumName} || '%') </if> <![CDATA[ SELECT * FROM ( SELECT 
+		/*+ INDEX_DESC(tb_academy_source tb_academy_source_pk) */ rownum AS rnum, 
+		academy_gu_address, academy_name, academy_road_address, ACADEMY_CURRICULUM_NAME, 
+		ACADEMY_REGISTER_DATE FROM tb_academy_source <where> </where> ORDER BY ACADEMY_REGISTER_DATE 
+		DESC  정렬 기준 명시 ) mainSearchList WHERE rnum <= #{pageNum} * #{amount} AND 
+		rnum > (#{pageNum} - 1) * #{amount} ]]> </select> <select id="mainListCnt" 
+		parameterType="academySource" resultType="int"> SELECT count(*) FROM ( SELECT 
+		* FROM tb_academy_source WHERE ACADEMY_GU_ADDRESS = #{academyGuAddress} AND 
+		ACADEMY_DONG_ADDRESS LIKE '%' || #{academyDongAddress} || '%' ) WHERE ( academy_field_name 
+		|| academy_curriculum_series_name || academy_curriculum_list_name || academy_curriculum_name 
+		) like '%' || #{academyCurriculumName} || '%' </select> -->
 
 </mapper>
