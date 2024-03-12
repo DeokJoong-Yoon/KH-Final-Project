@@ -1,8 +1,14 @@
 package com.myedumyselect.common.vo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Data
+@ToString
+@Setter
+@Getter
 public class CommonVO {
 	
 	//페이징 처리를 위해 필요한 필드
@@ -21,5 +27,9 @@ public class CommonVO {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
+	
+	//자유게시판 검색 기능을 위한 필드
+	private String search = "";
+	private String keyword = "";
 
 }

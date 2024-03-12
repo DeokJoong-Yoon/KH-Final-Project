@@ -45,7 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="/resources/include/board/free/css/free.css" rel="stylesheet">
+<link href="/resources/include/board/free/css/freeDetail.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -94,22 +94,20 @@
 	</header>
 	<!-- End Header -->
 
-	<!-- ======= 게시판 영역 ======= -->
+	<!-- ======= 게시판 상세페이지 영역 ======= -->
 	<section id="hero"
 		class="d-flex align-items-center justify-content-center">
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
+				<div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
 					<div class="text-center">
-						<h1>자유게시판</h1>
+						<h1>자유게시판 상세화면</h1>
 					</div>
 					<div class="d-flex justify-content-center justify-content-lg-start">
 						<div class="container">
 
-							<form id="detailForm">
-								<input type="hidden" id="common_no" name="common_no" />
+							<form id="f_data" name="f_data">
+								<input type="hidden" id="common_no" value="${detail.common_no}" />
 							</form>
 
 
@@ -120,77 +118,42 @@
 										href="#" class="list-group-item list-group-item-action">홍보게시판</a>
 									<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
 								</div>
-								<div>
-									<table cellpadding="0" cellspacing="0" border="0">
-										<thead class="text-center">
+								<div class="col-lg-9 table-container">
+									<table class="table text-center" id="table"> 
+										<thead>
 											<tr>
-												<th class="col-md-1">글번호</th>
-												<th class="col-md-4">제목</th>
-												<th class="col-md-2">작성자</th>
-												<th class="col-md-2">작성시간</th>
-												<th class="col-md-1">조회수</th>
+												<td colspan="12" class="text-center">제목 : ${detail.common_title}</td>
+											</tr>
+											<tr>
+												<td colspan="3" class="text-start">조회수 : ${detail.common_readcnt}</td>
+												<td colspan="3" class="text-start">작성자 : ${detail.personal_id}</td>
+												<td colspan="3" class="text-start">작성일 : ${detail.common_register_date}</td>
+												<td colspan="3" class="text-start">좋아요 : </td>
 											</tr>
 										</thead>
-										<tbody id="list" class="table-group-divider">
-												<c:choose>
-													<c:when test="${not empty freeList}">
-														<c:forEach var="free" items="${freeList}" varStatus="status">
-															<tr class="text-center" data-num="${free.common_no}">
-																<td>${free.common_no}</td>
-																<td class="goDetail text-start link-primary">${free.common_title}</td>
-																<td class="name">${free.personal_id}</td>
-																<td>${free.common_register_date}</td>
-																<td>${free.common_readcnt}</td>
-															</tr>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<tr>
-															<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
-														</tr>
-													</c:otherwise>
-												</c:choose>
-											</tbody>
+										
+										<tbody>
+											<tr>
+												<th colspan="2" class="text-center">내용</th>
+												<td colspan="10" rowspan="10" class="text-start content-size">${detail.common_content}</td>
+											</tr>
+										</tbody>
 									</table>
 								</div>
 							</div>
-							<form id="detailForm">
-								<input type="hidden" id="common_no" name="common_no" />
-							</form>
-
-							<div id="freeSearch" class="text-right">
-								<form id="f_search" name="f_search">
-									<div class="row g-2 alian-items-center">
-										<div class="col-auto">
-											<label>검색조건</label>
-										</div>
-										<div class="col-auto">
-											<select id="search" name="search" class="form-select form-select-sm">
-												<option value="all">전체 목록 조회</option>
-												<option value="common_title">글제목</option>
-												<option value="common_content">글내용</option>
-												<option value="personal_id">작성자</option>
-											</select>
-										</div>
-										<div class="col-auto">
-											<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
-										</div>
-										<div class="col-auto">
-											<button type="button" id="searchData" class="btn btn-success btn-sm">검색</button>
-										</div>
-									</div>
-								</form>
+							<div class="col-md-12 text-end ms-auto" id=BtnGroup>
+								<button type="button" id="freeUpdateBtn" class="btn btn-primary btn-sm">글수정</button>
+								<button type="button" id="freeDeleteBtn" class="btn btn-primary btn-sm">글삭제</button>
+								<button type="button" id="freeWriterBtn" class="btn btn-primary btn-sm">글쓰기</button>
+								<button type="button" id="freeListBtn" class="btn btn-primary btn-sm">목록</button>
 							</div>
-							<div class="text-end">
-								<button type="button" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
-							</div>
+						</div>
+			
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-				data-aos-delay="200"></div>
-		</div>
+			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200"></div>
 	</section>
 
 
@@ -298,26 +261,9 @@
 	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/free/js/freeList.js"></script>
+	<script src="/resources/include/board/free/js/freeDetail.js"></script>
 	<script>
-	$(function() {
-		let word="<c:out value='${FreeVO.keyword}' />";
-		let value="";
-		if(word!=""){
-			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");
-			$("#search").val("<c:out value='${FreeVO.search}' />");
-			
-			if($("#search").val()!='common_content'){
-				if($("#search").val()=='common_title') value = "#list tr td.goDetail";
-				else if($("#search").val()=='personal_id') value="#list tr td.name";
-				console.log($(value+":contains('"+word+"')").html());
-				$(value+":contains('"+word+"')").each(function(){
-					let regex = new RegExp(word, 'gi');
-					$(this).html($(this).html().replace(regex,"<span class='required'>"+word+"</span>"));
-				});
-			}
-		}
-	});
+	
 	</script>
 
 </body>
