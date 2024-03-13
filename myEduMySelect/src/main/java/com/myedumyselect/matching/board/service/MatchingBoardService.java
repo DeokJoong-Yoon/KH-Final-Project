@@ -25,5 +25,7 @@ public interface MatchingBoardService {
 	
 	public MatchingBoardVO mBoardUpdateForm(MatchingBoardVO mbVO);
 	public int mBoardUpdate(MatchingBoardVO mbVO);
+	
+	public int mBoardDelete(MatchingBoardVO mbVO);
 }
 

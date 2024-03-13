@@ -7,7 +7,8 @@ $(function(){
 		})
 		$("#updateForm").submit();
 		
-		
+		console.log($("#msg").val());
+		alert($("#msg").val());
 		
 	})
 })

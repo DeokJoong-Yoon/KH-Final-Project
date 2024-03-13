@@ -143,4 +143,13 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		return result;
 	}
 
+
+	//매칭게시판 게시글 삭제
+	@Override
+	public int mBoardDelete(MatchingBoardVO mbVO) {
+		int result = 0;
+		result = mbDAO.mBoardDelete(mbVO);
+		return result;
+	}
+
 }

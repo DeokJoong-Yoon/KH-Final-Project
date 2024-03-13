@@ -42,6 +42,7 @@ public interface MatchingBoardDAO {
 	public int mBoardUpdate(MatchingBoardVO mbVO);
 	
 	//매칭게시판 게시글 삭제하기
+	public int mBoardDelete(MatchingBoardVO mbVO);
 	
 	//매칭게시판 다음글 이동하기
 	

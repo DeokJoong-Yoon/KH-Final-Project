@@ -108,12 +108,12 @@
 		
 				<table>
 					<tr>
+						<th>글 번호</th>
+							<td>${updateData.matchingNo }</td>
+						</tr>
+					<tr>
 						<th>등록 일시</th>
 						<td>${updateData.matchingRegisterDate }</td>
-					</tr>
-					<tr>
-						<th>댓글 수</th>
-						<td class="comment_count">${matchingBoard.commentCnt }</td>
 					</tr>
 				</table>
 				<br>
@@ -160,7 +160,6 @@
       </div>
     </section><!-- 매칭게시판 상세보기 끝 -->
 
-	
   
   </main><!-- End #main -->
 

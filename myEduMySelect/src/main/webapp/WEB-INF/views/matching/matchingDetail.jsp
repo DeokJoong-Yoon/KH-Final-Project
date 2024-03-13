@@ -102,7 +102,7 @@
       <div class="container">
       
       	<form name="formData" id="formData">
-      		<input type="hidden" name="matchingNo" value="${detail.matchingNo }"/>
+      		<input type="hidden" name="matchingNo" id="matchingNo" value="${detail.matchingNo }"/>
       	</form>
       
       	<div class="userId">${userId }</div>

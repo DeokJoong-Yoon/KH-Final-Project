@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.common.vo.PageDTO;
@@ -155,6 +156,27 @@ public class MatchingBoardController {
 			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
 		} else {
 			url = "/matching/boardUpdate?matchingNo=" + mbVO.getMatchingNo();
+		}
+		
+		return "redirect:" + url;
+	}
+	
+	
+	//매칭 게시글 삭제
+	@GetMapping("/boardDelete")
+	public String mBoardDelete(MatchingBoardVO mbVO, RedirectAttributes ras) {
+		log.info("boardDelete 호출 성공");
+		
+		int result = 0;
+		result = mbService.mBoardDelete(mbVO);
+		
+		String url = "";
+		
+		if(result == 1) {
+			url = "/matching/boardList";
+		} else {
+			ras.addFlashAttribute("errorMsg", "삭제에 실패하였습니다. 다시 시도해 주세요.");
+			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
 		}
 		
 		return "redirect:" + url;
