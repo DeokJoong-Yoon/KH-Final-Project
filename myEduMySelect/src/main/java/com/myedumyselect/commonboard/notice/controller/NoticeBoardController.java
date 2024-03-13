@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myedumyselect.client.main.vo.PageDTO;
@@ -33,5 +34,11 @@ public class NoticeBoardController {
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(noticeBoardVO, total));
 		return "commonboard/notice/noticeBoardList";
+	}
+	
+	@PostMapping("/boardDelete")
+	public String noticeBoardDelete(@ModelAttribute NoticeBoardVO noticeBoardVO) {
+		
+		return "redirect:/notice/boardList";
 	}
 }

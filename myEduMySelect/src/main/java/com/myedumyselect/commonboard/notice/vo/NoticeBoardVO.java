@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 public class NoticeBoardVO extends CommonVO{
 	int commonNo = 0;
 	String adminId = "";
-	int memberTypeId = 0;
+	int memberTypeId = 3;
 	String commonNickname = "";
 	String commonTitle = "";
 	String commonContent = "";
