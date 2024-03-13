@@ -47,7 +47,7 @@
     margin-left:5px;
 }
 
-#prevPost, #nextPost, #gotoList {
+#prevPost, #nextPost, #gotoList, #cancel, #editFinish {
 	padding: 10px 20px;
     background-color: #48d1cc;
     color: white;
@@ -61,7 +61,7 @@
     float: right;
 }
 
-#editPost:hover, #deletePost:hover, #prevPost:hover, #nextPost:hover, #gotoList:hover {
+#editPost:hover, #deletePost:hover, #prevPost:hover, #nextPost:hover, #gotoList:hover, #cancel:hover, #editFinis:hover {
     background-color: #37517e;
 }
 
@@ -111,3 +111,9 @@
     padding-left: 30px;
 }
 
+#matchingComment {
+	width: 100%;
+	border: 1px solid #ccc;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}

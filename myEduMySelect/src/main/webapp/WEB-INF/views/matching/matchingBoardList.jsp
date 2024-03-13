@@ -41,6 +41,20 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 	
+	
+	<script>
+		window.onload = function(){
+			let confirmMsg = "${confirmMsg}";
+			if(confirmMsg) {
+				let result = confirm(comfirmMsg);
+				if(result) {
+					window.location.href= "/useraccount/login";
+				} else {
+					window.location.href= "/matching/boardList";
+				}
+			}
+		}
+	</script>
 
 </head>
 
@@ -112,7 +126,10 @@
 			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
  			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
  		</form>
-
+ 		
+ 		
+		<div class="userId">${userId }</div>
+		
 		<div class="mcBoardList">
 			<table>
 				<thead>
@@ -130,6 +147,10 @@
 								<tr data-num="${matchingBoard.matchingNo }">
 									<td>${matchingBoard.matchingNo }</td>
 									<td>
+										<form name="privateChk" id="privateChk">
+											<input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }"/>
+											<input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }"/>
+										</form>
 										<c:choose>
 										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
 										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
@@ -147,7 +168,7 @@
 							        		<span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
 							        	</c:if>
 									</td>
-									<td>${matchingBoard.personalId }</td>
+									<td class="writerId">${matchingBoard.personalId }</td>
 									<td>${matchingBoard.matchingRegisterDate }</td>
 								</tr>
 							</c:forEach>

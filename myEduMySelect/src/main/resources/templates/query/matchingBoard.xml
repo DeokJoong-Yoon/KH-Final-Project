@@ -19,7 +19,6 @@
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
-		<result column="commentCnt" property="commentCnt" />
 		<result column="matching_comment" property="matchingComment" />
 	</resultMap>
 	
@@ -60,6 +59,7 @@
 	        FROM (
 	            SELECT  matching_no
 	            , 		matching_private
+	            ,		matching_passwd
 	            , 		matching_gu_address
 	            , 		matching_dong_address
 	            , 		matching_target_subject
@@ -124,6 +124,15 @@
 	</select>
 	
 	
+	<!-- 작업 중 -->
+	<!-- 비공개매칭 시 이메일로 전송할 게시글 번호 검색 -->
+	<select id="getMatchingNo" parameterType="matchingBoard" resultType="matchingBoard">
+		SELECT	matching_no
+		FROM	tb_matching_board
+		WHERE	matching_no = #{matchingNo}
+	</select>
+	
+	
 	<!-- 전체 레코드 수 조회 -->
 	<select id="mBoardListCnt" parameterType="matchingBoard" resultType="int" >
 		SELECT count(*) FROM tb_matching_board
@@ -132,34 +141,38 @@
 	
 	<!-- 매칭게시판 글 목록 전체 보기 -->
 	<select id="mBoardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
-			<![CDATA[
-			SELECT  matching_no
-					, matching_gu_address
-					, matching_dong_address
-					, matching_target_subject
-					, matching_target_grade
-					, matching_private
-					, matching_register_date
-					, personal_id
-			FROM   (
-	    			SELECT  rownum as rnum
-	    					, matching_no
-	    					, matching_gu_address
-	    					, matching_dong_address
-	    					, matching_target_subject
-	    					, matching_target_grade
-	    					, matching_private
-	    					, matching_register_date
-	    					, personal_id
-					FROM    tb_matching_board
-	    			WHERE   rownum <= #{pageNum} * #{amount})
-			WHERE rnum > (#{pageNum} - 1 ) * #{amount}
-			]]>
-	</select> 
+		<![CDATA[
+	    SELECT  matching_no,
+	            matching_gu_address,
+	            matching_dong_address,
+	            matching_target_subject,
+	            matching_target_grade,
+	            matching_private,
+	            matching_passwd,
+	            to_char(matching_register_date, 'YYYY-MM-DD') as matching_register_date,
+	            personal_id
+	    FROM  (
+	        	SELECT /*+ INDEX_DESC(tb_matching_board PK_TB_MATCHING_BOARD) */
+	        	   rownum as rnum,
+	               matching_no,
+	               matching_gu_address,
+	               matching_dong_address,
+	               matching_target_subject,
+	               matching_target_grade,
+	               matching_private,
+	               matching_passwd,
+	               matching_register_date,
+	               personal_id
+	        	FROM tb_matching_board
+	        	WHERE rownum <= #{pageNum} * #{amount}
+	    	) 
+	    WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+	    ]]>
+	</select>
 	
 	
 	<!-- 매칭게시판 게시글 상세 보기 -->
-	<select id="mBoardListDetail" parameterType="matchingBoard" resultMap="matchingBoardMap">
+	<select id="mBoardDetail" parameterType="matchingBoard" resultMap="matchingBoardMap">
 		SELECT  matching_no
 		,		matching_gu_address
 		,		matching_dong_address
@@ -170,7 +183,7 @@
 	    ,		matching_keyword2
 	    ,		matching_keyword3
 	    , 		personal_id
-	    , 		to_char (matching_register_date, 'YYYY-MM-DD')   as matching_register_date
+	    , 		to_char (matching_register_date, 'YYYY-MM-DD HH:MI')   as matching_register_date
 	    , 		( SELECT COUNT(matching_comment_no) 
 	    		  FROM tb_matching_comment 
 	    		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
@@ -179,6 +192,14 @@
 	    WHERE  matching_no = #{matchingNo}
 	</select>
 	
+	
+	<!-- 매칭게시판 게시글 수정 -->
+	<update id="mBoardUpdate" parameterType="matchingBoard">
+		UPDATE	tb_matching_board
+		SET 	matching_comment = #{matchingComment},
+				matching_edit_date = sysdate
+		WHERE 	matching_no = #{matchingNo}
+	</update>
 	
 	
 	

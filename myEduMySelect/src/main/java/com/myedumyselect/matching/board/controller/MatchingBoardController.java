@@ -51,8 +51,17 @@ public class MatchingBoardController {
 	
 	//매칭게시판 전체보기 구현
 	@GetMapping("/boardList")
-	public String mBoardList(MatchingBoardVO mbVO, Model model) {
+	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
 		log.info("mBoardList() 호출 성공");
+		
+		PersonalLoginVO personalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
+		
+		//세션이 있을 때만 아이디를 모델에 추가
+		if(personalLogin != null) {
+			String userId = personalLogin.getPersonalId();
+			model.addAttribute("userId", userId);
+		} 
+		
 		
 		//전체 레코드 조회
 		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
@@ -103,12 +112,52 @@ public class MatchingBoardController {
 	
 	//매칭게시글 상세보기
 	@GetMapping("/boardDetail")
-	public String mBoardDetail(MatchingBoardVO mbVO, Model model) {
-		MatchingBoardVO detail = mbService.mBoardListDetail(mbVO);
+	public String mBoardDetail(MatchingBoardVO mbVO, Model model, HttpSession session) {
+		
+		PersonalLoginVO personalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
+		
+		if(personalLogin != null) {
+			String userId = personalLogin.getPersonalId();
+			model.addAttribute("userId", userId);
+			model.addAttribute("confirmMsg", "로그인 후 열람할 수 있습니다. 로그인 페이지로 이동하시겠습니까?");
+		}
+		
+		MatchingBoardVO detail = mbService.mBoardDetail(mbVO);
 		model.addAttribute("detail", detail);
+		//model.addAttribute("userId", userId);
 
 		return "matching/matchingDetail";
 	}
 	
+	
+	
+	//매칭게시글 수정 폼 이동
+	@GetMapping("/boardUpdate")
+	public String mBoardUpdateForm(MatchingBoardVO mbVO, Model model) {
+		MatchingBoardVO updateData = mbService.mBoardUpdateForm(mbVO);
+		model.addAttribute("updateData", updateData);
+		
+		return "matching/matchingUpdate";
+	}
+	
+	//매칭게시글 수정
+	@PostMapping("/boardUpdate")
+	public String mBoardUpdate(MatchingBoardVO mbVO) {
+		
+		log.info("boardUpdate 호출 성공");
+		
+		int result = 0;
+		String url = "";
+		
+		result = mbService.mBoardUpdate(mbVO);
+		
+		if(result == 1) {
+			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
+		} else {
+			url = "/matching/boardUpdate?matchingNo=" + mbVO.getMatchingNo();
+		}
+		
+		return "redirect:" + url;
+	}
 	
 }
