@@ -41,7 +41,7 @@
 </head>
 
 <body>
-	
+
 	<!-- ======= Header ======= -->
 	<header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -229,16 +229,16 @@
 			</a></li>
 			<!-- End Dashboard Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/notice"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardView"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/free"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matching"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertise"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
 			<hr>
@@ -268,9 +268,6 @@
 
 	</aside>
 	<!-- End Sidebar-->
-
-	</div>
-		</section>
 
 	<main id="main" class="main">
 
@@ -304,9 +301,9 @@
 								</thead>
 								<tbody>
 									<c:choose>
-										<c:when test="${not empty noticeBoardList}">
-											<c:forEach var="notice" items="${noticeBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
+										<c:when test="${not empty boardList}">
+											<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
+												<c:if test="${statusNumber.index < 20}">
 													<tr data-num="${statusNumber.index + 1}">
 														<th scope="row">${notice.commonNo}</th>
 														<th>${notice.commonTitle}</th>
@@ -328,384 +325,10 @@
 							<!-- End Default Table Example -->
 						</div>
 					</div>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">matching board</h5>
-							<table class="table table-primary">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">Student</th>
-										<th scope="col">RegisterDate</th>
-										<th scope="col">Comment</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty matchingBoardList}">
-											<c:forEach var="match" items="${matchingBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${match.matchingNo}</th>
-														<th>${match.personalId}</th>
-														<td>${match.matchingRegisterDate}</td>
-														<td>${match.commentCnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="4">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Default Table Example -->
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">notice board</h5>
-							<table class="table table-danger">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">제목</th>
-										<th scope="col">관리자ID</th>
-										<th scope="col">등록일</th>
-										<th scope="col">조회수</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty noticeBoardList}">
-											<c:forEach var="notice" items="${noticeBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${notice.commonNo}</th>
-														<th>${notice.commonTitle}</th>
-														<td>${notice.adminId}</td>
-														<td>${notice.commonRegisterDate}</td>
-														<td>${notice.commonReadcnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="5">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Default Table Example -->
-						</div>
-					</div>
-
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Table Variants</h5>
-							<p>
-								Use contextual classes
-								<code>.table-primary .table-secondary .table-success .table-danger .table-warning .table-info .table-light .table-dark</code>
-								to color tables, table rows or individual cells.
-							</p>
-							<!-- Table Variants -->
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">Class</th>
-										<th scope="col">Heading</th>
-										<th scope="col">Heading</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">Default</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-
-									<tr class="table-primary">
-										<th scope="row">Primary</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-secondary">
-										<th scope="row">Secondary</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-success">
-										<th scope="row">Success</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-danger">
-										<th scope="row">Danger</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-warning">
-										<th scope="row">Warning</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-info">
-										<th scope="row">Info</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-light">
-										<th scope="row">Light</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-									<tr class="table-dark">
-										<th scope="row">Dark</th>
-										<td>Cell</td>
-										<td>Cell</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End Table Variants -->
-						</div>
-					</div>
-				</div>
+				
 				<div class="col-lg-6">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Table with stripped rows</h5>
-							<!-- Table with stripped rows -->
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Brandon Jacob</td>
-										<td>Designer</td>
-										<td>28</td>
-										<td>2016-05-25</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Bridie Kessler</td>
-										<td>Developer</td>
-										<td>35</td>
-										<td>2014-12-05</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Ashleigh Langosh</td>
-										<td>Finance</td>
-										<td>45</td>
-										<td>2011-08-12</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Angus Grady</td>
-										<td>HR</td>
-										<td>34</td>
-										<td>2012-06-11</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Raheem Lehner</td>
-										<td>Dynamic Division Officer</td>
-										<td>47</td>
-										<td>2011-04-19</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End Table with stripped rows -->
-						</div>
-					</div>
-
-
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Table with hoverable rows</h5>
-
-							<!-- Table with hoverable rows -->
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Brandon Jacob</td>
-										<td>Designer</td>
-										<td>28</td>
-										<td>2016-05-25</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Bridie Kessler</td>
-										<td>Developer</td>
-										<td>35</td>
-										<td>2014-12-05</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Ashleigh Langosh</td>
-										<td>Finance</td>
-										<td>45</td>
-										<td>2011-08-12</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Angus Grady</td>
-										<td>HR</td>
-										<td>34</td>
-										<td>2012-06-11</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Raheem Lehner</td>
-										<td>Dynamic Division Officer</td>
-										<td>47</td>
-										<td>2011-04-19</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End Table with hoverable rows -->
-						</div>
-					</div>
-
-
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Bordered Table</h5>
-							<p>
-								Add
-								<code>.table-bordered</code>
-								for borders on all sides of the table and cells.
-							</p>
-							<!-- Bordered Table -->
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Brandon Jacob</td>
-										<td>Designer</td>
-										<td>28</td>
-										<td>2016-05-25</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Bridie Kessler</td>
-										<td>Developer</td>
-										<td>35</td>
-										<td>2014-12-05</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Ashleigh Langosh</td>
-										<td>Finance</td>
-										<td>45</td>
-										<td>2011-08-12</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Angus Grady</td>
-										<td>HR</td>
-										<td>34</td>
-										<td>2012-06-11</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Raheem Lehner</td>
-										<td>Dynamic Division Officer</td>
-										<td>47</td>
-										<td>2011-04-19</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End Bordered Table -->
-
-							<p>
-								<a href="https://getbootstrap.com/docs/5.0/utilities/borders/#border-color" target="_blank">Border color utilities</a> can be added to change colors:
-							</p>
-
-							<!-- Primary Color Bordered Table -->
-							<table class="table table-bordered border-primary">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Brandon Jacob</td>
-										<td>Designer</td>
-										<td>28</td>
-										<td>2016-05-25</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Bridie Kessler</td>
-										<td>Developer</td>
-										<td>35</td>
-										<td>2014-12-05</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Ashleigh Langosh</td>
-										<td>Finance</td>
-										<td>45</td>
-										<td>2011-08-12</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Angus Grady</td>
-										<td>HR</td>
-										<td>34</td>
-										<td>2012-06-11</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Raheem Lehner</td>
-										<td>Dynamic Division Officer</td>
-										<td>47</td>
-										<td>2011-04-19</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End Primary Color Bordered Table -->
-						</div>
-					</div>
+					
+				
 
 					<div class="card">
 						<div class="card-body">
@@ -770,7 +393,8 @@
 						</div>
 					</div>
 				</div>
-		
+			</div>
+		</section>
 
 	</main>
 	<!-- End #main -->

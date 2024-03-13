@@ -1,0 +1,12 @@
+package com.myedumyselect.admin.board.matching.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+
+@Mapper
+public interface MatchingBoardAdminDAO {
+	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
+}

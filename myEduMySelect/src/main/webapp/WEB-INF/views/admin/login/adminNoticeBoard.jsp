@@ -229,16 +229,16 @@
 			</a></li>
 			<!-- End Dashboard Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/notice"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardView"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/free"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matching"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertise"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
 			<hr>

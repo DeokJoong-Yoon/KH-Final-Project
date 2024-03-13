@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.service.AdminLoginService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -41,10 +43,10 @@ public class AdminLoginController {
 
 	@Setter(onMethod_ = @Autowired)
 	private NoticeBoardService noticeBoardService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MatchingBoardAdminService MatchingBoardadminService;
 
-	/**
-	 * 로그인 화면[관리자 메인] 메서드. 요청 URL : http://localhost:8080/admin/login 으로 요청
-	 */
 	@GetMapping("/login")
 	public String loginProcess(Model model) {
 
@@ -52,6 +54,14 @@ public class AdminLoginController {
 			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
 			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
 			model.addAttribute("noticeBoardList", noticeBoardList);
+			MatchingBoardVO matchingBoardVO = new MatchingBoardVO();
+			List<MatchingBoardVO> matchingBoardList = MatchingBoardadminService.boardList(matchingBoardVO);
+			model.addAttribute("matchingBoardList", matchingBoardList);
+			log.info(matchingBoardList.toString());
+//			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
+//			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
+//			model.addAttribute("noticeBoardList", noticeBoardList);
+
 		}
 		
 		return "admin/login/adminMain";
