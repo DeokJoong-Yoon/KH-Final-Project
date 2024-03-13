@@ -135,19 +135,16 @@ $(function(){
 		})
 
 	})
-	
-	
 			
 	
-	
 	//공개매칭 버튼 클릭 시
-	$("#mcPublicBtn").on("click", function(){
+	$("#mcPublicBtn").off("click").on("click", function(){
 		$("input[type='password']").prop("disabled", true);
 		$(".mcResult input[type='checkbox']").prop("disabled", true);
 		$("#mcStartArea").css("display", "block");
 		
 		//매칭시작 버튼 클릭 시
-		$("#mcUploadBtn").on("click", function() {
+		$("#mcUploadBtn").off("click").on("click", function() {
 			
 			if( $("#plusComment").val().replace(/\s/g,"") == "") {
 				alert("덧붙이는 말을 입력해 주세요.");
@@ -155,6 +152,19 @@ $(function(){
 				return false;
 			} else {
 				let formData = new FormData();
+				
+				console.log(keywordValue[0]);
+				console.log(keywordValue[1]);
+				console.log(keywordValue[2]);
+				
+				if(keywordValue[1]==undefined) {
+					keywordValue[1]='';
+				} 
+				
+				if(keywordValue[2]==undefined) {
+					keywordValue[2]='';
+				} 
+				
 				formData.append('personalId', personalId);
 				formData.append('matchingGuAddress', guValue);
 				formData.append('matchingDongAddress', dongValue);
@@ -185,18 +195,16 @@ $(function(){
 		});
 	})
 	
+	
 	//비공개매칭 버튼 클릭 시
-	$("#mcPrivateBtn").on("click", function(){
+	$("#mcPrivateBtn").off("click").on("click", function(){
 		$("input[type='password']").prop("disabled", false);
 		$(".mcResult input[type='checkbox']").prop("disabled", false);
 		$("#mcStartArea").css("display", "block");
 		
 		
-		
-		
-		
 		//매칭시작 버튼 클릭 시
-		$("#mcUploadBtn").on("click", function() {
+		$("#mcUploadBtn").off("click").on("click", function() {
 			
 			if($("input[name='privateChecked']:checked").length == 0) {
 				alert("비공개 매칭은 학원 선택 후에만 가능합니다.")
@@ -217,6 +225,15 @@ $(function(){
 				})
 				
 				let formData = new FormData();
+				
+				if(keywordValue[1]==undefined) {
+					keywordValue[1]='';
+				} 
+				
+				if(keywordValue[2]==undefined) {
+					keywordValue[2]='';
+				} 
+				
 				formData.append('personalId', personalId);
 				formData.append('matchingGuAddress', guValue);
 				formData.append('matchingDongAddress', dongValue);
@@ -267,9 +284,11 @@ $(function(){
 	});
 	
 	
-	//게시글 제목 동적 설정 : 상세페이지로 이동하게 추후 설정 필요
-	//$("#mbdLink").attr("href", "https://www.naver.com");
-	
+	//제목 클릭 시 상세 페이지 이동
+	$(".mbdLink").on("click", function(){
+		let boardNumber = $(this).parents("tr").attr("data-num");
+		$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
+	})
 	
 	//매칭게시판 전체보기
 	$("#gotoMcBoard").on("click", function(){

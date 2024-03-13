@@ -3,6 +3,8 @@ package com.myedumyselect.common.vo;
 import lombok.Data;
 
 @Data
+
+//한 페이지 내 몇 개의 게시글이 보여질지 처리
 public class CommonVO {
 	
 	//페이징 처리를 위해 필요한 필드

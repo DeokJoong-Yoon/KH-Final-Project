@@ -2,10 +2,21 @@ package com.myedumyselect.matching.board.vo;
 
 import java.util.List;
 
-import lombok.Data;
+import com.myedumyselect.common.vo.CommonVO;
 
-@Data
-public class MatchingBoardVO {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class MatchingBoardVO extends CommonVO {
 	
 	private int matchingNo = 0;
 	private String personalId = "";

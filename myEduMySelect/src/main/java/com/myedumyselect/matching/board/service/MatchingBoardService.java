@@ -18,5 +18,9 @@ public interface MatchingBoardService {
 	public void sendEmail(MatchingBoardVO mbVO);
 	
 	public List<MatchingBoardVO> mBoardList(MatchingBoardVO mbVO);
+	
+	public MatchingBoardVO mBoardListDetail(MatchingBoardVO mbVO);
+
+	public int mBoardListCnt(MatchingBoardVO mbVO);
 }
 

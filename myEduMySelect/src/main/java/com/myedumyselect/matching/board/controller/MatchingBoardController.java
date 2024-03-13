@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.matching.board.service.MatchingBoardService;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
@@ -53,8 +54,15 @@ public class MatchingBoardController {
 	public String mBoardList(MatchingBoardVO mbVO, Model model) {
 		log.info("mBoardList() 호출 성공");
 		
+		//전체 레코드 조회
 		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
 		model.addAttribute("mBoardList", list);
+		
+		//전체 레코드 수 반환
+		int total = mbService.mBoardListCnt(mbVO);
+		
+		//페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(mbVO, total));
 		
 		return "matching/matchingBoardList";
 	}
@@ -90,6 +98,16 @@ public class MatchingBoardController {
 		mbService.sendEmail(mbVO);
 		
 		return "matching/matchingMain";
+	}
+	
+	
+	//매칭게시글 상세보기
+	@GetMapping("/boardDetail")
+	public String mBoardDetail(MatchingBoardVO mbVO, Model model) {
+		MatchingBoardVO detail = mbService.mBoardListDetail(mbVO);
+		model.addAttribute("detail", detail);
+
+		return "matching/matchingDetail";
 	}
 	
 	

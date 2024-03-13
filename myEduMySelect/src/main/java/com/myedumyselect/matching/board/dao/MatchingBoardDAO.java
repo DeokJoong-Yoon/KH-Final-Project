@@ -27,6 +27,22 @@ public interface MatchingBoardDAO {
 	
 	//매칭게시판 전체 보기
 	public List<MatchingBoardVO> mBoardList(MatchingBoardVO mbVO);
+	
+	//매칭게시판 게시글 상세 보기
+	public MatchingBoardVO mBoardListDetail(MatchingBoardVO mbVO);
+
+	//전체 레코드 수 반환
+	public int mBoardListCnt(MatchingBoardVO mbVO);
+	
+	//매칭게시판 게시글 수정하기
+	
+	//매칭게시판 게시글 삭제하기
+	
+	//매칭게시판 다음글 이동하기
+	
+	//매칭게시판 이전글 이동하기
+	//public 
+	
 
 	
 }

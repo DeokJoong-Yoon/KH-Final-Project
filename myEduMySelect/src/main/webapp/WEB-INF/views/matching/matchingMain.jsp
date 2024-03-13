@@ -41,7 +41,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
 	<script>
 	    window.onload = function() {
@@ -298,12 +297,12 @@
 										<c:choose>
 										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
 										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
-										        <a id="mbdLink" href="">
+										        <a class="mbdLink" href="">
 										        	${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
 										        </a>
 										    </c:when>
 										    <c:otherwise>
-										    	<a id="mbdLink" href="">
+										    	<a class="mbdLink" href="">
 										    		${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
 										    	</a>
 										    </c:otherwise>
@@ -420,6 +419,7 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/matching/js/matchingMain.js"></script>
 

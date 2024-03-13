@@ -107,79 +107,19 @@
 }
 
 
-#editPost, #deletePost {
-	padding: 10px 20px;
-    background-color: #48d1cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top:20px;
-    margin-left:5px;
-}
-
-#prevPost, #nextPost, #gotoList {
-	padding: 10px 20px;
-    background-color: #48d1cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top:20px;
-    margin-left:5px;
-    float: right;
-}
-
-.detailButtons button:hover {
-    background-color: #37517e;
-}
-
-.mcBoardDetail {
-	background-color : #fff;
-	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-	padding : 10px;
-	padding:18px 25px 25px 25px;
-}
-
-.mcBoardDetail table {
-	width: 100%;
-    border-collapse: collapse;
-}
-
-.mcBoardDetail table thead {
-	color: #37517e;
-	font-size: 18px;
+.pagination a {
+	margin-top: 30px;
+	color: #48d1cc;
 	font-weight: 600;
-	border-bottom: 1px solid #ddd;
-	height: 50px;
 }
 
-.mcBoardDetail table th, .mcBoardDetail table td {
-    padding: 6px;
-    border-top: 1px solid #dddddd;
-	border-bottom: 1px solid #dddddd;
-	height: 50px;
+.pagination a:hover {
+	color : #48d1cc;
 }
 
-
-.mcBoardDetail table tr:nth-child(odd) {
-  background-color: #f3f5fa;
-}
-
-.mcBoardDetail table th {
-	color: #37517e;
-	font-size: 16px;
-	font-weight: 600;
-	border-right: 1px solid #dddddd;
-    text-align: center;
-}
-
-.mcBoardDetail table td {
-    text-align: left;
-    padding-left: 20px;
+.active a  {
+	background-color:#48d1cc !important; 
+	color : white;
+	border-color:#48d1cc !important; 
 }
 

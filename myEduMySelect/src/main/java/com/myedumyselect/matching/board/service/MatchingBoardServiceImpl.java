@@ -90,11 +90,31 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	
 	}
 
+	
+	//매칭게시판 글 목록 보기
 	@Override
 	public List<MatchingBoardVO> mBoardList(MatchingBoardVO mbVO) {
 		List<MatchingBoardVO> list = mbDAO.mBoardList(mbVO);
 		return list;
 	}
+
+
+	//매칭게시판 상세 보기
+	@Override
+	public MatchingBoardVO mBoardListDetail(MatchingBoardVO mbVO) {
+		MatchingBoardVO detail = mbDAO.mBoardListDetail(mbVO);
+		return detail;
+	}
+
+
+	//전체 레코드 수 반환
+	@Override
+	public int mBoardListCnt(MatchingBoardVO mbVO) {
+		return mbDAO.mBoardListCnt(mbVO);
+	}
+	
+	
+	
 
 
 }

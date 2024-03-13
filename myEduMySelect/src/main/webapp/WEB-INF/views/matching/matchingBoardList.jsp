@@ -40,6 +40,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+	
+
 </head>
 
 <body>
@@ -105,6 +107,12 @@
 			<button type="button" id="mcBoardSearchBtn">검색</button>
 		</div><br><br>
 		
+		<form id="f_search" name="f_search">
+			<%-- 페이징 처리를 위한 파라미터 --%>
+			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+ 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+ 		</form>
+
 		<div class="mcBoardList">
 			<table>
 				<thead>
@@ -125,12 +133,12 @@
 										<c:choose>
 										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
 										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
-										        <a id="mbdLink" href="">
+										        <a class="mbdLink" href="">
 										        	${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
 										        </a>
 										    </c:when>
 										    <c:otherwise>
-										    	<a id="mbdLink" href="">
+										    	<a class="mbdLink" href="">
 										    		${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
 										    	</a>
 										    </c:otherwise>
@@ -154,6 +162,32 @@
 			</table>
 		</div>
       </div>
+      
+      <%------------ 페이징 출력 시작 ---------- --%>
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination justify-content-center">
+		    <!-- 이전 바로가기 5개 존재 여부를 prev 필드의 값으로 확인 -->
+		    <c:if test="${pageMaker.prev }">
+			    <li class="page-item">
+			    	<a href="${pageMaker.startPage - 1 }" class="page-link">이전</a>
+			    </li>
+			</c:if>
+			
+			<!-- 바로가기 번호 출력 -->
+			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	       		<li class="page-item  ${pageMaker.cvo.pageNum == num ? 'active':''}">
+		           <a href="${num}" class="page-link">${num}</a>
+ 		        </li>
+	       </c:forEach>
+			
+			<!-- 다음 바로가기 5개 존재 여부를 next 필드의 값으로 확인 -->
+			<c:if test="${pageMaker.next }">
+				<li class="page-item">
+					<a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+				</li>
+			</c:if>
+		  </ul>
+		</nav>
     </section><!-- 매칭게시판 목록 끝 -->
 
   
@@ -242,6 +276,7 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/matching/js/matchingBoard.js"></script>
 
