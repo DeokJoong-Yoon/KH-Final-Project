@@ -101,6 +101,12 @@
      
       <div class="container">
       
+      	<form name="formData" id="formData">
+      		<input type="hidden" name="matchingNo" value="${detail.matchingNo }"/>
+      	</form>
+      
+      	<div class="userId">${userId }</div>
+      	
 		<div class="mcBoardDetail">
 			<table>
 				<tr>
@@ -109,7 +115,7 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${detail.personalId}</td>
+					<td class="writerId">${detail.personalId}</td>
 				</tr>
 				<tr>
 					<th>등록 일시</th>

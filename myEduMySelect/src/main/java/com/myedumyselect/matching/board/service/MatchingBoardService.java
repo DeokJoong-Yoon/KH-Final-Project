@@ -19,8 +19,11 @@ public interface MatchingBoardService {
 	
 	public List<MatchingBoardVO> mBoardList(MatchingBoardVO mbVO);
 	
-	public MatchingBoardVO mBoardListDetail(MatchingBoardVO mbVO);
+	public MatchingBoardVO mBoardDetail(MatchingBoardVO mbVO);
 
 	public int mBoardListCnt(MatchingBoardVO mbVO);
+	
+	public MatchingBoardVO mBoardUpdateForm(MatchingBoardVO mbVO);
+	public int mBoardUpdate(MatchingBoardVO mbVO);
 }
 

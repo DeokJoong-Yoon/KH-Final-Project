@@ -25,16 +25,21 @@ public interface MatchingBoardDAO {
 	//비공개매칭 시 이메일 검색
 	public List<AcademyLoginVo> searchEmail(MatchingBoardVO mbVO);
 	
+	//
+	//비공개매칭 시 이메일로 전송할 게시글 번호 검색 
+	public MatchingBoardVO getMatchingNo(MatchingBoardVO mbVO);
+	
 	//매칭게시판 전체 보기
 	public List<MatchingBoardVO> mBoardList(MatchingBoardVO mbVO);
 	
 	//매칭게시판 게시글 상세 보기
-	public MatchingBoardVO mBoardListDetail(MatchingBoardVO mbVO);
+	public MatchingBoardVO mBoardDetail(MatchingBoardVO mbVO);
 
 	//전체 레코드 수 반환
 	public int mBoardListCnt(MatchingBoardVO mbVO);
 	
 	//매칭게시판 게시글 수정하기
+	public int mBoardUpdate(MatchingBoardVO mbVO);
 	
 	//매칭게시판 게시글 삭제하기
 	
