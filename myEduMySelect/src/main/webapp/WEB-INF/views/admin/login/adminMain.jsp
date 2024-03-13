@@ -37,7 +37,8 @@
 		}
 
     </style>
-    
+	<link rel="shortcut icon" href="/resources/include/admin/image/admin.png" />
+	<link rel="apple-touch-icon" href="/resources/include/admin/image/admin.png" />
 </head>
 <body class="text-center">
 <c:if test="${empty adminLogin}">

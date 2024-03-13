@@ -118,45 +118,9 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<h1>noticeBoardList</h1>
-					<h2>여러분의 교육은 여러분이 선택합니다.</h2>
-					<form id="mainSearchForm">
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<select id="academyGuAddress" name="academyGuAddress" class="form-control form-control-lg">
-	        				<option value="">-- 구 선택 --</option>
-	        				<option value="강남구">강남구</option>
-	        				<option value="강동구">강동구</option>
-	       					<option value="강북구">강북구</option>
-	      					<option value="강서구">강서구</option>
-	      					<option value="관악구">관악구</option>
-	      					<option value="광진구">광진구</option>
-	        				<option value="구로구">구로구</option>
-	        				<option value="금천구">금천구</option>
-	        				<option value="노원구">노원구</option>
-	        				<option value="도봉구">도봉구</option>
-	        				<option value="동대문구">동대문구</option>
-	        				<option value="동작구">동작구</option>
-	        				<option value="마포구">마포구</option>
-	        				<option value="서대문구">서대문구</option>
-	        				<option value="서초구">서초구</option>
-	        				<option value="성동구">성동구</option>
-	        				<option value="성북구">성북구</option>
-	        				<option value="송파구">송파구</option>
-	        				<option value="양천구">양천구</option>
-	        				<option value="영등포구">영등포구</option>
-	        				<option value="용산구">용산구</option>
-	        				<option value="은평구">은평구</option>
-	        				<option value="종로구">종로구</option>
-	        				<option value="중구">중구</option>
-	        				<option value="중랑구">중랑구</option>
-	        			</select>
-						<select id="academyDongAddress" name="academyDongAddress" class="form-control form-control-lg">
-							<option value="">-- 동 선택 --</option>
-	        			</select>
-	        			<input id="academyCurriculumName" name="academyCurriculumName" type="text" class="form-control form-control-lg" placeholder="과목을 입력하세요." maxlength=20/>
-	        			</form>
+					<h1>Notice</h1>
+					<h2>교육은 여러분의 선택이지만, 공지는 필수입니다.</h2>
 					</div>
-					<button type="button" id="mainSearchBtn" name="mainSearchBtn" class="btn-get-started scrollto">검색</button>
 				</div>
 				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
 					data-aos-delay="200">
@@ -183,9 +147,9 @@
 				<thead>
 					<tr>
 						<th scope="col"><h3>No</h3></th>
+						<th scope="col"><h3>제목</h3></th>
 						<th scope="col"><h3>관리자ID</h3></th>
 						<th scope="col"><h3>작성자</h3></th>
-						<th scope="col"><h3>제목</h3></th>
 						<th scope="col"><h3>등록일</h3></th>
 						<th scope="col"><h3>조회수</h3></th>
 					</tr>
@@ -196,9 +160,9 @@
 							<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
 								<tr data-num="${statusNumber.index + 1}">
 									<th scope="row">${statusNumber.index + 1}</th>
+									<td>${notice.commonTitle}</td>
 									<td>${notice.adminId}</td>
 									<td>${notice.commonNickname}</td>
-									<td>${notice.commonTitle}</td>
 									<td>${notice.commonRegisterDate}</td>
 									<td>${notice.commonReadcnt}</td>
 								</tr>
