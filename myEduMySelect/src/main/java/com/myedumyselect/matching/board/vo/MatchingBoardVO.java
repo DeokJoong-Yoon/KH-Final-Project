@@ -37,4 +37,6 @@ public class MatchingBoardVO extends CommonVO {
 	private String matchingComment = "";
 	
 	private List<String> privateChecked;
+	
+	private int rowNumber;
 }

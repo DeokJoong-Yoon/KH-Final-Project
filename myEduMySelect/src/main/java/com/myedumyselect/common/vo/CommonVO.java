@@ -1,10 +1,13 @@
 package com.myedumyselect.common.vo;
 
-import lombok.Data;
-
-@Data
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 //한 페이지 내 몇 개의 게시글이 보여질지 처리
+@ToString
+@Setter
+@Getter
 public class CommonVO {
 	
 	//페이징 처리를 위해 필요한 필드
@@ -23,5 +26,9 @@ public class CommonVO {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
+	
+	//자유게시판 검색 기능을 위한 필드
+	private String search = "";
+	private String keyword = "";
 
 }
