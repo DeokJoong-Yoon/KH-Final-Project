@@ -1,14 +1,14 @@
 package com.myedumyselect.academy.service;
 
 
+import java.util.Optional;
+
+import com.myedumyselect.academy.AcademySignUpDto;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
 
 public interface AcademyLoginService {
-
-	public AcademyLoginVo loginProcess(AcademyLoginVo login);
-	public int academyInsert(AcademyLoginVo login);
-	
-	
-	
+	Optional<AcademyLoginVo> loginProcess(String academyId, String academyPasswd);
+	void academyInsert(AcademySignUpDto academySignUpDto);
+	Optional<AcademyLoginVo> findById(String academyId);
 }
 

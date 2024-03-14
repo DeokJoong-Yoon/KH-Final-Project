@@ -83,7 +83,7 @@
 							<li><a href="#">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
+					<li><a class="getstarted scrollto" href="/useraccount/join/academy">로그인/회원가입</a></li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>

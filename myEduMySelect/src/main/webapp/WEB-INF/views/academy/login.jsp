@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>								
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="kr">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>MyEduMySelect </title>
   <meta content="" name="description">
@@ -38,8 +42,11 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
-  
+  <!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academy.css"> -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh3E263XmFcJlSAwiqF/X57qzdN1yW+i" crossorigin="anonymous"> -->
+    <style>
+        .error { display: block; padding: 10px 0px; font-size: 18px; color: #dc3545; }
+    </style>
 </head>
 
 <body>
@@ -48,7 +55,7 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">MyEdu<br />MySelect</a></h1>
+      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -63,7 +70,7 @@
               <li><a href="#">홍보게시판</a></li>
               <li><a href="#">매칭게시판</a></li>
               <li><a href="#">문의게시판</a></li>
-              <li><a href="#">마이페이지</a></li>
+              <li><a href="/mypage">마이페이지</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
@@ -83,7 +90,7 @@
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <h1>학원회원 가입</h1>
           <h2>회원은 개인회원과 학원회원으로 나뉘어 집니다.</h2>
-          
+
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
           <img src="/resources/include/assets/img/hero-img.png" class="img-fluid animated" alt="">
@@ -95,157 +102,54 @@
   <main id="main">
 
     <!-- ======= academySignUp Form ======= -->
-    <form name="join" id="join">
-        <div class="input_group">
-            <label>아이디</label>
-            <input type="text" name="academy_id" id="academy_id" placeholder="아이디 입력"/><br />
-            <button id="check-duplicate">중복체크</button>
-            <label class="require">(아이디는 6~12자의 영문, 숫자만 사용 가능) </label>             
-        </div>
-        <br />
-        <div id="duplicate-message"></div>
-    
-        <div class="input_group">
-            <label>비밀번호</label>
-            <input type="password" name="academy_passwd" id="academy_passwd" placeholder="비밀번호 입력"/><br />
-            <label class="require">(최소 하나의 대문자/소문자/숫자/특수문자 포함  8~20자 이내로 입력) </label>
-        </div>
-        <br />
-        <div class="input_group">
-            <label>비밀번호 확인</label>
-            <input type="password" name="academy_passwd2" id="academy_passwd2"/>
-        </div>
-        <br />
-        <div class="input_group">
-            <label>사업자 등록번호</label>
-            <input type="text" name="academy_number" id="academy_number"/>
-        </div>
-        <br />
-        <div class="input_group">
-            <label>담당자 이름</label>
-            <input type="text" name="academy_manager_name" id="academy_manager_name"/>
-        </div>
-        <br />        
-        <div class="input_group">
-            <label>담당자 이메일</label>
-            <input type="text" name="academy_manager_email" id="academy_manager_email"/> 
-            <strong>@</strong>
-            <input class="box" id="domain-txt" type="text"/>
-            <select class="box" id="domain-list">
-              <option value="naver.com">naver.com</option>
-              <option value="google.com">google.com</option>
-              <option value="hanmail.net">hanmail.net</option>
-              <option value="nate.com">nate.com</option>
-              <option value="kakao.com">kakao.com</option>
-              <option value="custom">직접입력</option>
-            </select>
-        </div>
-        <br />
-        <div class="input_group">
-            <label>담당자 전화번호</label>
-            <input type="text" name="academy_manager_phone"  id="academy_manager_phone" maxlength="11" placeholder="(-)하이폰 기호 없이 입력해주세요." required>            
-        </div>
-        <br />
-        <div class="input_group">
-            <label>학원명</label>
-            <input type="text" name="academy_name" id="academy_name"/>
-        </div>
-        <br />
-        <div class="input_group">
-            <label>학원주소</label>
-            <input type="text" name="academy_address" id="academy_address"/>
-        </div>
-        <br />
-        <div class="input_group">
-            <label>학원 전화번호</label>
-            <input type="text" name="academy_phone"  id="academy_phone" maxlength="11" placeholder="(-)하이폰 기호 없이 입력해주세요." required>            
-        </div>
-        <br />
-        <div class="input_group">
-            <label>교습과목</label>
-            <input type="text" name="academy_target_subject"  id="academy_target_subject" maxlength="20" placeholder="교습과목을 입력해주세요" required>            
-        </div>
-        <br />
-        <div class="input_group">
-		    <label>수강료</label>
-		    <br>
-		    <input type="radio" id="fee1" name="academy_fee" value="10만원 미만">
-		    <label for="fee1">10만원 미만</label><br>
-		    
-		    <input type="radio" id="fee2" name="academy_fee" value="10만원 이상 20만원 미만">
-		    <label for="fee2">10만원 이상 20만원 미만</label><br>
-		    
-		    <input type="radio" id="fee3" name="academy_fee" value="20만원 이상 30만원 미만">
-		    <label for="fee3">20만원 이상 30만원 미만</label><br>
-		    
-		    <input type="radio" id="fee4" name="academy_fee" value="30만원 이상 40만원 미만">
-		    <label for="fee4">30만원 이상 40만원 미만</label><br>
-		    
-		    <input type="radio" id="fee5" name="academy_fee" value="40만원 이상 50만원 미만">
-		    <label for="fee5">40만원 이상 50만원 미만</label><br>
-		    
-		    <input type="radio" id="fee6" name="academy_fee" value="50만원 이상">
-		    <label for="fee6">50만원 이상</label><br>
-		</div>        
-        <br />
-        <div class="input_group">
-		    <label>대상 학년</label>
-		    <br>
-		    <input type="radio" id="grade1" name="academy_target_grade" value="미취학">
-            <label for="grade1">미취학</label><br>
-            
-            <input type="radio" id="grade2" name="academy_target_grade" value="초등저학년">
-            <label for="grade2">초등저학년</label><br>
-            
-            <input type="radio" id="grade3" name="academy_target_grade" value="초등고학년">
-            <label for="grade3">초등고학년</label><br>
-            
-            <input type="radio" id="grade4" name="academy_target_grade" value="중등">
-            <label for="grade4">중등</label><br>
-            
-            <input type="radio" id="grade5" name="academy_target_grade" value="고등">
-            <label for="grade5">고등</label><br>
-            
-            <input type="radio" id="grade6" name="academy_target_grade" value="성인">
-            <label for="grade6">성인</label><br>
-		</div>        
-        <br />
-        <div class="input_group">
-            <label>키워드 선택</label>
-            <br>
-            <input type="checkbox" id="basic" name=academy_keyword value="기초부터">
-            <label for="basic">기초부터</label><br>
-            
-            <input type="checkbox" id="intermediate" name="academy_keyword" value="중급반">
-            <label for="intermediate">중급반</label><br>
-            
-            <input type="checkbox" id="advanced" name="academy_keyword" value="심화과정">
-            <label for="advanced">심화과정</label><br>
-            
-            <input type="checkbox" id="attribute" name="academy_keyword" value="속성강의">
-            <label for="attribute">속성강의</label><br>
-            
-            <input type="checkbox" id="thorough" name="academy_keyword" value="꼼꼼한 관리">
-            <label for="thorough">꼼꼼한 관리</label><br>
-        </div>
-        <br>
-        <p>최소 1개 이상 선택, 중복 선택 가능</p>
-		<br />            
-        <div class="input_group">
-            <span>
-                <input type="submit" value="회원가입" class="myButton"/>
-                <input type="reset" value="다시작성" class="myButton"/>
-            </span>
-        </div>
-        <br />
-        
-    </form>
-    <form action="/completeSignUp">
-        <button type="submit">회원가입 완료 페이지로 이동</button>
-    </form>
+
+    <h1 style="text-align:center">로그인</h1>
+    <form:form action="/userAccount/login" modelAttribute="userAccountLoginDto" method="POST">
+    	<h1>로그인 페이지</h1>
+    	<!-- 글로벌 에러 출력 -->
+	    <spring:hasBindErrors name="userAccountLoginDto">
+           	<c:forEach var="error" items="${errors.globalErrors}">
+                <p class="error">${error.defaultMessage}</p>
+           	</c:forEach>
+	    </spring:hasBindErrors>
+			<div class="row">
+				<div class="col-md-4">
+					<form:radiobutton path="userAccountType" value="1" id="userAccountType1" />
+					<label for="userAccountType1" style="font-weight: 300;">개인</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="userAccountType" value="2" id="userAccountType2" />
+					<label for="userAccountType2" style="font-weight: 300;">학원</label>
+				</div>
+			</div>
+
+			<form:input path="academyId" type="text" name="academyId" id="academyId"
+				placeholder="아이디를 입력해주세요"/> <label for="academyId">아이디</label>
+			<form:errors path="academyId" cssClass="error" />
+		</div>
+		<div>
+			<form:input path="academyPasswd" type="password" name="academyPasswd" id="academyPasswd"
+				placeholder="비밀번호를 입력해주세요"/> <label for="academyPasswd">비밀번호</label>
+			<form:errors path="academyPasswd" cssClass="error" />
+		</div>
+		<button type="submit" id="loginBtn">로그인</button>
+   	</form:form>
+   	
+   	<!-- <c:if test="${not empty academyLogin}">
+			<h3>${academyLogin.academyName}님 환영합니다.</h3>
+			<button type="button" id="logoutBtn">로그아웃</button>
+	</c:if> -->
+   	
+   	<form method="GET" action="/userAccount/join" id="joinForm">
+		<button class="join-button" type="submit">회원가입하러가기</button>
+	</form>
+
+	<form method="GET" action="/" id="homeForm">
+		<button class="home-button" type="submit">홈으로 가기</button>
+	</form>
 
     <!-- ======= Contact Section ======= -->
-  
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -257,9 +161,9 @@
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>MyEduMySelect</h3>
             <p>
-              	서울특별시 강남구 테헤란로14길 6 <br> 남도빌딩 2F, 3F, 4F, 5F, 6F <br> 대한민국 <br>
-				<br> <strong>Phone:</strong> +1 5589 55488 55<br> <strong>Email:</strong>
-				info@example.com<br>
+                 서울특별시 강남구 테헤란로14길 6 <br> 남도빌딩 2F, 3F, 4F, 5F, 6F <br> 대한민국 <br>
+            <br> <strong>Phone:</strong> +1 5589 55488 55<br> <strong>Email:</strong>
+            info@example.com<br>
             </p>
           </div>
 
@@ -328,9 +232,10 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <!-- <script src="/resources/include/assets/js/main.js"></script> -->
-  <script src="/resources/include/assets/js/academy.js"></script>
-  		
+  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  <script src="/resources/include/assets/js/main.js"></script>
+  <script src="/resources/include/academy/academyLogin.js"></script>
+
 </body>
 
 </html>
