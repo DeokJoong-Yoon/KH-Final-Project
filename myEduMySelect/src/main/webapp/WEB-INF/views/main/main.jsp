@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -80,10 +83,25 @@
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
 							<li><a href="/">공지게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
+							<li><a href="/mypage">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="/useraccount/join/academy">로그인/회원가입</a></li>
+					<li>
+					<a class="getstarted scrollto"> 
+	                  	<c:choose>
+							<c:when test="${not empty personalLoginVO || not empty academyLoginVo}">
+								<form action="userAccount/logout" method="POST">
+									<button type="submit">로그아웃</button>
+								</form>
+							</c:when>
+							<c:otherwise>
+								<form action="userAccount/login" method="POST">
+									<button type="submit">로그인/회원가입</button>
+								</form>
+							</c:otherwise>
+						</c:choose>
+					</a>
+               		</li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
