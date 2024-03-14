@@ -81,7 +81,7 @@
 		SELECT  *
 		FROM    tb_academy 
 		WHERE   academy_gu_address = #{matchingGuAddress} 
-			AND academy_dong_address = #{matchingDongAddress}
+			AND academy_dong_address LIKE '%' || #{matchingDongAddress} || '%'
 			AND academy_target_grade = #{matchingTargetGrade}
 			AND academy_target_subject = #{matchingTargetSubject}
 			AND ( academy_fee = #{matchingFee} OR #{matchingFee} = '무관' )
@@ -136,10 +136,16 @@
 	<!-- 전체 레코드 수 조회 -->
 	<select id="mBoardListCnt" parameterType="matchingBoard" resultType="int" >
 		SELECT count(*) FROM tb_matching_board
+		WHERE ( 
+			( matching_gu_address LIKE '%' || #{keyword} || '%' )
+			OR ( matching_dong_address LIKE '%' || #{keyword} || '%' )
+			OR ( matching_target_subject LIKE '%' || #{keyword} || '%' )
+			OR ( matching_target_grade LIKE '%' || #{keyword} || '%' )
+	    	)
 	</select>
 	
 	
-	<!-- 매칭게시판 글 목록 전체 보기 -->
+	<!-- 매칭게시판 글 목록 전체 보기 + 검색 포함 -->
 	<select id="mBoardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
 		<![CDATA[
 	    SELECT  matching_no,
@@ -165,6 +171,12 @@
 	               personal_id
 	        	FROM tb_matching_board
 	        	WHERE rownum <= #{pageNum} * #{amount}
+	        	AND ( 
+				( matching_gu_address LIKE '%' || #{keyword} || '%' )
+				OR ( matching_dong_address LIKE '%' || #{keyword} || '%' )
+				OR ( matching_target_subject LIKE '%' || #{keyword} || '%' )
+				OR ( matching_target_grade LIKE '%' || #{keyword} || '%' )
+			    )
 	    	) 
 	    WHERE rnum > (#{pageNum} - 1 ) * #{amount}
 	    ]]>

@@ -129,7 +129,7 @@
 	          <h2>맞춤 조건 선택</h2>
 	        </div>
 	        
-	        <p>${personalLogin.personalId }</p>
+	        <p class="userId">${personalLogin.personalId }</p>
 	
 	        <div class="mcSelect">
 	        	<form id="mcSelectForm">
@@ -294,6 +294,10 @@
 								<tr data-num="${matchingBoard.matchingNo }">
 									<td>${matchingBoard.matchingNo }</td>
 									<td>
+										<form name="privateChk" id="privateChk">
+											<input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }"/>
+											<input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }"/>
+										</form>
 										<c:choose>
 										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
 										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;

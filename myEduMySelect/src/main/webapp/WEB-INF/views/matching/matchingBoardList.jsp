@@ -117,17 +117,19 @@
       <div class="container">
 
 		<div class="mcBoardListSearch">
-			<input type="text" placeholder="검색어 입력">
-			<button type="button" id="mcBoardSearchBtn">검색</button>
+			<form id="f_search" name="f_search">
+				<%-- 페이징 처리를 위한 파라미터 --%>
+				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+	 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+	 			
+	 			<button type="button" id="mcBoardAll">전체 보기</button>
+
+				<button type="button" id="mcBoardSearchBtn">검색</button>	 			
+				<input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
+			</form>
 		</div><br><br>
 		
-		<form id="f_search" name="f_search">
-			<%-- 페이징 처리를 위한 파라미터 --%>
-			<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
- 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
- 		</form>
- 		
- 		
+		
 		<div class="userId">${userId }</div>
 		
 		<div class="mcBoardList">
@@ -287,6 +289,8 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+	
+
   <!-- Vendor JS Files -->
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -300,6 +304,25 @@
   <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/matching/js/matchingBoard.js"></script>
+  
+  
+  <script>
+  
+/*   	$(function() {
+  		let word = "<c:out value='${matchingBoard.keyword}' />";
+  		let value ="";
+  		
+  		if(word != "") {
+			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
+			value = "#mcBoardList tr td.mbdLink";
+			console.log($(value + ":contains('" + word + "')").html());
+			$(value + ":contains('" + word + "')").each(function(){
+				let regex = new RegExp(word, 'gi');
+				$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+			})
+  		}
+  	}) */
+  </script>
 
 </body>
 

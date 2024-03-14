@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.matching.comment.dao.MatchingCommentDAO">
+	
+	<resultMap type="matchingComment" id="matchingCommentMap">
+		<id column="matching_comment_no" property="matchingCommentNo" />
+		<result column="academy_id" property="academyId" />
+		<result column="matching_no" property="matchingNo" />
+		<result column="matching_comment_nickname" property="matchingCommentNickname" />
+		<result column="matching_comment_content" property="matchingCommentContent" />
+		<result column="mathcing_comment_date" property="matchingCommentDate" />
+	</resultMap>
+	
+	
+	
+	<!-- 댓글 조회 -->
+	<select id="mCommentList" parameterType="matchingComment" resultMap="matchingCommentMap">
+		SELECT  *  
+		FROM    tb_matching_comment
+		WHERE   matching_no = #{matchingNo}
+		ORDER BY  matching_comment_no DESC
+	</select>
+	
+</mapper>

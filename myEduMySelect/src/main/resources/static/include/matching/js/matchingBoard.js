@@ -27,17 +27,50 @@ $(function(){
 		
 	})
 	
+	
+	
+	
+	//입력 양식 enter 제거
+	$("#keyword").bind("keydown", function(event) {
+		if(event.keyCode == 13) {
+			event.preventDefault();
+		}
+	});
+	
+	//검색 버튼 클릭
+	$("#mcBoardSearchBtn").on("click", function() {
+		$("#pageNum").val(1);
+		goPage();
+	});
+	
 	//페이징 처리 이벤트
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
-		$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
-		$("#f_search").attr({
-			"method":"get",
-			"action":"/matching/boardList"
-		});
-		$("#f_search").submit();
+		
+		let pageNum = $(this).attr("href");
+		
+		$("#f_search").find("input[name='pageNum']").val(pageNum);
+		
+		goPage();
 	});
 	
+	
+	//전체보기 버튼
+	$("#mcBoardAll").on("click", function(){
+		$("#pageNum").val(1);
+		$("#keyword").val("");
+		goPage();
+	})
 })
+
+
+//검색 함수
+function goPage() {
+	$("#f_search").attr({
+		"method":"get",
+		"action":"/matching/boardList"
+	});
+	$("#f_search").submit();
+}
 
 

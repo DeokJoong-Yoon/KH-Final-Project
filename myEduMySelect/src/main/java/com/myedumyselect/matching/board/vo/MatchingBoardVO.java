@@ -4,18 +4,11 @@ import java.util.List;
 
 import com.myedumyselect.common.vo.CommonVO;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class MatchingBoardVO extends CommonVO {
 	
 	private int matchingNo = 0;

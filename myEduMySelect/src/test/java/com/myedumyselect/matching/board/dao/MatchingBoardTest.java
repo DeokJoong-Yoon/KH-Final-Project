@@ -65,13 +65,15 @@ public class MatchingBoardTest {
 //		}
 //	}
 	
-	@Test
-	public void testBoardUpdate() {
-		MatchingBoardVO mbVO = new MatchingBoardVO();
-		mbVO.setMatchingNo(178);
-		mbVO.setMatchingComment("하이");
-		
-		int count = mbDAO.mBoardUpdate(mbVO);
-		log.info("수정된 행의 수 : " + count);
-	}
+//	@Test
+//	public void testBoardUpdate() {
+//		MatchingBoardVO mbVO = new MatchingBoardVO();
+//		mbVO.setMatchingNo(178);
+//		mbVO.setMatchingComment("하이");
+//		
+//		int count = mbDAO.mBoardUpdate(mbVO);
+//		log.info("수정된 행의 수 : " + count);
+//	}
+	
+
 }

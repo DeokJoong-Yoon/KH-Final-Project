@@ -73,9 +73,14 @@ public class MatchingBoardController {
 		
 		//페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(mbVO, total));
+		model.addAttribute("kwd", mbVO.getKeyword());
+		
+		log.info(mbVO.getKeyword());
 		
 		return "matching/matchingBoardList";
 	}
+	
+	
 	
 	
 	//맞춤형 검색 결과 구현

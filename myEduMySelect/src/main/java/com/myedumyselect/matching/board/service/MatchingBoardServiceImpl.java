@@ -111,6 +111,8 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		List<MatchingBoardVO> list = mbDAO.mBoardList(mbVO);
 		return list;
 	}
+	
+	
 
 
 	//매칭게시판 상세 보기
