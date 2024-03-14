@@ -173,12 +173,8 @@
 
 					</ul> <!-- End Messages Dropdown Items --></li>
 				<!-- End Messages Nav -->
-				<li class="nav-item dropdown pe-3">
-				
-					<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-						<img src="/resources/include/admin/image/admin.png" alt="Profile" class="rounded-circle">
-						<span class="d-none d-md-block dropdown-toggle ps-2">${adminLogin.adminName}</span>
-					</a> <!-- End Profile Iamge Icon -->
+				<li class="nav-item dropdown pe-3"><a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> <img src="/resources/include/admin/image/admin.png" alt="Profile" class="rounded-circle"> <span class="d-none d-md-block dropdown-toggle ps-2">${adminLogin.adminName}</span>
+				</a> <!-- End Profile Iamge Icon -->
 
 					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
 						<li class="dropdown-header">
@@ -270,132 +266,121 @@
 	<!-- End Sidebar-->
 
 	<main id="main" class="main">
+		<form id="detailForm">
+			<input type="hidden" id="commonNo" name="commonNo" />
+		</form>
+		<form id="noticeForm" name="noticeForm">
+			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
+			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
-		<div class="pagetitle">
-			<h1>Dashboard</h1>
-			<nav>
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-					<li class="breadcrumb-item active">Dashboard</li>
-				</ol>
-			</nav>
-		</div>
-		<!-- End Page Title -->
+			<%-- 			<input type="text" name="keyword" id="keyword" />
+			<c:if test="${not empty matchingBoard.keyword}">
+				<input type="text" name="keyword" id="keyword" />
+			</c:if>
+			
+			<c:otherwise>
+				<input type="hidden" name="keyword" id="keyword" value="${matchingBoard.keyword}"/>
+			</c:otherwise> --%>
 
-		<section class="section">
-			<div class="row">
-				<div class="col-lg-6">
+			<div class="pagetitle">
+				<h1>Notice board</h1>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
+						<li class="breadcrumb-item active">notice board</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- End Page Title -->
 
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">notice board</h5>
-							<table class="table table-danger">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">Title</th>
-										<th scope="col">AdminName</th>
-										<th scope="col">RegisterDate</th>
-										<th scope="col">ReadCount</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty boardList}">
-											<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 20}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${notice.commonNo}</th>
-														<th>${notice.commonTitle}</th>
-														<td>${notice.commonNickname}</td>
-														<td>${notice.commonRegisterDate}</td>
-														<td>${notice.commonReadcnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="5">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Default Table Example -->
-						</div>
-					</div>
-				
-				<div class="col-lg-6">
-					
-				
+			<section class="section">
 
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Small tables</h5>
-							<p>
-								Add
-								<code>.table-sm</code>
-								to make any
-								<code>.table</code>
-								more compact by cutting all cell padding in half.
-							</p>
-							<!-- Small tables -->
-							<table class="table table-sm">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Brandon Jacob</td>
-										<td>Designer</td>
-										<td>28</td>
-										<td>2016-05-25</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Bridie Kessler</td>
-										<td>Developer</td>
-										<td>35</td>
-										<td>2014-12-05</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Ashleigh Langosh</td>
-										<td>Finance</td>
-										<td>45</td>
-										<td>2011-08-12</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Angus Grady</td>
-										<td>HR</td>
-										<td>34</td>
-										<td>2012-06-11</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Raheem Lehner</td>
-										<td>Dynamic Division Officer</td>
-										<td>47</td>
-										<td>2011-04-19</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- End small tables -->
+				<div class="row">
+					<div class="col-lg-12">
+
+						<div class="card">
+							<div class="card-body">
+								<div class="row g-2 align-items-center">
+									<div class="col-auto">
+										<label for="search" class="card-title">search</label>
+									</div>
+									<div class="col-auto">
+										<select id="search" name="search" class="form-select form-select-sm">
+											<option value="all">All</option>
+											<option value="common_title">Title</option>
+											<option value="common_content">Content</option>
+										</select>
+									</div>
+									<div class="col-auto">
+										<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
+									</div>
+									<div class="col-auto">
+										<button type="button" id="searchData" class="btn btn-primary btn-sm">검색</button>
+									</div>
+								</div>
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col">No</th>
+											<th scope="col">Title</th>
+											<th scope="col">AdminName</th>
+											<th scope="col">RegisterDate</th>
+											<th scope="col">ReadCount</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:choose>
+											<c:when test="${not empty boardList}">
+												<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
+													<c:if test="${statusNumber.index < 20}">
+														<tr data-num="${notice.commonNo}">
+															<th scope="row">${notice.commonNo}</th>
+															<th class="goDetail text-start">${notice.commonTitle}</th>
+															<td class="goDetail text-start">${notice.commonNickname}</td>
+															<td>${notice.commonRegisterDate}</td>
+															<td>${notice.commonReadcnt}</td>
+														</tr>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td colspan="5">조건에 맞는 공지가 없습니다.</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</tbody>
+								</table>
+								<div class="text-end">
+									<button type="button" id="insertFormBtn" class="btn btn-primary btn-sm">글쓰기</button>
+								</div>
+							</div>
+							<%-- ======================== 페이징 출력 시작 ========================--%>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
+									<c:if test="${pageMaker.prev}">
+										<li class="page-item"><a href="${pageMaker.startPage - 1}" class="page-link">Previous</a> <!-- <a href="${pageMaker.startPage - 10}" class="page-link">Previous</a> --></li>
+									</c:if>
+
+									<!-- 바로가기 번호 출력 -->
+									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+										<li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}"><a href="${num}" class="page-link">${num}</a></li>
+									</c:forEach>
+									<!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
+									<c:if test="${pageMaker.next}">
+										<li class="page-item"><a href="${pageMaker.endPage + 1}" class="page-link">Next</a></li>
+									</c:if>
+
+								</ul>
+
+							</nav>
+
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
-
+			</section>
+		</form>
 	</main>
 	<!-- End #main -->
 
@@ -404,16 +389,32 @@
 		<div class="copyright">
 			&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
 		</div>
-		<div class="credits">
-			<!-- All the links in the footer should remain intact. -->
-			<!-- You can delete the links only if you purchased the pro version. -->
-			<!-- Licensing information: https://bootstrapmade.com/license/ -->
-			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-		</div>
+		<div class="credits">Designed by BootstrapMade</div>
 	</footer>
 	<!-- End Footer -->
-
+	<script>
+      	$(function() {
+      		/* 검색 후 검색 대상과 검색 단어 출력 */
+      		let word="<c:out value='${noticeBoardVO.keyword}' />";
+      		let value ="";
+      		if (word != "") {
+      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
+      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
+      			
+      			if ($("#search").val() != 'common_content') {
+      				//:contains() 는 특정 텍스트를 포함한 요소 반환
+      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+      				console.log($(value + ":contains('" + word + "')").html());
+      				// $("#list tr td.goDetail:contains('노력')").html();
+      				// => <span class='required'>노력</span>에 대한 명언
+      				$(value + ":contains('" + word +"')").each(function() {
+      					let regex = new RegExp(word, 'gi');
+      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+      				});
+      			}
+      		}
+      	});
+      </script>
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
@@ -428,7 +429,7 @@
 	<script src="http://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<!-- Template Main JS File -->
-	<script src="/resources/include/admin/admin/assets/js/main.js"></script>
-	<!-- <script src="/resources/include/admin/js/adminBoard.js"></script> -->
+	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
+	<script src="/resources/include/admin/js/adminNoticeBoardView.js"></script>
 </body>
 </html>

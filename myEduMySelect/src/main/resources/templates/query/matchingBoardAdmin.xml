@@ -50,7 +50,8 @@
 	    					, matching_private
 	    					, matching_register_date
 	    					, personal_id
-					FROM    tb_matching_board
+					FROM   	(
+							SELECT * FROM tb_matching_board ORDER BY matching_register_date DESC) sortedList
 	    			WHERE   rownum <= #{pageNum} * #{amount})
 			WHERE rnum > (#{pageNum} - 1 ) * #{amount}
 			]]>

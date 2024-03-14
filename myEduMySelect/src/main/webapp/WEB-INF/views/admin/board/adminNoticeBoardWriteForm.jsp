@@ -217,258 +217,136 @@
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
-	<section>
-		<div class="container">
-			<aside id="sidebar" class="sidebar">
+	<aside id="sidebar" class="sidebar">
 
-				<ul class="sidebar-nav" id="sidebar-nav">
+		<ul class="sidebar-nav" id="sidebar-nav">
 
-					<li class="nav-item"><a class="nav-link " href="/admin/login"> <i class="bi bi-grid"></i> <span>Dashboard main</span>
-					</a></li>
-					<!-- End Dashboard Nav -->
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/notice"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/free"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matching"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertise"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="#"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Icons Nav -->
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>personal member</span>
-					</a></li>
-					<!-- End Profile Page Nav -->
+			<li class="nav-item"><a class="nav-link " href="/admin/login"> <i class="bi bi-grid"></i> <span>Dashboard main</span>
+			</a></li>
+			<!-- End Dashboard Nav -->
+			<hr>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardView"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
+			</a></li>
+			<!-- End Tables Nav -->
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
+			</a></li>
+			<!-- End Tables Nav -->
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
+			</a></li>
+			<!-- End Tables Nav -->
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
+			</a></li>
+			<!-- End Tables Nav -->
+			<hr>
+			<li class="nav-item"><a class="nav-link collapsed" href="#"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
+			</a></li>
+			<!-- End Icons Nav -->
+			<hr>
+			<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>personal member</span>
+			</a></li>
+			<!-- End Profile Page Nav -->
 
-					<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>academy member</span>
-					</a></li>
-					<!-- End Profile Page Nav -->
+			<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>academy member</span>
+			</a></li>
+			<!-- End Profile Page Nav -->
 
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"> <i class="bi bi-card-list"></i> <span>all academy member</span>
-					</a></li>
-					<!-- End Register Page Nav -->
+			<hr>
+			<li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"> <i class="bi bi-card-list"></i> <span>all academy member</span>
+			</a></li>
+			<!-- End Register Page Nav -->
 
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
-					</a></li>
-					<!-- End Login Page Nav -->
-				</ul>
-			</aside>
-			<!-- End Sidebar-->
-		</div>
-	</section>
+			<hr>
+			<li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
+			</a></li>
+			<!-- End Login Page Nav -->
+
+		</ul>
+
+	</aside>
+	<!-- End Sidebar-->
 
 	<main id="main" class="main">
-
 		<div class="pagetitle">
 			<h1>Dashboard</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-					<li class="breadcrumb-item active">Dashboard</li>
+					<li class="breadcrumb-item active">Notice Write</li>
 				</ol>
 			</nav>
 		</div>
 		<!-- End Page Title -->
 
 		<section class="section">
-			<div class="row">
-				<div class="col-lg-8">
-
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">notice board</h5>
-							<table class="table table-danger">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">Title</th>
-										<th scope="col">AdminName</th>
-										<th scope="col">RegisterDate</th>
-										<th scope="col">ReadCount</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty noticeBoardList}">
-											<c:forEach var="notice" items="${noticeBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${notice.commonNo}</th>
-														<th>${notice.commonTitle}</th>
-														<td>${notice.commonNickname}</td>
-														<td>${notice.commonRegisterDate}</td>
-														<td>${notice.commonReadcnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="5">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Default Table Example -->
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">matching board</h5>
-							<table class="table table-primary">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">Student</th>
-										<th scope="col">RegisterDate</th>
-										<th scope="col">Comment</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty matchingBoardList}">
-											<c:forEach var="match" items="${matchingBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${match.matchingNo}</th>
-														<th>${match.personalId}</th>
-														<td>${match.matchingRegisterDate}</td>
-														<td>${match.commentCnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="4">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Default Table Example -->
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">free board</h5>
-							<table class="table table-warning ">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">제목</th>
-										<th scope="col">관리자ID</th>
-										<th scope="col">등록일</th>
-										<th scope="col">조회수</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty noticeBoardList}">
-											<c:forEach var="notice" items="${noticeBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${notice.commonNo}</th>
-														<th>${notice.commonTitle}</th>
-														<td>${notice.adminId}</td>
-														<td>${notice.commonRegisterDate}</td>
-														<td>${notice.commonReadcnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="5">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Default Table Example -->
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<h4>recent subscription member</h4>
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">peronsal member</h5>
-							<!-- Table with stripped rows -->
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">notice write</h5>
+						<!-- Table with stripped rows -->
+						<form id="f_writeForm">
 							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:choose>
-										<c:when test="${not empty noticeBoardList}">
-											<c:forEach var="notice" items="${noticeBoardList}" varStatus="statusNumber">
-												<c:if test="${statusNumber.index < 5}">
-													<tr data-num="${statusNumber.index + 1}">
-														<th scope="row">${notice.commonNo}</th>
-														<th>${notice.commonTitle}</th>
-														<td>${notice.adminId}</td>
-														<td>${notice.commonRegisterDate}</td>
-														<td>${notice.commonReadcnt}</td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<tr>
-												<td colspan="5">조건에 맞는 공지가 없습니다.</td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</tbody>
-							</table>
-							<!-- End Table with stripped rows -->
-						</div>
-						<div class="card-body">
-							<h5 class="card-title">academy member</h5>
-							<!-- Table with hoverable rows -->
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Position</th>
-										<th scope="col">Age</th>
-										<th scope="col">Start Date</th>
-									</tr>
-								</thead>
 								<tbody>
 									<tr>
-										<th scope="row">1</th>
-										<td>Brandon Jacob</td>
-										<td>Designer</td>
-										<td>28</td>
-										<td>2016-05-25</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="boardName" class="col-sm-2 col-form-label">작 성 자</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="commonNickname" name="commonNickname" value="${adminLogin.adminName}" readonly="readonly">
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="commonTitle" class="col-sm-2 col-form-label">글 제 목</label>
+												<div class="col-sm-10">
+													<input type="text" id="commonTitle" name="commonTitle" class="form-control" placeholder="글제목" />
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="commonContent" class="col-sm-2 col-form-label">글 내 용</label>
+												<div class="col-sm-10">
+													<textarea name="commonContent" id="commonContent"  class="tinymce-editor form-control" rows="8"></textarea>
+													<!--  class="tinymce-editor form-control"  -->
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="file" class="col-sm-2 col-form-label">첨부파일</label>
+												<div class="col-sm-10">
+													<input type="file" id="file" name="file" class="form-control" />
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+
+											<div class="text-end">
+												<button type="button" id="boardInsertBtn" class="btn btn-primary">저장</button>
+												<button type="button" id="boardCancelBtn" class="btn btn-primary">취소</button>
+												<button type="button" id="boardListBtn" class="btn btn-primary">목록</button>
+											</div>
+										</td>
 									</tr>
 								</tbody>
 							</table>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</section>
+
 	</main>
 	<!-- End #main -->
 
@@ -500,8 +378,10 @@
 	<script src="/resources/include/admin/admin/assets/vendor/php-email-form/validate.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/include/admin/admin/assets/vendor/tinymce/tinymce.min.js"></script>
 	<!-- Template Main JS File -->
-	<script src="/resources/include/admin/admin/assets/js/main.js"></script>
-	<!-- <script src="/resources/include/admin/js/adminBoard.js"></script> -->
+	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
+	<script src="/resources/include/admin/js/adminNoticeBoardWriteForm.js"></script>
+
 </body>
 </html>

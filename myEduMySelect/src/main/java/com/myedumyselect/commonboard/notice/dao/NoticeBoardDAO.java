@@ -11,5 +11,8 @@ public interface NoticeBoardDAO {
 
 	public List<NoticeBoardVO> boardList(NoticeBoardVO noticeBoardVO);
 	public int boardListCnt(NoticeBoardVO noticeBoardVO);
+	public int boardInsert(NoticeBoardVO noticeBoardVO);
+	public NoticeBoardVO boardDetail(NoticeBoardVO noticeBoardVO);
+	public int boardDelete(NoticeBoardVO noticeBoardVO);
 
 }

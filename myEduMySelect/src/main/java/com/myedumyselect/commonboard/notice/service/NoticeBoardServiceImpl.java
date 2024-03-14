@@ -1,10 +1,12 @@
 package com.myedumyselect.commonboard.notice.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myedumyselect.common.file.FileUploadUtil;
 import com.myedumyselect.commonboard.notice.dao.NoticeBoardDAO;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 
@@ -24,6 +26,39 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	@Override
 	public int boardListCnt(NoticeBoardVO noticeBoardVO) {
 		return noticeBoardDAO.boardListCnt(noticeBoardVO);
+	}
+
+	@Override
+	public int boardInsert(NoticeBoardVO noticeBoardVO) throws IOException {
+		int result = 0;
+		if (noticeBoardVO.getFile().getSize() > 0) {
+			String fileName = FileUploadUtil.fileUpload(noticeBoardVO.getFile(), "board"); // board_1658205347_cat.jpg
+			noticeBoardVO.setCommonFile(fileName);
+		}
+		result = noticeBoardDAO.boardInsert(noticeBoardVO);
+		return result;
+		
+	}
+
+	@Override
+	public NoticeBoardVO boardDetail(NoticeBoardVO noticeBoardVO) {
+//		noticeBoardDAO.readCntUpdate(bvo);
+
+		NoticeBoardVO detail = noticeBoardDAO.boardDetail(noticeBoardVO);
+		if (detail != null) {
+			detail.setCommonContent(detail.getCommonContent().replaceAll("\n", "<br />"));
+		}
+		return detail;
+	}
+
+	@Override
+	public int boardDelete(NoticeBoardVO noticeBoardVO) {
+		int result = 0;
+		if (!noticeBoardVO.getCommonFile().isEmpty()) { // boardFile 필드의 값이 null 이거나 "" 아니면 (이미지 파일이 존재하면)
+			FileUploadUtil.fileDelete(noticeBoardVO.getCommonFile());
+		}
+		result = noticeBoardDAO.boardDelete(noticeBoardVO);
+		return result;
 	}
 
 }

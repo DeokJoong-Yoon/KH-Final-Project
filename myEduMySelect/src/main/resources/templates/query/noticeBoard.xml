@@ -25,15 +25,14 @@
 		to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt, common_block_confirm, 
 		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
 		FROM tb_common_board WHERE member_type_id = 3 </select> -->
-	<!-- <sql id="boardSearch">
-		<if test="search == 'b_title'">
-				<![CDATA[ b_title LIKE '%' || #{keyword} || '%' ]]>
+	<sql id="boardSearch">
+		<if test="search == 'common_title'">
+		<![CDATA[ common_title LIKE '%' || #{keyword} || '%' ]]>
 		</if>
-		<if test="search == 'b_content'">
-				<![CDATA[ b_content LIKE '%' || #{keyword} || '%' ]]>
+		<if test="search == 'common_content'"> 
+		<![CDATA[ common_content LIKE '%' || #{keyword} || '%' ]]>
 		</if>
-	</sql> -->
-
+	</sql>
 
 	<!-- 전체 레코드 수 조회 -->
 	<select id="boardListCnt" parameterType="notice"
@@ -42,34 +41,81 @@
 		(SELECT * FROM tb_common_board
 		WHERE member_type_id
 		= 3)
-		<!-- <trim prefix=" where (" suffix=")">
+		<trim prefix=" where (" suffix=")">
 			<include refid="boardSearch"></include>
-		</trim> -->
+		</trim>
 	</select>
-
-
 
 	<select id="boardList" parameterType="notice"
-		resultMap="noticeMap">
-	    <![CDATA[
-		SELECT
-			common_no, admin_id, member_type_id, common_nickname,
-			common_title, common_content, to_char(common_register_date, 'YYYY-MM-DD') as common_register_date,
-			to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt,
-			common_block_confirm, to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file
+		resultMap="noticeMap"> 
+		<![CDATA[
+		SELECT common_no, admin_id, member_type_id, common_nickname, common_title, 
+		common_content, common_register_date, 
+		common_edit, common_readcnt, common_block_confirm, 
+		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
 		FROM (
 			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board */
-				rownum as rnum, common_no, admin_id, member_type_id, common_nickname,
-				common_title, common_content, common_register_date,  common_edit,
-				common_readcnt, common_block_confirm, common_block_date, common_file
-			FROM tb_common_board
+			rownum as rnum, common_no, admin_id, member_type_id, common_nickname, common_title, 
+			common_content, common_register_date, common_edit, common_readcnt, common_block_confirm, 
+			common_block_date, common_file 
+			FROM (
+					select * from tb_common_board order by common_register_date desc
+				 ) sortedBoardList
 			WHERE ]]>
-		<!-- <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
 			<include refid="boardSearch"></include>
-		</trim> -->
-			<![CDATA[	rownum <= #{pageNum} * #{amount}
-			) boardList
-		WHERE rnum > (#{pageNum} - 1 ) * #{amount}
-			]]>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
 	</select>
+
+
+
+
+
+
+
+	<insert id="boardInsert" parameterType="notice">
+		/* Board - boardInsert */
+		<selectKey keyProperty="commonNo" resultType="int"
+			order="BEFORE">
+			select notice_board_seq.nextval from dual
+		</selectKey>
+		INSERT INTO tb_common_board(common_no, admin_id, member_type_id,
+		common_nickname,
+		common_title, common_content, common_register_date,
+		common_edit, common_readcnt,
+		common_block_confirm, common_block_date,
+		common_file)
+		VALUES(
+		#{commonNo}, #{adminId},
+		#{memberTypeId},
+		#{commonNickname},
+		#{commonTitle}, #{commonContent},
+		sysdate,
+		sysdate,
+		#{commonReadcnt},
+		#{commonBlockConfirm},
+		#{commonBlockDate},
+		#{commonFile})
+	</insert>
+
+	<select id="boardDetail" parameterType="notice"
+		resultMap="noticeMap">
+		/* Board - boardDetail */
+		SELECT
+		*
+		FROM tb_common_board
+		WHERE
+		common_no = #{commonNo}
+	</select>
+
+	<delete id="boardDelete" parameterType="notice">
+		DELETE FROM
+		tb_common_board
+		WHERE
+		common_no = #{commonNo}
+	</delete>
 </mapper>

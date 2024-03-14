@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.service.AdminLoginService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
+import com.myedumyselect.admin.member.service.AcademyAdminService;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
@@ -46,11 +47,16 @@ public class AdminLoginController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MatchingBoardAdminService MatchingBoardadminService;
+	
+//	@Setter(onMethod_ = @Autowired)
+//	private AcademyAdminService academyAdminService;
 
 	@GetMapping("/login")
 	public String loginProcess(Model model) {
 
 		if(model.containsAttribute("adminLogin")) {
+			
+			// Board 리스트 결과 
 			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
 			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
 			model.addAttribute("noticeBoardList", noticeBoardList);
@@ -61,6 +67,10 @@ public class AdminLoginController {
 //			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
 //			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
 //			model.addAttribute("noticeBoardList", noticeBoardList);
+			
+			// 회원 리스트 결과
+			
+			
 
 		}
 		

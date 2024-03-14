@@ -69,6 +69,7 @@
 		background-color: #48d1cc; /* 파란색으로 헤더 배경색 지정 */
 		color: white; /* 헤더 텍스트 색상 지정 */
 	}
+
 </style>
 </head>
 
