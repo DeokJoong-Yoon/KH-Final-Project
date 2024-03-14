@@ -8,5 +8,10 @@ import com.myedumyselect.matching.comment.vo.MatchingCommentVO;
 
 @Mapper
 public interface MatchingCommentDAO {
+	
+	//댓글 목록 조회
 	public List<MatchingCommentVO> mCommentList(MatchingCommentVO mcVO);
+	
+	//댓글 입력 폼
+	public int mCommentInsert(MatchingCommentVO mcVO);
 }
