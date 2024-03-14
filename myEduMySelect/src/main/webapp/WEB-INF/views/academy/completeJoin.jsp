@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ page import="com.myedumyselect.common.SessionConst" %>
+<%@ page import="com.myedumyselect.academy.SessionConst" %>
 <!DOCTYPE html>
 
 <html>
@@ -128,14 +128,15 @@
 		</div>
 	</section>
 	<!-- End Hero -->
-  <!-- 회원가입 완료 메시지 -->
-<div class="signup-message-container">
-   <div class="signup-message-content">	
-   		<h1>회원가입 완료!</h1>
-		<h2>${academyLoginVo.academyName}님 회원가입을 축하드립니다!<br />이제 홈페이지의 모든 서비스를 이용하실수 있습니다.</h2>
-        <!-- <a href="/" class="btn">홈페이지로 이동</a> -->
-    </div>
-</div>
+	
+    <!-- 회원가입 완료 메시지 -->
+	<div class="signup-message-container">
+	    <div class="signup-message-content">   
+	        <h1>회원가입 완료!</h1>
+	        <h2>${signUpMessage}</h2>
+	        <a href="/" class="btn">홈페이지로 이동</a>
+	    </div>
+	</div>
     
     
     <footer id="footer">

@@ -53,4 +53,11 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 		return academyLoginDao.findById(academyId);
 	}
 	
+	@Override
+    public boolean isAcademyIdDuplicate(String academyId) {
+        // DAO를 통해 중복된 아이디가 있는지 확인하고 결과를 반환합니다.
+        Optional<AcademyLoginVo> existingAcademy = academyLoginDao.findById(academyId);
+        return existingAcademy.isPresent();
+    }
+	
 }

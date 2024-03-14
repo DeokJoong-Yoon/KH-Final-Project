@@ -13,4 +13,6 @@ public interface AcademyLoginDao {
 													@Param("academyPasswd")String academyPasswd);
 	void academyInsert(AcademyLoginVo academyLoginVo); 
 	Optional<AcademyLoginVo> findById(String academyId);
+	
+	
 }

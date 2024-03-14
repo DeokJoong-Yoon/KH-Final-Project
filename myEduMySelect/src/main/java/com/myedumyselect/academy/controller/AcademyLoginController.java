@@ -10,11 +10,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.academy.AcademySignUpDto;
 import com.myedumyselect.academy.SessionConst;
 import com.myedumyselect.academy.UserAccountLoginDto;
+import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
 
@@ -104,7 +108,7 @@ public class AcademyLoginController {
 
 	@PostMapping("/academyInsert")
 	public String academyInsert(@Valid @ModelAttribute AcademySignUpDto academySignUpDto,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
 			return "academy/academyJoin";
@@ -115,11 +119,14 @@ public class AcademyLoginController {
 			log.info("academyInsert 호출 성공");
 			log.info("academySignUpDto : {}", academySignUpDto);
 			academyLoginService.academyInsert(academySignUpDto);
+			
+			// 회원가입이 완료되면 리다이렉션을 위해 메시지를 추가
+	        redirectAttributes.addFlashAttribute("signUpMessage", academySignUpDto.getAcademyName() + "님, 반갑습니다! 이제 홈페이지의 모든 서비스를 이용하실 수 있습니다.");
 		} catch (AcademyIdDuplicateException e) {
 			bindingResult.reject("duplicateAcademyId", "이미 존재하는 아이디입니다.");
 			return "academy/academyJoin";
 		}		
-		
+		// 회원가입이 완료되면 홈페이지로 리다이렉션
 		return "redirect:/userAccount/join/complete";
 	}
 
@@ -145,9 +152,14 @@ public class AcademyLoginController {
 	}
 
 	@GetMapping("/userAccount/join/complete")
-	public String completeSignUp(@ModelAttribute AcademyLoginVo academyLoginVo) {		
-		// 회원가입 완료 페이지로 이동
-		return "/academy/completeJoin";
+	public String completeSignUp(@ModelAttribute("academyName") String academyName, Model model) {
+	    AcademyLoginVo academyLoginVo = new AcademyLoginVo();
+	    academyLoginVo.setAcademyName(academyName);
+	    
+	    model.addAttribute("academyName", academyName);
+	    model.addAttribute("signUpMessage", academyLoginVo.getAcademyName() + "님, 반갑습니다! 이제 홈페이지의 모든 서비스를 이용하실 수 있습니다.");
+	    
+	    return "/academy/completeJoin";
 	}
 	
 	@GetMapping("/mypage")
@@ -172,4 +184,21 @@ public class AcademyLoginController {
 
 	    return "/academy/mypage";
 	}
+	
+	// 아이디 중복체크 
+	@PostMapping("/checkDuplicate")
+    public String checkDuplicate(@RequestParam("academyId") String academyId) {
+        boolean isDuplicate = academyLoginService.isAcademyIdDuplicate(academyId);
+        if (isDuplicate) {
+            return "이미 사용 중인 아이디입니다.";
+        } else {
+            return "사용 가능한 아이디입니다.";
+        }
+    }
+
+
+
+
+
+
 }

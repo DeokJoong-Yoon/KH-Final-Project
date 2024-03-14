@@ -145,7 +145,7 @@
         <label for="academyId">아이디</label>
         <form:input path="academyId" type="text" name="academyId" id="academyId" maxlength="12" placeholder="아이디 입력"/>
         <form:errors path="academyId" cssClass="error" />
-        <button id="check-duplicate-btn">중복체크</button>
+        <button id="checkDuplicateBtn">중복체크</button>
         <label class="require" for="academyId">(아이디는 6~12자의 영문, 숫자만 사용 가능)</label>
         <div id="duplicate-message"></div>
       </div>
@@ -164,7 +164,7 @@
       <br />
       <div class="input_group">
         <label for="academyNumber">사업자 등록번호</label>
-        <form:input path="academyNumber" type="text" name="academyNumber" id="academyNumber" maxlength="10" placeholder="(-)하이폰 기호 없이 입력해주세요."/>
+        <form:input path="academyNumber" type="text" name="academyNumber" id="academyNumber" maxlength="10" placeholder="(-)하이픈 기호 없이 입력해주세요."/>
         <form:errors path="academyNumber" cssClass="error" />
         <button id="check-duplicate">검색</button>
       </div>
@@ -192,9 +192,9 @@
         </select>
       </div>
       <br />
-        <div class="input_group">
-            <label for="academyManagerPhone">담당자 전화번호</label>
-        <form:input path="academyManagerPhone" type="text" name="academyManagerPhone" id="academyManagerPhone" maxlength="11" placeholder="(-)하이폰 기호 없이 입력해주세요."/>
+      <div class="input_group">
+        <label for="academyManagerPhone">담당자 전화번호</label>
+        <form:input path="academyManagerPhone" type="text" name="academyManagerPhone" id="academyManagerPhone" maxlength="11" placeholder="(-)하이픈 기호 없이 입력해주세요." oninput="validatePhoneNumber(this)"/>
         <form:errors path="academyManagerPhone" cssClass="error" />
       </div>
       <br />
@@ -224,7 +224,7 @@
       <br />
       <div class="input_group">
         <label for="academyPhone">학원 전화번호</label>
-        <form:input path="academyPhone" type="text" name="academyPhone" id="academyPhone" maxlength="11" placeholder="(-)하이폰 기호 없이 입력해주세요."/>
+        <form:input path="academyPhone" type="text" name="academyPhone" id="academyPhone" maxlength="11" placeholder="(-)하이픈 기호 없이 입력해주세요." oninput="validatePhoneNumber(this)"/>
         <form:errors path="academyPhone" cssClass="error" />
       </div>
       <br />

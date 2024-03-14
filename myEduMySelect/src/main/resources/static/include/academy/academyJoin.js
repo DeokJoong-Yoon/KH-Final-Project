@@ -1,30 +1,30 @@
 $(document).ready(function() {
-	    $("#submit-btn").on("click", function() {
-	        if (!chkData("#academyId", "아이디를")) return;
-	        if (!chkData("#academyPasswd", "비밀번호를")) return;
-	        if (!chkData("#academyNumber", "사업자등록번호를")) return;
-	        if (!chkData("#academyManagerName", "담당자이름을")) return;
-	        if (!chkData("#academyManagerEmail1", "담당자이메일을")) return;
-	        if (!chkData("#academyManagerEmail2", "담당자이메일을")) return;
-	        if (!chkData("#academyManagerPhone", "담당자전화번호를")) return;
-	        if (!chkData("#academyName", "학원명을")) return;
-	        if (!chkData("#academyGuAddress", "행정구역명을")) return;
-	        if (!chkData("#academyRoadAddress", "도로명주소를")) return;
-	        if (!chkData("#academyDongAddress", "상세주소를")) return;	        
-	        if (!chkData("#academyPhone", "학원전화번호를")) return;
-	        if (!chkData("#academyTargetSubject", "교습과목을")) return;
+    $("#submit-btn").on("click", function() {
+        if (!chkData("#academyId", "아이디를")) return;
+        if (!chkData("#academyPasswd", "비밀번호를")) return;
+        if (!chkData("#academyNumber", "사업자등록번호를")) return;
+        if (!chkData("#academyManagerName", "담당자이름을")) return;
+        if (!chkData("#academyManagerEmail1", "담당자이메일을")) return;
+        if (!chkData("#academyManagerEmail2", "담당자이메일을")) return;
+        if (!chkData("#academyManagerPhone", "담당자전화번호를")) return;
+        if (!chkData("#academyName", "학원명을")) return;
+        if (!chkData("#academyGuAddress", "행정구역명을")) return;
+        if (!chkData("#academyRoadAddress", "도로명주소를")) return;
+        if (!chkData("#academyDongAddress", "상세주소를")) return;	        
+        if (!chkData("#academyPhone", "학원전화번호를")) return;
+        if (!chkData("#academyTargetSubject", "교습과목을")) return;
 
-	        if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료")) return;
-            if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
-	        if (!chkRadioData("#keyword1", "#keyword2", "#keyword3", "#keyword4", "#keyword5", "키워드를")) return;
+        if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료")) return;
+        if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
+        if (!chkRadioData("#keyword1", "#keyword2", "#keyword3", "#keyword4", "#keyword5", "키워드를")) return;
 
-	        $("#join").attr({
-	            "method": "post",
-	            "action": "/academyInsert"
-	        });
-	        $("#join").submit();
-	    });
-	});
+        $("#join").attr({
+            "method": "post",
+            "action": "/academyInsert"
+        });
+        $("#join").submit();
+    });
+});
 	
 	
 (function() {
