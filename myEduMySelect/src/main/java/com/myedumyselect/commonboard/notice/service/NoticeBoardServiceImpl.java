@@ -42,7 +42,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 
 	@Override
 	public NoticeBoardVO boardDetail(NoticeBoardVO noticeBoardVO) {
-//		noticeBoardDAO.readCntUpdate(bvo);
+		noticeBoardDAO.readCntUpdate(noticeBoardVO);
 
 		NoticeBoardVO detail = noticeBoardDAO.boardDetail(noticeBoardVO);
 		if (detail != null) {
@@ -58,6 +58,28 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 			FileUploadUtil.fileDelete(noticeBoardVO.getCommonFile());
 		}
 		result = noticeBoardDAO.boardDelete(noticeBoardVO);
+		return result;
+	}
+
+	@Override
+	public NoticeBoardVO updateForm(NoticeBoardVO noticeBoardVO) {
+		NoticeBoardVO updateData = null;
+		updateData = noticeBoardDAO.boardDetail(noticeBoardVO);
+		return updateData;
+	}
+
+	@Override
+	public int boardUpdate(NoticeBoardVO noticeBoardVO) throws Exception {
+		int result = 0;
+		if (!noticeBoardVO.getFile().isEmpty()) { // 새롭게 업로드할 파일이 존재하면
+			if (!noticeBoardVO.getCommonFile().isEmpty()) { // 기존 파일이 존재하면
+				FileUploadUtil.fileDelete(noticeBoardVO.getCommonFile());
+			}
+
+			String fileName = FileUploadUtil.fileUpload(noticeBoardVO.getFile(), "board");
+			noticeBoardVO.setCommonFile(fileName);
+		}
+		result = noticeBoardDAO.boardUpdate(noticeBoardVO);
 		return result;
 	}
 

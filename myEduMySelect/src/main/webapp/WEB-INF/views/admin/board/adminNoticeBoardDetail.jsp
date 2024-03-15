@@ -304,6 +304,14 @@
 									<tr>
 										<td>
 											<div class="md-3 row">
+												<label for="commonNo" class="col-sm-2 col-form-label">No</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.commonNo}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
 												<label for="boardName" class="col-sm-2 col-form-label">Name</label>
 												<div class="col-sm-10 mt-2 mb-2">${detail.commonNickname}</div>
 											</div>
@@ -328,7 +336,7 @@
 									<tr>
 										<td>
 											<div class="md-3 row">
-												<label for="commonContent" class="col-sm-2 col-form-label">Date</label>
+												<label for="commonEdit" class="col-sm-2 col-form-label">Date</label>
 												<div class="text-start col-sm-10 mt-2 mb-2">
 													<c:choose>
 													<c:when test="${empty detail.commonEdit}">
@@ -344,9 +352,13 @@
 									</tr>
 									<c:if test="${not empty detail.commonFile}">
 										<tr>
-											<td class="align-middle">첨부파일</td>
-											<td class="text-start">
-												<img src="/uploadStorage/board/${detail.commonFile}" class="rounded" />
+											<td>
+												<div class="md-3 row">
+													<label for="commonContent" class="col-sm-2 col-form-label">image</label>
+													<div class="text-start col-sm-10 mt-2 mb-2">
+														<img src="/uploadStorage/board/${detail.commonFile}" class="rounded" style="max-width: 100%; height: auto;"/>
+													</div>
+												</div>
 											</td>
 										</tr>
 									</c:if>

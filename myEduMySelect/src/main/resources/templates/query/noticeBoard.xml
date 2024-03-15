@@ -19,12 +19,6 @@
 		<result column="common_file" property="commonFile" />
 	</resultMap>
 
-	<!-- <select id="boardList" parameterType="notice" resultMap="noticeMap"> 
-		SELECT common_no, admin_id, member_type_id, common_nickname, common_title, 
-		common_content, to_char(common_register_date, 'YYYY-MM-DD') as common_register_date, 
-		to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt, common_block_confirm, 
-		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
-		FROM tb_common_board WHERE member_type_id = 3 </select> -->
 	<sql id="boardSearch">
 		<if test="search == 'common_title'">
 		<![CDATA[ common_title LIKE '%' || #{keyword} || '%' ]]>
@@ -54,7 +48,7 @@
 		common_edit, common_readcnt, common_block_confirm, 
 		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
 		FROM (
-			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board */
+			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
 			rownum as rnum, common_no, admin_id, member_type_id, common_nickname, common_title, 
 			common_content, common_register_date, common_edit, common_readcnt, common_block_confirm, 
 			common_block_date, common_file 
@@ -104,7 +98,6 @@
 
 	<select id="boardDetail" parameterType="notice"
 		resultMap="noticeMap">
-		/* Board - boardDetail */
 		SELECT
 		*
 		FROM tb_common_board
@@ -118,4 +111,21 @@
 		WHERE
 		common_no = #{commonNo}
 	</delete>
+	
+	<update id="boardUpdate" parameterType="notice">
+		UPDATE tb_common_board SET
+		common_title = #{commonTitle},
+		common_content = #{commonContent},
+		common_edit = sysdate
+		<if test="commonFile !=''">
+			, common_file = #{commonFile}
+		</if>
+		WHERE common_no = #{commonNo}
+	</update>
+	
+	<update id="readCntUpdate" parameterType="notice">
+		UPDATE tb_common_board
+		SET common_readcnt = common_readcnt + 1
+		WHERE common_no = #{commonNo}
+	</update>
 </mapper>

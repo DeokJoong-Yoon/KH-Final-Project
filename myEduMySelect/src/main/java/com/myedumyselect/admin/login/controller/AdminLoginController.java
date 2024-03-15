@@ -46,7 +46,7 @@ public class AdminLoginController {
 	private NoticeBoardService noticeBoardService;
 	
 	@Setter(onMethod_ = @Autowired)
-	private MatchingBoardAdminService MatchingBoardadminService;
+	private MatchingBoardAdminService MatchingBoardAdminService;
 	
 //	@Setter(onMethod_ = @Autowired)
 //	private AcademyAdminService academyAdminService;
@@ -61,17 +61,13 @@ public class AdminLoginController {
 			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
 			model.addAttribute("noticeBoardList", noticeBoardList);
 			MatchingBoardVO matchingBoardVO = new MatchingBoardVO();
-			List<MatchingBoardVO> matchingBoardList = MatchingBoardadminService.boardList(matchingBoardVO);
+			List<MatchingBoardVO> matchingBoardList = MatchingBoardAdminService.boardList(matchingBoardVO);
 			model.addAttribute("matchingBoardList", matchingBoardList);
-			log.info(matchingBoardList.toString());
 //			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
 //			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
 //			model.addAttribute("noticeBoardList", noticeBoardList);
 			
 			// 회원 리스트 결과
-			
-			
-
 		}
 		
 		return "admin/login/adminMain";

@@ -267,27 +267,18 @@
 
 	<main id="main" class="main">
 		<form id="detailForm">
-			<input type="hidden" id="commonNo" name="commonNo" />
+			<input type="hidden" id="matchingNo" name="matchingNo" />
 		</form>
-		<form id="noticeForm" name="noticeForm">
+		<form id="matchingForm" name="matchingForm">
 			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
-			<%-- 			<input type="text" name="keyword" id="keyword" />
-			<c:if test="${not empty matchingBoard.keyword}">
-				<input type="text" name="keyword" id="keyword" />
-			</c:if>
-			
-			<c:otherwise>
-				<input type="hidden" name="keyword" id="keyword" value="${matchingBoard.keyword}"/>
-			</c:otherwise> --%>
-
 			<div class="pagetitle">
-				<h1>Notice board</h1>
+				<h1>matching board</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">notice board</li>
+						<li class="breadcrumb-item active">matching board</li>
 					</ol>
 				</nav>
 			</div>
@@ -307,8 +298,8 @@
 									<div class="col-auto">
 										<select id="search" name="search" class="form-select form-select-sm">
 											<option value="all">All</option>
-											<option value="common_title">Title</option>
-											<option value="common_content">Content</option>
+											<option value="matchingNo">matching No</option>
+											<option value="personalId">personal Id</option>
 										</select>
 									</div>
 									<div class="col-auto">
@@ -321,30 +312,27 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th scope="col">No</th>
-											<th scope="col">Title</th>
-											<th scope="col">AdminName</th>
+											<th scope="col">matchingNo</th>
+											<th scope="col">personalId</th>
 											<th scope="col">RegisterDate</th>
-											<th scope="col">ReadCount</th>
+											<th scope="col">commentCnt</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:choose>
-											<c:when test="${not empty boardList}">
-												<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
-													<%-- <c:if test="${statusNumber.index < 20}"></c:if> --%>
-														<tr data-num="${notice.commonNo}">
-															<th scope="row">${notice.commonNo}</th>
-															<th class="goDetail text-start">${notice.commonTitle}</th>
-															<td class="goDetail text-start">${notice.commonNickname}</td>
-															<td class="goDetail text-start">${notice.commonRegisterDate}</td>
-															<td class="goDetail text-start">${notice.commonReadcnt}</td>
+											<c:when test="${not empty matchingBoardList}">
+												<c:forEach var="matching" items="${matchingBoardList}" varStatus="statusNumber">
+														<tr data-num="${matching.matchingNo}">
+															<th scope="row">${matching.matchingNo}</th>
+															<th class="goDetail text-start">${matching.personalId}</th>
+															<td class="goDetail text-start">${matching.matchingRegisterDate}</td>
+															<td class="goDetail text-start">${matching.commentCnt}</td>
 														</tr>
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
 												<tr>
-													<td colspan="5">조건에 맞는 공지가 없습니다.</td>
+													<td colspan="4">조건에 맞는 공지가 없습니다.</td>
 												</tr>
 											</c:otherwise>
 										</c:choose>
@@ -394,11 +382,11 @@
 	<script>
       	$(function() {
       		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${noticeBoardVO.keyword}' />";
+      		let word="<c:out value='${MatchingBoardVO.keyword}' />";
       		let value ="";
       		if (word != "") {
-      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
-      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
+      			$("#keyword").val("<c:out value='${MatchingBoardVO.keyword}' />");
+      			$("#search").val("<c:out value='${MatchingBoardVO.search}' />");
       			
       			if ($("#search").val() != 'common_content') {
       				//:contains() 는 특정 텍스트를 포함한 요소 반환
@@ -429,6 +417,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<!-- Template Main JS File -->
 	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
-	<script src="/resources/include/admin/js/adminNoticeBoardView.js"></script>
+	<script src="/resources/include/admin/js/matchingBoardAdminView.js"></script>
 </body>
 </html>
