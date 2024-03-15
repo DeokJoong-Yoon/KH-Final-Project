@@ -29,7 +29,19 @@ public class MatchingCommentTest {
 		for(MatchingCommentVO vo : list) {
 			log.info(vo.toString());
 		}
-		
-		
+	}
+	
+	
+	@Test
+	public void testMCommentInsert() {
+		log.info("mCommentInsert() 실행");
+		MatchingCommentVO mcVO = new MatchingCommentVO();
+		mcVO.setMatchingNo(6);
+		mcVO.setAcademyId("academy11");
+		mcVO.setMatchingCommentNickname("학원");
+		mcVO.setMatchingCommentContent("테스트입니다");
+		int result = mcDAO.mCommentInsert(mcVO);
+	
+		log.info("입력 결과 : " + result);
 	}
 }

@@ -25,12 +25,19 @@
 	<!-- 댓글 입력 -->
 	<insert id="mCommentInsert" parameterType="matchingComment">
 		<selectKey keyProperty="matchingCommentNo" resultType="int" order="BEFORE">
-			SELECT  tb_matching_comment_seq.nextval  FROM  dual
+			SELECT   matching_board_comment_seq.nextval  FROM  dual
 		</selectKey>
 		INSERT  into  tb_matching_comment
 		VALUES  (
 			#{matchingCommentNo}, #{academyId}, #{matchingNo}, #{matchingCommentNickname}, #{matchingCommentContent}, sysdate
 		)
 	</insert>
+	
+	
+	<!-- 댓글 삭제 -->
+	<delete id="mCommentDelete" parameterType="matchingComment">
+		DELETE  FROM	tb_matching_comment
+		WHERE	matching_comment_no = #{matchingCommentNo}
+	</delete>
 	
 </mapper>

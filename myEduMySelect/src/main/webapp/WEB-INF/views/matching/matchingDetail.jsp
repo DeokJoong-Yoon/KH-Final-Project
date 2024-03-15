@@ -26,8 +26,7 @@
   <link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/resources/include/assets/
-  vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
@@ -170,7 +169,13 @@
       	</div>
       </div>
     </section><!-- 매칭게시판 상세보기 끝 -->
-
+    
+    
+    <!-- 매칭게시판 댓글 -->
+	<section>
+		<%-- 댓글 보여주기 --%>
+		<jsp:include page="matchingComment.jsp" />
+	</section>
 	
   
   </main><!-- End #main -->
@@ -263,7 +268,15 @@
   <script src="/resources/include/matching/js/matchingDetail.js"></script>
   
  
-
+	<script>
+		$(function() {
+			let errorMsg = "${errorMsg}";
+			if (errorMsg != "") {
+				alert(errorMsg);
+			}
+		});
+	</script>
+	
 </body>
 
 </html>

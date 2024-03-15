@@ -8,8 +8,10 @@ $(function(){
 		let boardNumber = $(this).closest("tr").attr("data-num");
 		let writerId = $(this).closest("tr").find(".writerId").text();
 		let userId = $(".userId").text();
+		let acaId = $(".acaId").text();
+		let acaName = $(".acaName").text(); 
 		
-		if(userId == '') {
+		if(userId == '' && acaId == '') {
 			alert("로그인 후 열람 가능합니다.");
 			$(this).attr("href", "/matching/boardList")
 		} else if(matchingPrivate == 'N' || userId == writerId) {
@@ -30,10 +32,11 @@ $(function(){
 	
 	
 	
-	//입력 양식 enter 제거
+	//입력 양식 enter 제어
 	$("#keyword").bind("keydown", function(event) {
 		if(event.keyCode == 13) {
 			event.preventDefault();
+			$("#mcBoardSearchBtn").click(); 
 		}
 	});
 	

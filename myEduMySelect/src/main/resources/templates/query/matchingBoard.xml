@@ -217,7 +217,7 @@
 	<!-- 매칭게시판 게시글 삭제 -->
 	<delete id="mBoardDelete" parameterType="matchingBoard">
 		DELETE FROM tb_matching_board
-		WHERE  matching_no = #{matchingNo}
+	    WHERE matching_no = #{matchingNo}
 	</delete>
 	
 	

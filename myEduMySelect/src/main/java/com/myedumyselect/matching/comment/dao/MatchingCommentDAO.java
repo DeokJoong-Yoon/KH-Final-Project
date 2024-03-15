@@ -12,6 +12,9 @@ public interface MatchingCommentDAO {
 	//댓글 목록 조회
 	public List<MatchingCommentVO> mCommentList(MatchingCommentVO mcVO);
 	
-	//댓글 입력 폼
+	//댓글 입력
 	public int mCommentInsert(MatchingCommentVO mcVO);
+	
+	//댓글 삭제
+	public int mCommentDelete(MatchingCommentVO mcVO);
 }

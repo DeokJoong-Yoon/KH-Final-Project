@@ -3,11 +3,11 @@ $(function(){
 	let matchingNo = $("#matchingNo").val();
 	
 	let userId = $(".userId").text();
-		let writerId = $(".writerId").text();
-		if(userId != writerId) {
-			$("#editPost").css("display", "none");
-			$("#deletePost").css("display", "none");
-		}
+	let writerId = $(".writerId").text();
+	if(userId != writerId) {
+		$("#editPost").css("display", "none");
+		$("#deletePost").css("display", "none");
+	}
 		
 	
 	$("#editPost").on("click", function(){

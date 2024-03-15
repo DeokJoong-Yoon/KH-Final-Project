@@ -124,7 +124,9 @@ public class MatchingBoardController {
 		
 		if(personalLogin != null) {
 			String userId = personalLogin.getPersonalId();
+			String userName = personalLogin.getPersonalName();
 			model.addAttribute("userId", userId);
+			model.addAttribute("userName", userName);
 			model.addAttribute("confirmMsg", "로그인 후 열람할 수 있습니다. 로그인 페이지로 이동하시겠습니까?");
 		}
 		
@@ -151,6 +153,7 @@ public class MatchingBoardController {
 	public String mBoardUpdate(MatchingBoardVO mbVO) {
 		
 		log.info("boardUpdate 호출 성공");
+		log.info("mbVO : " + mbVO.toString());
 		
 		int result = 0;
 		String url = "";
@@ -171,20 +174,20 @@ public class MatchingBoardController {
 	@GetMapping("/boardDelete")
 	public String mBoardDelete(MatchingBoardVO mbVO, RedirectAttributes ras) {
 		log.info("boardDelete 호출 성공");
-		
+
 		int result = 0;
 		result = mbService.mBoardDelete(mbVO);
-		
+
 		String url = "";
-		
+
 		if(result == 1) {
 			url = "/matching/boardList";
 		} else {
 			ras.addFlashAttribute("errorMsg", "삭제에 실패하였습니다. 다시 시도해 주세요.");
 			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
 		}
-		
+
 		return "redirect:" + url;
 	}
-	
+
 }

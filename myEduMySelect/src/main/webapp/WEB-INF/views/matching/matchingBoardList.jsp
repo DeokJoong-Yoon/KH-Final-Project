@@ -42,7 +42,7 @@
   ======================================================== -->
 	
 	
-	<script>
+	<!-- <script>
 		window.onload = function(){
 			let confirmMsg = "${confirmMsg}";
 			if(confirmMsg) {
@@ -54,7 +54,7 @@
 				}
 			}
 		}
-	</script>
+	</script> -->
 
 </head>
 
@@ -131,6 +131,8 @@
 		
 		
 		<div class="userId">${userId }</div>
+		<div class="acaId">${acaId }</div>
+		<div class="acaName">${acaName }</div>
 		
 		<div class="mcBoardList">
 			<table>
