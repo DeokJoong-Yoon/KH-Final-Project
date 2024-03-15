@@ -121,6 +121,7 @@
 					data-aos="fade-up" data-aos-delay="200">
 					<h1>전체 조회 / 빠른검색</h1>
 					<h2>여러분의 교육은 여러분이 선택합니다.</h2>
+					<p>${userId}님 환영합니다.</p>
 					<form id="mainSearchForm">
 					<div class="d-flex justify-content-center justify-content-lg-start">
 						<select id="academyGuAddress" name="academyGuAddress" class="form-control form-control-lg">
