@@ -23,3 +23,4 @@ public class PersonalLoginVO {
 	private Date personalAccountBannedDate;
 	private Date personalPasswdChangeDate;
 }
+ 

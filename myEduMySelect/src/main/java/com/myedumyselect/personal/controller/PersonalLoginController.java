@@ -185,7 +185,7 @@ public class PersonalLoginController {
 		return "personal/myPage";
 	}
 
-	// 회원정보수정
+	/// 회원정보수정
 	@PostMapping("/personalUpdate")
 	// @ModelAttribute PersonalLoginVO personalLogin 개인정보를 포함하는 PersonalLoginVO객체를
 	// 받는다

@@ -16,7 +16,7 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 	@Setter(onMethod_ = @Autowired)
 	private PersonalLoginDao personalLoginDao;
 
-	// 로그인
+	/// 로그인
 	@Override
 	public PersonalLoginVO loginProcess(PersonalLoginVO login) {
 		PersonalLoginVO personalLogin = personalLoginDao.loginProcess(login);

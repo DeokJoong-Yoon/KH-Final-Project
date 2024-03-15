@@ -102,7 +102,7 @@
 		personal_passwd = #{personalPasswd}
 		WHERE
 		personal_id = #{personalId}
-	</update>
+	</update> 
 
 
 
