@@ -11,19 +11,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
 import com.myedumyselect.client.main.service.MainService;
+import com.myedumyselect.personal.vo.PersonalLoginVO;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class mainController {
 
 	@Setter(onMethod_ = @Autowired)
 	private MainService mainService;
 	
+//	@GetMapping("/")
+//	public String mainIndex() {
+//		return "main/main";
+//	}
+	
+	
 	@GetMapping("/")
-	public String mainIndex() {
+	public String mainIndex( Model model,  HttpSession session) {
+		
+		//개인 로그인 세션
+		PersonalLoginVO personalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
+		String userId = "";
+		if(personalLogin != null) {
+			log.info("로그인 세션 있음");
+			userId = personalLogin.getPersonalId();
+		} else {
+			log.info("로그인 세션 없음");
+		}
+		model.addAttribute("userId", userId);
+		
 		return "main/main";
 	}
+	
+	
 	
 	@PostMapping(value = "/mainSearchList")
 	public String mainSearchList(@ModelAttribute AcademySourceVO avo, Model model) {
