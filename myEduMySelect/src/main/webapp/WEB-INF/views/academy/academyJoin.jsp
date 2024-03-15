@@ -164,9 +164,9 @@
       <br />
       <div class="input_group">
         <label for="academyNumber">사업자 등록번호</label>
-        <form:input path="academyNumber" type="text" name="academyNumber" id="academyNumber" maxlength="10" placeholder="(-)하이픈 기호 없이 입력해주세요."/>
+        <form:input path="academyNumber" type="text" name="academyNumber" id="academyNumber" maxlength="10" placeholder="(-)하이픈 기호 없이 10자리 입력 후, 검색 버튼을 눌러주세요."/>
         <form:errors path="academyNumber" cssClass="error" />
-        <button id="check-duplicate">검색</button>
+        <button id="findByNumber">검색</button>
       </div>
       <br />
       <div class="input_group">
@@ -219,7 +219,7 @@
 	          <form:input path="academyDongAddress" type="text" name="academyDongAddress" id="academyDongAddress" maxlength="20" placeholder="상세주소"/>
 	          <form:errors path="academyDongAddress" cssClass="error" />
 	      	</div>
-      	<button id="search-address">검색</button>
+      	<!-- <button id="search-address">검색</button> -->
       </div>
       <br />
       <div class="input_group">

@@ -2,6 +2,8 @@ package com.myedumyselect.academy.controller;
 
 import java.util.Optional;
 
+import javax.naming.Name;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.academy.AcademySignUpDto;
@@ -21,6 +24,8 @@ import com.myedumyselect.academy.UserAccountLoginDto;
 import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("unused")
 @Controller
 @Slf4j
+@SessionAttributes("academyLoginVo")
 public class AcademyLoginController {
     
 	@Setter(onMethod_ = @Autowired)
@@ -131,18 +137,18 @@ public class AcademyLoginController {
 	}
 
 	@GetMapping("/academy/home")
-	public String home(@SessionAttribute(name = SessionConst.INFO,
-			required = false) AcademyLoginVo academyLoginVo,
+	public String home(AcademyLoginVo academyLoginVo,
 			Model model) {
 		
 		// 홈 페이지로 이동
 		if(academyLoginVo == null) {
-			return "/main/main"; // index.jsp
+			return "/main/main"; 
+		} else {
+						
+			// 세션에 로그인 회원 정보 보관			
+			model.addAttribute("academyLoginVo", academyLoginVo);
+			return "/main/main"; 
 		}
-		
-		model.addAttribute("academyLoginVo", academyLoginVo);
-		
-		return "/main/main"; // index.jsp
 	}
 
 	@GetMapping("/userAccount/join")
@@ -163,11 +169,11 @@ public class AcademyLoginController {
 	}
 	
 	@GetMapping("/mypage")
-	public String mypage(@SessionAttribute(name = SessionConst.INFO, required = false) AcademyLoginVo academyLoginVo,
-	        Model model) {        
+	public String mypage(AcademyLoginVo academyLoginVo,Model model) {        
 	    // 로그인 여부 확인
 	    if(ObjectUtils.isEmpty(academyLoginVo)) {
 	        // 로그인되어 있지 않다면 로그인 페이지로 리다이렉트
+	    	model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 	        return "redirect:/userAccount/login";
 	    } 
 	    
@@ -177,16 +183,12 @@ public class AcademyLoginController {
 
 	    if (academyInfoOptional.isPresent()) {
 	        model.addAttribute("academyLoginVo", academyInfoOptional.get());
-	    } else {
-	        // 학원 정보가 없을 경우 처리
-	        // 예: 에러 페이지로 리다이렉트 또는 다른 처리
-	    }
-
+	    } 
 	    return "/academy/mypage";
 	}
 	
 	// 아이디 중복체크 
-	@PostMapping("/checkDuplicate")
+	@GetMapping("/checkDuplicate")
     public String checkDuplicate(@RequestParam("academyId") String academyId) {
         boolean isDuplicate = academyLoginService.isAcademyIdDuplicate(academyId);
         if (isDuplicate) {

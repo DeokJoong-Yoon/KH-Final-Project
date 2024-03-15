@@ -88,7 +88,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>학원회원 가입</h1>
+          <h1>회원가입</h1>
           <h2>회원은 개인회원과 학원회원으로 나뉘어 집니다.</h2>
 
         </div>

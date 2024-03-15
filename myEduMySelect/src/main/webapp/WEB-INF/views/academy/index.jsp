@@ -44,7 +44,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<!-- <script>
+<script>
 	window.onload = function() {
 		var confirmMessage = "${confirmMessage}";
 		if (confirmMessage) {
@@ -56,7 +56,7 @@
 			}
 		}
 	};
-</script> -->
+</script> 
 
 </head>
 

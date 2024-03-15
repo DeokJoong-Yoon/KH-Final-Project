@@ -1,8 +1,10 @@
 $(document).ready(function() {
     // 중복 체크 버튼에 클릭 이벤트 핸들러 등록
-    $(document).on('click', '#checkDuplicateBtn', function(event) {
-        event.preventDefault(); // 기본 동작 방지
-
+    //$(document).on('click', '#checkDuplicateBtn', function(event) {
+        //
+	$('#join').submit(function(event) {
+		event.preventDefault(); // 기본 동작 방지
+	
         // 입력된 아이디 가져오기
         var academyId = $('#academyId').val();
 
@@ -24,6 +26,8 @@ $(document).ready(function() {
             }
         });
     });
+    
+    // 사업자등록번호 검색 이벤트 핸들러 등록
 
 
 
@@ -44,10 +48,12 @@ $(document).ready(function() {
 });
 
 
-/*전화번호 입력 필드 (-)하이폰 기호 유효성 검사 */
+
+/* 학원전화번호, 담당자전화번호, 사업자등록번호 입력 필드 (-)하이폰 기호 유효성 검사 */
 document.addEventListener('DOMContentLoaded', function() {
     const managerPhoneInput = document.getElementById('academyManagerPhone');
     const academyPhoneInput = document.getElementById('academyPhone');
+    const academyNumberInput = document.getElementById('academyNumber');
     
     managerPhoneInput.addEventListener('input', function(event) {
         const inputValue = event.target.value;
@@ -64,6 +70,15 @@ document.addEventListener('DOMContentLoaded', function() {
             showErrorMessage(academyPhoneInput, '하이픈 기호를 제외한 전화번호를 입력해주세요.');
         } else {
             hideErrorMessage(academyPhoneInput);
+        }
+    });
+    
+    academyNumberInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value;
+        if (inputValue.includes('-')) {
+            showErrorMessage(academyNumberInput, '하이픈 기호를 제외한 사업자 등록번호 10자리를 입력해주세요.');
+        } else {
+            hideErrorMessage(academyNumberInput);
         }
     });
     
@@ -153,7 +168,7 @@ academyPhoneInput.addEventListener('blur', function(event) {
 });
 */
 
-/*
+/**/
 // 회원가입 버튼 클릭 이벤트 핸들러
 document.getElementById('submit-btn').addEventListener('click', function(event) {
     event.preventDefault(); // 기본 동작 방지
@@ -192,7 +207,7 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
         document.getElementById('join').submit(); // 수정: '#' 제거
     }
 });
-*/
+
 
 /* 수강료, 대상학년, 키워드 부분 컬럼 배치
 const specificInputGroup = document.querySelector('.specific-input-group');
@@ -251,13 +266,14 @@ document.getElementById('academyPasswd').addEventListener('input', function() {
 });
 
 // 마이페이지 버튼 클릭 시 세션값 확인 후 결과에 따라 제어
-/*if (!academyLoginVo) {
-    document.getElementById("mypageBtn").addEventListener("click", function(event) {
-        event.preventDefault();
-        alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "/userAccount/login";
-    });
-}*/
+/**/
+if (!academyLoginVo || !personalLoginVO) {
+	document.getElementById("mypageBtn").addEventListener("click", function(event) {
+    event.preventDefault();
+    alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+    window.location.href = "/userAccount/login";
+});
+}
 
 // 세션값이 있는지 확인
 document.getElementById("mypageBtn").addEventListener("click", function(event) {
