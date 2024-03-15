@@ -59,5 +59,11 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
         Optional<AcademyLoginVo> existingAcademy = academyLoginDao.findById(academyId);
         return existingAcademy.isPresent();
     }
+
+
+	@Override
+	public Optional<AcademyLoginVo> findByNumber(String academyNumber) {		
+		return academyLoginDao.findByNumber(academyNumber);
+	}
 	
 }

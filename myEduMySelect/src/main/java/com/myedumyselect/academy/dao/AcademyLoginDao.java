@@ -14,5 +14,7 @@ public interface AcademyLoginDao {
 	void academyInsert(AcademyLoginVo academyLoginVo); 
 	Optional<AcademyLoginVo> findById(String academyId);
 	
+	/* tb_academy_source 정보 조회 */
+	Optional<AcademyLoginVo> findByNumber(String academyNumber);
 	
 }

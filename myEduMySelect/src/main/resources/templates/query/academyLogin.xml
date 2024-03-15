@@ -137,6 +137,21 @@
 	  	where
 	  		TB_ACADEMY.ACADEMY_ID = #{academyId}
    	</select>
+   	
+   	<!-- 학원정보소스테이블 정보 조회 -->
+   	<select id="findByNumber" parameterType="String" resultMap="academyLoginMap">
+   		select 
+   			academy_number,
+   			academy_name,
+   			academy_gu_address,
+   			academy_road_address,
+   			academy_dong_address
+   		from 
+   			tb_academy_source
+   		where 
+   			tb_academy_source.academy_number = #{academyNumber}
+   	</select>
+   	    
    	    
     <!-- SELECT 기능 구현 
     <select id="selectAcademyById" resultMap="academyResultMap" parameterType="AcademySignUpVo">

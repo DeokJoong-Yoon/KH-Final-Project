@@ -11,5 +11,6 @@ public interface AcademyLoginService {
 	void academyInsert(AcademySignUpDto academySignUpDto);
 	Optional<AcademyLoginVo> findById(String academyId);
 	boolean isAcademyIdDuplicate(String academyId);
+	Optional<AcademyLoginVo> findByNumber(String academyNumber);
 }
 

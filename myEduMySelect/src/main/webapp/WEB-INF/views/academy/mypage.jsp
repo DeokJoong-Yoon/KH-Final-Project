@@ -49,20 +49,7 @@
   </style>
   
   <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
-  
-  <script>
-  	window.onload = function() {
-  		var confirmMessage = "${confirmMessage}";
-  		if (confirmMessage) {
-  			var result = confirm(confirmMessage);
-  			if(result) {
-  				window.location.href = "/userAccount/login"; // 확인 눌렀을 경우 로그인 페이지로 이동
-  			} else {
-  				window.location.href = "/";
-  			}
-  		}
-  	};
-  </script>
+    
 </head>
 
 <body>
