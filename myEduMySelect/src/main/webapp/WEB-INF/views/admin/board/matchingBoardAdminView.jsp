@@ -338,9 +338,6 @@
 										</c:choose>
 									</tbody>
 								</table>
-								<div class="text-end">
-									<button type="button" id="insertFormBtn" class="btn btn-primary btn-sm">글쓰기</button>
-								</div>
 							</div>
 							<%-- ======================== 페이징 출력 시작 ========================--%>
 							<nav aria-label="Page navigation example">

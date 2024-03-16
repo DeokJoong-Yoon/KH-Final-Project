@@ -5,7 +5,7 @@
 
 	<resultMap type="free" id="freeMap">
 		<id column="common_no" property="commonNo" />
-		<result column="admin_id" property="adminId" />
+		<result column="personal_id" property="personalId" />
 		<result column="member_type_id" property="memberTypeId" />
 		<result column="common_nickname" property="commonNickname" />
 		<result column="common_title" property="commonTitle" />
@@ -43,13 +43,13 @@
 
 	<select id="boardList" parameterType="free" resultMap="freeMap"> 
 		<![CDATA[
-		SELECT common_no, admin_id, member_type_id, common_nickname, common_title, 
+		SELECT common_no, personal_id, member_type_id, common_nickname, common_title, 
 		common_content, common_register_date, 
 		common_edit, common_readcnt, common_block_confirm, 
 		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
 		FROM (
 			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
-			rownum as rnum, common_no, admin_id, member_type_id, common_nickname, common_title, 
+			rownum as rnum, common_no, personal_id, member_type_id, common_nickname, common_title, 
 			common_content, common_register_date, common_edit, common_readcnt, common_block_confirm, 
 			common_block_date, common_file 
 			FROM (
@@ -66,17 +66,6 @@
 		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
-
-	<select id="freeDetail" parameterType="free"
-		resultType="free">
-		SELECT common_no, personal_id, member_type_id,
-		common_title, common_content, TO_CHAR(COMMON_REGISTER_DATE,'YYYY-MM-DD
-		HH24:MI:SS') AS common_register_date, common_readcnt
-		FROM
-		tb_common_board
-		WHERE common_no = #{common_no}
-	</select>
-
 
 	<select id="boardDetail" parameterType="free"
 		resultMap="freeMap">

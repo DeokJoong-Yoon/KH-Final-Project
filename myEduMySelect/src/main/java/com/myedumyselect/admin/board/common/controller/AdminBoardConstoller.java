@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
+import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 import com.myedumyselect.client.main.vo.PageDTO;
@@ -19,7 +21,6 @@ import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/adminBoard/*")
@@ -30,6 +31,13 @@ public class AdminBoardConstoller {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MatchingBoardAdminService matchingBoardAdminService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private FreeBoardAdminService freeBoardAdminService;
+
+	/*************************************************************
+	 * Admin notice
+	 *************************************************************/
 
 	@GetMapping("/notice")
 	public String adminNoticeBoardView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, HttpSession session) {
@@ -146,5 +154,44 @@ public class AdminBoardConstoller {
 		matchingBoardAdminService.boardDelete(matchingBoardVO);
 		return "redirect:/adminBoard/matching";
 	}
+	
+	
+	/*************************************************************
+	 * Admin free
+	 *************************************************************/
+	@GetMapping("/free")
+	public String freeBoardAdminView(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		
+		List<FreeBoardAdminVO> freeBoardList = freeBoardAdminService.boardList(freeBoardAdminVO);
+		model.addAttribute("freeBoardList", freeBoardList);
+		
+		// 전체 레코드수 반환.
+		int total = freeBoardAdminService.boardListCnt(freeBoardAdminVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(freeBoardAdminVO, total));
+		
+		return "admin/board/freeBoardAdminView";
+	}
+//	
+//	@GetMapping("/matchingBoardDetail")
+//	public String matchingBoardAdminDetail(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model, HttpSession session) {
+//		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+//		if (adminLoginVO == null) {
+//			return "redirect:/admin/login";
+//		}
+//		MatchingBoardVO detail = matchingBoardAdminService.boardDetail(matchingBoardVO);
+//		model.addAttribute("detail", detail);
+//		return "admin/board/matchingBoardAdminDetail";
+//	}
+//	
+//	@PostMapping("/matchingBoardDelete")
+//	public String matchingBoardAdminDelete(@ModelAttribute MatchingBoardVO matchingBoardVO) throws Exception {
+//		matchingBoardAdminService.boardDelete(matchingBoardVO);
+//		return "redirect:/adminBoard/matching";
+//	}
 
 }

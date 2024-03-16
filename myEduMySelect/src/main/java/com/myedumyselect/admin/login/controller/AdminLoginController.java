@@ -21,7 +21,6 @@ import com.myedumyselect.admin.member.service.AcademyAdminService;
 import com.myedumyselect.admin.member.service.PersonalAdminService;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
-import com.myedumyselect.commonboard.free.vo.FreeVO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;

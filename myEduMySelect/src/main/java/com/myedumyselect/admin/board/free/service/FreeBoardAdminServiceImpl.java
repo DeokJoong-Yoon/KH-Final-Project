@@ -23,4 +23,9 @@ public class FreeBoardAdminServiceImpl implements FreeBoardAdminService {
 		return list;
 	}
 
+	@Override
+	public int boardListCnt(FreeBoardAdminVO freeBoardAdminVO) {
+		return freeBoardDAO.boardListCnt(freeBoardAdminVO);
+	}
+
 }
