@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.myedumyselect.commonboard.notice.dao.NoticeBoardDAO">
-	<resultMap type="notice" id="noticeMap">
+	namespace="com.myedumyselect.admin.board.free.dao.FreeBoardDAO">
+
+	<resultMap type="free" id="freeMap">
 		<id column="common_no" property="commonNo" />
 		<result column="admin_id" property="adminId" />
 		<result column="member_type_id" property="memberTypeId" />
@@ -29,19 +30,18 @@
 	</sql>
 
 	<!-- 전체 레코드 수 조회 -->
-	<select id="boardListCnt" parameterType="notice"
-		resultType="int">
+	<select id="boardListCnt" parameterType="free" resultType="int">
 		SELECT count(*) FROM
 		(SELECT * FROM tb_common_board
 		WHERE member_type_id
-		= 3)
+		= 1)
 		<trim prefix=" where (" suffix=")">
 			<include refid="boardSearch"></include>
 		</trim>
 	</select>
 
-	<select id="boardList" parameterType="notice"
-		resultMap="noticeMap"> 
+
+	<select id="boardList" parameterType="free" resultMap="freeMap"> 
 		<![CDATA[
 		SELECT common_no, admin_id, member_type_id, common_nickname, common_title, 
 		common_content, common_register_date, 
@@ -54,7 +54,7 @@
 			common_block_date, common_file 
 			FROM (
 					select * from tb_common_board
-					where member_type_id = 3
+					where member_type_id = 1
 					order by common_register_date desc
 				 ) sortedBoardList
 			WHERE ]]>
@@ -67,39 +67,19 @@
 		]]>
 	</select>
 
+	<select id="freeDetail" parameterType="free"
+		resultType="free">
+		SELECT common_no, personal_id, member_type_id,
+		common_title, common_content, TO_CHAR(COMMON_REGISTER_DATE,'YYYY-MM-DD
+		HH24:MI:SS') AS common_register_date, common_readcnt
+		FROM
+		tb_common_board
+		WHERE common_no = #{common_no}
+	</select>
 
 
-
-
-
-
-	<insert id="boardInsert" parameterType="notice">
-		/* Board - boardInsert */
-		<selectKey keyProperty="commonNo" resultType="int"
-			order="BEFORE">
-			select notice_board_seq.nextval from dual
-		</selectKey>
-		INSERT INTO tb_common_board(common_no, admin_id, member_type_id,
-		common_nickname,
-		common_title, common_content, common_register_date,
-		common_edit, common_readcnt,
-		common_block_confirm, common_block_date,
-		common_file)
-		VALUES(
-		#{commonNo}, #{adminId},
-		#{memberTypeId},
-		#{commonNickname},
-		#{commonTitle}, #{commonContent},
-		sysdate,
-		sysdate,
-		#{commonReadcnt},
-		#{commonBlockConfirm},
-		#{commonBlockDate},
-		#{commonFile})
-	</insert>
-
-	<select id="boardDetail" parameterType="notice"
-		resultMap="noticeMap">
+	<select id="boardDetail" parameterType="free"
+		resultMap="freeMap">
 		SELECT
 		*
 		FROM tb_common_board
@@ -107,27 +87,11 @@
 		common_no = #{commonNo}
 	</select>
 
-	<delete id="boardDelete" parameterType="notice">
+	<delete id="boardDelete" parameterType="free">
 		DELETE FROM
 		tb_common_board
 		WHERE
 		common_no = #{commonNo}
 	</delete>
 
-	<update id="boardUpdate" parameterType="notice">
-		UPDATE tb_common_board SET
-		common_title = #{commonTitle},
-		common_content = #{commonContent},
-		common_edit = sysdate
-		<if test="commonFile !=''">
-			, common_file = #{commonFile}
-		</if>
-		WHERE common_no = #{commonNo}
-	</update>
-
-	<update id="readCntUpdate" parameterType="notice">
-		UPDATE tb_common_board
-		SET common_readcnt = common_readcnt + 1
-		WHERE common_no = #{commonNo}
-	</update>
 </mapper>

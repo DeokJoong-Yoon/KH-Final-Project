@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class NoticeBoardVO extends CommonVO{
+public class NoticeBoardVO extends CommonVO {
 	int commonNo = 0;
 	String adminId = "";
 	int memberTypeId = 3;
@@ -21,7 +21,7 @@ public class NoticeBoardVO extends CommonVO{
 	int commonReadcnt = 0;
 	char commonBlockConfirm = 0;
 	String commonBlockDate = "";
-	
-	private MultipartFile file;	// 파일 업로드를 위한 필드
+
+	private MultipartFile file; // 파일 업로드를 위한 필드
 	private String commonFile = ""; // 실제서버에 저장할 파일명
 }

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.admin.member.dao.AcademyAdminDAO">
+
+	<resultMap type="academy" id="academyMap">
+		<id column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="academy_number" property="academyNumber" />
+		<result column="academy_join_date" property="academyJoinDate" />
+		<result column="academy_passwd" property="academyPasswd" />
+		<result column="academy_name" property="academyName" />
+		<result column="academy_gu_address" property="academyGuAddress" />
+		<result column="academy_dong_address"
+			property="academyDongAddress" />
+		<result column="academy_road_address"
+			property="academyRoadAddress" />
+		<result column="academy_phone" property="academyPhone" />
+		<result column="academy_manager_name"
+			property="academyManagerName" />
+		<result column="academy_manager_email"
+			property="academyManagerEmail" />
+		<result column="academy_manager_phone"
+			property="academyManagerPhone" />
+		<result column="academy_target_grade"
+			property="academyTargetGrade" />
+		<result column="academy_target_subject"
+			property="academyTargetSubject" />
+		<result column="academy_keyword1" property="academyKeyword1" />
+		<result column="academy_keyword2" property="academyKeyword2" />
+		<result column="academy_keyword3" property="academyKeyword3" />
+		<result column="academy_keyword4" property="academyKeyword4" />
+		<result column="academy_keyword5" property="academyKeyword5" />
+		<result column="academy_fee" property="academyFee" />
+		<result column="academy_passwd_change_date"
+			property="academyPasswdChangeDate" />
+		<result column="academy_login_fail_count"
+			property="academyLoginFailCount" />
+		<result column="academy_account_banned_date"
+			property="academyAccountBannedDate" />
+	</resultMap>
+
+	<select id="memberListCnt" parameterType="academy"
+		resultType="int">
+		SELECT count(*) FROM
+		FROM tb_academy
+		<trim prefix=" where (" suffix=")">
+			<include refid="memberSearch"></include>
+		</trim>
+	</select>
+
+	<sql id="memberSearch">
+		<if test="search == 'academy_id'">
+		<![CDATA[ academy_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'academy_name'"> 
+		<![CDATA[ academy_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+
+
+	<select id="memberList" parameterType="academy"
+		resultMap="academyMap"> 
+		<![CDATA[
+		SELECT
+		   academy_id, 
+		   member_type_id,
+		   academy_number,
+		   academy_join_date,
+		   academy_name,
+		   academy_gu_address,
+		   academy_dong_address,
+		   academy_road_address,
+		   academy_phone,
+		   academy_manager_name,
+		   academy_manager_email,
+		   academy_manager_phone,
+		   academy_target_grade,
+		   academy_target_subject,
+		   academy_keyword1,
+		   academy_keyword2,
+		   academy_keyword3,
+		   academy_keyword4,
+		   academy_keyword5,
+		   academy_fee,
+		   academy_passwd_change_date,
+		   academy_login_fail_count,
+		   academy_account_banned_date
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_academy pk_tb_academy) */
+		   rownum as rnum,
+		   academy_id, 
+		   member_type_id,
+		   academy_number,
+		   academy_join_date,
+		   academy_name,
+		   academy_gu_address,
+		   academy_dong_address,
+		   academy_road_address,
+		   academy_phone,
+		   academy_manager_name,
+		   academy_manager_email,
+		   academy_manager_phone,
+		   academy_target_grade,
+		   academy_target_subject,
+		   academy_keyword1,
+		   academy_keyword2,
+		   academy_keyword3,
+		   academy_keyword4,
+		   academy_keyword5,
+		   academy_fee,
+		   academy_passwd_change_date,
+		   academy_login_fail_count,
+		   academy_account_banned_date
+			FROM (
+					select * from tb_academy order by academy_join_date desc
+				 ) sortedMemberList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="memberSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+
+
+
+</mapper>

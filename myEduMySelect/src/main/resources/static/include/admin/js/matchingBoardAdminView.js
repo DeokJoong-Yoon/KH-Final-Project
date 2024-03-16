@@ -1,14 +1,12 @@
 $(function() {
 	
 	$(".goDetail").on("click", function() {
-		
-		/* form을 생성하여 제어 */
 		let matchingNo = $(this).parents("tr").attr("data-num");
 		$("#matchingNo").val(matchingNo);
 		
 		$("#detailForm").attr({
 			"method" : "get",
-			"action" : "/adminBoard/boardDetail"
+			"action" : "/adminBoard/matchingBoardDetail"
 		});
 		$("#detailForm").submit();
 	});

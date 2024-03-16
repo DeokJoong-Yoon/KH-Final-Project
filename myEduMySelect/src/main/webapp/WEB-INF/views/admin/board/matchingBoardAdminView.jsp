@@ -298,8 +298,8 @@
 									<div class="col-auto">
 										<select id="search" name="search" class="form-select form-select-sm">
 											<option value="all">All</option>
-											<option value="matchingNo">matching No</option>
-											<option value="personalId">personal Id</option>
+											<option value="matching_no">matching No</option>
+											<option value="personal_id">personal Id</option>
 										</select>
 									</div>
 									<div class="col-auto">
@@ -382,18 +382,15 @@
 	<script>
       	$(function() {
       		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${MatchingBoardVO.keyword}' />";
+      		let word="<c:out value='${matchingBoardVO.keyword}' />";
       		let value ="";
       		if (word != "") {
-      			$("#keyword").val("<c:out value='${MatchingBoardVO.keyword}' />");
-      			$("#search").val("<c:out value='${MatchingBoardVO.search}' />");
+      			$("#keyword").val("<c:out value='${matchingBoardVO.keyword}' />");
+      			$("#search").val("<c:out value='${matchingBoardVO.search}' />");
       			
-      			if ($("#search").val() != 'common_content') {
-      				//:contains() 는 특정 텍스트를 포함한 요소 반환
-      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+      			if ($("#search").val() != 'matching_no') {
+      				if($("#search").val() == 'personal_id') value = "#list tr td.goDetail";
       				console.log($(value + ":contains('" + word + "')").html());
-      				// $("#list tr td.goDetail:contains('노력')").html();
-      				// => <span class='required'>노력</span>에 대한 명언
       				$(value + ":contains('" + word +"')").each(function() {
       					let regex = new RegExp(word, 'gi');
       					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));

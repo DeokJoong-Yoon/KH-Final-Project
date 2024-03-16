@@ -8,4 +8,10 @@ public interface MatchingBoardAdminService {
 
 	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
 
+	public int boardListCnt(MatchingBoardVO matchingBoardVO);
+
+	public MatchingBoardVO boardDetail(MatchingBoardVO matchingBoardVO);
+
+	public int boardDelete(MatchingBoardVO matchingBoardVO);
+
 }

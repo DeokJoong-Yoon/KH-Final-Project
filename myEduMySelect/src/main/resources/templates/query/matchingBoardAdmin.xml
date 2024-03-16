@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.myedumyselect.admin.board.matching.dao.MatchingBoardAdminDAO">
+<mapper
+	namespace="com.myedumyselect.admin.board.matching.dao.MatchingBoardAdminDAO">
 
-	<!-- MatchingBoardVO 별칭 일괄 부여 -->
-	<resultMap type="matchingBoard" id="matchingBoardMap">
+		<resultMap type="matchingBoard" id="matchingBoardMap">
 		<id column="matching_no" property="matchingNo" />
 		<result column="personal_id" property="personalId" />
 		<result column="matching_private" property="matchingPrivate" />
@@ -19,34 +19,30 @@
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
-		<result column="commentCnt" property="commentCnt" />
 		<result column="matching_comment" property="matchingComment" />
 	</resultMap>
-	
+
 	<sql id="boardSearch">
-		<if test="search == 'matchingNo'">
-		<![CDATA[ matching_no LIKE '%' || #{keyword} || '%' ]]>
+		<if test="search == 'matching_no'">
+		<![CDATA[ matching_no = #{keyword} ]]>
 		</if>
-		<if test="search == 'personalId'"> 
+		<if test="search == 'personal_id'"> 
 		<![CDATA[ personal_id LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 	</sql>
-	
+
 	<!-- 전체 레코드 수 조회 -->
-	<select id="boardListCnt" parameterType="matchingBoard" resultType="int" >
+	<select id="boardListCnt" parameterType="matchingBoard"
+		resultType="int">
 		SELECT count(*) FROM tb_matching_board
 		<trim prefix=" where (" suffix=")">
 			<include refid="boardSearch"></include>
 		</trim>
 	</select>
-	
-	
 
-
-	
-	
 	<!-- 매칭게시판 글 목록 전체 보기 -->
-	<select id="boardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
+	<select id="boardList" parameterType="matchingBoard"
+		resultMap="matchingBoardMap">
 			<![CDATA[
 			SELECT  matching_no
 					, matching_gu_address
@@ -70,37 +66,47 @@
 					FROM   	(
 							SELECT * FROM tb_matching_board ORDER BY matching_register_date DESC) sortedList
 	    			WHERE ]]>
-					<trim prefix="(" suffix=") AND " prefixOverrides="AND">
-						<include refid="boardSearch"></include>
-					</trim>
-					<![CDATA[rownum <= #{pageNum} * #{amount})
-						WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="boardSearch"></include>
+		</trim>
+					<![CDATA[rownum <= #{pageNum} * #{amount}) boardList
+					WHERE rnum > (#{pageNum} - 1 ) * #{amount}
 					]]>
-	</select> 
-	
-	
+	</select>
+
+
 	<!-- 매칭게시판 게시글 상세 보기 -->
-	<select id="boardListDetail" parameterType="matchingBoard" resultMap="matchingBoardMap">
-		SELECT  matching_no
-		,		matching_gu_address
-		,		matching_dong_address
-		, 		matching_target_subject
-	    , 		matching_target_grade
-	    ,		matching_fee
-	    ,		matching_keyword1
-	    ,		matching_keyword2
-	    ,		matching_keyword3
-	    , 		personal_id
-	    , 		to_char (matching_register_date, 'YYYY-MM-DD')   as matching_register_date
-	    , 		( SELECT COUNT(matching_comment_no) 
-	    		  FROM tb_matching_comment 
-	    		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
-	    , 		matching_comment
-	    FROM   tb_matching_board	
-	    WHERE  matching_no = #{matchingNo}
+	<select id="boardDetail" parameterType="matchingBoard"
+		resultMap="matchingBoardMap">
+		SELECT matching_no
+		, matching_gu_address
+		,
+		matching_dong_address
+		, matching_target_subject
+		, matching_target_grade
+		, matching_fee
+		, matching_keyword1
+		, matching_keyword2
+		,
+		matching_keyword3
+		, personal_id
+		, to_char (matching_register_date,
+		'YYYY-MM-DD') as
+		matching_register_date
+		, ( SELECT
+		COUNT(matching_comment_no)
+		FROM tb_matching_comment
+		WHERE matching_no =
+		tb_matching_board.matching_no) as commentCnt
+		, matching_comment
+		FROM
+		tb_matching_board
+		WHERE matching_no = #{matchingNo}
 	</select>
 	
-	
-	
-	
+	<delete id="boardDelete" parameterType="matchingBoard">
+		DELETE FROM tb_matching_board
+	    WHERE matching_no = #{matchingNo}
+	</delete>
+
 </mapper>

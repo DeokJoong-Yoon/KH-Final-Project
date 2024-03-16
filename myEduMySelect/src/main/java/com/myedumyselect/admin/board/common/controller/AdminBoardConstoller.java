@@ -29,7 +29,7 @@ public class AdminBoardConstoller {
 	private NoticeBoardService noticeBoardServcie;
 	
 	@Setter(onMethod_ = @Autowired)
-	private MatchingBoardAdminService MatchingBoardAdminService;
+	private MatchingBoardAdminService matchingBoardAdminService;
 
 	@GetMapping("/notice")
 	public String adminNoticeBoardView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, HttpSession session) {
@@ -113,22 +113,38 @@ public class AdminBoardConstoller {
 	 * Admin Mathcing
 	 *************************************************************/
 	@GetMapping("/matching")
-	public String MatchingBoardAdminView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, HttpSession session) {
+	public String matchingBoardAdminView(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model, HttpSession session) {
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
 
-		MatchingBoardVO matchingBoardVO = new MatchingBoardVO();
-		List<MatchingBoardVO> matchingBoardList = MatchingBoardAdminService.boardList(matchingBoardVO);
+		List<MatchingBoardVO> matchingBoardList = matchingBoardAdminService.boardList(matchingBoardVO);
 		model.addAttribute("matchingBoardList", matchingBoardList);
 
 		// 전체 레코드수 반환.
-		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
+		int total = matchingBoardAdminService.boardListCnt(matchingBoardVO);
 		// 페이징 처리
-		model.addAttribute("pageMaker", new PageDTO(noticeBoardVO, total));
+		model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
 
 		return "admin/board/matchingBoardAdminView";
+	}
+	
+	@GetMapping("/matchingBoardDetail")
+	public String matchingBoardAdminDetail(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		MatchingBoardVO detail = matchingBoardAdminService.boardDetail(matchingBoardVO);
+		model.addAttribute("detail", detail);
+		return "admin/board/matchingBoardAdminDetail";
+	}
+	
+	@PostMapping("/matchingBoardDelete")
+	public String matchingBoardAdminDelete(@ModelAttribute MatchingBoardVO matchingBoardVO) throws Exception {
+		matchingBoardAdminService.boardDelete(matchingBoardVO);
+		return "redirect:/adminBoard/matching";
 	}
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.myedumyselect.academy.dao.AcademyLoginDao">
 
     <resultMap type="academyLogin" id="academyLoginMap">
-        <id column="academy_id" property="academyId"/>
+        <id column="academy_id" property="academy"/>
         <result column="member_type_id" property="memberTypeId"/>
         <result column="academy_number" property="academyNumber"/>
         <result column="academy_join_date" property="academyJoinDate"/>

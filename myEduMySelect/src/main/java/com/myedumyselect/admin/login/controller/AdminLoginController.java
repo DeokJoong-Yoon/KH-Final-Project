@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
+import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.service.AdminLoginService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 import com.myedumyselect.admin.member.service.AcademyAdminService;
+import com.myedumyselect.admin.member.service.PersonalAdminService;
+import com.myedumyselect.admin.member.vo.AcademyAdminVO;
+import com.myedumyselect.admin.member.vo.PersonalAdminVO;
+import com.myedumyselect.commonboard.free.vo.FreeVO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
@@ -44,32 +50,45 @@ public class AdminLoginController {
 
 	@Setter(onMethod_ = @Autowired)
 	private NoticeBoardService noticeBoardService;
-	
+
 	@Setter(onMethod_ = @Autowired)
-	private MatchingBoardAdminService MatchingBoardAdminService;
-	
-//	@Setter(onMethod_ = @Autowired)
-//	private AcademyAdminService academyAdminService;
+	private MatchingBoardAdminService matchingBoardAdminService;
+
+	@Setter(onMethod_ = @Autowired)
+	private FreeBoardAdminService freeBoardAdminService;
+
+	@Setter(onMethod_ = @Autowired)
+	private AcademyAdminService academyAdminService;
+
+	@Setter(onMethod_ = @Autowired)
+	private PersonalAdminService personalAdminService;
 
 	@GetMapping("/login")
 	public String loginProcess(Model model) {
 
-		if(model.containsAttribute("adminLogin")) {
-			
-			// Board 리스트 결과 
+		if (model.containsAttribute("adminLogin")) {
+
+			// Board 리스트 결과
 			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
 			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
 			model.addAttribute("noticeBoardList", noticeBoardList);
 			MatchingBoardVO matchingBoardVO = new MatchingBoardVO();
-			List<MatchingBoardVO> matchingBoardList = MatchingBoardAdminService.boardList(matchingBoardVO);
+			List<MatchingBoardVO> matchingBoardList = matchingBoardAdminService.boardList(matchingBoardVO);
 			model.addAttribute("matchingBoardList", matchingBoardList);
-//			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
-//			List<NoticeBoardVO> noticeBoardList = noticeBoardService.boardList(noticeBoardVO);
-//			model.addAttribute("noticeBoardList", noticeBoardList);
-			
+			FreeBoardAdminVO freeBoardAdminVO = new FreeBoardAdminVO();
+			List<FreeBoardAdminVO> freeBoardList = freeBoardAdminService.boardList(freeBoardAdminVO);
+			model.addAttribute("freeBoardList", freeBoardList);
+
 			// 회원 리스트 결과
+			PersonalAdminVO personalAdminVO = new PersonalAdminVO();
+			List<PersonalAdminVO> personalAdminList = personalAdminService.memberList(personalAdminVO);
+			model.addAttribute("personalAdminList", personalAdminList);
+			AcademyAdminVO academyAdminVO = new AcademyAdminVO();
+			List<AcademyAdminVO> academyAdminList = academyAdminService.memberList(academyAdminVO);
+			model.addAttribute("academyAdminList", academyAdminList);
+
 		}
-		
+
 		return "admin/login/adminMain";
 	}
 
@@ -88,11 +107,11 @@ public class AdminLoginController {
 	@PostMapping("/login")
 	public String loginProcess(AdminLoginVO login, Model model, RedirectAttributes ras) {
 		AdminLoginVO adminLogin = adminLoginService.loginProcess(login);
-		
+
 		/* 로그인 확인 */
 		if (adminLogin != null) {
 			model.addAttribute("adminLogin", adminLogin);
-			
+
 		} else {
 
 			ras.addFlashAttribute("errorMsg", "아이디 혹은 패스워드가 맞지 않습니다.");
