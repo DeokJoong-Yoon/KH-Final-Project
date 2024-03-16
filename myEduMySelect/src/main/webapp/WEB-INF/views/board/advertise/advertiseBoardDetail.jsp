@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -105,66 +104,46 @@
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
 					<div class="text-center">
-						<h1>자유게시판 상세화면</h1>
+						<h1>앨범 게시판</h1>
 					</div>
 					<div class="d-flex justify-content-center justify-content-lg-start">
 						<div class="container">
-
-							<form id="f_data" name="f_data" action="/free/freeUpdateForm"
-								method="post">
-								<input type="hidden" id="common_no" value="${detail.common_no}" />
+							<!-- 검색 영역 -->
+							<form action="searchResult.jsp" method="get" class="mb-4">
+								<input type="text" name="searchKeyword" placeholder="검색어">
+								<input type="submit" value="검색">
 							</form>
 
-
+							<!-- 이미지 갤러리 영역 -->
 							<div class="row">
-								<div class="col-3 list-group">
-									<a href="/free/freeList"
-										class="list-group-item list-group-item-action">자유게시판</a> <a
-										href="/advertise/advertiseList"
-										class="list-group-item list-group-item-action">홍보게시판</a> <a
-										href="#" class="list-group-item list-group-item-action">공지게시판</a>
+								<%
+								for (int i = 0; i < 6; i++) {
+								%>
+								<div class="col-md-4">
+									<div class="card mb-4 box-shadow">
+										<img class="card-img-top" src="imagePlaceholder.jpg"
+											alt="Image cap">
+										<div class="card-body">
+											<p class="card-text">Image cap</p>
+										</div>
+									</div>
 								</div>
-								<div class="col-lg-9 table-container">
-									<table class="table text-center" id="table">
-										<thead>
-											<tr>
-												<td colspan="12" class="text-center">제목 :
-													${detail.common_title}</td>
-											</tr>
-											<tr>
-												<td colspan="3" class="text-start">글번호 :
-													${detail.common_no} (조회수 : ${detail.common_readcnt})</td>
-												<td colspan="3" class="text-start">작성자 :
-													${detail.personal_id}</td>
-												<td colspan="3" class="text-start">작성일 :
-													${detail.common_register_date}</td>
-												<td colspan="3" class="text-start">좋아요 :</td>
-											</tr>
-										</thead>
+								<%
+								}
+								%>
+							</div>
 
-										<tbody>
-											<tr>
-												<th colspan="2" class="text-center">내용</th>
-												<td colspan="10" rowspan="10"
-													class="text-start content-size">${detail.common_content}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+							<!-- 내용 입력 영역 -->
+							<form action="submitContent.jsp" method="post">
+								<textarea name="content" rows="4" cols="50" class="form-control mb-2"></textarea>
+							</form>
+							
 							<div class="col-md-12 text-end ms-auto" id=BtnGroup>
-								<button type="button" id="freeUpdateBtn"
-									class="btn btn-primary btn-sm">글수정</button>
-								<button type="button" id="freeDeleteBtn"
-									class="btn btn-primary btn-sm">글삭제</button>
-								<button type="button" id="freeWriterBtn"
-									class="btn btn-primary btn-sm">글쓰기</button>
-								<button type="button" id="freeListBtn"
-									class="btn btn-primary btn-sm">목록</button>
+								<button type="button" id="advertiseUpdateBtn" class="btn btn-primary btn-sm">글수정</button>
+								<button type="button" id="advertiseDeleteBtn" class="btn btn-primary btn-sm">글삭제</button>
+								<button type="button" id="advertiseInsertBtn" class="btn btn-primary btn-sm">글쓰기</button>
+								<button type="button" id="advertiseListBtn" class="btn btn-primary btn-sm">목록</button>
 							</div>
-						</div>
-						<div style="margin-top: 20px;">
-							<jsp:include page="freereply.jsp" />
 						</div>
 
 					</div>
@@ -174,6 +153,7 @@
 		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
 			data-aos-delay="200"></div>
 	</section>
+
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -281,17 +261,9 @@
 	<script src="/resources/include/board/free/js/freeDetail.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
 	<script>
-	$(document).ready(function() {
-	    let common_no = null; // 예시로 고정된 common_no
-
-	    // AJAX 요청을 통해 상세 정보를 받아옴
-	    $.getJSON("/free/getDetail/" + common_no, function(data) {
-	        let detail = data; // 받아온 데이터를 detail 변수에 저장
-	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
-	    });
-	});
+		
 	</script>
-	
+
 </body>
 
 </html>

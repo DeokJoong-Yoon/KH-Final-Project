@@ -578,37 +578,45 @@ section {
 	color: white;
 }
 
+#common_title{
+	width :100%;
+	height: 60px;
+}
 
-.table{
-  width:60%;
+table{
   position: fixed;
-  margin-top:-14%;
-  margin-left:25.5%;
+  width:62%;
+  top:19%;
+  margin-left:10%;
   background-color: white;
   box-shadow: 5px 10px 15px 0px #ebebeb;
 }
 
-
-
 td{
-	width:auto;
+	border: 1px thin black;
 	padding: 5px;
-	align-items:center;
-	text-align: center;
 }
 
+.custom-textarea{
+	resize: none; 
+    width: 100%;
+    border: 1px thin black;
+    height: 250px;
+    padding: 10px; 
+    margin: 0;
+}
 
 #BtnGroup {
-	align-items: center;
-	position: absolute;
-	margin-top:8%;
-	right:13%;
+	position: sticky;
+	margin-top:65%;
+	margin-right:-119%;
+	
 }
 
 .content-size {
-	width: 300px;
+	width: 100px;
 	height: 300px;
-	overflow: 1auto;
+	overflow: auto;
 }
 
 /*--------------------------------------------------------------
@@ -637,11 +645,6 @@ td{
 		max-width: 40%;
 	}
 }
-
-
-#item-template{display:none;}
-.inline{display:inline-block;}
-
 
 /*--------------------------------------------------------------
 # About Us

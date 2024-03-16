@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -46,7 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="/resources/include/board/free/css/freeDetail.css"
+<link href="/resources/include/board/advertise/css/advertiseList.css"
 	rel="stylesheet">
 
 <!-- =======================================================
@@ -96,7 +95,7 @@
 	</header>
 	<!-- End Header -->
 
-	<!-- ======= 게시판 상세페이지 영역 ======= -->
+	<!-- ======= 게시판 영역 ======= -->
 	<section id="hero"
 		class="d-flex align-items-center justify-content-center">
 		<div class="container">
@@ -104,17 +103,13 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<div class="text-center">
-						<h1>자유게시판 상세화면</h1>
-					</div>
+					
 					<div class="d-flex justify-content-center justify-content-lg-start">
 						<div class="container">
 
-							<form id="f_data" name="f_data" action="/free/freeUpdateForm"
-								method="post">
-								<input type="hidden" id="common_no" value="${detail.common_no}" />
+							<form id="detailForm">
+								<input type="hidden" id="common_no" name="common_no" />
 							</form>
-
 
 							<div class="row">
 								<div class="col-3 list-group">
@@ -124,49 +119,190 @@
 										class="list-group-item list-group-item-action">홍보게시판</a> <a
 										href="#" class="list-group-item list-group-item-action">공지게시판</a>
 								</div>
-								<div class="col-lg-9 table-container">
-									<table class="table text-center" id="table">
-										<thead>
-											<tr>
-												<td colspan="12" class="text-center">제목 :
-													${detail.common_title}</td>
-											</tr>
-											<tr>
-												<td colspan="3" class="text-start">글번호 :
-													${detail.common_no} (조회수 : ${detail.common_readcnt})</td>
-												<td colspan="3" class="text-start">작성자 :
-													${detail.personal_id}</td>
-												<td colspan="3" class="text-start">작성일 :
-													${detail.common_register_date}</td>
-												<td colspan="3" class="text-start">좋아요 :</td>
-											</tr>
-										</thead>
-
-										<tbody>
-											<tr>
-												<th colspan="2" class="text-center">내용</th>
-												<td colspan="10" rowspan="10"
-													class="text-start content-size">${detail.common_content}</td>
-											</tr>
-										</tbody>
-									</table>
+								<div
+									class="thumlist justify-content-center justify-content-lg-start">
+									<div class="row">
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+										<div class="col">
+											<div class="thumbnail">
+												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
+													height="100" alt="학원이름">
+												</a>
+												<div class="info">
+													<p>학원 이름01</p>
+													<p>전화번호: 000-0000-0000</p>
+													<p>주소: 서울시 강남구 역삼동</p>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-12 text-end ms-auto" id=BtnGroup>
-								<button type="button" id="freeUpdateBtn"
-									class="btn btn-primary btn-sm">글수정</button>
-								<button type="button" id="freeDeleteBtn"
-									class="btn btn-primary btn-sm">글삭제</button>
-								<button type="button" id="freeWriterBtn"
-									class="btn btn-primary btn-sm">글쓰기</button>
-								<button type="button" id="freeListBtn"
-									class="btn btn-primary btn-sm">목록</button>
-							</div>
-						</div>
-						<div style="margin-top: 20px;">
-							<jsp:include page="freereply.jsp" />
 						</div>
 
+						<div id="advertiseSearch" class="text-right">
+							<form id="a_search" name="a_search" >
+								<div class="row g-2 align-items-center" style="width:500%;">
+									<div class="col-auto">
+										<select id="search" name="search"
+											class="form-select form-select-sm">
+											<option value="all">전체 목록 조회</option>
+											<option value="common_title">글제목</option>
+											<option value="common_content">글내용</option>
+											<option value="academy_id">작성자</option>
+										</select>
+									</div>
+									<div class="col-auto">
+										<input type="text" name="keyword" id="keyword"
+											placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
+									</div>
+									<div class="col-auto">
+										<button type="button" id="searchData"
+											class="btn btn-primary btn-sm">검색</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="button-container text-center">
+						<button type="submit" id="advertiseInsertBtn" class="btn btn-primary">글쓰기</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -174,6 +310,7 @@
 		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
 			data-aos-delay="200"></div>
 	</section>
+
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -260,6 +397,8 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
+
+
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
 	<script
@@ -278,20 +417,41 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/free/js/freeDetail.js"></script>
-	<script src="/resources/include/board/common/main.js"></script>
 	<script>
-	$(document).ready(function() {
-	    let common_no = null; // 예시로 고정된 common_no
+		$(function() {
+			let word = "${FreeVO.keyword}";
+			let value = "";
 
-	    // AJAX 요청을 통해 상세 정보를 받아옴
-	    $.getJSON("/free/getDetail/" + common_no, function(data) {
-	        let detail = data; // 받아온 데이터를 detail 변수에 저장
-	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
-	    });
-	});
+			if (word != "") {
+				$("#keyword").val(word);
+				$("#search").val("${FreeVO.search}");
+
+				if ($("#search").val() != 'common_content') {
+					if ($("#search").val() == 'common_title')
+						value = "#list tr td.goDetail";
+					else if ($("#search").val() == 'personal_id')
+						value = "#list tr td.name";
+
+					$(value + ":contains('" + word + "')").each(
+							function() {
+								let escapedWord = word.replace(
+										/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
+										"\\$&");
+								let regex = new RegExp(escapedWord, 'gi');
+								$(this).html(
+										$(this).html().replace(
+												regex,
+												"<span class='required'>"
+														+ word + "</span>"));
+							});
+				}
+			}
+		});
 	</script>
-	
+	<script src="/resources/include/board/advertise/js/advertiseList.js"></script>
+	<script src="/resources/include/board/common/main.js"></script>
+
+
 </body>
 
 </html>

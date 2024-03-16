@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -46,8 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="/resources/include/board/free/css/freeDetail.css"
-	rel="stylesheet">
+<link href="/resources/include/board/advertise/css/advertiseInsert.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -101,79 +99,52 @@
 		class="d-flex align-items-center justify-content-center">
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
+				<div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
 					<div class="text-center">
-						<h1>자유게시판 상세화면</h1>
+						<h1>홍보게시판 입력화면</h1>
 					</div>
 					<div class="d-flex justify-content-center justify-content-lg-start">
 						<div class="container">
 
-							<form id="f_data" name="f_data" action="/free/freeUpdateForm"
-								method="post">
-								<input type="hidden" id="common_no" value="${detail.common_no}" />
+							<form id="insertForm">
+								<input type="hidden" id="common_no" name="common_no" />
 							</form>
 
 
 							<div class="row">
 								<div class="col-3 list-group">
-									<a href="/free/freeList"
-										class="list-group-item list-group-item-action">자유게시판</a> <a
-										href="/advertise/advertiseList"
-										class="list-group-item list-group-item-action">홍보게시판</a> <a
-										href="#" class="list-group-item list-group-item-action">공지게시판</a>
+									<a href="/free/freeList" class="list-group-item list-group-item-action">자유게시판</a>
+									<a href="/advertise/advertiseList" class="list-group-item list-group-item-action">홍보게시판</a>
+									<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
 								</div>
-								<div class="col-lg-9 table-container">
-									<table class="table text-center" id="table">
-										<thead>
-											<tr>
-												<td colspan="12" class="text-center">제목 :
-													${detail.common_title}</td>
-											</tr>
-											<tr>
-												<td colspan="3" class="text-start">글번호 :
-													${detail.common_no} (조회수 : ${detail.common_readcnt})</td>
-												<td colspan="3" class="text-start">작성자 :
-													${detail.personal_id}</td>
-												<td colspan="3" class="text-start">작성일 :
-													${detail.common_register_date}</td>
-												<td colspan="3" class="text-start">좋아요 :</td>
-											</tr>
-										</thead>
-
-										<tbody>
-											<tr>
-												<th colspan="2" class="text-center">내용</th>
-												<td colspan="10" rowspan="10"
-													class="text-start content-size">${detail.common_content}</td>
-											</tr>
-										</tbody>
+								<form id="a_insertForm">
+									<table>
+										<tr>
+											<td colspan="7" class="text-start"><input type="text" id="common_title" name="common_title"  placeholder="제목을 입력해 주세요" /></td>
+										</tr>
+										<tr>
+											<td><textarea name="common_content" id="common_content" class="form-control custom-textarea"  placeholder="내용을 입력해주세요."></textarea></td>
+										</tr>
+										<tr>
+											<td><input type="file" id="file" name="file" class="form-control" placeholder="첨부파일을 입력해주세요." maxlength="50" /></td>
+										</tr>
 									</table>
-								</div>
-							</div>
-							<div class="col-md-12 text-end ms-auto" id=BtnGroup>
-								<button type="button" id="freeUpdateBtn"
-									class="btn btn-primary btn-sm">글수정</button>
-								<button type="button" id="freeDeleteBtn"
-									class="btn btn-primary btn-sm">글삭제</button>
-								<button type="button" id="freeWriterBtn"
-									class="btn btn-primary btn-sm">글쓰기</button>
-								<button type="button" id="freeListBtn"
-									class="btn btn-primary btn-sm">목록</button>
+								</form>
+							<div class="col-md-5 text-end ms-auto" id=BtnGroup>
+								<button type="submit" id="advertiseInsertBtn" class="btn btn-primary btn-sm">등록</button>
+								<button type="submit" id="advertiseCancelBtn" class="btn btn-primary btn-sm">취소</button>
+								<button type="submit" id="advertiseListBtn" class="btn btn-primary btn-sm">목록</button>
 							</div>
 						</div>
-						<div style="margin-top: 20px;">
-							<jsp:include page="freereply.jsp" />
+			
 						</div>
-
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200"></div>
 		</div>
-		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-			data-aos-delay="200"></div>
 	</section>
+
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -278,20 +249,17 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/free/js/freeDetail.js"></script>
+	<script src="/resources/include/board/advertise/js/advertiseInsert.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
 	<script>
-	$(document).ready(function() {
-	    let common_no = null; // 예시로 고정된 common_no
-
-	    // AJAX 요청을 통해 상세 정보를 받아옴
-	    $.getJSON("/free/getDetail/" + common_no, function(data) {
-	        let detail = data; // 받아온 데이터를 detail 변수에 저장
-	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
-	    });
+	$(function(){
+		let errorMsg = "${errorMsg}";
+		if(errorMsg != ""){
+			alert(errorMsg);
+		}
 	});
 	</script>
-	
+
 </body>
 
 </html>

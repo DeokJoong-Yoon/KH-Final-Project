@@ -1,5 +1,3 @@
-let buttonCheck = 0;
-
 $(function(){
 	
 	$("#freeUpdateBtn").on("click", () => {

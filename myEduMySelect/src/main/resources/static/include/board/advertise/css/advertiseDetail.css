@@ -608,7 +608,7 @@ td{
 .content-size {
 	width: 300px;
 	height: 300px;
-	overflow: 1auto;
+	overflow: auto;
 }
 
 /*--------------------------------------------------------------
@@ -637,11 +637,6 @@ td{
 		max-width: 40%;
 	}
 }
-
-
-#item-template{display:none;}
-.inline{display:inline-block;}
-
 
 /*--------------------------------------------------------------
 # About Us

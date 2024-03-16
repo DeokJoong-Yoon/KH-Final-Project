@@ -16,16 +16,18 @@
 	</resultMap>
 
 
-	<select id="freeList" parameterType="freeBoard"
-		resultType="freeBoard">
-		SELECT common_no, personal_id, member_type_id, common_title,
-		common_content, to_char(common_register_date,'YYYY-MM-DD') as
-		common_register_date, to_char(common_edit, 'YYYY-MM-DD') as
-		common_edit, common_readcnt
+	<select id="freeList" parameterType="freeBoard" resultType="freeBoard">
+		SELECT common_no, personal_id, member_type_id, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt
 		FROM tb_common_board
 		<where>
 			<include refid="freeSearch"></include>
 		</where>
+		<!-- <where>
+		    <if test="memberTypeId != null">
+		        AND memberTypeId = #{member_type_id}
+		    </if>
+		    <include refid="freeSearch"></include>
+		</where> -->
 		ORDER BY common_no desc
 	</select>
 

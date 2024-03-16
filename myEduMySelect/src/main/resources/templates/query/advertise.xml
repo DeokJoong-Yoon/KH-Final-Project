@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.commonboard.advertise.dao.AdvertiseDAO">
+	
+	<resultMap type="advertiseBoard" id="advertiseBoardMap">
+		<id column="commonNo" property="common_no" />
+		<result column="academyId" property="academy_id" />
+		<result column="memberTypeId" property="member_type_id" />
+		<result column="commonNickname" property="common_nickname" />
+		<result column="commonTitle" property="common_title" />
+		<result column="commonContent" property="common_content" />
+		<result column="commonRegisterDate" property="common_register_date" />
+		<result column="commonEdit" property="common_edit" />
+		<result column="commonReadcnt" property="common_readcnt" />
+		<result column="commonBlockConfirm" property="common_block_confirm" />
+		<result column="commonBlockDate" property="common_block_date" />
+	</resultMap>
+	
+	
+	<select id="advertiseList" parameterType="advertiseBoard" resultType="advertiseBoard">
+		SELECT common_no, academy_id, member_type_id, common_nickname, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt,common_block_confirm, to_char(common_block_date, 'YYYY-MM-DD') as common_block_date
+		FROM tb_common_board
+		<!-- <where>
+			<include refid="freeSearch"></include>
+		</where> -->
+		ORDER BY common_no desc
+	</select>
+</mapper>

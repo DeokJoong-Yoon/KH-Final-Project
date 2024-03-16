@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -46,8 +45,15 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="/resources/include/board/free/css/freeDetail.css"
-	rel="stylesheet">
+<style>
+#item-template {
+	display: none;
+}
+
+.inline {
+	display: inline-block;
+}
+</style>
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -59,121 +65,57 @@
 </head>
 
 <body>
-
-	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-		<div class="container d-flex align-items-center">
-
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
-					<li class="dropdown"><a href="#"><span>메뉴</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
-						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
-
-		</div>
-	</header>
-	<!-- End Header -->
-
-	<!-- ======= 게시판 상세페이지 영역 ======= -->
-	<section id="hero"
-		class="d-flex align-items-center justify-content-center">
-		<div class="container">
-			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<div class="text-center">
-						<h1>자유게시판 상세화면</h1>
+	<div>
+		<%-- 댓글 입력 화면 --%>
+		<!-- <div>
+			<form id="freereplyForm" name="freereplyForm">
+				<div class="row mb-3">
+					<label for="personal_id" class="col-sm-1 col-form-label">작성자</label>
+					<div class="col-sm-3">
+						<input type="text" name="personal_id" id="personal_id" maxlength="6" class="form-control" />
 					</div>
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<div class="container">
-
-							<form id="f_data" name="f_data" action="/free/freeUpdateForm"
-								method="post">
-								<input type="hidden" id="common_no" value="${detail.common_no}" />
-							</form>
-
-
-							<div class="row">
-								<div class="col-3 list-group">
-									<a href="/free/freeList"
-										class="list-group-item list-group-item-action">자유게시판</a> <a
-										href="/advertise/advertiseList"
-										class="list-group-item list-group-item-action">홍보게시판</a> <a
-										href="#" class="list-group-item list-group-item-action">공지게시판</a>
-								</div>
-								<div class="col-lg-9 table-container">
-									<table class="table text-center" id="table">
-										<thead>
-											<tr>
-												<td colspan="12" class="text-center">제목 :
-													${detail.common_title}</td>
-											</tr>
-											<tr>
-												<td colspan="3" class="text-start">글번호 :
-													${detail.common_no} (조회수 : ${detail.common_readcnt})</td>
-												<td colspan="3" class="text-start">작성자 :
-													${detail.personal_id}</td>
-												<td colspan="3" class="text-start">작성일 :
-													${detail.common_register_date}</td>
-												<td colspan="3" class="text-start">좋아요 :</td>
-											</tr>
-										</thead>
-
-										<tbody>
-											<tr>
-												<th colspan="2" class="text-center">내용</th>
-												<td colspan="10" rowspan="10"
-													class="text-start content-size">${detail.common_content}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="col-md-12 text-end ms-auto" id=BtnGroup>
-								<button type="button" id="freeUpdateBtn"
-									class="btn btn-primary btn-sm">글수정</button>
-								<button type="button" id="freeDeleteBtn"
-									class="btn btn-primary btn-sm">글삭제</button>
-								<button type="button" id="freeWriterBtn"
-									class="btn btn-primary btn-sm">글쓰기</button>
-								<button type="button" id="freeListBtn"
-									class="btn btn-primary btn-sm">목록</button>
-							</div>
-						</div>
-						<div style="margin-top: 20px;">
-							<jsp:include page="freereply.jsp" />
-						</div>
-
+					<button type="button" id="freereplyInsertBtn" class="btn btn-primary col-sm-1 sendBtn mx-2">저장</button>
+				</div>
+				<div class="row mb-3">
+					<label for="common_comment_content" class="col-sm-1 col-form-label">댓글내용</label>
+					<div class="col-sm-11">
+						<textarea name="common_comment_content" id="common_comment_content" class="form-control" rows="3"></textarea>
 					</div>
 				</div>
-			</div>
+			</form>
+		</div> -->
+
+
+		<div id="commentSection">
+			<h2>댓글 입력</h2>
+			<label for="personalId">작성자:</label>
+			<input type="text" id="personalId" name="personal_id">
+			<label for="commentContent">댓글 내용:</label>
+			<textarea id="commentContent" name="common_comment_content"></textarea>
+
+
+			<button id="saveComment">저장</button>
 		</div>
-		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-			data-aos-delay="200"></div>
-	</section>
+
+		<%-- 리스트 영역 --%>
+		<div id="list">
+			<table class="list" id="item-template">
+				<tr>
+					<td class="personal_id"></td>
+				</tr>
+				<tr>
+					<td class="common_comment_content"></td>
+				</tr>
+				<tr>
+					<td class="common_comment_date"></td>
+				</tr>
+				<tr>
+					<td><button type="button" id="freeDeleteBtn">삭제</button></td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -278,20 +220,42 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/free/js/freeDetail.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
 	<script>
-	$(document).ready(function() {
-	    let common_no = null; // 예시로 고정된 common_no
-
-	    // AJAX 요청을 통해 상세 정보를 받아옴
-	    $.getJSON("/free/getDetail/" + common_no, function(data) {
-	        let detail = data; // 받아온 데이터를 detail 변수에 저장
-	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
-	    });
+	$(function() {
+	    /* 기본 덧글 목록 */
+	    let common_no = ${detail.common_no};
+	    listAll(common_no);
 	});
-	</script>
-	
-</body>
 
+	function listAll(common_no) {
+	    let url = "/freereplies/all/" + common_no;
+	    
+	    $.getJSON(url, function(data) {
+	        // 받아온 댓글 데이터를 반복문으로 처리하여 화면에 표시
+	        $(data).each(function(index) {
+	            let common_comment_no = this.common_comment_no;
+	            let personal_id = this.personal_id;
+	            let common_comment_content = this.common_comment_content;
+	            let common_comment_date = this.common_comment_date;
+	            let freereplyTotal = common_comment_content.replace(/(\r\n|\r|\n)/g, "<br />");
+	            
+	            // 화면에 댓글 추가하는 코드
+	            let $div = $('#list');
+	            let $element = $('#item-template').clone().removeAttr('id');
+	            $element.attr("data-num", common_comment_no);
+	            $element.addClass("freereply");
+	            $element.find('.card-header .personal_id').html(personal_id);
+	            $element.find('.card-header .common_comment_date').html(" / " + common_comment_date);
+	            $element.find('.card-body .card-text').html(freereplyTotal);
+	            
+	            $div.append($element);
+	        });
+	    }).fail(function() {
+	        alert("댓글 목록을 불러오는데 실패하였습니다. 잠시 후에 다시 시도해 주세요.");
+	    });
+	}
+
+	</script>
+</body>
 </html>
