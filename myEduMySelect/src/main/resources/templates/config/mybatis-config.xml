@@ -44,6 +44,10 @@
 		<typeAlias
 			type="com.myedumyselect.commonboard.free.vo.FreeVO" alias="freeBoard" />
 		<typeAlias
+			type="com.myedumyselect.commonboard.free.reply.vo.FreeReplyVO" alias="freeReply" />
+		<typeAlias
+			type="com.myedumyselect.commonboard.advertise.vo.AdvertiseVO" alias="advertiseBoard" />
+		<typeAlias
 			type="com.myedumyselect.commonboard.notice.vo.NoticeBoardVO" alias="notice" />
 		<!-- ========================personal 영역======================== -->
 		<typeAlias
