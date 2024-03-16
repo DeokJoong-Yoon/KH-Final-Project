@@ -14,6 +14,12 @@
 		<typeAlias
 			type="com.myedumyselect.admin.login.vo.AdminLoginVO"
 			alias="adminLogin" />
+		<typeAlias
+			type="com.myedumyselect.admin.member.vo.PersonalAdminVO"
+			alias="personal" />
+		<typeAlias
+			type="com.myedumyselect.admin.member.vo.AcademyAdminVO"
+			alias="academy" />
 
 		<!-- ========================maching 영역======================== -->
 		<typeAlias
