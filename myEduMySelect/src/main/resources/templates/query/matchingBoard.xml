@@ -156,7 +156,8 @@
 	            matching_private,
 	            matching_passwd,
 	            to_char(matching_register_date, 'YYYY-MM-DD') as matching_register_date,
-	            personal_id
+	            personal_id,
+	            commentCnt
 	    FROM  (
 	        	SELECT /*+ INDEX_DESC(tb_matching_board PK_TB_MATCHING_BOARD) */
 	        	   rownum as rnum,
@@ -168,7 +169,10 @@
 	               matching_private,
 	               matching_passwd,
 	               matching_register_date,
-	               personal_id
+	               personal_id,
+	               ( SELECT COUNT(matching_comment_no) 
+	            		  FROM tb_matching_comment 
+	            		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
 	        	FROM tb_matching_board
 	        	WHERE rownum <= #{pageNum} * #{amount}
 	        	AND ( 
@@ -195,11 +199,8 @@
 	    ,		matching_keyword2
 	    ,		matching_keyword3
 	    , 		personal_id
-	    , 		to_char (matching_register_date, 'YYYY-MM-DD HH:MI')   as matching_register_date
-	    , 		( SELECT COUNT(matching_comment_no) 
-	    		  FROM tb_matching_comment 
-	    		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
-	    , 		matching_comment
+	    , 		to_char (matching_register_date, 'YYYY-MM-DD  HH:MI')   as matching_register_date
+	    ,		matching_comment
 	    FROM   tb_matching_board	
 	    WHERE  matching_no = #{matchingNo}
 	</select>

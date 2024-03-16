@@ -5,42 +5,44 @@
 <!DOCTYPE html>
 <html lang="kr">
 
+<link href="/resources/include/assets/css/style.css" rel="stylesheet">
+<link href="/resources/include/matching/css/matchingDetail.css" rel="stylesheet">
+
+
+
 <body>
-	<div>
-		<h5>댓글</h5>
+	<div class="container">
+		<h4>댓글</h4><hr/><br/>
 
 		<%-- 댓글 입력 화면 --%>
 		<form id="mcForm" name="mcForm">
-			<table>
-				<tr>
-					<td>
-						<input type="text" name="matchingCommentNickname" id="matchingCommentNickname" value=${userName } disabled/>
-					</td>
-					<td>
-						<button type="button" id="mcBtn">등록</button>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<textarea name="matchingCommentContent" id="matchingCommentContent" placeholder="댓글을 입력하세요"></textarea>
-					</td>
-			</table>
+			<div class="mcComment">
+				<input type="text" name="matchingCommentNickname" id="matchingCommentNickname" value=${userName } disabled/>
+				<br>
+				<textarea name="matchingCommentContent" id="matchingCommentContent" placeholder="댓글을 입력하세요"></textarea>
+				<button type="button" id="mcBtn">등록</button>
+			</div>
 		</form>
+		<hr><br>
 		
 		
 		<%-- 댓글 리스트 출력 영역 --%>
 		<div id="mcList">
-			<table class="list" id="item-template">
-				<tr><td class="mcName"></td></tr>
-				<tr><td class="mcContent"></td></tr>
-				<tr><td class="mcDate"></td></tr>
-				<tr><td><button type="button" id="mcDeleteBtn">삭제</button></td></tr>
-			</table>
+			<div class="list" id="item-template">
+				<h5 class="mcName"></h5>
+				<p class="mcDate"></p>
+				<p class="mcContent"></p>
+				<div class="commentBtns">
+					<button type="button" id="commentDeleteBtn">삭제</button>
+					<button type="button" id="commentUpdateBtn">수정</button>
+				</div>
+			<hr/>
+			</div>
 		</div>
 		
 	</div>
 	
-	
+	<script src="/resources/include/js/common.js"></script>
 	
 	<script>
 	
@@ -74,6 +76,8 @@
 					let matchingCommentContent = this.matchingCommentContent;
 					let matchingCommentDate = this.matchingCommentDate;
 					matchingCommentContent = matchingCommentContent.replace(/(\r\n|\r\n)/g, "<br/>");
+					
+					console.log(matchingCommentDate);
 					
 					template(matchingCommentNo, matchingCommentNickname, matchingCommentContent, matchingCommentDate);
 					
@@ -115,6 +119,42 @@
 		}
 		
 		
+		//댓글 수정 함수
+		function updateComment(matchingNo, matchingCommentNo) {
+			$.ajax({
+				url: '/matchingcomments/' + matchingCommentNo,
+				type : 'put',
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "PUT" 
+				},
+				data: JSON.stringify({
+					matchingCommentContent: $("#updateForm").val(),
+				}), 
+				dataType: 'text',
+				error: function(xhr, textStatus, errorThrown) {
+					alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
+					console.log($("#updateForm").val())
+				},
+				beforeSend : function(){
+					if(!chkData("#updateForm", "댓글 내용을")) return false;
+				}, 
+				success: function(result) {
+					console.log("result : " + result);
+					if(result == "SUCCESS") {
+						alert("댓글 수정이 완료되었습니다.");
+						console.log($("#updateForm").val())
+						dataReset();
+						listAll(matchingNo);
+					}
+				}
+			})
+		} 
+		
+		
+		 
+		
+		
 		//로딩 시 실행
 		$(function() {
 			
@@ -123,14 +163,14 @@
 			listAll(matchingNo);
 			
 			
-			//댓글 등록 위한 ajax 연동 처리
+			//댓글 등록 처리
 			$(document).on("click", "#mcBtn", function(){
 				
 				let value = {
 					academyId : "${userId }",
 					matchingCommentNickname : "${userName }",
 					matchingNo : matchingNo,
-					matchingCommentContent : $("#matchingCommentContent").val()
+					matchingCommentContent : $("#matchingCommentContent").val(),
 				};
 				
 				$.ajax({
@@ -142,10 +182,9 @@
 					error : function(xhr, textStatus, errorThrown) {
 						alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
 					},
-					beforeSend : function() {
-						if(!checkForm("#matchingCommentContent", "댓글 내용을"))
-							return false;
-					},
+					beforeSend : function(){
+						if(!chkData("#matchingCommentContent", "댓글 내용을")) return false;
+					}, 
 					success : function(result) {
 						if (result == "SUCCESS") {
 							alert("댓글 등록이 완료되었습니다.");
@@ -158,17 +197,67 @@
 			})
 			
 			
-			//댓글 삭제
-			$(document).on("click", "#mcDeleteBtn", function(){
+			//댓글 삭제 처리
+			$(document).on("click", "#commentDeleteBtn", function(){
 				console.log("삭제 버튼 클릭");
-				let matchingCommentNo = $(this).parents("table.list").attr("data-num");
+				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
 				deleteComment(matchingNo, matchingCommentNo);
 				console.log(matchingCommentNo);
 			})
+			
+			
+			//원 댓글 내용 담을 변수
+			var original; 
+			
+			//댓글 수정 버튼 클릭 시
+			$(document).on("click", "#commentUpdateBtn", function(){
+				console.log("수정 버튼 클릭");
+				
+				//댓글 리스트와, 리스트 내 각 댓글 가져오기
+				let list = $(this).parents("div.list");
+				let matchingCommentNo = list.attr("data-num");
+				
+				//댓글 부분을 폼으로 바꾸기
+				let paragraph = list.find(".mcContent");			// <p> 요소 가져오기
+				original = paragraph.text();
+                let textarea = $("<textarea id='updateForm'>");		// <textarea> 요소 생성
+                textarea.val(paragraph.text());						// <p> 요소의 텍스트 내용을 <textarea>의 값으로 설정
+                paragraph.replaceWith(textarea);					// <p> 요소를 <textarea>로 교체
+				
+                //수정,삭제 버튼을 취소,완료 버튼으로 번경
+    	    	let updateBtn = list.find("#commentUpdateBtn");
+    	    	let resetBtn = $("<button type='button' id='commentResetBtn'>되돌리기</button>")
+    	    	updateBtn.replaceWith(resetBtn);
+    	    	
+    	    	let deleteBtn = list.find("#commentDeleteBtn");
+    	    	let completeBtn = $("<button type='button' id='commentCompleteBtn'>완료</button>")
+    	    	deleteBtn.replaceWith(completeBtn);
+			})
+			
+			
+			//댓글 수정 시 완료 버튼 클릭시
+			$(document).on("click", "#commentCompleteBtn", function(){
+				console.log("수정 완료 버튼 클릭");
+				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
+				updateComment(matchingNo, matchingCommentNo);
+				//console.log(matchingCommentNo);
+				//console.log(matchingNo);
+			})
+			
+			
+			
+			//댓글 수정 시 수정 취소 버튼 처리
+			$(document).on("click", "#commentResetBtn", function(){
+				console.log("수정 취소 버튼 클릭");
+				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
+				$("#updateForm").val(original);
+			}) 
 
 			
 			
 		})
 	</script>
+	
+	
 	
 </body>

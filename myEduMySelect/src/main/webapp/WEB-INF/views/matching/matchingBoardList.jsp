@@ -122,6 +122,7 @@
 				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 	 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 	 			
+	 			<button type="button" id="mcGoBack">맞춤형 검색으로 이동</button>
 	 			<button type="button" id="mcBoardAll">전체 보기</button>
 
 				<button type="button" id="mcBoardSearchBtn">검색</button>	 			
@@ -324,6 +325,12 @@
 			})
   		}
   	}) */
+	$(function() {
+		let popUp = "${popUp}";
+		if (popUp != "") {
+			alert(popUp);
+		}
+	});
   </script>
 
 </body>

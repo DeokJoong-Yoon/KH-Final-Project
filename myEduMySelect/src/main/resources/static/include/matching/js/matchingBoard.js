@@ -64,6 +64,11 @@ $(function(){
 		$("#keyword").val("");
 		goPage();
 	})
+	
+	//맞춤형검색으로 돌아가기 버튼
+	$("#mcGoBack").on("click", function(){
+		location.href= "/matching/";
+	})
 })
 
 

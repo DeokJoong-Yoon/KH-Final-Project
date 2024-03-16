@@ -17,4 +17,7 @@ public interface MatchingCommentDAO {
 	
 	//댓글 삭제
 	public int mCommentDelete(MatchingCommentVO mcVO);
+	
+	//댓글 수정
+	public int mCommentUpdate(MatchingCommentVO mcVO);
 }

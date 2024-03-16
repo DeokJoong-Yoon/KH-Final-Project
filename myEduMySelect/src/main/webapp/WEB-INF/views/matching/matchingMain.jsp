@@ -41,6 +41,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
+  	<script src="/resources/include/js/common.js"></script>
   
 	<script>
 	    window.onload = function() {
@@ -255,7 +256,7 @@
         	<button id="mcPrivateBtn">비공개 매칭하기</button>
     	    	<div id="mcStartArea">
 	       			<input type="password" placeholder="비밀번호 (숫자 4자리)" id="mcPwd" name="matchingPasswd"> <br/><br/>
-	        		<textarea rows="3" style="width:87%" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
+	        		<textarea rows="3" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
 		        	<button id="mcUploadBtn" type="button">매칭 시작하기</button>
 	        	</div>
         </div>

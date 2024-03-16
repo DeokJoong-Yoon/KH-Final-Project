@@ -31,11 +31,19 @@ public class MatchingCommentServiceImpl implements MatchingCommentService {
 	}
 	
 	
-	//댓글 조회
+	//댓글 삭제
 	@Override
 	public int mCommentDelete(MatchingCommentVO mcVO) {
 		int result = 0;
 		result = mcDAO.mCommentDelete(mcVO);
+		return result;
+	}
+	
+	
+	//댓글 수정
+	public int mCommentUpdate(MatchingCommentVO mcVO) {
+		int result = 0;
+		result = mcDAO.mCommentUpdate(mcVO);
 		return result;
 	}
 }

@@ -121,10 +121,6 @@
 					<th>등록 일시</th>
 					<td>${detail.matchingRegisterDate }</td>
 				</tr>
-				<tr>
-					<th>댓글 수</th>
-					<td class="comment_count">${matchingBoard.commentCnt }</td>
-				</tr>
 			</table>
 			<br>
 			<table>
@@ -172,7 +168,7 @@
     
     
     <!-- 매칭게시판 댓글 -->
-	<section>
+	<section class="mcCommentSection">
 		<%-- 댓글 보여주기 --%>
 		<jsp:include page="matchingComment.jsp" />
 	</section>
@@ -263,18 +259,24 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="/resources/include/js/common.js"></script>
   <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/matching/js/matchingDetail.js"></script>
+ 
   
  
 	<script>
 		$(function() {
-			let errorMsg = "${errorMsg}";
-			if (errorMsg != "") {
-				alert(errorMsg);
+			let popUp = "${popUp}";
+			if (popUp != "") {
+				alert(popUp);
 			}
+			
+			console.log("${detail.personalId }");
+			console.log("${detail.matchingComment }");
 		});
+		
 	</script>
 	
 </body>

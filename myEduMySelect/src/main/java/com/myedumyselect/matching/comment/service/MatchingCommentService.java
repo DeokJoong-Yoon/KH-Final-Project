@@ -11,4 +11,6 @@ public interface MatchingCommentService {
 	public int mCommentInsert(MatchingCommentVO mcVO);
 	
 	public int mCommentDelete(MatchingCommentVO mcVO);
+	
+	public int mCommentUpdate(MatchingCommentVO mcVO);
 }

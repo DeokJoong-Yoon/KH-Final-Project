@@ -87,7 +87,7 @@
 }
 
 
-#mcBoardSearchBtn {
+#mcBoardSearchBtn, #mcBoardAll {
 	height:35px;
     padding: 5px 15px;
     background-color: #48d1cc;
@@ -101,7 +101,7 @@
     float: right;
 }
 
- #mcBoardAll {
+ #mcGoBack {
 	height:35px;
     padding: 5px 15px;
     background-color: #48d1cc;
@@ -115,7 +115,7 @@
     float: left;
 }
 
-#mcBoardSearchBtn:hover, #mcBoardAll:hover {
+#mcBoardSearchBtn:hover, #mcBoardAll:hover, #mcGoBack:hover {
     background-color: #37517e;
 }
 
