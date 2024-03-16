@@ -15,6 +15,9 @@ public class FreeServiceImpl implements FreeService {
 	@Setter(onMethod_ = @Autowired)
 	private FreeDAO freeDAO;
 	
+	/*@Setter(onMethod_ = @Autowired)
+	private FreeReplyDAO freereplyDAO;*/
+	
 	
 	
 	// 글 목록 구현
@@ -26,6 +29,11 @@ public class FreeServiceImpl implements FreeService {
 	}
 	
 	
+	// 전체 레코드 수 구현
+	@Override
+	public int freeListCnt(FreeVO fvo) {
+		return freeDAO.freeListCnt(fvo);
+	}
 	
 	// 글 입력 구현
 	@Override
@@ -59,7 +67,6 @@ public class FreeServiceImpl implements FreeService {
 		return freeUpdateData;
 	}
 	
-	
 	@Override
 	public int freeUpdate(FreeVO fvo) {
 		int result = 0;
@@ -67,11 +74,10 @@ public class FreeServiceImpl implements FreeService {
 		return result;
 	}
 	
+	// 글 삭제 구현
 	@Override
 	public int freeDelete(FreeVO fvo) {
 		int result = freeDAO.freeDelete(fvo);
 		return result;
 	}
-	
-	
 }

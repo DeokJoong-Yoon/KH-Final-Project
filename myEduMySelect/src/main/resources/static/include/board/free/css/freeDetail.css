@@ -608,7 +608,7 @@ td{
 .content-size {
 	width: 300px;
 	height: 300px;
-	overflow: auto;
+	overflow: 1auto;
 }
 
 /*--------------------------------------------------------------

@@ -542,8 +542,8 @@ section {
 	position: fixed;
 	margin: 0 0 50% 0;
 	padding: 10px;
-	top: 18%;
-	left: 16%;
+	top: 10%;
+	left: 15%;
 }
 
 .list-group-item-action {
@@ -566,12 +566,16 @@ section {
 	color: white;
 }
 
+.selected {
+  background-color: #007bff; /* 파란색 배경 */
+  color: white; /* 텍스트 색상을 흰색으로 */
+}
 
 table{
-  position: fixed;
+  position: absolute;
   width:62%;
-  top:20%;
-  margin-left:10%;
+  top:11.4%;
+  margin-left:9%;
   background-color: white;
   box-shadow: 5px 10px 15px 0px #ebebeb;
 }
@@ -618,8 +622,8 @@ table{
 }
 
 #freeWriterBtn {
-	position: fixed;
-	margin-top:6%;
+	position: absolute;
+	margin-top:14%;
 	margin-left:35%;
 }
 
@@ -631,9 +635,9 @@ table{
 }
 
 #freeSearch {
-	position: fixed;
-	margin-top:6%;
-	margin-left:10%;
+	position: absolute;
+	margin-top:14%;
+	margin-left:9%;
 }
 /*--------------------------------------------------------------
 # Clients

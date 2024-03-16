@@ -589,8 +589,8 @@ table{
 	height:50%;
 	border-collapse: collapse;
 	margin: 0 auto;
-	margin-top:0%;
-	margin-left:14.5%;
+	margin-top:-12%;
+	margin-left:6.5%;
  	background-color: white;
 }
 
@@ -607,10 +607,10 @@ td{
     margin: 0 auto;
 }
 
-#BtnGroup {
-	position: sticky;
-	margin-top:82%;
-	margin-right:-96%;
+#btnGroup {
+	position: fixed;
+	margin-top:17%;
+	right:19%;
 	
 }
 

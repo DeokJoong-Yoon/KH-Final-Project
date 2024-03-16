@@ -4,23 +4,28 @@ $(function(){
 		//입력값 체크
 		if(!chkData("#common_title","제목을")) return;
 		else if (!chkData("#common_content","글내용을"))return;
-		//else if (!chkData("#file","업로드할 이미지 파일을"))return;		
+		//else if (!chkFile($("#file"))) return; //파일 체크
+		
 		else {
-			/*if($("#file").val() != ""){	// 업로드 할 이미지 파일이 존재한다면.
-				// 확장자가 png, jpg, gif 외 파일을 업로드 할 수 없습니다. 또는 igf, png, jpg 파일만 업로드 할 수 있습니다.
-				if (!chkFile($("#file"))) return;
-			}*/
-			// enctype 속성의 기본값은 "application/x-www-form-urlcencoded". POST방식 폼 전송에 기본값으로 사용
-			$("#f_writeForm").attr({
-				"method":"post",
-				/*"enctype":"multipart/form-data",*/
-				"action":"/free/freeInsert"
+			var formData = new FormData($("#f_writeForm")[0]); // FormData 객체 생성
+			
+			$.ajax({
+				url: "/free/freeInsert",
+				type: "POST",
+				data: formData,
+				processData: false, // FormData를 사용할 때 필요한 옵션
+				contentType: false, // FormData를 사용할 때 필요한 옵션
+				success: function(response) {
+					// 성공 시 처리 로직, 예를 들어 리스트 페이지로 리다이렉트
+					location.href="/free/freeList";
+				},
+				error: function(xhr, status, error) {
+					// 에러 시 처리 로직
+					alert("오류 발생");
+				}
 			});
-			$("#f_writeForm").submit();
 		}
 	});
-	
-	
 	
 	$("#freeCancelBtn").on("click", function(){
 		$("#f_writeForm").each(function(){
@@ -28,9 +33,7 @@ $(function(){
 		});
 	});
 	
-	
 	$("#freeListBtn").click(function(){
 		location.href="/free/freeList";
-	});
-	
+	});	
 });
