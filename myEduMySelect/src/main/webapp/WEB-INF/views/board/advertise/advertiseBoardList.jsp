@@ -46,8 +46,7 @@
 
 <!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-<link href="/resources/include/board/advertise/css/advertiseList.css"
-	rel="stylesheet">
+<link href="/resources/include/board/advertise/css/advertiseList.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -115,9 +114,9 @@
 		</div>
 	</section> <!-- ======= 설명 영역 끝 ======= -->
 	
-	<main id="main">
 	
-		<!-- ======= 게시판 영역 ======= -->
+	<!-- ======= 게시판 영역 ======= -->
+	<main id="main">
 		<section class="board">
 			
 			<div class="container">
@@ -175,7 +174,7 @@
 				</div>
 				
 				<div class="text-end">
-					<button type="submit" id="advertiseInsertBtn" class="btn btn-primary">글쓰기</button>
+					<button type="submit" id="advertiseInsertBtn">글쓰기</button>
 				</div>
 			</div>	
 		

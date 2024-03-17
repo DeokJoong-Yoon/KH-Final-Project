@@ -56,3 +56,28 @@ function chkFile(item) {
 		return true;
 	}
 }
+
+
+function chkFiles(input) {
+    let files = input.files; // 파일 객체들을 가져옴
+    console.log(files);
+   /* if (!files || files.length === 0) {
+        alert('파일을 선택해주세요.');
+        return false;
+    }
+    // 최대 5개의 파일을 제한
+    if (files.length > 5) {
+        alert('최대 5개의 파일만 업로드 가능합니다.');
+        return false;
+    }*/
+    // 각 파일의 확장자를 확인하여 허용된 확장자인지 검사
+    for (let i = 0; i < files.length; i++) {
+        let file = files[i];
+        let ext = file.name.split('.').pop().toLowerCase(); // 파일의 확장자 추출
+        if (['gif', 'png', 'jpg'].indexOf(ext) === -1) { // 허용된 확장자인지 확인
+            alert('gif, png, jpg 파일만 업로드 할 수 있습니다.');
+            return false;
+        }
+    }
+    return true;
+}

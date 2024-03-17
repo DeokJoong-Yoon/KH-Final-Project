@@ -2,9 +2,13 @@ package com.myedumyselect.commonboard.advertise.service;
 
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.myedumyselect.common.file.FileUploadUtil;
+import com.myedumyselect.common.file.FileVO;
 import com.myedumyselect.commonboard.advertise.dao.AdvertiseDAO;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 
@@ -30,5 +34,28 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	@Override
 	public int advertiseListCnt(AdvertiseVO aVO) {
 		return aDAO.advertiseListCnt(aVO);
+	}
+
+
+	//홍보게시판 글 입력 (+파일)
+	@Override
+	public void advertiseInsertWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception {
+		
+		//게시글 제목, 내용 등록
+		aDAO.advertiseInsert(aVO);	
+		
+		//게시글 id로 각 파일을 file 테이블에 추가
+		for (MultipartFile file : files) {
+	        if (!file.isEmpty()) { // 파일이 첨부되었는지 확인
+	            String fileName = FileUploadUtil.fileUpload(file , "advertise");
+	            
+	            FileVO fileVO = new FileVO();
+	            fileVO.setCommonNo(aVO.getCommonNo());
+	            fileVO.setFileName(fileName);
+	            fileVO.setFilePath("C:/uploadStorage/" + "advertise" + "/" + fileName); // 파일이 첨부되지 않은 경우 이 부분 수정
+	            aDAO.advertiseInsertFile(fileVO);
+	        }
+	    }   
+		
 	}
 }

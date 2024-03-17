@@ -48,6 +48,12 @@ $(function(){
 		$("#keyword").val("");
 		goPage();
 	});
+	
+	
+	//글 쓰기 버튼 클릭
+	$("#advertiseInsertBtn").on("click", function() {
+		location.href="/advertise/advertiseWriteForm";
+	})
 });
 
 

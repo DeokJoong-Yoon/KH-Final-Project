@@ -19,6 +19,17 @@
 	</resultMap>
 	
 	
+	<!-- FileVO 별칭 일괄 부여 -->
+	<resultMap type="file" id="fileMap">
+		<id column="common_no" property="commonNo" />
+		<result column="file_no" property="fileNo" />
+		<result column="file_path" property="filePath" />
+		<result column="file_name" property="fileName" />
+	</resultMap>
+	
+	
+	
+	
 	<!-- 전체 레코드 수 조회 -->
 	<select id="advertiseListCnt" parameterType="advertiseBoard" resultType="int">
 		<![CDATA[
@@ -71,6 +82,74 @@
 		WHERE rnum > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
+	
+	
+	<!-- 홍보게시판 글 등록 (only 글) -->
+	<!-- <insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="id">
+	    INSERT 
+	    INTO 	tb_common_board (
+					    			common_no
+					    		,	academy_id
+					    		, 	member_type_id
+					    		, 	common_nickname
+					    		, 	common_title
+					    		, 	common_content
+					    		, 	common_register_date
+					    		, 	common_thumb
+				)
+	    VALUES	(
+			    	advertise_board_seq.nextval
+			    , 	#{academyId}
+			    , 	2
+			    , 	#{commonNickname} 
+			    ,	#{commonTitle}
+			    ,	#{commonContent}
+			    ,	sysdate
+			    ,	#{commonThumb}
+		)
+		RETURNING common_no INTO #{commonNo}
+	</insert> -->
+	
+	<insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="id">
+	    <![CDATA[
+	    INSERT INTO tb_common_board (
+	        common_no,
+	        academy_id,
+	        member_type_id,
+	        common_nickname,
+	        common_title,
+	        common_content,
+	        common_register_date,
+	        common_thumb
+	    )
+	    VALUES (
+	        advertise_board_seq.nextval,
+	        #{academyId},
+	        2,
+	        #{commonNickname},
+	        #{commonTitle},
+	        #{commonContent},
+	        sysdate,
+	        #{commonThumb}
+	    )
+	    ]]>
+	    <selectKey keyProperty="commonNo" resultType="int" order="AFTER">
+	        SELECT advertise_board_seq.currval AS id FROM DUAL
+	    </selectKey>
+	</insert>
+	
+	
+	<!-- 홍보게시판 게시글 내 첨부파일 등록 -->
+	<insert id="advertiseInsertFile" parameterType="file">
+	    INSERT 
+	    INTO 	tb_file 
+	    VALUES 	(
+	    			#{commonNo}
+	    		, 	notice_board_file_seq.nextval 
+	    		,	#{fileName}
+	    		, 	#{filePath}
+	    		)
+	</insert>
 	
 	
 </mapper>

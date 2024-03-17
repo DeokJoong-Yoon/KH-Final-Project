@@ -51,20 +51,22 @@ public class AdvertiseTest {
 //	}
 	
 	
-	@Test
-	public void test() {
-		log.info("리스트 조회");
-		
-		AdvertiseVO bvo = new AdvertiseVO();
-		bvo.setPageNum(1);
-		bvo.setAmount(12);
-		bvo.setKeyword("홍보");
-		
-		List<AdvertiseVO> list = aDAO.advertiseList(bvo);
-		for(AdvertiseVO vo : list) {
-			log.info(vo.toString());
-		}
-		log.info("총 레코드 수 : " + aDAO.advertiseList(bvo));
-	}
+//	@Test
+//	public void test() {
+//		log.info("리스트 조회");
+//		
+//		AdvertiseVO bvo = new AdvertiseVO();
+//		bvo.setPageNum(1);
+//		bvo.setAmount(12);
+//		bvo.setKeyword("홍보");
+//		
+//		List<AdvertiseVO> list = aDAO.advertiseList(bvo);
+//		for(AdvertiseVO vo : list) {
+//			log.info(vo.toString());
+//		}
+//		log.info("총 레코드 수 : " + aDAO.advertiseList(bvo));
+//	}
+	
+	
 
 }

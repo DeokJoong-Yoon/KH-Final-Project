@@ -1,59 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+    pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>								
 <!DOCTYPE html>
 <html lang="kr">
 
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>MyEduMySelect</title>
-<meta content="" name="description">
-<meta content="" name="keywords">
+  <title>MyEduMySelect </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-<!-- Favicons -->
-<link href="/resources/include/assets/img/favicon.png" rel="icon">
-<link href="/resources/include/assets/img/apple-touch-icon.png"
-	rel="apple-touch-icon">
+  <!-- Favicons -->
+  <link href="/resources/include/assets/img/favicon.png" rel="icon">
+  <link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-<!-- Vendor CSS Files -->
-<link href="/resources/include/assets/vendor/aos/aos.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link href="/resources/include/assets/vendor/remixicon/remixicon.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="/resources/include/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
+<link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/board/advertise/css/advertiseInsert.css" rel="stylesheet">
 
-<!-- =======================================================
+  <!-- =======================================================
   * Template Name: MyEduMySelect
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
   * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+
+
 </head>
 
 <body>
@@ -93,61 +81,90 @@
 		</div>
 	</header>
 	<!-- End Header -->
-
-	<!-- ======= 게시판 상세페이지 영역 ======= -->
-	<section id="hero"
-		class="d-flex align-items-center justify-content-center">
-		<div class="container">
+	
+	<!-- ======= 설명 영역 ======= -->
+	<section id="hero" class="d-flex align-items-center  justify-content-center">
+		<div class="container" >
 			<div class="row">
-				<div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-					<div class="text-center">
-						<h1>홍보게시판 입력화면</h1>
-					</div>
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<div class="container">
+				<form id="detailForm">
+					<input type="hidden" id="commonNo" name="commonNo" />
+				</form>
 
-							<form id="insertForm">
-								<input type="hidden" id="common_no" name="common_no" />
-							</form>
-
-
-							<div class="row">
-								<div class="col-3 list-group">
-									<a href="/free/freeList" class="list-group-item list-group-item-action">자유게시판</a>
-									<a href="/advertise/advertiseList" class="list-group-item list-group-item-action">홍보게시판</a>
-									<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
-								</div>
-								<form id="a_insertForm">
-									<table>
-										<tr>
-											<td colspan="7" class="text-start"><input type="text" id="common_title" name="common_title"  placeholder="제목을 입력해 주세요" /></td>
-										</tr>
-										<tr>
-											<td><textarea name="common_content" id="common_content" class="form-control custom-textarea"  placeholder="내용을 입력해주세요."></textarea></td>
-										</tr>
-										<tr>
-											<td><input type="file" id="file" name="file" class="form-control" placeholder="첨부파일을 입력해주세요." maxlength="50" /></td>
-										</tr>
-									</table>
-								</form>
-							<div class="col-md-5 text-end ms-auto" id=BtnGroup>
-								<button type="submit" id="advertiseInsertBtn" class="btn btn-primary btn-sm">등록</button>
-								<button type="submit" id="advertiseCancelBtn" class="btn btn-primary btn-sm">취소</button>
-								<button type="submit" id="advertiseListBtn" class="btn btn-primary btn-sm">목록</button>
-							</div>
-						</div>
-			
-						</div>
-					</div>
+				<div class="col-12 text-center banner">
+		            홍보 게시판<br/>
+		            <div class="descBox">
+		            	학원 홍보게시판입니다.<br>
+		            	정보 얻어 가세요!
+		            </div>
+		       </div> 
+		    </div>
+		</div>
+	</section> <!-- ======= 설명 영역 끝 ======= -->
+	
+	
+	
+	<!-- ======= 게시판 영역 ======= -->
+	<main id="main">
+		
+		<section class="form">
+			<div class="container">
+				<div class="insertArea">
+					
+					<!-- 로그인 세션 임시 확인 -->
+					<div class="userId">${userId }</div>
+					<div class="acaId">${acaId }</div>
+					<div class="acaName">${acaName }</div>
+					
+					
+					<form id="insertForm">
+				<%-- 		<input type="hidden" id="commonNo" name="commonNo" value="${insertData.commonNo }"/> --%>
+				
+						<table>
+							<tr>
+								<th>작성자</th>
+								<td>${userId  }</td>	<!-- <td>${acaId }</td> -->
+							</tr>
+							<tr>
+								<th>학원명</th>
+								<td>${userId  }</td>	<!-- <td>${acaName }</td> -->
+							</tr>
+						</table>
+						<br>
+						<table>
+							<tbody>
+								<tr>
+									<th>제목</th>
+									<td>
+										<input type="text" id="commonTitle" name="commonTitle"  placeholder="제목을 입력해 주세요." />
+									</td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>
+										<textarea rows="20" name="commonContent" id="commonContent" placeholder="내용을 입력해 주세요."></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td>
+										<input type="file" id="file1" name="file1" class="form-control" maxlength="50" />
+										<input type="file" id="file2" name="file2" class="form-control" maxlength="50" />
+										<input type="file" id="file3" name="file3" class="form-control" maxlength="50" />
+										<input type="file" id="file4" name="file4" class="form-control" maxlength="50" />
+										<input type="file" id="file5" name="file5" class="form-control" maxlength="50" />
+									</td>
+								</tr>
+							</tbody>	
+						</table>
+						<button type="button" id="goBackBtn">목록으로</button>
+						<button type="button" id="insertBtn">등록</button>
+						<button type="button" id="resetBtn">초기화</button>
+					</form>
 				</div>
 			</div>
-			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200"></div>
-		</div>
-	</section>
-
-
-	<main id="main"></main>
-	<!-- End #main -->
+		</section>
+	
+	</main>   <!-- 입력 폼 끝 -->
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -247,10 +264,10 @@
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/advertise/js/advertiseInsert.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
+	<script src="/resources/include/board/advertise/js/advertiseInsert.js"></script>
+	<script src="/resources/include/js/common.js"></script>
 	<script>
 	$(function(){
 		let errorMsg = "${errorMsg}";

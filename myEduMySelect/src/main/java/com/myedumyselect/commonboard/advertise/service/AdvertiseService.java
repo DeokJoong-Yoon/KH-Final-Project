@@ -2,6 +2,8 @@ package com.myedumyselect.commonboard.advertise.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 
 public interface AdvertiseService {
@@ -11,4 +13,7 @@ public interface AdvertiseService {
 	
 	//홍보게시판 전체 목록 보기
 	public List<AdvertiseVO> advertiseList(AdvertiseVO aVO);
+	
+	//홍보게시판 글 등록
+	public void advertiseInsertWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception;
 }
