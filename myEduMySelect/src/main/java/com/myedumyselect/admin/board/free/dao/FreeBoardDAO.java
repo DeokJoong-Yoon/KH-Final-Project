@@ -13,4 +13,8 @@ public interface FreeBoardDAO {
 
 	public int boardListCnt(FreeBoardAdminVO freeBoardAdminVO);
 
+	public FreeBoardAdminVO boardDetail(FreeBoardAdminVO freeBoardAdminVO);
+
+	public int boardDelete(FreeBoardAdminVO freeBoardAdminVO);
+
 }

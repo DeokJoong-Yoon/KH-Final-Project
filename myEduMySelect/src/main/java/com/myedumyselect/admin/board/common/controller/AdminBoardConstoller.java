@@ -18,6 +18,8 @@ import com.myedumyselect.client.main.vo.PageDTO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+import com.myedumyselect.payment.service.PaymentService;
+import com.myedumyselect.payment.vo.PaymentVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -36,6 +38,14 @@ public class AdminBoardConstoller {
 	
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardAdminService freeBoardAdminService;
+	
+//	@Setter(onMethod_ = @Autowired)
+//	private AdvertiseBoardAdminService AdvertiseBoardAdminService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private PaymentService paymentService;
+	
+	
 
 	/*************************************************************
 	 * Admin notice
@@ -178,22 +188,61 @@ public class AdminBoardConstoller {
 		
 		return "admin/board/freeBoardAdminView";
 	}
-//	
-//	@GetMapping("/matchingBoardDetail")
-//	public String matchingBoardAdminDetail(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model, HttpSession session) {
+	
+	@GetMapping("/freeBoardDetail")
+	public String freeBoardAdminDetail(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		FreeBoardAdminVO detail = freeBoardAdminService.boardDetail(freeBoardAdminVO);
+		model.addAttribute("detail", detail);
+		return "admin/board/freeBoardAdminDetail";
+	}
+	
+	@PostMapping("/freeBoardDelete")
+	public String freegBoardAdminDelete(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model, HttpSession session) throws Exception {
+		freeBoardAdminService.boardDelete(freeBoardAdminVO);
+		return "redirect:/adminBoard/free";
+	}
+	
+	/*************************************************************
+	 * Admin payment
+	 *************************************************************/
+	@GetMapping("/payment")
+	public String paymentBoardAdminView(@ModelAttribute PaymentVO paymentVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		
+		List<PaymentVO> paymentList = paymentService.boardList(paymentVO);
+		model.addAttribute("paymentList", paymentList);
+		log.info(paymentList.toString());
+		// 전체 레코드수 반환.
+		int total = paymentService.boardListCnt(paymentVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(paymentVO, total));
+		
+		return "admin/board/paymentBoardView";
+	}
+	
+//	@GetMapping("/freeBoardDetail")
+//	public String freeBoardAdminDetail(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model, HttpSession session) {
 //		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 //		if (adminLoginVO == null) {
 //			return "redirect:/admin/login";
 //		}
-//		MatchingBoardVO detail = matchingBoardAdminService.boardDetail(matchingBoardVO);
+//		FreeBoardAdminVO detail = freeBoardAdminService.boardDetail(freeBoardAdminVO);
 //		model.addAttribute("detail", detail);
-//		return "admin/board/matchingBoardAdminDetail";
+//		return "admin/board/freeBoardAdminDetail";
 //	}
 //	
-//	@PostMapping("/matchingBoardDelete")
-//	public String matchingBoardAdminDelete(@ModelAttribute MatchingBoardVO matchingBoardVO) throws Exception {
-//		matchingBoardAdminService.boardDelete(matchingBoardVO);
-//		return "redirect:/adminBoard/matching";
+//	@PostMapping("/freeBoardDelete")
+//	public String freegBoardAdminDelete(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model, HttpSession session) throws Exception {
+//		freeBoardAdminService.boardDelete(freeBoardAdminVO);
+//		return "redirect:/adminBoard/free";
 //	}
+	
 
 }

@@ -68,6 +68,20 @@
 	background-color: #48d1cc; /* 파란색으로 헤더 배경색 지정 */
 	color: white; /* 헤더 텍스트 색상 지정 */
 }
+
+.btn {
+	height: 35px;
+	padding: 5px 15px;
+	background-color: #48d1cc;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	margin-left: 5px;
+	float: right;
+}
 </style>
 </head>
 
@@ -133,104 +147,101 @@
 	<!-- End Hero -->
 
 	<main id="main">
-		<form id="detailForm">
-			<input type="hidden" id="commonNo" name="commonNo" />
-		</form>
-		<form id="noticeForm" name="noticeForm">
-			<input type="hidden" name="pageNum" id="pagenum"
-				value="${pageMaker.cvo.pageNum}"> <input type="hidden"
-				name="amount" id="amount" value="${pageMaker.cvo.amount}">
+		<form name="f_data" id="f_data">
+			<input type="hidden" name="commonNo" id="commonNo"
+				value="${detail.commonNo}" /> <input type="hidden"
+				name="commonFile" id="commonFile" value="${detail.commonFile}" />
 		</form>
 		<!-- ======= 매칭게시판 목록 ======= -->
-		<section class="mcBoard">
-
-
-			<div class="container">
-
-				<div class="mcBoardList">
-					<div class="row g-2 align-items-center">
-						<div class="col-auto">
-							<label for="search" class="card-title">search</label>
-						</div>
-						<div class="col-auto">
-							<select id="search" name="search"
-								class="form-select form-select-sm">
-								<option value="all">All</option>
-								<option value="common_title">Title</option>
-								<option value="common_content">Content</option>
-							</select>
-						</div>
-						<div class="col-auto">
-							<input type="text" name="keyword" id="keyword"
-								placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
-						</div>
-						<div class="col-auto">
-							<button type="button" id="searchData"
-								class="btn btn-primary btn-sm">검색</button>
-						</div>
-					</div>
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">No</th>
-								<th scope="col">Title</th>
-								<th scope="col">AdminName</th>
-								<th scope="col">RegisterDate</th>
-								<th scope="col">ReadCount</th>
-							</tr>
-						</thead>
-						<tbody id="list" class="table-group-divider">
-							<c:choose>
-								<c:when test="${not empty boardList}">
-									<c:forEach var="notice" items="${boardList}"
-										varStatus="statusNumber">
-										<tr data-num="${notice.commonNo}">
-											<th scope="row">${notice.commonNo}</th>
-											<td class="goDetail text-center">${notice.commonTitle}</td>
-											<td class="goDetail text-center">${notice.commonNickname}</td>
-											<td class="goDetail text-center">${notice.commonRegisterDate}</td>
-											<td class="goDetail text-center">${notice.commonReadcnt}</td>
-										</tr>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
+		<section class="section">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<!-- Table with stripped rows -->
+						<form id="f_writeForm">
+							<table class="table table-striped">
+								<tbody>
 									<tr>
-										<td colspan="4">조건에 맞는 공지가 없습니다.</td>
+										<td>
+											<div class="md-3 row">
+												<label class="col-sm-10 mt-2 mb-2"><h3>notice</h3></label>
+												<div class="col-sm-2 mt-2 mb-2">
+													<button type="button" id="boardListBtn"
+														class="btn btn-primary btn-sm">목록</button>
+												</div>
+											</div>
+										</td>
 									</tr>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="commonNo" class="col-sm-2 col-form-label">No</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.commonNo}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="boardName" class="col-sm-2 col-form-label">Name</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.commonNickname}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="commonTitle" class="col-sm-2 col-form-label">Title</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.commonTitle}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="commonContent" class="col-sm-2 col-form-label">Content</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.commonContent}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="commonEdit" class="col-sm-2 col-form-label">Date</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">
+													<c:choose>
+														<c:when test="${empty detail.commonEdit}">
+														${detail.commonRegisterDate}
+													</c:when>
+														<c:otherwise>
+														${detail.commonEdit}
+													</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<c:if test="${not empty detail.commonFile}">
+										<tr>
+											<td>
+												<div class="md-3 row">
+													<label for="commonContent" class="col-sm-2 col-form-label">image</label>
+													<div class="text-start col-sm-10 mt-2 mb-2">
+														<img src="/uploadStorage/board/${detail.commonFile}"
+															class="rounded" style="max-width: 100%; height: auto;" />
+													</div>
+												</div>
+											</td>
+										</tr>
+									</c:if>
+								</tbody>
+							</table>
+						</form>
+					</div>
 				</div>
-				<%-- ======================== 페이징 출력 시작 ========================--%>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
-						<c:if test="${pageMaker.prev}">
-							<li class="page-item"><a href="${pageMaker.startPage - 1}"
-								class="page-link">Previous</a> <!-- <a href="${pageMaker.startPage - 10}" class="page-link">Previous</a> -->
-							</li>
-						</c:if>
-
-						<!-- 바로가기 번호 출력 -->
-						<c:forEach var="num" begin="${pageMaker.startPage}"
-							end="${pageMaker.endPage}">
-							<li
-								class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}">
-								<a href="${num}" class="page-link">${num}</a>
-							</li>
-						</c:forEach>
-						<!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
-						<c:if test="${pageMaker.next}">
-							<li class="page-item"><a href="${pageMaker.endPage + 1}"
-								class="page-link">Next</a></li>
-						</c:if>
-
-					</ul>
-				</nav>
 			</div>
 		</section>
-		<!-- 매칭게시판 목록 끝 -->
+
 
 
 	</main>
@@ -337,30 +348,8 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/js/common.js"></script>
-	<script src="/resources/include/assets/js/noticeBoard.js"></script>
-	<script>
-      	$(function() {
-      		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${noticeBoardVO.keyword}' />";
-      		let value ="";
-      		if (word != "") {
-      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
-      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
-      			
-      			if ($("#search").val() != 'common_content') {
-      				//:contains() 는 특정 텍스트를 포함한 요소 반환
-      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
-      				console.log($(value + ":contains('" + word + "')").html());
-      				// $("#list tr td.goDetail:contains('노력')").html();
-      				// => <span class='required'>노력</span>에 대한 명언
-      				$(value + ":contains('" + word +"')").each(function() {
-      					let regex = new RegExp(word, 'gi');
-      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-      				});
-      			}
-      		}
-      	});
-      </script>
+	<script src="/resources/include/assets/js/noticeBoardDetail.js"></script>
+	
 </body>
 
 </html>

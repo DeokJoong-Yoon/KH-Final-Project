@@ -4,12 +4,12 @@ $(function() {
 		
 		/* form을 생성하여 제어 */
 		let commonNo = $(this).parents("tr").attr("data-num");
-		$("#commonNo").val(commonNo);
+		$("#academyId").val(commonNo);
 		
 		// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm)
 		$("#detailForm").attr({
 			"method" : "get",
-			"action" : "/adminBoard/freeBoardDetail"
+			"action" : "/adminBoard/paymentBoardDetail"
 		});
 		$("#detailForm").submit();
 	});
@@ -43,12 +43,12 @@ $(function() {
 	/* 페이징 처리 이벤트 */
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
-		$("#noticeForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#noticeForm").attr({
+		$("#paymentForm").find("input[name='pageNum']").val($(this).attr("href"));
+			$("#paymentForm").attr({
 				"method" : "get",
-				"action" : "/adminBoard/free"
+				"action" : "/adminBoard/payment"
 			});
-			$("#noticeForm").submit();
+			$("#paymentForm").submit();
 	});
 });
 
@@ -56,9 +56,9 @@ function goPage() {
 	if ($("#search").val() == "all") {
 		$("#keyword").val("");
 	}
-	$("#noticeForm").attr({
+	$("#paymentForm").attr({
 		"method" : "get",
-		"action" : "/adminBoard/free"
+		"action" : "/adminBoard/payment"
 	});
-	$("#noticeForm").submit();
+	$("#paymentForm").submit();
 }

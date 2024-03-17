@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.myedumyselect.admin.board.free.dao.FreeBoardDAO;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.Setter;
 
@@ -26,6 +27,19 @@ public class FreeBoardAdminServiceImpl implements FreeBoardAdminService {
 	@Override
 	public int boardListCnt(FreeBoardAdminVO freeBoardAdminVO) {
 		return freeBoardDAO.boardListCnt(freeBoardAdminVO);
+	}
+
+	@Override
+	public FreeBoardAdminVO boardDetail(FreeBoardAdminVO freeBoardAdminVO) {
+		FreeBoardAdminVO detail = freeBoardDAO.boardDetail(freeBoardAdminVO);
+		return detail;
+	}
+
+	@Override
+	public int boardDelete(FreeBoardAdminVO freeBoardAdminVO) {
+		int result = 0;
+		result = freeBoardDAO.boardDelete(freeBoardAdminVO);
+		return result;
 	}
 
 }
