@@ -273,15 +273,6 @@
 			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
-			<%-- 			<input type="text" name="keyword" id="keyword" />
-			<c:if test="${not empty matchingBoard.keyword}">
-				<input type="text" name="keyword" id="keyword" />
-			</c:if>
-			
-			<c:otherwise>
-				<input type="hidden" name="keyword" id="keyword" value="${matchingBoard.keyword}"/>
-			</c:otherwise> --%>
-
 			<div class="pagetitle">
 				<h1>Notice board</h1>
 				<nav>

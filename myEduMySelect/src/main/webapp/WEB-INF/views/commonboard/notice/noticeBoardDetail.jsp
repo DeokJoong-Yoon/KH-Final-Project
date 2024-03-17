@@ -68,10 +68,6 @@
 	background-color: #48d1cc; /* 파란색으로 헤더 배경색 지정 */
 	color: white; /* 헤더 텍스트 색상 지정 */
 }
-
-.
-
-
 </style>
 </head>
 
@@ -144,7 +140,7 @@
 			<input type="hidden" name="pageNum" id="pagenum"
 				value="${pageMaker.cvo.pageNum}"> <input type="hidden"
 				name="amount" id="amount" value="${pageMaker.cvo.amount}">
-		
+		</form>
 		<!-- ======= 매칭게시판 목록 ======= -->
 		<section class="mcBoard">
 
@@ -157,17 +153,20 @@
 							<label for="search" class="card-title">search</label>
 						</div>
 						<div class="col-auto">
-							<select id="search" name="search" class="form-select form-select-sm">
+							<select id="search" name="search"
+								class="form-select form-select-sm">
 								<option value="all">All</option>
 								<option value="common_title">Title</option>
 								<option value="common_content">Content</option>
 							</select>
 						</div>
 						<div class="col-auto">
-							<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
+							<input type="text" name="keyword" id="keyword"
+								placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
 						</div>
 						<div class="col-auto">
-							<button type="button" id="searchData" class="btn btn-primary btn-sm">검색</button>
+							<button type="button" id="searchData"
+								class="btn btn-primary btn-sm">검색</button>
 						</div>
 					</div>
 					<table class="table">
@@ -183,7 +182,8 @@
 						<tbody id="list" class="table-group-divider">
 							<c:choose>
 								<c:when test="${not empty boardList}">
-									<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
+									<c:forEach var="notice" items="${boardList}"
+										varStatus="statusNumber">
 										<tr data-num="${notice.commonNo}">
 											<th scope="row">${notice.commonNo}</th>
 											<td class="goDetail text-center">${notice.commonTitle}</td>
@@ -232,7 +232,7 @@
 		</section>
 		<!-- 매칭게시판 목록 끝 -->
 
-		</form>
+
 	</main>
 	<!-- End #main -->
 	<!-- End #main -->
@@ -314,32 +314,10 @@
 	</footer>
 	<!-- End Footer -->
 
-
 	<div id="preloader"></div>
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
-		
-	<script>
-      	$(function() {
-      		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${noticeBoardVO.keyword}' />";
-      		let value ="";
-      		if (word != "") {
-      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
-      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
-      			
-      			if ($("#search").val() != 'common_content') {
-      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
-      				console.log($(value + ":contains('" + word + "')").html());
-      				$(value + ":contains('" + word +"')").each(function() {
-      					let regex = new RegExp(word, 'gi');
-      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-      				});
-      			}
-      		}
-      	});
-      </script>
 
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
@@ -357,11 +335,32 @@
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/assets/js/noticeBoard.js"></script>
-
+	<script>
+      	$(function() {
+      		/* 검색 후 검색 대상과 검색 단어 출력 */
+      		let word="<c:out value='${noticeBoardVO.keyword}' />";
+      		let value ="";
+      		if (word != "") {
+      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
+      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
+      			
+      			if ($("#search").val() != 'common_content') {
+      				//:contains() 는 특정 텍스트를 포함한 요소 반환
+      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+      				console.log($(value + ":contains('" + word + "')").html());
+      				// $("#list tr td.goDetail:contains('노력')").html();
+      				// => <span class='required'>노력</span>에 대한 명언
+      				$(value + ":contains('" + word +"')").each(function() {
+      					let regex = new RegExp(word, 'gi');
+      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+      				});
+      			}
+      		}
+      	});
+      </script>
 </body>
 
 </html>

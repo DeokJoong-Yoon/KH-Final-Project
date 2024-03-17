@@ -117,17 +117,8 @@ public class AdminLoginController {
 		}
 		return "redirect:/admin/login";
 
-		/*
-		 * 실제 로직 String url = ""; if (adminLogin != null) {
-		 * model.addAttribute("adminLogin", adminLogin); // url =
-		 * "/admin/board/boardList"; url = "/admin/member/memberList"; } else {
-		 * ras.addFlashAttribute("errorMsg", "로그인 실패"); } return "redirect:" + url;
-		 */
 	}
 
-	/**
-	 * 로그아웃 처리 메서드 setComplete() 메서드를 활용하여 세션을 할당 해지
-	 */
 	@GetMapping("/logout")
 	public String logoutProcess(SessionStatus sessionStatus) {
 		log.info("admin 로그인 아웃 처리");

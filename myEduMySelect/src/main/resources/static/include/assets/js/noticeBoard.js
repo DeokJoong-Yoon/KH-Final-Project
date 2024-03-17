@@ -1,6 +1,6 @@
-$(function() {		
+$(function() {
+	
 	$(document).ready(function () {
-		// 특정 ID 위치로 이동 (스무스 스크롤)
 		var targetElement = $("#main");
 		if (targetElement.length) {
 			$('html, body').animate({
@@ -10,7 +10,45 @@ $(function() {
 		
 	});
 	
-	/* 페이징 처리 이벤트 */
+	$(".goDetail").on("click", function() {
+		
+		let commonNo = $(this).parents("tr").attr("data-num");
+		$("#commonNo").val(commonNo);
+		
+		// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm)
+		$("#detailForm").attr({
+			"method" : "get",
+			"action" : "/notice/boardDetail"
+		});
+		$("#detailForm").submit();
+	});
+	
+	$("#keyword").bind("keydown", function(event) {
+		if (event.keyCode == 13) {
+			event.preventDefault();
+		}
+	});
+	
+	/* 검색 대상이 변경될 때마다 처리 이벤트 */
+	$("#search").on("change", function() {
+		if ($("#search").val() == "all") {
+			$("#keyword").val("전체 목록을 조회합니다.");
+		} else if ($("#search").val() !="all") {
+			$("#keyword").val("");
+			$("#keyword").focus();
+		} 
+	});
+	
+	/* 검색 버튼 클릭 시 처리 이벤트 */
+	$("#searchData").on("click", function() {
+		if ($("#search").val() != "all") {
+			if (!chkData("#keyword", "검색어를")) return;
+		}
+		$("#pageNum").val(1);	// 페이지 초기화
+		console.log($("#keyword").val());
+		goPage();
+	});
+	
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
 		$("#noticeForm").find("input[name='pageNum']").val($(this).attr("href"));
@@ -21,6 +59,20 @@ $(function() {
 			$("#noticeForm").submit();
 	});
 });
+
+function goPage() {
+	if ($("#search").val() == "all") {
+		$("#keyword").val("");
+	}
+	$("#noticeForm").attr({
+		"method" : "get",
+		"action" : "/notice/boardList"
+	});
+	$("#noticeForm").submit();
+}
+
+
+
 (function() {
 	"use strict";
 

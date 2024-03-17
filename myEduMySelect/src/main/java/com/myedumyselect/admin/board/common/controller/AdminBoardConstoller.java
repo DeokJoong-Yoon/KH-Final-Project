@@ -21,9 +21,11 @@ import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/adminBoard/*")
+@Slf4j
 public class AdminBoardConstoller {
 
 	@Setter(onMethod_ = @Autowired)
@@ -49,7 +51,7 @@ public class AdminBoardConstoller {
 		// 전체 레코드 조회
 		List<NoticeBoardVO> boardList = noticeBoardServcie.boardList(noticeBoardVO);
 		model.addAttribute("boardList", boardList);
-
+		log.info(noticeBoardVO.getKeyword());
 		// 전체 레코드수 반환.
 		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
 		// 페이징 처리
