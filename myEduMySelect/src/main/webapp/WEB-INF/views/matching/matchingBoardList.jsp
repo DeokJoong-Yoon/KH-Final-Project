@@ -116,6 +116,7 @@
      
       <div class="container">
 
+		<!-- ======= 검색 영역 ======= -->
 		<div class="mcBoardListSearch">
 			<form id="f_search" name="f_search">
 				<%-- 페이징 처리를 위한 파라미터 --%>
@@ -128,14 +129,18 @@
 				<button type="button" id="mcBoardSearchBtn">검색</button>	 			
 				<input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
 			</form>
-		</div><br><br>
+		</div><br><br>  <!-- 검색 영역 끝 -->
 		
 		
+		<!-- 로그인 세션 임시 확인 -->
 		<div class="userId">${userId }</div>
 		<div class="acaId">${acaId }</div>
 		<div class="acaName">${acaName }</div>
 		
+		
+		<!-- ========= 게시글 목록 영역 ======== -->
 		<div class="mcBoardList">
+			
 			<table>
 				<thead>
 					<tr>

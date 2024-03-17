@@ -2,27 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myedumyselect.commonboard.advertise.dao.AdvertiseDAO">
 	
+	<!-- AdvertiseVO 별칭 일괄 부여 -->
 	<resultMap type="advertiseBoard" id="advertiseBoardMap">
-		<id column="commonNo" property="common_no" />
-		<result column="academyId" property="academy_id" />
-		<result column="memberTypeId" property="member_type_id" />
-		<result column="commonNickname" property="common_nickname" />
-		<result column="commonTitle" property="common_title" />
-		<result column="commonContent" property="common_content" />
-		<result column="commonRegisterDate" property="common_register_date" />
-		<result column="commonEdit" property="common_edit" />
-		<result column="commonReadcnt" property="common_readcnt" />
-		<result column="commonBlockConfirm" property="common_block_confirm" />
-		<result column="commonBlockDate" property="common_block_date" />
+		<id column="common_no" property="commonNo" />
+		<result column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="common_nickname" property="commonNickname" />
+		<result column="common_title" property="commonTitle" />
+		<result column="common_content" property="commonContent" />
+		<result column="common_register_date" property="commonRegisterDate" />
+		<result column="common_edit" property="commonEdit" />
+		<result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_block_confirm" property="commonBlockConfirm" />
+		<result column="common_block_date" property="commonBlockDate" />
+		<result column="common_thumb" property="commonThumb" />
 	</resultMap>
 	
 	
-	<select id="advertiseList" parameterType="advertiseBoard" resultType="advertiseBoard">
-		SELECT common_no, academy_id, member_type_id, common_nickname, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt,common_block_confirm, to_char(common_block_date, 'YYYY-MM-DD') as common_block_date
-		FROM tb_common_board
-		<!-- <where>
-			<include refid="freeSearch"></include>
-		</where> -->
-		ORDER BY common_no desc
+	<!-- 전체 레코드 수 조회 -->
+	<select id="advertiseListCnt" parameterType="advertiseBoard" resultType="int">
+		<![CDATA[
+		SELECT 	count(*) FROM tb_common_board
+		WHERE	common_no >= 20000 AND common_no < 30000
+		AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
+					OR  ( common_title LIKE '%' || #{keyword} || '%' )
+					OR  ( common_content LIKE '%' || #{keyword} || '%' )
+				)
+		]]>
 	</select>
+	
+	
+	<!-- 홍보게시판 글 목록 조회 + 검색 포함 -->
+	<select id="advertiseList" parameterType="advertiseBoard" resultMap="advertiseBoardMap">
+		<![CDATA[
+		SELECT 	common_no
+		, 		academy_id
+		, 		member_type_id
+		, 		common_nickname
+		, 		common_title
+		, 		to_char(common_register_date,'YYYY-MM-DD') as common_register_date
+		, 		common_readcnt
+		,		common_block_confirm
+		,		common_thumb
+		,		commonCommentCnt
+		FROM 	(
+				SELECT /*+ INDEX_DESC(tb_common_board PK_TB_COMMON_BOARD) */
+						rownum as rnum
+				,		common_no
+				,		academy_id
+				,		member_type_id
+				,		common_nickname
+				,		common_title
+				,		common_register_date
+				,		common_readcnt
+				,		common_block_confirm
+				,		common_thumb
+				,		( SELECT COUNT(common_comment_no) 
+	            		  FROM tb_common_comment 
+	            		  WHERE common_no = tb_common_board.common_no)   as commonCommentCnt
+	            FROM	tb_common_board
+	            WHERE	rownum <= #{pageNum} * #{amount}
+	            AND		common_no >= 20000 AND common_no < 30000
+	            AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
+							OR  ( common_title LIKE '%' || #{keyword} || '%' )
+							OR  ( common_content LIKE '%' || #{keyword} || '%' )
+						)
+				)
+		WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+	
+	
 </mapper>

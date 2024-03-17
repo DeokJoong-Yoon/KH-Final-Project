@@ -49,11 +49,8 @@ $(function(){
 	//페이징 처리 이벤트
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
-		
 		let pageNum = $(this).attr("href");
-		
 		$("#f_search").find("input[name='pageNum']").val(pageNum);
-		
 		goPage();
 	});
 	
@@ -63,7 +60,7 @@ $(function(){
 		$("#pageNum").val(1);
 		$("#keyword").val("");
 		goPage();
-	})
+	});
 	
 	//맞춤형검색으로 돌아가기 버튼
 	$("#mcGoBack").on("click", function(){

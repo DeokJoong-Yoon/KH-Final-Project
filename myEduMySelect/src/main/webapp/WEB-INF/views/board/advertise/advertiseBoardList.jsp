@@ -45,6 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
+<link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/board/advertise/css/advertiseList.css"
 	rel="stylesheet">
 
@@ -94,227 +95,123 @@
 		</div>
 	</header>
 	<!-- End Header -->
-
-	<!-- ======= 게시판 영역 ======= -->
-	<section id="hero"
-		class="d-flex align-items-center justify-content-center">
-		<div class="container">
+	
+	<!-- ======= 설명 영역 ======= -->
+	<section id="hero" class="d-flex align-items-center  justify-content-center">
+		<div class="container" >
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<div class="container">
+				<form id="detailForm">
+					<input type="hidden" id="common_no" name="common_no" />
+				</form>
 
-							<form id="detailForm">
-								<input type="hidden" id="common_no" name="common_no" />
-							</form>
-
-							<div class="row">
-								<div class="col-3 list-group">
-									<a href="/free/freeList"
-										class="list-group-item list-group-item-action">자유게시판</a> <a
-										href="/advertise/advertiseList"
-										class="list-group-item list-group-item-action">홍보게시판</a> <a
-										href="#" class="list-group-item list-group-item-action">공지게시판</a>
-								</div>
-								<div
-									class="thumlist justify-content-center justify-content-lg-start">
-									<div class="row">
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-										<div class="col">
-											<div class="thumbnail">
-												<a href="상세페이지URL1"> <img src="학원이미지URL1" width="100"
-													height="100" alt="학원이름">
-												</a>
-												<div class="info">
-													<p>학원 이름01</p>
-													<p>전화번호: 000-0000-0000</p>
-													<p>주소: 서울시 강남구 역삼동</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div id="advertiseSearch" class="text-right">
-							<form id="a_search" name="a_search" >
-								<div class="row g-2 align-items-center" style="width:500%;">
-									<div class="col-auto">
-										<select id="search" name="search"
-											class="form-select form-select-sm">
-											<option value="all">전체 목록 조회</option>
-											<option value="common_title">글제목</option>
-											<option value="common_content">글내용</option>
-											<option value="academy_id">작성자</option>
-										</select>
-									</div>
-									<div class="col-auto">
-										<input type="text" name="keyword" id="keyword"
-											placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
-									</div>
-									<div class="col-auto">
-										<button type="button" id="searchData"
-											class="btn btn-primary btn-sm">검색</button>
-									</div>
-								</div>
-							</form>
-						</div>
-						<div class="button-container text-center">
-						<button type="submit" id="advertiseInsertBtn" class="btn btn-primary">글쓰기</button>
-						</div>
-					</div>
-				</div>
-			</div>
+				<div class="col-12 text-center banner">
+		            홍보 게시판<br/>
+		            <div class="descBox">
+		            	학원 홍보게시판입니다.<br>
+		            	정보 얻어 가세요!
+		            </div>
+		       </div> 
+		    </div>
 		</div>
-		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-			data-aos-delay="200"></div>
-	</section>
+	</section> <!-- ======= 설명 영역 끝 ======= -->
+	
+	<main id="main">
+	
+		<!-- ======= 게시판 영역 ======= -->
+		<section class="board">
+			
+			<div class="container">
+			
+				<!-- ======= 검색 영역 ======= -->
+				<div class="advertiseSearch">
+					<form id="a_search" name="a_search" >
+					
+						<!-- 페이징 처리를 위한 파라미터 -->
+						<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+	 					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+	 					
+	 					<button type="button" id="boardAll">전체 보기</button>
+	 					
+	 					<button type="button" id="boardSearchBtn">검색</button>	 			
+						<input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
+					</form>	
+				</div><br><br>		<!-- 검색 영역 끝 -->
+				
+				<!-- 로그인 세션 임시 확인 -->
+				<div class="userId">${userId }</div>
+				<div class="acaId">${acaId }</div>
+				<div class="acaName">${acaName }</div>
+				
+							
+				<!-- ========= 게시글 목록 영역 ======== -->
+				<div class="boardList">
+				
+						
+					<table id="listBoxes">
+						<c:choose>
+						    <c:when test="${not empty advertiseList}">
+						        <c:forEach var="adv" items="${advertiseList}" varStatus="status">
+						            <c:if test="${status.index % 3 == 0}">
+						                <tr data-num="${adv.commonNo}">
+						            </c:if>
+						            <td>
+						            	<img src="${adv.commonThumb }"> <br>
+						                <h5><a class="advLink" href="">${adv.commonNickname} </a></h5> <br>
+						                <p>${adv.commonTitle} </p>
+						            </td>
+						            <c:if test="${status.index % 3 == 2 or status.index == mBoardList.size() - 1}">
+						                </tr>
+						            </c:if>
+						        </c:forEach>
+						    </c:when>
+						    <c:otherwise>
+						        <tr>
+						            <td colspan="3">등록된 게시글이 존재하지 않습니다</td>
+						        </tr>
+						    </c:otherwise>
+						</c:choose>
+					</table>
+					
+				</div>
+				
+				<div class="text-end">
+					<button type="submit" id="advertiseInsertBtn" class="btn btn-primary">글쓰기</button>
+				</div>
+			</div>	
+		
+		</section>
+		
+		<%------------ 페이징 출력 시작 ---------- --%>
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination justify-content-center">
+		    <!-- 이전 바로가기 5개 존재 여부를 prev 필드의 값으로 확인 -->
+		    <c:if test="${pageMaker.prev }">
+			    <li class="page-item">
+			    	<a href="${pageMaker.startPage - 1 }" class="page-link">이전</a>
+			    </li>
+			</c:if>
+			
+			<!-- 바로가기 번호 출력 -->
+			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	       		<li class="page-item  ${pageMaker.cvo.pageNum == num ? 'active':''}">
+		           <a href="${num}" class="page-link">${num}</a>
+ 		        </li>
+	       </c:forEach>
+			
+			<!-- 다음 바로가기 5개 존재 여부를 next 필드의 값으로 확인 -->
+			<c:if test="${pageMaker.next }">
+				<li class="page-item">
+					<a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+				</li>
+			</c:if>
+		  </ul>
+		</nav>		<!-- 매칭게시판 목록 끝 -->
+		
+	</main>
+	
+	
 
-
-	<main id="main"></main>
-	<!-- End #main -->
-
+	
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -415,39 +312,7 @@
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script>
-		$(function() {
-			let word = "${FreeVO.keyword}";
-			let value = "";
-
-			if (word != "") {
-				$("#keyword").val(word);
-				$("#search").val("${FreeVO.search}");
-
-				if ($("#search").val() != 'common_content') {
-					if ($("#search").val() == 'common_title')
-						value = "#list tr td.goDetail";
-					else if ($("#search").val() == 'personal_id')
-						value = "#list tr td.name";
-
-					$(value + ":contains('" + word + "')").each(
-							function() {
-								let escapedWord = word.replace(
-										/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
-										"\\$&");
-								let regex = new RegExp(escapedWord, 'gi');
-								$(this).html(
-										$(this).html().replace(
-												regex,
-												"<span class='required'>"
-														+ word + "</span>"));
-							});
-				}
-			}
-		});
-	</script>
 	<script src="/resources/include/board/advertise/js/advertiseList.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
 

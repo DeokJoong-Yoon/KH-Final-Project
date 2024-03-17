@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -249,5 +250,17 @@ public class MatchingBoardController {
 			
 		return "redirect:" + url;
 	}
+	
+	
+	
+	/*
+	 * //이전글 이동
+	 * 
+	 * @GetMapping("/detail/{matchingNo}/previous") public String
+	 * mBoardDetailPrevious(@PathVariable("matchingNo") int matchingNo, Model model)
+	 * { log.info("mBoardDetailPrevious 메소드 호출");
+	 * 
+	 * }
+	 */
 	
 }

@@ -1,90 +1,62 @@
-	const gallery = document.getElementById('gallery');
-
-	thumbnailsData.forEach(data => {
-	    const thumbnailDiv = document.createElement('div');
-	    thumbnailDiv.className = 'thumbnail';
-	    
-	    thumbnailDiv.innerHTML = `
-	        <a href="${data.pageUrl}">
-	            <img src="${data.imageUrl}" alt="${data.name}">
-	            <div class="info">
-	                <p>${data.name}</p>
-	                <p>전화번호: ${data.phone}</p>
-	                <p>주소: ${data.address}</p>
-	            </div>
-	        </a>
-	    `;
-	    
-	    gallery.appendChild(thumbnailDiv);
-	});
-
-	$(function(){
-	$(".goDetail").on("click", function(){
-		/*let common_no = $(this).parents("tr").attr("data-num");
-		$("#common_no").val(common_no);
-		console.log("글번호 : "+common_no);
-		location.href="/advertise/advertiseDetail?common_no="+common_no;*/
-		let common_no = $(this).parents("tr").attr("data-num");
-		$("#common_no").val(common_no);
+$(function(){
+	
+	//제목 클릭 시 상세 페이지 이동
+	$(".advLink").on("click", function() {
 		
-		$("#detailForm").attr({
-			"method":"get",
-			"action":"/advertise/advertiseDetail"
-		});
-		$("#detailForm").submit();
-	});
+		let commonNo = $(this).closest("tr").attr("data-num");		//게시글 번호
+		let userId = $(".userId").text();							//접속한 개인회원 id
+		let acaId = $(".acaId").text();								//접속한 학원회원 id
+		
+		//글 제목 클릭 시, 로그인 시에만 열람 가능하도록 제어
+		if (userId == '' && acaId == '') {
+			alert("로그인 후 열람 가능합니다.");
+			$(this).attr("href", "/advertise/advertiseBoardList");
+		} else {
+			$(this).attr("href", "/advertise/advertiseBoardDetail?commonNo=" + commonNo)
+		}
+	})
 	
 	
-	$("#advertiseInsertBtn").on("click", () => {
-		location.href="/advertise/advertiseInsertForm";
-	});
-	
-	
-	
-	$("#keyword").bind("keydown", function(event){
-		if(event.keyCode == 13){
+	//입력 양식 enter 제어
+	$("#keyword").bind("keydown", function(event) {
+		if(event.keyCode == 13) {
 			event.preventDefault();
+			$("#mcBoardSearchBtn").click(); 
 		}
 	});
 	
-	$("#search").on("change", function(){
-	    if($("#search").val() == "all"){
-	        $("#keyword").val("전체 목록을 조회합니다.");
-	    }else {
-	        $("#keyword").val("");
-	        $("#keyword").focus();
-	    }
-	});
-
 	
-	$("#searchData").on("click", function(){
-		if($("#advertiseSearch").val()!="all"){	
-			if(!chkData("#keyword","검색어를")) return;
-		}
-	/*	$("#pageNum").val(1);	// 페이지 초기화*/
+	//검색 버튼 클릭
+	$("#boardSearchBtn").on("click", function() {
+		$("#pageNum").val(1);
 		goPage();
 	});
 	
+	
+	//페이징 처리 이벤트
+	$(".page-item a").on("click", function(e) {
+		e.preventDefault();
+		let pageNum = $(this).attr("href");
+		$("#a_search").find("input[name='pageNum']").val(pageNum);
+		goPage();
+	});
+	
+	
+	//전체보기 버튼
+	$("#boardAll").on("click", function(){
+		$("#pageNum").val(1);
+		$("#keyword").val("");
+		goPage();
+	});
 });
 
-function chkData(inputId, message) {
-    var inputValue = $(inputId).val();
-    if(inputValue.trim() === "") {
-        alert(message + " 입력해주세요.");
-        $(inputId).focus();
-        return false;
-    }
-    return true;
-}
 
 
-function goPage(){
-    if($("#search").val() == "all"){
-        $("#keyword").val("");
-    }
-    $("#a_search").attr({
-        "method":"get",
-        "action":"/advertise/advertiseList"
-    });
-    $("#a_search").submit();
+//검색 함수
+function goPage() {
+	$("#a_search").attr({
+		"method":"get",
+		"action":"/advertise/advertiseBoardList"
+	});
+	$("#a_search").submit();
 }

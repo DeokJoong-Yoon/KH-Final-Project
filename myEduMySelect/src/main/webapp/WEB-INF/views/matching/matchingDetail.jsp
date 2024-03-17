@@ -263,7 +263,6 @@
   <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/matching/js/matchingDetail.js"></script>
- 
   
  
 	<script>

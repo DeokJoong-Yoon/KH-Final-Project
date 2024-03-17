@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.extern.slf4j.Slf4j;
