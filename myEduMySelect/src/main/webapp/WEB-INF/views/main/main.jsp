@@ -82,7 +82,7 @@
 							<li><a href="#">자유게시판</a></li>
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
-							<li><a href="/">공지게시판</a></li>
+							<li><a href="/notice/boardList">공지게시판</a></li>
 							<li><a href="/mypage" id="mypageBtn">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
