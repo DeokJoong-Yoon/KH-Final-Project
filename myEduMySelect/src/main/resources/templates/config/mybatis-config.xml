@@ -24,6 +24,7 @@
 			type="com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO"
 			alias="free" />
 
+
 		<!-- ========================maching 영역======================== -->
 		<typeAlias
 			type="com.myedumyselect.matching.board.vo.MatchingBoardVO"
@@ -33,13 +34,17 @@
 			type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
 			alias="matchingComment" />
 
+
 		<!-- ========================academy 영역======================== -->
 		<typeAlias type="com.myedumyselect.academy.vo.AcademyLoginVo"
 			alias="academyLogin" />
 
+
 		<!-- ========================Payment 영역======================== -->
 		<typeAlias type="com.myedumyselect.payment.vo.PaymentVO"
 			alias="payment" />
+			
+			
 		<!-- ========================Board 영역======================== -->
 		<typeAlias
 			type="com.myedumyselect.commonboard.free.vo.FreeVO" alias="freeBoard" />
@@ -49,10 +54,18 @@
 			type="com.myedumyselect.commonboard.advertise.vo.AdvertiseVO" alias="advertiseBoard" />
 		<typeAlias
 			type="com.myedumyselect.commonboard.notice.vo.NoticeBoardVO" alias="notice" />
+			
+			
 		<!-- ========================personal 영역======================== -->
 		<typeAlias
 			type="com.myedumyselect.personal.vo.PersonalLoginVO"
 			alias="personalLogin" />
+			
+			
+		<!-- ======================== file 영역======================== -->
+		<typeAlias
+			type="com.myedumyselect.common.file.FileVO"
+			alias="file" />
 	</typeAliases>
 
 
