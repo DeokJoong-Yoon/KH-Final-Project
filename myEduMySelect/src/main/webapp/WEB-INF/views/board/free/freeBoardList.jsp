@@ -304,27 +304,19 @@
 	<script>
 	$(function() {
 		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word = "<c:out value='${boardVO.keyword}' />";
+		let word = "<c:out value='${FreeVO.keyword}' />";
 		let value = "";
 		if (word != "") {
-			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
-			$("#search").val("<c:out value='${boardVO.search}' />");
-			if ($("#search").val() != 'b_content') {
-				//:contains()는 특정 텍스트를 포함한 요소 반환
-				if ($("#search").val() == 'b_title')
-					value = "#list tr td.goDetail";
-				else if ($("#search").val() == 'b_name')
-					value = "#list tr td.name";
+			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");
+			$("#search").val("<c:out value='${FreeVO.search}' />");
+			if ($("#search").val() != 'common_content') {
+				if ($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+				else if ($("#search").val() == 'personal_id') value = "#list tr td.name";
 				console.log($(value + ":contains('" + word + "')").html());
-				$(value + ":contains('" + word + "')").each(
-						function() {
+				$(value + ":contains('" + word + "')").each(function() {
 							let regex = new RegExp(word, 'gi');
-							$(this).html(
-									$(this).html().replace(
-											regex,
-											"<span class='required'>"
-													+ word + "</span>"));
-						});
+							$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+				});
 			}
 		}
 	});

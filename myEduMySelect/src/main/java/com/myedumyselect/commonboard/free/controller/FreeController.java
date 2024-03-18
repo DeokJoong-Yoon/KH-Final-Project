@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -81,12 +81,12 @@ public class FreeController {
 	
 	/*글 수정 구현
 	@GetMapping(value="/freeUpdateForm")
-	public String freeUpdateForm(@RequestParam("common_no") int common_no, Model model) {
+	public String freeUpdateForm(@RequestParam("commonNo") int commonNo, Model model) {
 	    log.info("freeUpdateForm 호출 성공");
-	    log.info("common_no = " + common_no);
+	    log.info("commonNo = " + commonNo);
 	    
 	    FreeVO fvo = new FreeVO();
-	    fvo.setCommon_no(common_no);
+	    fvo.setcommonNo(commonNo);
 	    
 	    FreeVO freeUpdateData = freeService.freeUpdateForm(fvo);
 	    
@@ -106,9 +106,9 @@ public class FreeController {
 	    model.addAttribute("freeUpdateData", fvo);
 	    
 	    if(result == 1) {
-	        url = "/board/freeDetail?common_no=" + fvo.getCommon_no();
+	        url = "/board/freeDetail?commonNo=" + fvo.getcommonNo();
 	    } else {
-	        url = "/board/freeUpdateForm?common_no=" + fvo.getCommon_no();
+	        url = "/board/freeUpdateForm?commonNo=" + fvo.getcommonNo();
 	    }
 	    return "redirect:" + url;
 	}*/
@@ -131,7 +131,7 @@ public class FreeController {
 			url="/free/freeList";
 		} else {
 			ras.addFlashAttribute("errorMsg", "삭제에 문제가 있어 다시 진행해 주세요.");
-			url="/free/freeDetail?common_no="+fvo.getCommon_no();
+			url="/free/freeDetail?commonNo="+fvo.getcommonNo();
 		}
 		return "redirect:"+url;
 	}*/
@@ -141,11 +141,11 @@ public class FreeController {
 	
 	/*@ResponseBody
 	@PostMapping(value="/replyCount", produces=MediaType.TEXT_PLAIN_VALUE)
-	public String replyCount(@RequestParam("common_no") int common_no) {
+	public String replyCount(@RequestParam("commonNo") int commonNo) {
 		log.info("replyCount 호출 성공");
 		
 		int result = 0;
-		result = freeService.replyCount(common_no);
+		result = freeService.replyCount(commonNo);
 		
 		return String.valueOf(result);
 	}*/
