@@ -19,6 +19,7 @@
 			property="academyManagerPhone" />
 		<result column="payment_status" property="paymentStatus" />
 		<result column="payment_date" property="paymentDate" />
+		<result column="amount" property="payAmount" />
 	</resultMap>
 
 	<sql id="boardSearch">
@@ -47,7 +48,7 @@
 		FROM (
 			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
 			rownum as rnum, payment_id, pg, pay_method, merchant_uid, name, academy_id, academy_number, academy_name, academy_manager_name,
-			academy_manager_email, academy_manager_phone, payment_status, payment_date
+			academy_manager_email, academy_manager_phone, payment_status, payment_date, amount
 			FROM (
 				select * from tb_payment
 				order by payment_date desc
@@ -92,7 +93,7 @@
 		#{payMethod},
 		#{merchantUid},
 		#{name},
-		#{amount},
+		#{payAmount},
 		#{academyId},
 		#{academyNumber},
 		#{academyName},

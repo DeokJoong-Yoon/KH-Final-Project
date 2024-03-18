@@ -36,7 +36,7 @@ public class FreeController {
 	}
 	
 	
-	/* 글쓰기 구현*/
+	/* 글 쓰기 구현*/
 	@PostMapping("/freeInsert")
 	public String freeInsert(FreeVO fvo, RedirectAttributes ras) {
 		log.info("freeInsert 호출 성공");
