@@ -14,9 +14,11 @@
     <result column="common_readcnt" property="commonReadcnt" /> 
 </resultMap>
 
-
-<select id="freeList" parameterType="freeBoard" resultType="freeBoard">
-    SELECT common_no, personal_id, member_type_id, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt 
+<select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
+    SELECT common_no, personal_id, member_type_id, common_title, common_content, 
+    to_char(common_register_date,'YYYY-MM-DD') as common_register_date, 
+    to_char(common_edit, 'YYYY-MM-DD') as common_edit, 
+    common_readcnt 
     FROM tb_common_board
     <where>
         <include refid="freeSearch"></include>
@@ -32,13 +34,9 @@
 		#{personalId}, #{memberTypeId}, #{commonTitle}, #{commonContent}) </insert> -->
 
 	<insert id="freeInsert" parameterType="freeBoard">
-		<selectKey keyProperty="commonNo" resultType="int" order="BEFORE">
-			select free_board_seq.nextval from dual
-		</selectKey>
-
 		INSERT INTO tb_common_board(common_no, personal_id, member_type_id,
 		common_title, common_content)
-		VALUES (#{commonNo}, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent})
+		VALUES (free_board_seq.nextval, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent})
 	</insert>
 
 	<update id="readCntUpdate" parameterType="freeBoard">
@@ -48,7 +46,7 @@
 	</update>
 
 
-	<select id="freeDetail" parameterType="freeBoard" resultType="freeBoard">
+	<select id="freeDetail" parameterType="freeBoard" resultMap="freeBoardMap">
 		SELECT common_no, personal_id, member_type_id,
 		common_title, common_content, TO_CHAR(common_register_date,'YYYY-MM-DD
 		HH24:MI:SS') AS common_register_date, common_readcnt

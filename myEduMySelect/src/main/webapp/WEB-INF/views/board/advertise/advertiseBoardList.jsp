@@ -147,28 +147,28 @@
 				
 						
 					<table id="listBoxes">
-						<c:choose>
-						    <c:when test="${not empty advertiseList}">
-						        <c:forEach var="adv" items="${advertiseList}" varStatus="status">
-						            <c:if test="${status.index % 3 == 0}">
-						                <tr data-num="${adv.commonNo}">
-						            </c:if>
-						            <td>
-						            	<img src="${adv.commonThumb }"> <br>
-						                <h5><a class="advLink" href="">${adv.commonNickname} </a></h5> <br>
-						                <p>${adv.commonTitle} </p>
-						            </td>
-						            <c:if test="${status.index % 3 == 2 or status.index == mBoardList.size() - 1}">
-						                </tr>
-						            </c:if>
-						        </c:forEach>
-						    </c:when>
-						    <c:otherwise>
-						        <tr>
-						            <td colspan="3">등록된 게시글이 존재하지 않습니다</td>
-						        </tr>
-						    </c:otherwise>
-						</c:choose>
+					    <c:choose>
+					        <c:when test="${not empty advertiseList}">
+					            <c:forEach var="adv" items="${advertiseList}" varStatus="status">
+					                <c:if test="${status.index % 3 == 0}">
+					                    <tr>
+					                </c:if>
+					                <td data-num="${adv.commonNo}">
+					                    <img src="${adv.commonFile }"> <br><br>
+					                    <h5><a class="advLink" href="#">학원명 들어갈 자리${adv.commonNickname} </a></h5> 
+					                    <p>${adv.commonTitle} </p>
+					                </td>
+					                <c:if test="${status.index % 3 == 2 or status.index == mBoardList.size() - 1}">
+					                    </tr>
+					                </c:if>
+					            </c:forEach>
+					        </c:when>
+					        <c:otherwise>
+					            <tr>
+					                <td colspan="3">등록된 게시글이 존재하지 않습니다</td>
+					            </tr>
+					        </c:otherwise>
+					    </c:choose>
 					</table>
 					
 				</div>

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.commonboard.free.service.FreeService;
@@ -37,7 +36,7 @@ public class FreeController {
 	}
 	
 	
-	/* 글쓰기 구현*/
+	/* 글 쓰기 구현*/
 	@PostMapping("/freeInsert")
 	public String freeInsert(FreeVO fvo, RedirectAttributes ras) {
 		log.info("freeInsert 호출 성공");
@@ -49,7 +48,7 @@ public class FreeController {
 		if (result == 1) {
 			url = "/board/free/freeList";
 		} else {
-			ras.addFlashAttribute("errorMsg", "입력에 문제가 있어 다시 진행해 주세요.");
+			ras.addFlashAttribute("errorMsg","입력에 문제가 있어 다시 진행해 주세요.");
 			url = "/board/free/freeWriterForm";
 		}
 		return "redirect:"+url;
@@ -79,14 +78,15 @@ public class FreeController {
 
 	
 	
-	/*글 수정 구현
+	//글 수정 구현
+	
 	@GetMapping(value="/freeUpdateForm")
 	public String freeUpdateForm(@RequestParam("commonNo") int commonNo, Model model) {
 	    log.info("freeUpdateForm 호출 성공");
 	    log.info("commonNo = " + commonNo);
 	    
 	    FreeVO fvo = new FreeVO();
-	    fvo.setcommonNo(commonNo);
+	    fvo.setCommonNo(commonNo);
 	    
 	    FreeVO freeUpdateData = freeService.freeUpdateForm(fvo);
 	    
@@ -94,8 +94,10 @@ public class FreeController {
 	    return "/board/free/freeUpdateForm";
 	}
 
+	
+
 	@PostMapping("/freeUpdate")
-	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras, Model model) {
+	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
 	    log.info("freeUpdate 호출 성공");
 	    
 	    int result = 0;
@@ -103,21 +105,21 @@ public class FreeController {
 	    
 	    result = freeService.freeUpdate(fvo);
 	    ras.addFlashAttribute("freeVO", fvo);
-	    model.addAttribute("freeUpdateData", fvo);
+		/* model.addAttribute("freeUpdateData", fvo); */
 	    
 	    if(result == 1) {
-	        url = "/board/freeDetail?commonNo=" + fvo.getcommonNo();
+	        url = "/free/freeDetail?commonNo=" + fvo.getCommonNo();
 	    } else {
-	        url = "/board/freeUpdateForm?commonNo=" + fvo.getcommonNo();
+	        url = "/free/freeUpdateForm?commonNo=" + fvo.getCommonNo();
 	    }
 	    return "redirect:" + url;
-	}*/
+	}
 	
 	// 수정기능이 되지 않아 우선 보류....
 
 
 	
-	/* 글 삭제
+	 //글 삭제
 	
 	@PostMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
@@ -131,10 +133,10 @@ public class FreeController {
 			url="/free/freeList";
 		} else {
 			ras.addFlashAttribute("errorMsg", "삭제에 문제가 있어 다시 진행해 주세요.");
-			url="/free/freeDetail?commonNo="+fvo.getcommonNo();
+			url="/free/freeDetail?commonNo="+fvo.getCommonNo();
 		}
 		return "redirect:"+url;
-	}*/
+	}
 	
 	
 	// 삭제는 정상처리로 알려주는데 실제로 삭제가 안되서 이것도 보류...

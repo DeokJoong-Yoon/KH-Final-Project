@@ -13,7 +13,7 @@ $(function(){
     
     /* 글쓰기 버튼 클릭 */
     $("#insertFormBtn").on("click", () => {
-        location.href = "/board/free/freeWriterForm";
+        location.href = "/free/freeWriterForm";
     });
     
     /* 입력 양식 enter 제거 */

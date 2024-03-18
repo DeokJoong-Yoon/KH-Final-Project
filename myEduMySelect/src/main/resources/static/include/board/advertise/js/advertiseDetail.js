@@ -1,4 +1,4 @@
-let buttonCheck = 0;
+/*let buttonCheck = 0;
 
 $(function(){
 	
@@ -34,4 +34,4 @@ $(function(){
 		});
 		$("#a_data").submit();
 	}
-});
+});*/

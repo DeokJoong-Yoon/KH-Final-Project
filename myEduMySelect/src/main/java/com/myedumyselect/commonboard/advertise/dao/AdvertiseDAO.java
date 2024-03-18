@@ -21,4 +21,10 @@ public interface AdvertiseDAO {
 	
 	//홍보게시판 파일 등록
 	public int advertiseInsertFile(FileVO fileVO);
+
+	//홍보게시판 글 등록 시 첫 번째 파일을 썸네일로 설정
+	public int advertiseThumbnail(AdvertiseVO aVO);
+	
+	//홍보게시판 상세페이지 이동
+	public AdvertiseVO advertiseDetail(AdvertiseVO aVO);
 }

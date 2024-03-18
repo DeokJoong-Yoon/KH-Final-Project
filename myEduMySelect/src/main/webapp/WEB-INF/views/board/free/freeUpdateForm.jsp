@@ -266,30 +266,7 @@
 				alert(errorMsg);
 			}
 		});
-		 $(document).ready(function(){
-	            $("#submitBtn").click(function(){
-	                // 사용자가 입력한 데이터 가져오기
-	                var inputData = {
-	                    data1: $("#data1").val(),
-	                    data2: $("#data2").val()
-	                };
 
-	                // AJAX 요청
-	                $.ajax({
-	                    url: "/free/freeDetail",
-	                    type: "POST",
-	                    data: inputData,
-	                    success: function(response) {
-	                        // 성공적으로 응답을 받았을 때 실행되는 코드
-	                        console.log("응답 받은 데이터:", response);
-	                    },
-	                    error: function(xhr, status, error) {
-	                        // 에러 발생 시 실행되는 코드
-	                        console.error("에러 발생:", error);
-	                    }
-	                });
-	            });
-	        });
 	</script>
 
 </body>
