@@ -1,37 +1,37 @@
-/*let buttonCheck = 0;
-
-$(function(){
+$(function() {
 	
-	$("#advertiseUpdateBtn").on("click", () => {
-		$("#a_data").attr({
+	//게시물 수정
+	$("#editPost").on("click", function(){
+		$("#formData").attr({
 			"method":"get",
-			"action":"/advertise/advertiseUpdateForm"
+			"action":"/advertise/advertiseUpdate"
 		});
-		$("#a_data").submit();
-	});
+		$("#formData").submit();
+	})
 	
+	//게시물 삭제
+	$("#deletePost").click(function(){
+		
+		var isConfirmed = confirm("게시물을 삭제하시겠습니까?");
+		
+		if(isConfirmed) {
+			$("#formData").attr({
+				"method":"get",
+				"action":"/advertise/advertiseDelete"
+			});
+			$("#formData").submit();
+		
+		}
+	})
 	
-	$("#advertiseDeleteBtn").on("click", () => {
-		$("#a_data").attr({
-			"method":"post",
-			"action":"/advertise/advertiseDelete"
-		});
-		$("#a_data").submit();
-	});
+	$("#prevPost").click(function(){
+	})
 	
-	$("#advertiseInsertBtn").on("click", () => {
-		location.href="/advertise/advertiseInsertForm";
-	});
+	$("#nextPost").click(function(){
+	})
 	
-	$("#advertiseListBtn").click(function(){
-		location.href="/advertise/advertiseList";
-	});
+	$("#gotoList").click(function(){
+		location.href="/advertise/advertiseBoardList"
+	})
 	
-	function actionProcess(method, goUrl){
-		$("#a_data").attr({
-			"method":method,
-			"action":goUrl
-		});
-		$("#a_data").submit();
-	}
-});*/
+})
