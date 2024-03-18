@@ -3,82 +3,74 @@
 <mapper
 	namespace="com.myedumyselect.commonboard.free.dao.FreeDAO">
 
-	<resultMap type="freeBoard" id="freeBoardMap">
-		<id column="commonNo" property="common_no" />
-		<result column="personalId" property="personal_id" />
-		<result column="memberTypeId" property="member_type_id" />
-		<result column="commonTitle" property="common_title" />
-		<result column="commonContent" property="common_content" />
-		<result column="commonRegisterDate"
-			property="common_register_date" />
-		<result column="commonEdit" property="common_edit" />
-		<result column="commonReadcnt" property="common_readcnt" />
-	</resultMap>
+<resultMap type="freeBoard" id="freeBoardMap">
+    <id column="common_no" property="commonNo" />
+    <result column="personal_id" property="personalId" />
+    <result column="member_type_id" property="memberTypeId" />
+    <result column="common_title" property="commonTitle" />
+    <result column="common_content" property="commonContent" />
+    <result column="common_register_date" property="commonRegisterDate" />
+    <result column="common_edit" property="commonEdit" />
+    <result column="common_readcnt" property="commonReadcnt" /> 
+</resultMap>
 
 
-	<select id="freeList" parameterType="freeBoard" resultType="freeBoard">
-		SELECT common_no, personal_id, member_type_id, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt
-		FROM tb_common_board
-		<where>
-			<include refid="freeSearch"></include>
-		</where>
-		<!-- <where>
-		    <if test="memberTypeId != null">
-		        AND memberTypeId = #{member_type_id}
-		    </if>
-		    <include refid="freeSearch"></include>
-		</where> -->
-		ORDER BY common_no desc
-	</select>
+<select id="freeList" parameterType="freeBoard" resultType="freeBoard">
+    SELECT common_no, personal_id, member_type_id, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt 
+    FROM tb_common_board
+    <where>
+        <include refid="freeSearch"></include>
+    </where>
+    ORDER BY common_no desc
+</select>
 
 
-	<!-- <insert id="freeInsert" parameterType="freeBoard"> INSERT INTO tb_common_board(common_no, 
-		personal_id, member_type_id, common_title, common_content) VALUES (free_board_seq.nextval, 
-		#{personal_id}, #{member_type_id}, #{common_title}, #{common_content}) </insert> -->
+
+
+	<!-- <insert id="freeInsert" parameterType="freeBoard"> INSERT INTO tb_common_board(commonNo, 
+		personalId, memberTypeId, commonTitle, commonContent) VALUES (free_board_seq.nextval, 
+		#{personalId}, #{memberTypeId}, #{commonTitle}, #{commonContent}) </insert> -->
 
 	<insert id="freeInsert" parameterType="freeBoard">
-		<selectKey keyProperty="common_no" resultType="int"
-			order="BEFORE">
+		<selectKey keyProperty="commonNo" resultType="int" order="BEFORE">
 			select free_board_seq.nextval from dual
 		</selectKey>
 
 		INSERT INTO tb_common_board(common_no, personal_id, member_type_id,
 		common_title, common_content)
-		VALUES (#{common_no}, #{personal_id},
-		#{member_type_id}, #{common_title}, #{common_content})
+		VALUES (#{commonNo}, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent})
 	</insert>
 
 	<update id="readCntUpdate" parameterType="freeBoard">
 		update tb_common_board
 		set common_readcnt = common_readcnt + 1
-		where common_no = #{common_no}
+		where common_no = #{commonNo}
 	</update>
 
 
-	<select id="freeDetail" parameterType="freeBoard"
-		resultType="freeBoard">
+	<select id="freeDetail" parameterType="freeBoard" resultType="freeBoard">
 		SELECT common_no, personal_id, member_type_id,
-		common_title, common_content, TO_CHAR(COMMON_REGISTER_DATE,'YYYY-MM-DD
+		common_title, common_content, TO_CHAR(common_register_date,'YYYY-MM-DD
 		HH24:MI:SS') AS common_register_date, common_readcnt
 		FROM
 		tb_common_board
-		WHERE common_no = #{common_no}
+		WHERE common_no = #{commonNo}
 	</select>
 
 
 	<update id="freeUpdate" parameterType="freeBoard">
         UPDATE tb_common_board
-        SET common_title = #{common_title},
-        common_content = #{common_content},
+        SET common_title = #{commonTitle},
+        common_content = #{commonContent},
         common_register_date = sysdate
-        WHERE common_no = #{common_no}
+        WHERE common_no = #{commonNo}
     </update>
 
 
 
 	<delete id="freeDelete" parameterType="freeBoard">
 		DELETE FROM
-		tb_common_board where common_no = #{common_no}
+		tb_common_board where common_no = #{commonNo}
 	</delete>
 
 
@@ -94,22 +86,13 @@
 		</if>
 	</sql>
 
-	<select id="freeListCnt" parameterType="freeBoard"
-		resultType="freeBoard">
+	<select id="freeListCnt" parameterType="freeBoard" resultType="int">
 		SELECT count(*) FROM tb_common_board
 		<trim prefix=" where (" suffix=")">
 			<include refid="freeSearch"></include>
 		</trim>
 	</select>
 
-	<!-- <select id="freeList" parameterType="freeBoard" resultType="freeBoard"> 
-		<![CDATA[ SELECT common_no, personal_id, member_type_id, common_title, common_content, 
-		to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 
-		'YYYY-MM-DD') as common_edit, common_readcnt FROM ( select /*+index_desc(tb_common_board 
-		tb_common_board_pk)*/ rownum AS rnum, common_no, personal_id, common_title, 
-		common_register_date, common_readcnt from tb_common_board where]]> <trim 
-		prefix="(" suffix=") AND " prefixOverrides="AND"> <include refid="freeSearch"></include> 
-		</trim> <![CDATA[ rownum <= #{pageNum} * #{amount} ) freeList where rnum 
-		> (#{pageNum} - 1) * #{amount} ]]> </select> -->
+	
 
 </mapper>

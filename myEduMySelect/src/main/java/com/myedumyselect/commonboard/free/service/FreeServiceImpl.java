@@ -39,10 +39,10 @@ public class FreeServiceImpl implements FreeService {
 	@Override
 	public int freeInsert(FreeVO fvo) {
 		int result = 0;
-		fvo.setCommon_no(0);
-		if(fvo.getCommon_no() == 0) {
+		/*fvo.setcommonNo(0);
+		if(fvo.getcommonNo() == 0) {
 			return result;
-		}
+		}*/
 		result = freeDAO.freeInsert(fvo);
 		return result;
 	}
@@ -54,7 +54,7 @@ public class FreeServiceImpl implements FreeService {
 		
 		FreeVO detail = freeDAO.freeDetail(fvo);
 		if(detail!=null) {
-			detail.setCommon_content(detail.getCommon_content().replaceAll("\n", "<br />"));
+			detail.setCommonContent(detail.getCommonContent().replaceAll("\n", "<br />"));
 		}
 		return detail;
 	}
