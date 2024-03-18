@@ -58,7 +58,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/signUp.css">
+  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh3E263XmFcJlSAwiqF/X57qzdN1yW+i" crossorigin="anonymous"> -->
     <style>
         .error { display: block; padding: 10px 0px; font-size: 18px; color: #dc3545; }
@@ -193,6 +193,7 @@
           <option value="kakao.com">kakao.com</option>
         </select>
         <button id="emailCheckBtn" class="emailCheck">중복체크</button>
+        <div id="email-check-message"></div>
       </div>
       <br />
         <div class="input_group">
@@ -433,7 +434,7 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->  
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -444,11 +445,22 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  <script src="/resources/include/assets/js/academy.js"></script>
   <script src="/resources/include/academy/academyJoin.js"></script>
   <script src="/resources/include/academy/common.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/assets/js/academy.js"></script>
   
+
+	<script>
+		$(document).ready(function() {
+			// 폼 제출 이벤트 핸들러 등록
+			$('#emailForm').on('submit', function(event) {
+				event.preventDefault(); // 기본 동작 방지
+				// 폼이 서버로 전송되지 않도록 방지
+			});
+		});
+	</script>
+
 
 </body>
 

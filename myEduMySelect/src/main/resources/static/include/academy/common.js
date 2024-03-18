@@ -13,7 +13,7 @@ function chkData(item, msg) {
 	}
 }
 
-<<<<<<< HEAD
+
 /** dataCheck(유효성 체크 대상, 출력 영역, 메시지 내용) */
 function dataCheck(item, out, msg) {
 	if($(item).val().replace(/\s/g, "") == "") {
@@ -24,7 +24,7 @@ function dataCheck(item, out, msg) {
 		return true;
 	}
 }
-=======
+
 function chkRadioData(...items) {
     for(var i = 0; i < items.length - 1; i++) {
         if($(items[i]).is(':checked')) {
@@ -300,4 +300,4 @@ function dataCheck(item, out, msg) {
 	});
 
 })()
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
+

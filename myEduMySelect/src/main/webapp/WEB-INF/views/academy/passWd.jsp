@@ -58,16 +58,18 @@
 
       <nav id="navbar" class="navbar">
 		<ul>
-          <li><a class="nav-link scrollto active" href="/mypage">나의 정보</a></li>
+          <li><a class="nav-link scrollto active" href="/academyaccount/mypage">나의 정보</a></li>
           <li><a class="nav-link scrollto" href="/mywrite">내가 작성한 글</a></li>
-          <li><a class="nav-link scrollto" href="/update">회원정보 변경</a></li>
+          <li><a class="nav-link scrollto" href="/academyUpdate">회원정보 변경</a></li>                    
           <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">자유게시판</a></li>
               <li><a href="#">홍보게시판</a></li>
               <li><a href="#">매칭게시판</a></li>
               <li><a href="#">문의게시판</a></li>
-              <li><a href="mypage">마이페이지</a></li>
+              <li><a href="/academyaccount/mypage">마이페이지</a></li>
+              <li><a href="/">회원탈퇴</a></li>
+              <li><a href="/payment">결제하기</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>

@@ -51,9 +51,9 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<<<<<<< HEAD
+
 <link rel="stylesheet" type="text/css"
-	href="/resources/include/assets/css/signUp.css">
+	href="/resources/include/assets/css/academySignUp.css">
 
 </head>
 
@@ -314,8 +314,8 @@
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-=======
-<!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/signUp.css"> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css"> -->
 
 </head>
 
@@ -340,7 +340,7 @@
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
 							<li><a href="#">문의게시판</a></li>
-							<li><a href="/mypage">마이페이지</a></li>
+							<li><a href="/academyaccount/mypage">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 					<li><a class="getstarted scrollto" href="/userAccount/login">로그인/회원가입</a></li>
@@ -568,7 +568,7 @@
 
 	<!-- Template Main JS File -->
 	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
+
 	<script src="/resources/include/assets/js/main.js"></script>
 </body>
 </html>

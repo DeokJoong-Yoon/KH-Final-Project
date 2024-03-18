@@ -50,6 +50,14 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 		return academyLoginDao.findById(academyId);
 	}
 	
+	// 마이페이지 정보 수정
+	@Override
+	public int academyUpdate(AcademyLoginVo login) {
+		int result = 0;
+		result = academyLoginDao.academyUpdate(login);
+		return result;
+	}
+	
 	// 아이디 중복체크
 	@Override
 	public int checkId(String id) {

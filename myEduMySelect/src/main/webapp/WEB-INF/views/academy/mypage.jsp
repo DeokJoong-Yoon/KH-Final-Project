@@ -45,7 +45,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/singUp.css">
+  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
 
   <script>
   	window.onload = function() {
@@ -137,7 +137,7 @@
       <br />
       <div class="input_group">
         <label for="academyPasswd">비밀번호</label>
-        <form:input path="academyPasswd" type="password" readonly="true"/>
+        <form:input path="academyPasswd" type="password"/>
       </div>
       <br />      
       <div class="input_group">
@@ -147,17 +147,17 @@
       <br />
       <div class="input_group">
         <label for="academyManagerName">담당자 이름</label>
-        <form:input path="academyManagerName" type="text" readonly="true"/>
+        <form:input path="academyManagerName" type="text"/>
       </div>
       <br />
       <div class="input_group">
         <label for="academyManagerEmail">담당자 이메일</label>
-        <form:input path="academyManagerEmail" type="text" readonly="true"/>
+        <form:input path="academyManagerEmail" type="text"/>
       </div>
       <br />
         <div class="input_group">
             <label for="academyManagerPhone">담당자 전화번호</label>
-        <form:input path="academyManagerPhone" type="text" readonly="true"/>
+        <form:input path="academyManagerPhone" type="text"/>
       </div>
       <br />
       <div class="input_group">
@@ -179,36 +179,36 @@
       <br />
       <div class="input_group">
         <label for="academyTargetSubject">교습과목</label>
-        <form:input path="academyTargetSubject" type="text" readonly="true"/>
+        <form:input path="academyTargetSubject" type="text"/>
       </div>
       <br />
       <div class="input_group">
 	    <label for="academy_fee" style="font-weight:bold;" >수강료</label>
 	    <div class="row" >
 	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee1" value="10만원 미만" disabled="true"/>
+	            <form:radiobutton path="academyFee" id="fee1" value="10만원 미만"/>
 	            <label for="fee1" style="font-weight:300px;" >10만원 미만</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee2" value="10만원 이상 20만원 미만" disabled="true"/>
+	            <form:radiobutton path="academyFee" id="fee2" value="10만원 이상 20만원 미만"/>
 	            <label for="fee2" style="font-weight:300px;">10만원 이상 20만원 미만</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee3" value="20만원 이상 30만원 미만" disabled="true"/>
+	            <form:radiobutton path="academyFee" id="fee3" value="20만원 이상 30만원 미만"/>
 	            <label for="fee3" style="font-weight:300px;">20만원 이상 30만원 미만</label>
 	        </div>
 	    </div>
 	    <div class="row">
 	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee4" value="30만원 이상 40만원 미만" disabled="true"/>
+	            <form:radiobutton path="academyFee" id="fee4" value="30만원 이상 40만원 미만"/>
 	            <label for="fee4" style="font-weight:300px;">30만원 이상 40만원 미만</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee5" value="40만원 이상 50만원 미만" disabled="true"/>
+	            <form:radiobutton path="academyFee" id="fee5" value="40만원 이상 50만원 미만"/>
 	            <label for="fee5" style="font-weight:300px;">40만원 이상 50만원 미만</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee6" value="50만원 이상" disabled="true"/>
+	            <form:radiobutton path="academyFee" id="fee6" value="50만원 이상"/>
 	            <label for="fee6" style="font-weight:300px;">50만원 이상</label>
 	        </div>
 	    </div>
@@ -254,35 +254,58 @@
 	            <label for="basic" style="font-weight:300px;">기초부터</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="intermediate" value="중급반" disabled="true"/>
-	            <label for="intermediate" style="font-weight:300px;">중급반</label>
+	            <form:checkbox path="academyKeyword1" id="intermediate" value="심화수업" disabled="true"/>
+	            <label for="intermediate" style="font-weight:300px;">심화수업</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="advanced" value="심화과정" disabled="true"/>
-	            <label for="advanced" style="font-weight:300px;">심화과정</label>
+	            <form:checkbox path="academyKeyword1" id="advanced" value="친절한 강사" disabled="true"/>
+	            <label for="advanced" style="font-weight:300px;">친절한 강사</label>
 	        </div>
 	    </div>
 	    <div class="row">
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="attribute" value="속성강의" disabled="true"/>
-	            <label for="attribute" style="font-weight:300px;">속성강의</label>
+	            <form:checkbox path="academyKeyword1" id="attribute" value="꼼꼼한 관리" disabled="true"/>
+	            <label for="attribute" style="font-weight:300px;">꼼꼼한 관리</label>
+	        </div>
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword1" id="thorough" value="숙제 없음" disabled="true"/>
+	            <label for="thorough" style="font-weight:300px;">숙제 없음</label>
+	        </div>
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword1" id="thorough" value="자기주도적" disabled="true"/>
+	            <label for="thorough" style="font-weight:300px;">자기주도적</label>
+	        </div>
+	    </div>	  
+	    <div class="row">
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword1" id="attribute" value="강의식 수업" disabled="true"/>
+	            <label for="attribute" style="font-weight:300px;">강의식 수업</label>
+	        </div>
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword1" id="thorough" value="입시 대비" disabled="true"/>
+	            <label for="thorough" style="font-weight:300px;">입시 대비</label>
 	        </div>
 	        <div class="col-md-4">
 	            <form:checkbox path="academyKeyword1" id="thorough" value="꼼꼼한 관리" disabled="true"/>
-	            <label for="thorough" style="font-weight:300px;">꼼꼼한 관리</label>
+	            <label for="thorough" style="font-weight:300px;">재밌는 수업</label>
 	        </div>
-	    </div>
-	  <p>(최소 1개 이상 선택, 중복 선택 가능)</p>
+	    </div>	  
 	  </div>      
 	  <br />
 	  <div class="input_group">
 	    <span>
 	        <button type="button" name="updateBtn" id="updateBtn" class="updateBtn">회원정보 수정하기</button>	        
+	        <a href="/payment/payMain">결제하기</a>	        
+	        <button type="button">탈퇴하기</button>	        
 	    </span>
 	  </div>
 	  <br />
 	  
 	</form:form>
+	
+	<form action="/adminBoard/academyDelete" method="POST">
+		<button type="submit">탈퇴하기</button>
+	</form>
 
 	</main>
 	<!-- End #main -->

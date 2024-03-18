@@ -1,6 +1,25 @@
-$(document).ready(function() {
+/* 키워드 선택 최대 5개까지 제어 */
+	var selectedKeywords = []; // 사용자가 선택한 키워드를 저장할 배열
+    // 체크박스를 클릭할 때마다 선택된 항목을 추적하여 배열에 저장
+	$('input[name="academyKeyword"]').change(function() {
+	    var keywordSelect = $('input[name="academyKeyword"]:checked');
+	    selectedKeywords = []; // 배열 초기화
+	    keywordSelect.each(function() {
+	        selectedKeywords.push($(this).val());
+	    });
 	
-    /* 중복 체크 버튼에 클릭 이벤트 핸들러 등록 */
+	    // 최대 선택 항목 수를 확인하고 초과할 경우 마지막 항목을 해제
+	    if (selectedKeywords.length > 5) {
+	        alert('키워드는 최대 5개까지 선택 가능합니다.');
+	        keywordSelect.last().prop('checked', false);
+	        selectedKeywords.pop(); // 배열에서도 마지막 항목 제거
+	    }
+	});
+	$(document).ready(function() {
+	
+
+	
+    /* 아이디 중복 체크 버튼에 클릭 이벤트 핸들러 등록 */
     $(document).on('click', '#checkDuplicateBtn', function(event) {
        event.preventDefault(); // 기본 동작 방지
 	
@@ -46,6 +65,65 @@ $(document).ready(function() {
             idError.text('');
         }
     });
+    
+    /* 이메일 중복 체크 버튼에 클릭 이벤트 핸들러 등록 */
+	$(document).on('click', '#emailCheckBtn', function(event) {
+	    event.preventDefault(); // 기본 동작 방지
+	
+	    // 입력된 이메일 유효성 검사
+	    const emailPrefix = $('#academyManagerEmail1').val();
+	    const emailSuffix = $('#academyManagerEmail2').val();
+	    const emailAddress = emailPrefix + '@' + emailSuffix;
+	    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	    if (!emailRegex.test(emailAddress)) {
+	        alert("이메일을 올바른 형식으로 입력 후 다시 중복체크 버튼을 눌러주세요");
+	        return;
+	    }
+	
+	    // 이메일 중복 체크 함수 호출
+	    checkEmailDuplication(emailAddress);
+	});
+	
+	
+	
+	/* 이메일 선택 */
+	$(document).on('change', '#domain-list', function() {
+	    const selectedDomain = $(this).val(); // 선택된 도메인 값 가져오기
+	    if (selectedDomain === 'custom') {
+	        // "직접입력" 옵션이 선택된 경우 입력 필드를 초기화하고 readonly 속성 해제
+	        $('#academyManagerEmail2').val('').prop('readonly', false);
+	    } else {
+	        // 선택된 도메인을 이메일 주소 뒤에 추가하여 입력 필드에 설정하고 readonly 속성 적용
+	        $('#academyManagerEmail2').val(selectedDomain).prop('readonly', true);
+	    }
+	});
+	
+	/* 이메일 중복 체크 함수 */
+	function checkEmailDuplication(emailAddress) {
+	    // AJAX를 이용하여 서버로 중복 체크 요청
+	    $.ajax({
+	        url: "/checkEmail", // 중복 체크를 수행하는 컨트롤러의 URL
+	        type: "POST",
+	        data: {academyManagerEmail: emailAddress}, // 서버로 전송할 데이터
+	        success: function(response) {
+	            // 서버로부터의 응답에 따라 중복 메시지 표시
+	            if (response == 0) {
+	                $('#email-check-message').text('사용 가능한 이메일 주소입니다.');
+	                // 이메일 주소를 입력 필드에 채우고 readonly 처리
+	                $('#academyManagerEmail').val(emailAddress).prop('readonly', true);
+	                console.log("이메일 입력 성공!");
+	            } else {
+	                $('#email-check-message').text('이미 사용 중인 이메일 주소입니다, 다시 입력해주세요.');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("서버 에러 발생: " + error);
+	        }
+	    });
+	}
+
+
+    
     
     /* 담당자 전화번호 유효성 검사 */
 	$('#academyManagerPhone').on('input', function() {
@@ -102,24 +180,6 @@ $(document).ready(function() {
 		});
     });
     
-    
-	/* 키워드 선택 최대 5개까지 제어 */
-	var selectedKeywords = []; // 사용자가 선택한 키워드를 저장할 배열
-    // 체크박스를 클릭할 때마다 선택된 항목을 추적하여 배열에 저장
-    $('input[name="academyKeyword"]').change(function() {
-        var keywordSelect = $('input[name="academyKeyword"]:checked');
-        selectedKeywords = []; // 배열 초기화
-        keywordSelect.each(function() {
-            selectedKeywords.push($(this).val());
-        });
-
-        // 최대 선택 항목 수를 확인하고 초과할 경우 마지막 항목을 해제
-        if (selectedKeywords.length > 5) {
-            alert('키워드는 최대 5개까지 선택 가능합니다.');
-            keywordSelect.last().prop('checked', false);
-            selectedKeywords.pop(); // 배열에서도 마지막 항목 제거
-        }
-    });
 
     // 선택된 조건의 내용을 담을 변수 선언
     let academyId, memberTypeId, academyNumber, joinDate, academyPasswd, academyName,
@@ -132,7 +192,14 @@ $(document).ready(function() {
     /* 회원가입 버튼 클릭 이벤트 핸들러 */
 	document.getElementById('submit-btn').addEventListener('click', function(event) {
 	    event.preventDefault(); // 기본 동작 방지
-	
+		
+		// 사용자가 선택한 키워드를 배열로 저장
+	    keywordSelect = [];
+	    $('input[name="academyKeyword"]:checked').each(function() {
+	        keywordSelect.push($(this).val());
+	    });
+		
+		
 	    // 필수 입력 사항을 체크할 요소들의 배열
 	    var requiredInputs = document.querySelectorAll('input[required]');
 	    // 중복 체크가 필요한 요소들의 배열
@@ -170,15 +237,8 @@ $(document).ready(function() {
 	        }
 	    }
 	    	
-		// 사용자가 선택한 키워드를 배열로 저장
-	    keywordSelect = [];
-	    $('input[name="academyKeyword"]:checked').each(function() {
-	        keywordSelect.push($(this).val());
-	    });
-		console.log(keywordValue.length);
-		for(let i = 0; i < keywordValue.length;i++) {
-			$("input[name='academyKeyword" + (i+1) + "']").val(keywordValue[i]);
-		}	
+		
+		
 		
 		// 변수에 선택된 value 저장
 		 academyId = $("#academyId").val();
@@ -196,7 +256,7 @@ $(document).ready(function() {
 		 managerPhone = $("#academyManagerPhone").val();
 		 targetGrade = $("input[name='academyTargetGrade']:checked").val();
 		 targetSubject = $("#academyTargetSubject").val();		 
-		 fee = $("input[name='academyFee']:checkded").val();
+		 fee = $("input[name='academyFee']:checked").val();
 		 passwdChange = $("#academyPasswdChangeDate").val();
 		 loginFail = $("#academyLoginFailCount").val();
 		 accountDate= $("#academyAccountBannedDate")	
@@ -205,12 +265,10 @@ $(document).ready(function() {
              keywordValue.push($(this).val());
          });
 		
-		 academyId, memberTypeId, academyNumber, joinDate, academyPasswd, academyName,
-    	guValue, dongValue, roadValue, academyPhone, managerName,
-    	managerEmail, managerPhone, targetGrade, targetSubject,
-    	keywordValue, fee, passwdChange, loginFail, accountDate;
-		
-		
+		console.log(keywordValue.length);
+		for(let i = 0; i < keywordValue.length;i++) {
+			$("input[name='academyKeyword" + (i+1) + "']").val(keywordValue[i]);
+		}			
 		
 		// 회원가입 정보들 value에 저장
  		let value = {
@@ -406,33 +464,6 @@ document.getElementById('academyPasswd2').addEventListener('input', function() {
 });
 
 
-/* 담당자 이메일 제어 */
-const domainTxt = document.getElementById('academyManagerEmail2'); 
-const domainList = document.getElementById('domain-list');
-const emailError = document.getElementById('email-error');
-
-// select 옵션 변경 이벤트 처리
-domainList.addEventListener('change', function() {
-    const selectedValue = this.value;
-
-    // 'custom' 선택 시
-    if (selectedValue === 'custom') {
-        // domain-txt 필드 초기화
-        domainTxt.value = '';
-        // 포커스 설정
-        domainTxt.focus();
-        // 읽기 전용 해제
-        domainTxt.removeAttribute('readonly');
-        // 에러 메시지 초기화
-        emailError.textContent = '';
-    } else {
-        // 선택한 값으로 domain-txt 필드 값 설정
-        domainTxt.value = selectedValue;
-        // 읽기 전용으로 설정
-        domainTxt.setAttribute('readonly', true);
-    }
-});
-
 /* 수강료, 대상학년, 키워드 부분 컬럼 배치
 const specificInputGroup = document.querySelector('.specific-input-group');
 
@@ -501,7 +532,7 @@ document.getElementById("mypageBtn").addEventListener("click", function(event) {
 });
 
 
-				
+/* 아래부터 main.js 파일 */				
     
 (function() {
 	"use strict";

@@ -142,11 +142,11 @@
     <!-- 이메일 중복 체크 쿼리-->
     <select id="checkEmail" parameterType="academyLogin" resultType="int">
         select
-        count(academy_manager_email)
+        	count(academy_manager_email)
         from
-        tb_academy
+        	tb_academy
         where
-        academy_manager_email = #{academyManagerEmail}
+        	academy_manager_email = #{academyManagerEmail}
     </select>
 	
 	
@@ -197,8 +197,8 @@
     </select>
         
 
-    <!-- UPDATE 기능 구현 
-    <update id="updateAcademy" parameterType="Academy">
+    <!-- UPDATE 기능 구현 </update>-->
+    <update id="academyUpdate" parameterType="academyLogin">
         UPDATE 
         	tb_academy
         SET
@@ -227,7 +227,7 @@
             academy_account_banned_date = #{academyAccountBannedDate}
         WHERE 
         	academy_id = #{academyId}
-    </update>-->
+    </update>
 
     <!-- DELETE 기능 구현 
     <delete id="deleteAcademy" parameterType="int">

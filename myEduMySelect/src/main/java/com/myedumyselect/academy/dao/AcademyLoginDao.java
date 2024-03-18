@@ -26,6 +26,8 @@ public interface AcademyLoginDao {
 	// 이메일 중복검사
 	int checkEmail(String academyManagerEmail);
 	
+	// 마이페이지 회원정보 수정
+	public int academyUpdate(AcademyLoginVo login);
 	
 	
 	

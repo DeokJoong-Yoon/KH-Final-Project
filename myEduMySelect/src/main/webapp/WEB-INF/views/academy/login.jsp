@@ -70,7 +70,7 @@
               <li><a href="#">홍보게시판</a></li>
               <li><a href="#">매칭게시판</a></li>
               <li><a href="#">문의게시판</a></li>
-              <li><a href="/mypage">마이페이지</a></li>
+              <li><a href="/academyaccount/mypage">마이페이지</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
@@ -165,25 +165,23 @@
     <!-- ======= Contact Section ======= -->
 
   </main><!-- End #main -->
+
+	<!-- <script>
+	  $(document).ready(function() {
+	    let errorMsg = "${errorMsg}";
+	    if (errorMsg) {
+	        alert(errorMsg);
+	        errorMsg = "";
+	    }
+	    
+	    if (${not empty personalLogin}) {
+	        let personalName = "${commonLogin.name}"; 
+	        alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
+	    }
+	  });
+	</script> -->
 	
-  <script>
-	   $(function() {
-	       let errorMsg = "${errorMsg}";
-	       if(errorMsg) {
-	           alert(errorMsg);
-	           errorMsg = "";
-	       }
-	   });
-	   
-	   $(function() {	       
-	       if (${not empty personalLogin}) {	          
-	           let personalName = "${commonLogin.name}";	
-	           alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
-	       }
-	   });
-  </script>	
-	
-  <!-- ======= Footer ======= -->
+	<!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -254,6 +252,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -262,8 +261,7 @@
   <script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  <!-- Template Main JS File -->  
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>
 

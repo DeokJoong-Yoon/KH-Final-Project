@@ -24,9 +24,8 @@ public interface AcademyLoginService {
 	// 이메일 중복체크
 	int checkEmail(String academyManagerEmail);
 	
-	/* 사업자등록번호로 정보 조회
-	AcademyLoginVo getAcademyInfo(String academyNumber);
-	*/
+	// 회원정보 수정
+	public int academyUpdate(AcademyLoginVo login);
 	
 	// TODO: 회원 정보 수정
 	// TODO: 로그인 제한 상태
