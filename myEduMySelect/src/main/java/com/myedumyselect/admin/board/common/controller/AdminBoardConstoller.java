@@ -301,6 +301,7 @@ public class AdminBoardConstoller {
 			return "redirect:/adminBoard/academy";
 		}
 		sessionStatus.setComplete();
+		session.invalidate();
 		return "redirect:/";
 	}
 
@@ -344,8 +345,11 @@ public class AdminBoardConstoller {
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 		if (adminLoginVO != null) {
 			return "redirect:/adminBoard/academy";
-		}
+		} 
+		log.info(academyAdminVO.toString());
+		
 		sessionStatus.setComplete();
+		session.invalidate();
 		return "redirect:/";
 	}
 
