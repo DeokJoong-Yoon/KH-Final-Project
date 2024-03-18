@@ -292,9 +292,13 @@ public class AdminBoardConstoller {
 	}
 
 	@PostMapping("/personalDelete")
-	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model) throws Exception {
+	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model, HttpSession session) throws Exception {
 		personalAdminService.memberDelete(personalAdminVO);
-		return "redirect:/adminBoard/personal";
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO != null) {
+			return "redirect:/adminBoard/academy";
+		}
+		return "redirect:/";
 	}
 
 	/*************************************************************
