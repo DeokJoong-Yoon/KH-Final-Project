@@ -367,8 +367,8 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #hero {
 	width: 100%;
-	height: 80vh;
-	background: #48d1cc;
+	height: 350px !important; 
+	background-color: #48d1cc;
 }
 
 #hero .container {
@@ -550,6 +550,43 @@ section {
 	margin-bottom: 0;
 }
 
+
+.board {
+	background-color : #f3f5fa;
+}
+
+.boardDetail {
+	background-color : #fff;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+	padding : 10px;
+	padding:18px 25px 25px 25px;
+}
+
+
+.banner {
+    text-align: center;
+    font-size: 45px;
+	font-weight: 600; 
+    color: white;
+    width : 100%;
+    margin-top:-70px  !important;
+}
+
+.descBox {
+	background-color : white;
+	color : #37517e;
+	font: 15px bold;
+	margin-top: 25px;
+	margin-bottom: -20px;
+	padding : 35px;
+	text-align: left;
+	border-radius: 20px;
+}
+
+.descBox span {
+	font-size: 18px;
+}
+
 .list-group {
 	position: fixed;
 	margin: 0 0 50% 0;
@@ -603,6 +640,102 @@ td{
 	position: absolute;
 	margin-top:8%;
 	right:13%;
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    float: right;
+    font-weight: 600;
+    margin-top : 20px;
+    margin-left : 5px;
+}
+
+#freeUpdateBtn:hover, #freeDeleteBtn:hover, #freeWriterBtn:hover, #freeListBtn:hover {
+	background-color: #37517e;
+}
+
+.commentSection {
+	background-color : #f3f5fa ; 
+}
+
+.commentForm {
+	width: 100%;
+}
+
+#personalId{
+	border: none;
+	background-color: transparent; 
+	margin-bottom : 5px;
+	color : #37517e;
+	font-weight: 600;	
+	font-size:20px;
+}
+
+#commentContent {
+	resize: none;
+	width : 87%;
+	height: 80px;
+	border-color : #dddddd;
+	padding: 10px;
+}
+
+#saveComment {
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left:5px;
+    float: right;
+    height: 80px;
+    clear: both;
+    width: 12%;
+}
+
+.personalId {
+	clear: both; 
+    float: left;
+    color : #37517e;
+	font-weight: 600;	
+}
+
+#common_comment_date {
+	float: right;
+    color : #848484;
+}
+
+#common_comment_content {
+	clear: both; 
+    float: left;
+}
+
+#freeDeleteBtn, #freeUpdateBtn {
+	float: right;
+	padding: 5px 10px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom:10px;
+    margin-left:5px;
+}
+
+hr {
+	clear: both;
+}
+
+h4 {
+	color: #37517e !important; 
+	font-weight: bold !important;
 }
 
 .content-size {

@@ -1,7 +1,7 @@
 $(function(){
 	 $("#freeUpdateBtn").on("click", function(){
-        if(!chkData("#common_title", "글제목을")) return;
-        else if(!chkData("#common_content", "글내용을")) return;
+        if(!chkData("#commonTitle", "글제목을")) return;
+        else if(!chkData("#commonContent", "글내용을")) return;
         else {
             $("#f_updateForm").submit();
         }

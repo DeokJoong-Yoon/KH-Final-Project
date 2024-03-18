@@ -45,6 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
+<link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/board/free/css/free.css" rel="stylesheet">
 
 <!-- =======================================================
@@ -95,107 +96,103 @@
 	<!-- End Header -->
 
 	<!-- ======= 게시판 영역 ======= -->
-	<section id="hero"
-		class="d-flex align-items-center justify-content-center">
+	<section id="hero" class="d-flex align-items-center ">
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-			
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<div class="container">
+				<form id="detailForm">
+					<input type="hidden" id="commonNo" name="commonNo" />
+				</form>
 
-							<form id="detailForm">
-								<input type="hidden" id="common_no" name="common_no" />
-							</form>
-
-
-							<div class="row">
-								<div class="col-3 list-group">
-									<a href="/free/freeList"
-										class="list-group-item list-group-item-action">자유게시판</a> <a
-										href="/advertise/advertiseList" class="list-group-item list-group-item-action">홍보게시판</a>
-									<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
-								</div>
-								<div>
-									<table cellpadding="0" cellspacing="0" border="0">
-										<thead class="text-center">
-											<tr>
-												<th class="col-md-1">글번호</th>
-												<th class="col-md-4">제목</th>
-												<th class="col-md-2">작성자</th>
-												<th class="col-md-2">작성시간</th>
-												<th class="col-md-1">조회수</th>
-											</tr>
-										</thead>
-										<tbody id="list" class="table-group-divider">
-												<c:choose>
-													<c:when test="${not empty freeList}">
-														<c:forEach var="free" items="${freeList}" varStatus="status">
-															<tr class="text-center" data-num="${free.common_no}">
-																<td>${free.common_no}</td>
-																<td class="goDetail text-start link-primary">${free.common_title}</td>
-																<td class="name">${free.personal_id}</td>
-																<td>${free.common_register_date}</td>
-																<td>${free.common_readcnt}</td>
-															</tr>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<tr>
-															<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
-														</tr>
-													</c:otherwise>
-												</c:choose>
-											</tbody>
-									</table>
-								</div>
-							</div>
-							<form id="detailForm">
-								<input type="hidden" id="common_no" name="common_no" />
-							</form>
-
-							<div id="freeSearch" class="text-right" style="width:300%;">
-								<form id="f_search" name="f_search">
-								<%-- <input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
-								<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"> --%>
-									<div class="row g-2 alian-items-center">
-										<div class="col-auto">
-											<label for="search">검색조건</label>
-										</div>
-										<div class="col-auto">
-											<select id="search" name="search" class="form-select form-select-sm">
-												<option value="all">전체 목록 조회</option>
-												<option value="common_title">글제목</option>
-												<option value="common_content">글내용</option>
-												<option value="personal_id">작성자</option>
-											</select>
-										</div>
-										<div class="col-auto">
-											<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
-										</div>
-										<div class="col-auto">
-											<button type="button" id="searchData" class="btn btn-success btn-sm">검색</button>
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="text-end">
-								<button type="submit" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-				data-aos-delay="200"></div>
+				<div class="col-12 text-center banner">
+		            자유 게시판<br/>
+		            <div class="descBox">
+		            	자유롭게 글을 작성할 수 있는 자유게시판입니다.<br>
+		            	질문, 후기, 정보 등 다양한 글을 남겨주세요!
+		            </div>
+		       </div> 
+		    </div>
 		</div>
 	</section>
+	
+	<main id="main">
+	
+		<section class="board">
+		
+			<div class="container">
+			
+				<div id="freeSearch" class="text-right" style="width:300%;">
+					<form id="f_search" name="f_search">
+					<%-- <input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"> --%>
+						<div class="row g-2 alian-items-center">
+							<div class="col-auto">
+								<label for="search">검색조건</label>
+							</div>
+							<div class="col-auto">
+								<select id="search" name="search" class="form-select form-select-sm">
+									<option value="all">전체 목록 조회</option>
+									<option value="commonTitle">글제목</option>
+									<option value="commonContent">글내용</option>
+									<option value="personalId">작성자</option>
+								</select>
+							</div>
+							<div class="col-auto">
+								<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
+							</div>
+							<div class="col-auto">
+								<button type="button" id="searchData" class="btn btn-success btn-sm">검색</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			
+				<div class="list">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<thead class="text-center">
+							<tr>
+								<th class="col-md-1">글번호</th>
+								<th class="col-md-4">제목</th>
+								<th class="col-md-2">작성자</th>
+								<th class="col-md-2">작성시간</th>
+								<th class="col-md-1">조회수</th>
+							</tr>
+						</thead>
+						<tbody id="list" class="table-group-divider">
+								<c:choose>
+									<c:when test="${not empty freeList}">
+										<c:forEach var="free" items="${freeList}" varStatus="status">
+											<tr class="text-center" data-num="${free.commonNo}">
+												<td>${free.commonNo}</td>
+												<td class="goDetail text-start link-primary">${free.commonTitle}</td>
+												<td class="name">${free.personalId}</td>
+												<td>${free.commonRegisterDate}</td>
+												<td>${free.commonReadcnt}</td>
+											</tr>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<tr>
+											<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
+										</tr>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+					</table>
+				</div>
+			<!-- 	<form id="detailForm">
+					<input type="hidden" id="commonNo" name="commonNo" />
+				</form> -->
+				
+				<div class="text-end">
+					<button type="submit" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
+				</div>
+			
+			</div>
+		
+		</section>
+	
+	</main>
 
-
-	<main id="main"></main>
-	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -309,9 +306,10 @@
 		if (word != "") {
 			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");
 			$("#search").val("<c:out value='${FreeVO.search}' />");
-			if ($("#search").val() != 'common_content') {
-				if ($("#search").val() == 'common_title') value = "#list tr td.goDetail";
-				else if ($("#search").val() == 'personal_id') value = "#list tr td.name";
+			if ($("#search").val() != 'commonContent') {
+				if ($("#search").val() == 'commonTitle')
+					value = "#list tr td.goDetail";
+				else if ($("#search").val() == 'personalId') value = "#list tr td.name";
 				console.log($(value + ":contains('" + word + "')").html());
 				$(value + ":contains('" + word + "')").each(function() {
 							let regex = new RegExp(word, 'gi');

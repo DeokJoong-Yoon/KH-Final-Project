@@ -107,7 +107,7 @@
 						<div class="container">
 
 							<form id="writeForm">
-								<input type="hidden" id="common_no" name="common_no" />
+								<input type="hidden" id="commonNo" name="commonNo" />
 							</form>
 
 
@@ -120,10 +120,10 @@
 								<form id="f_writeForm">
 									<table>
 										<tr>
-											<td colspan="7" class="text-start"><input type="text" id="common_title" name="common_title"  placeholder="제목을 입력해 주세요" /></td>
+											<td colspan="7" class="text-start"><input type="text" id="commonTitle" name="commonTitle"  placeholder="제목을 입력해 주세요" /></td>
 										</tr>
 										<tr>
-											<td><textarea name="common_content" id="common_content" class="form-control custom-textarea"  placeholder="내용을 입력해주세요."></textarea></td>
+											<td><textarea name="commonContent" id="commonContent" class="form-control custom-textarea"  placeholder="내용을 입력해주세요."></textarea></td>
 										</tr>
 										<tr>
 											<td><input type="file" id="file" name="file" class="form-control" placeholder="첨부파일을 입력해주세요." maxlength="50" /></td>
@@ -249,8 +249,8 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/free/js/freeWrite.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
+	<script src="/resources/include/board/free/js/freeWrite.js"></script>
 	<script>
 	$(function(){
 		let errorMsg = "${errorMsg}";
