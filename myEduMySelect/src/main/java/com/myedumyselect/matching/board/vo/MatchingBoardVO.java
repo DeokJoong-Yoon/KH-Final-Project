@@ -1,9 +1,15 @@
 package com.myedumyselect.matching.board.vo;
 
+import java.util.List;
+
+import com.myedumyselect.common.vo.CommonVO;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class MatchingBoardVO {
+@EqualsAndHashCode(callSuper = false)
+public class MatchingBoardVO extends CommonVO {
 	
 	private int matchingNo = 0;
 	private String personalId = "";
@@ -22,4 +28,8 @@ public class MatchingBoardVO {
 	private int commentCnt = 0;
 	
 	private String matchingComment = "";
+	
+	private List<String> privateChecked;
+	
+	private int rowNumber;
 }

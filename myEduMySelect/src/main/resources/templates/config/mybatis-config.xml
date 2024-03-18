@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 
 	<typeAliases>
 		<!-- ========================admin 영역======================== -->
@@ -11,6 +14,16 @@
 		<typeAlias
 			type="com.myedumyselect.admin.login.vo.AdminLoginVO"
 			alias="adminLogin" />
+		<typeAlias
+			type="com.myedumyselect.admin.member.vo.PersonalAdminVO"
+			alias="personal" />
+		<typeAlias
+			type="com.myedumyselect.admin.member.vo.AcademyAdminVO"
+			alias="academy" />
+		<typeAlias
+			type="com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO"
+			alias="free" />
+
 
 		<!-- ========================maching 영역======================== -->
 		<typeAlias
@@ -21,21 +34,38 @@
 			type="com.myedumyselect.matching.comment.vo.MatchingCommentVO"
 			alias="matchingComment" />
 
+
 		<!-- ========================academy 영역======================== -->
 		<typeAlias type="com.myedumyselect.academy.vo.AcademyLoginVo"
 			alias="academyLogin" />
 
+
 		<!-- ========================Payment 영역======================== -->
 		<typeAlias type="com.myedumyselect.payment.vo.PaymentVO"
 			alias="payment" />
+			
+			
 		<!-- ========================Board 영역======================== -->
 		<typeAlias
 			type="com.myedumyselect.commonboard.free.vo.FreeVO" alias="freeBoard" />
+		<typeAlias
+			type="com.myedumyselect.commonboard.free.reply.vo.FreeReplyVO" alias="freeReply" />
+		<typeAlias
+			type="com.myedumyselect.commonboard.advertise.vo.AdvertiseVO" alias="advertiseBoard" />
+		<typeAlias
+			type="com.myedumyselect.commonboard.notice.vo.NoticeBoardVO" alias="notice" />
+			
+			
 		<!-- ========================personal 영역======================== -->
-
 		<typeAlias
 			type="com.myedumyselect.personal.vo.PersonalLoginVO"
 			alias="personalLogin" />
+			
+			
+		<!-- ======================== file 영역======================== -->
+		<typeAlias
+			type="com.myedumyselect.common.file.FileVO"
+			alias="file" />
 	</typeAliases>
 
 

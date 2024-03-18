@@ -30,7 +30,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-  <link href="/resources/include/assets/css/matchingBoard.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingDetail.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -39,6 +39,9 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+
+
 </head>
 
 <body>
@@ -93,42 +96,65 @@
 
   <main id="main">
  
-    <!-- ======= 매칭게시판 미리 보기 ======= -->
+    <!-- ======= 매칭게시판 상세 보기 ======= -->
     <section class="mcBoard">
      
       <div class="container">
       
+      	<form name="formData" id="formData">
+      		<input type="hidden" name="matchingNo" id="matchingNo" value="${detail.matchingNo }"/>
+      	</form>
+      
+      	<div class="userId">${userId }</div>
+      	
 		<div class="mcBoardDetail">
-			<p>글 번호&nbsp&nbsp|&nbsp&nbsp100</p>
+			<table>
+				<tr>
+					<th>글 번호</th>
+					<td>${detail.matchingNo}</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td class="writerId">${detail.personalId}</td>
+				</tr>
+				<tr>
+					<th>등록 일시</th>
+					<td>${detail.matchingRegisterDate }</td>
+				</tr>
+			</table>
+			<br>
 			<table>
 				<tbody>
 					<tr>
 						<th>지역</th>
-						<td>마포구 서교동</td>
+						<td>${detail.matchingGuAddress }&nbsp ${detail.matchingDongAddress}</td>
 					</tr>
 					<tr>
 						<th>과목</th>
-						<td>영어</td>
+						<td>${detail.matchingTargetSubject }</td>
 					</tr>
 					<tr>
 						<th>학년</th>
-						<td>중등</td>
+						<td>${detail.matchingTargetGrade }</td>
 					</tr>
 					<tr>
 						<th>희망 수강료</th>
-						<td>30만원 이상 40만원 미만</td>
+						<td>${detail.matchingFee }</td>
 					</tr>
 					<tr>
 						<th>키워드</th>
-						<td>기초부터 / 꼼꼼한 관리</td>
+						<td>
+							${detail.matchingKeyword1 }&nbsp&nbsp&nbsp ${detail.matchingKeyword2 }&nbsp&nbsp&nbsp ${detail.matchingKeyword3 }
+						</td>
 					</tr>
 					<tr>
 						<th>덧붙이는 말</th>
-						<td>말말말</td>
+						<td>${detail.matchingComment }</td>
 					</tr>
 				</tbody>	
 			</table>
 		</div>
+
 		
 		<div class="detailButtons">
       		<button type="button" id="editPost">수정</button>
@@ -138,8 +164,15 @@
       		<button type="button" id="gotoList">목록</button>
       	</div>
       </div>
-    </section><!-- 매칭게시판 미리보기 끝 -->
-
+    </section><!-- 매칭게시판 상세보기 끝 -->
+    
+    
+    <!-- 매칭게시판 댓글 -->
+	<section class="mcCommentSection">
+		<%-- 댓글 보여주기 --%>
+		<jsp:include page="matchingComment.jsp" />
+	</section>
+	
   
   </main><!-- End #main -->
 
@@ -226,9 +259,25 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="/resources/include/js/common.js"></script>
+  <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
-   <script src="/resources/include/assets/js/matching.js"></script>
-
+  <script src="/resources/include/matching/js/matchingDetail.js"></script>
+  
+ 
+	<script>
+		$(function() {
+			let popUp = "${popUp}";
+			if (popUp != "") {
+				alert(popUp);
+			}
+			
+			console.log("${detail.personalId }");
+			console.log("${detail.matchingComment }");
+		});
+		
+	</script>
+	
 </body>
 
 </html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.admin.board.free.dao.FreeBoardDAO">
+
+	<resultMap type="free" id="freeMap">
+		<id column="common_no" property="commonNo" />
+		<result column="personal_id" property="personalId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="common_nickname" property="commonNickname" />
+		<result column="common_title" property="commonTitle" />
+		<result column="common_content" property="commonContent" />
+		<result column="common_register_date"
+			property="commonRegisterDate" />
+		<result column="common_edit" property="commonEdit" />
+		<result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_block_confirm"
+			property="commonBlockConfirm" />
+		<result column="common_block_date" property="commonBlockDate" />
+		<result column="common_file" property="commonFile" />
+	</resultMap>
+
+	<sql id="boardSearch">
+		<if test="search == 'common_title'">
+		<![CDATA[ common_title LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'common_content'"> 
+		<![CDATA[ common_content LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+	<!-- 전체 레코드 수 조회 -->
+	<select id="boardListCnt" parameterType="free" resultType="int">
+		SELECT count(*) FROM
+		(SELECT * FROM tb_common_board
+		WHERE member_type_id
+		= 1)
+		<trim prefix=" where (" suffix=")">
+			<include refid="boardSearch"></include>
+		</trim>
+	</select>
+
+
+	<select id="boardList" parameterType="free" resultMap="freeMap"> 
+		<![CDATA[
+		SELECT common_no, personal_id, member_type_id, common_nickname, common_title, 
+		common_content, common_register_date, 
+		common_edit, common_readcnt, common_block_confirm, 
+		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
+			rownum as rnum, common_no, personal_id, member_type_id, common_nickname, common_title, 
+			common_content, common_register_date, common_edit, common_readcnt, common_block_confirm, 
+			common_block_date, common_file 
+			FROM (
+					select * from tb_common_board
+					where member_type_id = 1
+					order by common_register_date desc
+				 ) sortedBoardList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="boardSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+
+	<select id="boardDetail" parameterType="free"
+		resultMap="freeMap">
+		SELECT
+		*
+		FROM tb_common_board
+		WHERE
+		common_no = #{commonNo}
+	</select>
+
+	<delete id="boardDelete" parameterType="free">
+		DELETE FROM
+		tb_common_board
+		WHERE
+		common_no = #{commonNo}
+	</delete>
+
+</mapper>

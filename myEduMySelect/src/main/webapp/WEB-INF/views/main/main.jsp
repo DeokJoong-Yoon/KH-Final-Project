@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -62,7 +65,7 @@
 		<div class="container d-flex align-items-center">
 
 			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
+				<a href="/">MyEdu<br />MySelect
 				</a>
 			</h1>
 			<!-- Uncomment below if you prefer to use an image logo -->
@@ -79,11 +82,32 @@
 							<li><a href="#">자유게시판</a></li>
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
+							<li><a href="/notice/boardList">공지게시판</a></li>
+							<c:if test="${commonLogin.memberTypeId == 1}">
+							    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">회원마이페이지</a></li>
+							</c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">
+                                <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+                            </c:if>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
+					<c:choose>
+                        <c:when test="${not empty commonLogin}">
+                            <li><a class="nav-link scrollto">
+                            <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                            ${commonLogin.name}님 환영합니다.</a></li>
+                            <li>
+                                <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                                    <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                                </form>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+                        </c:otherwise>
+                    </c:choose>
+               		</li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
@@ -95,7 +119,7 @@
 
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
-
+		
 		<div class="container">
 			<div class="row">
 				<div
@@ -103,33 +127,55 @@
 					data-aos="fade-up" data-aos-delay="200">
 					<h1>전체 조회 / 빠른검색</h1>
 					<h2>여러분의 교육은 여러분이 선택합니다.</h2>
+					<p>${userId}님 환영합니다.</p>
+					<form id="mainSearchForm">
 					<div class="d-flex justify-content-center justify-content-lg-start">
-						<select class="form-control form-control-lg">
-							<option>구 단위</option>
-							<option>강남구</option>
-							<option>송파구</option>
-							<option>서초구</option>
-						</select> <select class="form-control form-control-lg">
-							<option>동 단위</option>
-							<option>역삼동</option>
-							<option>서초동</option>
-							<option></option>
-						</select> <select class="form-control form-control-lg">
-							<option>과목</option>
-							<option>수학</option>
-							<option>과학</option>
-							<option></option>
-						</select>
+						<select id="academyGuAddress" name="academyGuAddress" class="form-control form-control-lg">
+	        				<option value="">-- 구 선택 --</option>
+	        				<option value="강남구">강남구</option>
+	        				<option value="강동구">강동구</option>
+	       					<option value="강북구">강북구</option>
+	      					<option value="강서구">강서구</option>
+	      					<option value="관악구">관악구</option>
+	      					<option value="광진구">광진구</option>
+	        				<option value="구로구">구로구</option>
+	        				<option value="금천구">금천구</option>
+	        				<option value="노원구">노원구</option>
+	        				<option value="도봉구">도봉구</option>
+	        				<option value="동대문구">동대문구</option>
+	        				<option value="동작구">동작구</option>
+	        				<option value="마포구">마포구</option>
+	        				<option value="서대문구">서대문구</option>
+	        				<option value="서초구">서초구</option>
+	        				<option value="성동구">성동구</option>
+	        				<option value="성북구">성북구</option>
+	        				<option value="송파구">송파구</option>
+	        				<option value="양천구">양천구</option>
+	        				<option value="영등포구">영등포구</option>
+	        				<option value="용산구">용산구</option>
+	        				<option value="은평구">은평구</option>
+	        				<option value="종로구">종로구</option>
+	        				<option value="중구">중구</option>
+	        				<option value="중랑구">중랑구</option>
+	        			</select>
+						<select id="academyDongAddress" name="academyDongAddress" class="form-control form-control-lg">
+							<option value="">-- 동 선택 --</option>
+	        			</select>
+	        			<input id="academyCurriculumName" name="academyCurriculumName" type="text" class="form-control form-control-lg" placeholder="과목을 입력하세요." maxlength=20/>
+	        			</form>
 					</div>
-					<button type="button" class="btn-get-started scrollto">검색</button>
+					<button type="button" id="mainSearchBtn" name="mainSearchBtn" class="btn-get-started scrollto">검색</button>
+					
 				</div>
 				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
 					data-aos-delay="200">
 					<img src="/resources/include/assets/img/hero-img.png"
 						class="img-fluid animated" alt="">
 				</div>
+				
 			</div>
 		</div>
+		
 	</section>
 	<!-- End Hero -->
 
@@ -539,6 +585,8 @@
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
+	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 
 </body>

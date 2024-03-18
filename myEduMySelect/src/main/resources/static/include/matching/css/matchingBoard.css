@@ -1,0 +1,137 @@
+.mcHero {
+	height: 350px;
+	background-color: #48d1cc;
+}
+
+.mcBanner {
+    text-align: center;
+    font-size: 45px;
+	font-weight: 600; 
+    color: white;
+    width : 100%;
+    margin-top:40px;
+}
+
+.mcDescBox {
+	background-color : white;
+	color : #37517e;
+	font: 15px bold;
+	margin-top: 25px;
+	margin-bottom: -20px;
+	padding : 35px;
+	text-align: left;
+	border-radius: 20px;
+}
+
+.mcBoard {
+	background-color : #f3f5fa
+}
+
+.mcBoardList {
+	background-color : #fff;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+	padding : 10px;
+}
+
+.mcBoardList table {
+	width: 100%;
+    border-collapse: collapse;
+}
+
+.mcBoardList table thead {
+	color: #37517e;
+	font-size: 18px;
+	font-weight: 600;
+	border-bottom: 1px solid #ddd;
+	height: 50px;
+}
+
+.mcBoardList table th, .mcBoardList table td {
+    padding: 6px;
+    text-align: center;
+}
+
+.mcBoardList table td a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크 색상을 부모 요소에서 상속 */
+}
+
+.mcBoardList table td a:hover {
+    text-decoration: underline;
+}
+
+.comment_count {
+	color: brown;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.mcBoardList table td:nth-child(1), .mcBoardList table th:nth-child(1) {
+	width: 10%;
+}
+
+.mcBoardList table td:nth-child(2), .mcBoardList table th:nth-child(2) {
+	width: 40%;
+}
+
+.mcBoardList table td:nth-child(3), .mcBoardList table th:nth-child(3), .mcBoardList table td:nth-child(4), .mcBoardList table th:nth-child(4) {
+	width: 20%;
+}
+
+
+
+.mcBoardListSearch input {
+	height : 35px;
+	width : 300px;
+	float: right;
+}
+
+
+#mcBoardSearchBtn, #mcBoardAll {
+	height:35px;
+    padding: 5px 15px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 5px;
+    float: right;
+}
+
+ #mcGoBack {
+	height:35px;
+    padding: 5px 15px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 5px;
+    float: left;
+}
+
+#mcBoardSearchBtn:hover, #mcBoardAll:hover, #mcGoBack:hover {
+    background-color: #37517e;
+}
+
+
+.pagination a {
+	margin-top: 30px;
+	color: #48d1cc;
+	font-weight: 600;
+}
+
+.pagination a:hover {
+	color : #48d1cc;
+}
+
+.active a  {
+	background-color:#48d1cc !important; 
+	color : white;
+	border-color:#48d1cc !important; 
+}

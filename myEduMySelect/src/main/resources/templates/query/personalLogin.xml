@@ -1,36 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myedumyselect.personal.dao.PersonalLoginDao">
+<mapper
+	namespace="com.myedumyselect.personal.dao.PersonalLoginDao">
 
 	<resultMap type="personalLogin" id="personalLoginMap">
-    <id column="personal_id" property="personalId" />
-    <result column="member_type_id" property="memberTypeId" />
-    <result column="personal_name" property="personalName" />
-    <result column="personal_email" property="personalEmail" />
-    <result column="personal_passwd" property="personalPasswd" />
-    <result column="personal_birth" property="personalBirth"/>
-    <result column="personal_address" property="personalAddress"/>
-    <result column="personal_phone" property="personalPhone"/>
-    <result column="personal_join_date" property="personalJoinDate"/>
-    <result column="personal_login_fail_count" property="personalLoginFailCount"/>
-    <result column="personal_account_banned_date" property="personalAccountBannedDate"/>
-    <result column="personal_passwd_change_date" property="personalPasswdChangeDate"/>
-</resultMap>
+		<id column="personal_id" property="personalId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="personal_name" property="personalName" />
+		<result column="personal_email" property="personalEmail" />
+		<result column="personal_passwd" property="personalPasswd" />
+		<result column="personal_birth" property="personalBirth" />
+		<result column="personal_address" property="personalAddress" />
+		<result column="personal_phone" property="personalPhone" />
+		<result column="personal_join_date" property="personalJoinDate" />
+		<result column="personal_login_fail_count"
+			property="personalLoginFailCount" />
+		<result column="personal_account_banned_date"
+			property="personalAccountBannedDate" />
+		<result column="personal_passwd_change_date"
+			property="personalPasswdChangeDate" />
+	</resultMap>
 
 
-<!-- 로그인 select -->
+
+
+	<!-- 로그인 select -->
 	<select id="loginProcess" parameterType="personalLogin"
 		resultMap="personalLoginMap">
-		
-		SELECT DISTINCT personal_id, personal_name, personal_email, personal_birth, personal_address, personal_phone
+
+		SELECT DISTINCT personal_id, personal_name, personal_email,
+		personal_birth,
+		personal_address, personal_phone
 		FROM tb_personal
-		WHERE personal_id = #{personalId} AND personal_passwd = #{personalPasswd}
+		WHERE
+		personal_id =
+		#{personalId} AND personal_passwd = #{personalPasswd}
 	</select>
 
-<!-- 회원가입 insert -->
-<insert id="personalInsert" parameterType="personalLogin">
-    INSERT INTO tb_personal (personal_id, personal_name, personal_passwd, personal_email, personal_birth, personal_address, personal_phone)
-    VALUES (#{personalId}, #{personalName}, #{personalPasswd}, #{personalEmail}, #{personalBirth, jdbcType=VARCHAR}, #{personalAddress}, #{personalPhone})
-</insert>
+	<!-- 로그인 실패 횟수 업데이트 -->
+	<update id="updatePersonalLoginFailCount"
+		parameterType="personalLogin">
+		UPDATE tb_personal
+		SET personal_login_fail_count =
+		#{personalLoginFailCount}
+		WHERE personal_id = #{personalId}
+	</update>
+
+	
+	<!-- 로그인 제한 상태 업데이트 쿼리 -->
+	<update id="updateAccountBannedDate" parameterType="personalLogin">
+		UPDATE tb_personal
+		SET personal_account_banned_date = #{bannedDate}
+		WHERE personal_id = #{personalId}
+	</update>
+
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" parameterType="personalLogin"
+		resultType="int">
+		SELECT COUNT(personal_id) FROM tb_personal WHERE
+		personal_id = #{personalId}
+	</select>
+
+	<!-- 이메일 중복체크 -->
+	<select id="emailCheck" parameterType="personalLogin"
+		resultType="int">
+		SELECT COUNT(personal_email) FROM tb_personal WHERE
+		personal_email = #{personalEmail}
+	</select>
+
+	<!-- 회원가입 insert -->
+	<insert id="personalInsert" parameterType="personalLogin">
+		INSERT INTO
+		tb_personal (personal_id, personal_name, personal_passwd,
+		personal_email, personal_birth, personal_address, personal_phone)
+		VALUES (#{personalId}, #{personalName}, #{personalPasswd},
+		#{personalEmail}, #{personalBirth},
+		#{personalAddress},
+		#{personalPhone})
+	</insert>
+
+
+	<!-- 마이페이지  -->
+	<select id="personalMyPage" parameterType="personalLogin">
+		SELECT personal_id,
+		personal_name, personal_email,
+		personal_birth,
+		personal_address,
+		personal_phone
+		FROM tb_personal
+		WHERE
+		personal_id = #{personalId}
+	</select>
+	
+	<select id="findId" parameterType="personalLogin" resultMap="personalLoginMap">
+		SELECT personal_id,
+		personal_name, personal_email,
+		personal_birth,
+		personal_address,
+		personal_phone
+		FROM tb_personal
+		WHERE
+		tb_personal.personal_id = #{personalId}
+	</select>
+
+	<!-- 마이페이지 수정 -->
+	<update id="personalUpdate" parameterType="personalLogin">
+		UPDATE tb_personal
+		SET
+		personal_email = #{personalEmail},
+		personal_address = #{personalAddress},
+		personal_phone = #{personalPhone},
+		personal_passwd = #{personalPasswd}
+		WHERE
+		personal_id = #{personalId}
+	</update> 
+
+
+
 
 </mapper>

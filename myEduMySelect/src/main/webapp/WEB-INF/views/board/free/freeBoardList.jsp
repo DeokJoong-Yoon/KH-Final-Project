@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -45,7 +45,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
-<link href="/resources/include/assets/css/free.css" rel="stylesheet">
+<link href="/resources/include/board/free/css/free.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -102,21 +102,25 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<div class="text-center">
-						<h1>자유게시판</h1>
-					</div>
+			
 					<div class="d-flex justify-content-center justify-content-lg-start">
 						<div class="container">
 
+							<form id="detailForm">
+								<input type="hidden" id="common_no" name="common_no" />
+							</form>
+
+
 							<div class="row">
 								<div class="col-3 list-group">
-									<a href="/free/freeList" class="list-group-item list-group-item-action">자유게시판</a>
-									<a href="#" class="list-group-item list-group-item-action">홍보게시판</a>
+									<a href="/free/freeList"
+										class="list-group-item list-group-item-action">자유게시판</a> <a
+										href="/advertise/advertiseList" class="list-group-item list-group-item-action">홍보게시판</a>
 									<a href="#" class="list-group-item list-group-item-action">공지게시판</a>
 								</div>
-								<div class="col-lg-9 table-container">
-									<table class="table text-center">
-										<thead>
+								<div>
+									<table cellpadding="0" cellspacing="0" border="0">
+										<thead class="text-center">
 											<tr>
 												<th class="col-md-1">글번호</th>
 												<th class="col-md-4">제목</th>
@@ -126,40 +130,66 @@
 											</tr>
 										</thead>
 										<tbody id="list" class="table-group-divider">
-											<c:choose>
-												<c:when test="${not empty freeList}">
-													<c:forEach var="free" items="${freeList}" varStatus="status">
-														<tr class="text-center" data-num="${free.common_no}">
-															<td scope="row">${free.common_no}</td>
-															<td class="goDetail text-start">${free.common_title}</td>
-															<td>${free.personal_id}</td>
-															<td>${free.common_register_date}</td>
-															<td>${free.common_readcnt}</td>
+												<c:choose>
+													<c:when test="${not empty freeList}">
+														<c:forEach var="free" items="${freeList}" varStatus="status">
+															<tr class="text-center" data-num="${free.common_no}">
+																<td>${free.common_no}</td>
+																<td class="goDetail text-start link-primary">${free.common_title}</td>
+																<td class="name">${free.personal_id}</td>
+																<td>${free.common_register_date}</td>
+																<td>${free.common_readcnt}</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
 														</tr>
-													</c:forEach>
-												</c:when>
-												<c:otherwise>
-													<tr>
-														<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
-													</tr>
-												</c:otherwise>
-											</c:choose>
-										</tbody>
+													</c:otherwise>
+												</c:choose>
+											</tbody>
 									</table>
 								</div>
 							</div>
-							<div class="search-container">
-								<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-comtrol-sm search-box" />
-								<button type="submit" id="searchData" class="btn btn-primary">검색</button>
+							<form id="detailForm">
+								<input type="hidden" id="common_no" name="common_no" />
+							</form>
+
+							<div id="freeSearch" class="text-right" style="width:300%;">
+								<form id="f_search" name="f_search">
+								<%-- <input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+								<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"> --%>
+									<div class="row g-2 alian-items-center">
+										<div class="col-auto">
+											<label for="search">검색조건</label>
+										</div>
+										<div class="col-auto">
+											<select id="search" name="search" class="form-select form-select-sm">
+												<option value="all">전체 목록 조회</option>
+												<option value="common_title">글제목</option>
+												<option value="common_content">글내용</option>
+												<option value="personal_id">작성자</option>
+											</select>
+										</div>
+										<div class="col-auto">
+											<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
+										</div>
+										<div class="col-auto">
+											<button type="button" id="searchData" class="btn btn-success btn-sm">검색</button>
+										</div>
+									</div>
+								</form>
 							</div>
 							<div class="text-end">
-								<button type="button" id="freeWriterForm" class="btn btn-primary">글쓰기</button>
+								<button type="submit" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200"></div>
+			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
+				data-aos-delay="200"></div>
 		</div>
 	</section>
 
@@ -169,7 +199,6 @@
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
-
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
@@ -241,6 +270,7 @@
 					Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 				</div>
 			</div>
+		</div>
 	</footer>
 	<!-- End Footer -->
 
@@ -248,6 +278,8 @@
 	<a href="#"
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
+
+	
 
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
@@ -265,7 +297,38 @@
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="/resources/include/assets/js/main.js"></script>
+	<script src="/resources/include/js/common.js"></script>
+	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/board/free/js/freeList.js"></script>
+	<script src="/resources/include/board/common/main.js"></script>
+	<script>
+	$(function() {
+		/* 검색 후 검색 대상과 검색 단어 출력 */
+		let word = "<c:out value='${boardVO.keyword}' />";
+		let value = "";
+		if (word != "") {
+			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
+			$("#search").val("<c:out value='${boardVO.search}' />");
+			if ($("#search").val() != 'b_content') {
+				//:contains()는 특정 텍스트를 포함한 요소 반환
+				if ($("#search").val() == 'b_title')
+					value = "#list tr td.goDetail";
+				else if ($("#search").val() == 'b_name')
+					value = "#list tr td.name";
+				console.log($(value + ":contains('" + word + "')").html());
+				$(value + ":contains('" + word + "')").each(
+						function() {
+							let regex = new RegExp(word, 'gi');
+							$(this).html(
+									$(this).html().replace(
+											regex,
+											"<span class='required'>"
+													+ word + "</span>"));
+						});
+			}
+		}
+	});
+	</script>
 
 </body>
 

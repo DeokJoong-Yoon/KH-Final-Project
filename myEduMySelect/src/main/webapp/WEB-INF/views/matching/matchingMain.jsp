@@ -31,7 +31,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-  <link href="/resources/include/assets/css/matchingMain.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingMain.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -41,7 +41,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  	<script src="/resources/include/js/common.js"></script>
   
 	<script>
 	    window.onload = function() {
@@ -130,7 +130,7 @@
 	          <h2>맞춤 조건 선택</h2>
 	        </div>
 	        
-	        <p>${personalLogin.personalId }</p>
+	        <p class="userId">${personalLogin.personalId }</p>
 	
 	        <div class="mcSelect">
 	        	<form id="mcSelectForm">
@@ -256,7 +256,7 @@
         	<button id="mcPrivateBtn">비공개 매칭하기</button>
     	    	<div id="mcStartArea">
 	       			<input type="password" placeholder="비밀번호 (숫자 4자리)" id="mcPwd" name="matchingPasswd"> <br/><br/>
-	        		<textarea rows="3" style="width:87%" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
+	        		<textarea rows="3" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
 		        	<button id="mcUploadBtn" type="button">매칭 시작하기</button>
 	        	</div>
         </div>
@@ -295,15 +295,19 @@
 								<tr data-num="${matchingBoard.matchingNo }">
 									<td>${matchingBoard.matchingNo }</td>
 									<td>
+										<form name="privateChk" id="privateChk">
+											<input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }"/>
+											<input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }"/>
+										</form>
 										<c:choose>
 										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
 										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
-										        <a id="mbdLink" href="">
+										        <a class="mbdLink" href="">
 										        	${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
 										        </a>
 										    </c:when>
 										    <c:otherwise>
-										    	<a id="mbdLink" href="">
+										    	<a class="mbdLink" href="">
 										    		${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
 										    	</a>
 										    </c:otherwise>
@@ -420,8 +424,9 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/assets/js/matchingMain.js"></script>
+  <script src="/resources/include/matching/js/matchingMain.js"></script>
 
 </body>
 

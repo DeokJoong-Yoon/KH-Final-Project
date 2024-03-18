@@ -31,12 +31,22 @@ public class PaymentDAOTests {
 	 * log.info("insert 결과 : " + paymentDAO.paymentInsert(pvo)); }
 	 */
 	
+	/*
+	 * @Test public void paymentSelect() { PaymentVO pvo = new PaymentVO();
+	 * pvo.setPaymentId("13");
+	 * 
+	 * log.info("result : " + paymentDAO.paymentSelect(pvo));
+	 * 
+	 * }
+	 */
 	@Test
-	public void paymentSelect() {
+	public void board() {
 		PaymentVO pvo = new PaymentVO();
-		pvo.setPaymentId("13");
+		pvo.setSearch("academy_id");
+		pvo.setKeyword("C1Math153");
 		
-		log.info("result : " + paymentDAO.paymentSelect(pvo));
+		log.info("result : " + paymentDAO.boardListCnt(pvo));
+		log.info("result : " + paymentDAO.boardList(pvo).toString());
 		
 	}
 }

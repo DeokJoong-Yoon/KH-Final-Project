@@ -328,7 +328,7 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="/resources/include/assets/js/main.js"></script>
+  <!-- <script src="/resources/include/assets/js/main.js"></script> -->
   <script src="/resources/include/assets/js/academy.js"></script>
   		
 </body>

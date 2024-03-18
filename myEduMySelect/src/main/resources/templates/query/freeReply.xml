@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.commonboard.free.reply.dao.FreeReplyDAO">
+
+    <resultMap type="freereply" id="freereplyMap">
+        <id column="commonCommentNo" property="common_comment_no" />
+        <result column="commonNo" property="common_no" />
+        <result column="personalId" property="personal_id" />
+        <result column="commonCommentContent" property="common_comment_content" />
+        <result column="commonCommentDate" property="common_comment_date" />       
+    </resultMap>
+    
+    <select id="freereplyList" parameterType="freereply" resultType="freereply">
+        select common_comment_no, common_no, personal_id, common_comment_content, to_char(common_comment_date, 'YYYY-MM-DD HH24:MI:SS') as common_comment_date
+        from tb_common_comment
+        where common_no = #{common_no}
+        order by common_comment_no desc
+    </select>
+</mapper>

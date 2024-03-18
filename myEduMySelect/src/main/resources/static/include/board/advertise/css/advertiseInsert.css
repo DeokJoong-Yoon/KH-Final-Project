@@ -1,0 +1,113 @@
+
+#hero {
+	height: 350px;
+	background-color: #48d1cc;
+}
+
+.banner {
+    text-align: center;
+    font-size: 45px;
+	font-weight: 600; 
+    color: white;
+    width : 100%;
+    margin-top:-70px;
+}
+
+.descBox {
+	background-color : white;
+	color : #37517e;
+	font: 15px bold;
+	margin-top: 25px;
+	margin-bottom: -20px;
+	padding : 35px;
+	text-align: left;
+	border-radius: 20px;
+}
+
+.descBox span {
+	font-size: 18px;
+}
+
+
+
+#insertBtn, #resetBtn, #goBackBtn {
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    float: right;
+    font-weight: 600;
+    margin-top : 50px;
+    margin-left : 5px;
+}
+
+#insertBtn:hover, #resetBtn:hover, #goBackBtn:hover {
+	background-color: #37517e;
+}
+
+
+.insertArea {
+	background-color : #fff;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+	padding : 10px;
+	padding:18px 25px 25px 25px;
+}
+
+.insertArea table {
+	width: 100%;
+    border-collapse: collapse;
+}
+
+.insertArea table thead {
+	color: #37517e;
+	font-size: 18px;
+	font-weight: 600;
+	border-bottom: 1px solid #ddd;
+	height: 50px;
+}
+
+.insertArea table th, .insertArea table td {
+    padding: 6px;
+    border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	height: 50px;
+}
+
+
+.insertArea table tr:nth-child(odd) {
+  background-color: #f3f5fa;
+}
+
+.insertArea table th {
+	color: #37517e;
+	font-size: 16px;
+	font-weight: 600;
+	border-right: 1px solid #dddddd;
+    text-align: center;
+    width:25%;
+}
+
+.insertArea table td {
+    text-align: left;
+    padding-left: 30px;
+}
+
+
+#commonTitle {
+	width : 100%;
+	border-color : #dddddd;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#commonContent {
+	resize: none;
+	width : 100%;
+	border-color : #dddddd;
+	padding: 10px;
+	margin-top: 6px;
+}

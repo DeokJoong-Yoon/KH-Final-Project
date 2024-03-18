@@ -19,7 +19,6 @@
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
-		<result column="commentCnt" property="commentCnt" />
 		<result column="matching_comment" property="matchingComment" />
 	</resultMap>
 	
@@ -56,15 +55,21 @@
 	<!-- 매칭게시판 글 목록 미리보기 조회 -->
 	<select id="mBoardListPreview" parameterType="matchingBoard" resultMap="matchingBoardMap">
 	    <![CDATA[
-	        SELECT * FROM (
-	            SELECT matching_no, matching_private, matching_gu_address, matching_dong_address, 
-	            	matching_target_subject, matching_target_grade, personal_id, 
-	            	to_char(matching_register_date, 'YYYY-MM-DD') as matching_register_date, 
-	            	(SELECT COUNT(matching_comment_no) 
-	            		FROM tb_matching_comment 
-	            		WHERE matching_no = tb_matching_board.matching_no) 
-	            	as commentCnt
-	            FROM tb_matching_board
+	        SELECT  * 
+	        FROM (
+	            SELECT  matching_no
+	            , 		matching_private
+	            ,		matching_passwd
+	            , 		matching_gu_address
+	            , 		matching_dong_address
+	            , 		matching_target_subject
+	            , 		matching_target_grade
+	            , 		personal_id
+	            , 		to_char (matching_register_date, 'YYYY-MM-DD')   as matching_register_date
+	            , 		( SELECT COUNT(matching_comment_no) 
+	            		  FROM tb_matching_comment 
+	            		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
+	            FROM    tb_matching_board
 	            ORDER BY matching_no DESC
 	        ) WHERE ROWNUM <= 5
 	    ]]>
@@ -73,28 +78,29 @@
 	
 	<!-- 맞춤형 검색 -->
 	<select id="mResult" parameterType="matchingBoard" resultMap="academyMap">
-		SELECT * FROM tb_academy 
-		WHERE academy_gu_address = #{matchingGuAddress} 
-				AND academy_dong_address = #{matchingDongAddress}
-				AND academy_target_grade = #{matchingTargetGrade}
-				AND academy_target_subject = #{matchingTargetSubject}
-				AND ( academy_fee = #{matchingFee} OR #{matchingFee} = '무관' )
-				AND  (
-						( #{matchingKeyword1} IS NULL OR 
-							#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
-					    AND
-					    ( #{matchingKeyword2} IS NULL OR
-					    	#{matchingKeyword2} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
-					    AND
-					    ( #{matchingKeyword3} IS NULL OR 
-					    	#{matchingKeyword3} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
-				)
+		SELECT  *
+		FROM    tb_academy 
+		WHERE   academy_gu_address = #{matchingGuAddress} 
+			AND academy_dong_address LIKE '%' || #{matchingDongAddress} || '%'
+			AND academy_target_grade = #{matchingTargetGrade}
+			AND academy_target_subject = #{matchingTargetSubject}
+			AND ( academy_fee = #{matchingFee} OR #{matchingFee} = '무관' )
+			AND  (
+					( #{matchingKeyword1} IS NULL OR 
+						#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+				    AND
+				    ( #{matchingKeyword2} IS NULL OR
+				    	#{matchingKeyword2} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+				    AND
+				    ( #{matchingKeyword3} IS NULL OR 
+				    	#{matchingKeyword3} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+			)
 	</select> 
 	
 	
 	<!-- 공개매칭 자동 등록 -->
 	<insert id="publicUpload" parameterType="matchingBoard" >
-		INSERT into tb_matching_board
+		INSERT  into  tb_matching_board
 		VALUES (matching_board_seq.nextval, #{personalId}, 'N', null, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
 					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
 					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
@@ -107,5 +113,113 @@
 					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
 					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
 	</insert>
-
+	
+	<!-- 비공개매칭 시 이메일 검색 -->
+	<select id="searchEmail" parameterType="matchingBoard" resultMap="academyMap">
+		SELECT academy_name, academy_manager_email from tb_academy
+		WHERE academy_name IN
+		<foreach collection="privateChecked" item="name" open="(" separator="," close=")">
+			#{name}
+		</foreach>
+	</select>
+	
+	
+	<!-- 작업 중 -->
+	<!-- 비공개매칭 시 이메일로 전송할 게시글 번호 검색 -->
+	<select id="getMatchingNo" parameterType="matchingBoard" resultType="matchingBoard">
+		SELECT	matching_no
+		FROM	tb_matching_board
+		WHERE	matching_no = #{matchingNo}
+	</select>
+	
+	
+	<!-- 전체 레코드 수 조회 -->
+	<select id="mBoardListCnt" parameterType="matchingBoard" resultType="int" >
+		SELECT count(*) FROM tb_matching_board
+		WHERE ( 
+			( matching_gu_address LIKE '%' || #{keyword} || '%' )
+			OR ( matching_dong_address LIKE '%' || #{keyword} || '%' )
+			OR ( matching_target_subject LIKE '%' || #{keyword} || '%' )
+			OR ( matching_target_grade LIKE '%' || #{keyword} || '%' )
+	    	)
+	</select>
+	
+	
+	<!-- 매칭게시판 글 목록 전체 보기 + 검색 포함 -->
+	<select id="mBoardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
+		<![CDATA[
+	    SELECT  matching_no,
+	            matching_gu_address,
+	            matching_dong_address,
+	            matching_target_subject,
+	            matching_target_grade,
+	            matching_private,
+	            matching_passwd,
+	            to_char(matching_register_date, 'YYYY-MM-DD') as matching_register_date,
+	            personal_id,
+	            commentCnt
+	    FROM  (
+	        	SELECT /*+ INDEX_DESC(tb_matching_board PK_TB_MATCHING_BOARD) */
+	        	   rownum as rnum,
+	               matching_no,
+	               matching_gu_address,
+	               matching_dong_address,
+	               matching_target_subject,
+	               matching_target_grade,
+	               matching_private,
+	               matching_passwd,
+	               matching_register_date,
+	               personal_id,
+	               ( SELECT COUNT(matching_comment_no) 
+	            		  FROM tb_matching_comment 
+	            		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
+	        	FROM tb_matching_board
+	        	WHERE rownum <= #{pageNum} * #{amount}
+	        	AND ( 
+				( matching_gu_address LIKE '%' || #{keyword} || '%' )
+				OR ( matching_dong_address LIKE '%' || #{keyword} || '%' )
+				OR ( matching_target_subject LIKE '%' || #{keyword} || '%' )
+				OR ( matching_target_grade LIKE '%' || #{keyword} || '%' )
+			    )
+	    	) 
+	    WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+	    ]]>
+	</select>
+	
+	
+	<!-- 매칭게시판 게시글 상세 보기 -->
+	<select id="mBoardDetail" parameterType="matchingBoard" resultMap="matchingBoardMap">
+		SELECT  matching_no
+		,		matching_gu_address
+		,		matching_dong_address
+		, 		matching_target_subject
+	    , 		matching_target_grade
+	    ,		matching_fee
+	    ,		matching_keyword1
+	    ,		matching_keyword2
+	    ,		matching_keyword3
+	    , 		personal_id
+	    , 		to_char (matching_register_date, 'YYYY-MM-DD  HH:MI')   as matching_register_date
+	    ,		matching_comment
+	    FROM   tb_matching_board	
+	    WHERE  matching_no = #{matchingNo}
+	</select>
+	
+	
+	<!-- 매칭게시판 게시글 수정 -->
+	<update id="mBoardUpdate" parameterType="matchingBoard">
+		UPDATE	tb_matching_board
+		SET 	matching_comment = #{matchingComment},
+				matching_edit_date = sysdate
+		WHERE 	matching_no = #{matchingNo}
+	</update>
+	
+	
+	<!-- 매칭게시판 게시글 삭제 -->
+	<delete id="mBoardDelete" parameterType="matchingBoard">
+		DELETE FROM tb_matching_board
+	    WHERE matching_no = #{matchingNo}
+	</delete>
+	
+	
 </mapper>

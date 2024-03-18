@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -51,9 +57,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/assets/css/completeSignUp.css">
+
+<!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/completeSignUp.css"> -->
 
 </head>
 <body>
@@ -62,10 +67,7 @@
 	<header id="header" class="fixed-top ">
 		<div class="container d-flex align-items-center">
 
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
+			<h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
 			<!-- Uncomment below if you prefer to use an image logo -->
 			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -81,11 +83,25 @@
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
 							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
+							<li><a href="/mypage" id="mypageBtn">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="/signUp">로그인/회원가입</a></li>
-
+					<c:choose>
+                        <c:when test="${not empty commonLogin}">
+                            <li><a class="nav-link scrollto">
+                            <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                            ${commonLogin.name}님 환영합니다.</a></li>
+                            <li>
+                                <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                                    <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                                </form>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+                        </c:otherwise>
+                    </c:choose>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
@@ -102,8 +118,7 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<h1>회원가입 완료!</h1>
-					<h2>회원가입이 완료 되었습니다 ! 이제 홈페이지의 모든 서비스를 이용하실수 있습니다.</h2>
+
 
 
 				</div>
@@ -118,9 +133,9 @@
 	<!-- End Hero -->
   <!-- 회원가입 완료 메시지 -->
 <div class="signup-message-container">
-    <div class="signup-message-content">
-        <h1>회원가입이 완료되었습니다!</h1>
-        <p>축하합니다!</p>
+   <div class="signup-message-content">
+   		<h1>회원가입 완료</h1>
+		<h2>${commonLogin.Name}님 회원가입을 축하드립니다!<br />이제 홈페이지의 모든 서비스를 이용하실수 있습니다.</h2>
         <a href="/" class="btn">홈페이지로 이동</a>
     </div>
 </div>
@@ -135,10 +150,10 @@
 						<h4>Join Our Newsletter</h4>
 						<p>Tamen quem nulla quae legam multos aute sint culpa legam
 							noster magna</p>
-						<form action="" method="post">
+						<!-- <form action="" method="post">
 							<input type="email" name="email"><input type="submit"
 								value="Subscribe">
-						</form>
+						</form> -->
 					</div>
 				</div>
 			</div>
@@ -226,20 +241,15 @@
 
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
-	<script
-		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	<script
-		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+	<script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
+	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 </body>
 </html>

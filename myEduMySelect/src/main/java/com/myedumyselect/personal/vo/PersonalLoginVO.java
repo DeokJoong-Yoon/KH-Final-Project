@@ -1,5 +1,7 @@
 package com.myedumyselect.personal.vo;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +18,13 @@ public class PersonalLoginVO {
 	private String personalBirth;
 	private String personalAddress;
 	private String personalPhone;
-	// private Date personalJoinDate;
-	// private Integer personalLoginFailCount;
-	// private Date personalAccountBannedDate;
-	// private Date personalPasswdChangeDate;
+	private Date personalJoinDate;
+	private int personalLoginFailCount;
+	private Date personalAccountBannedDate;
+	private Date personalPasswdChangeDate;
+	public PersonalLoginVO(String personalId, String personalPasswd) {
+		this.personalId = personalId;
+		this.personalPasswd = personalPasswd;
+	}
 }
+ 

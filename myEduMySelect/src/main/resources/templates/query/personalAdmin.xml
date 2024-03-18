@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.admin.member.dao.PersonalAdminDAO">
+
+	<resultMap type="personal" id="personalLoginMap">
+		<id column="personal_id" property="personalId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="personal_name" property="personalName" />
+		<result column="personal_email" property="personalEmail" />
+		<result column="personal_passwd" property="personalPasswd" />
+		<result column="personal_birth" property="personalBirth" />
+		<result column="personal_address" property="personalAddress" />
+		<result column="personal_phone" property="personalPhone" />
+		<result column="personal_join_date" property="personalJoinDate" />
+		<result column="personal_login_fail_count"
+			property="personalLoginFailCount" />
+		<result column="personal_account_banned_date"
+			property="personalAccountBannedDate" />
+		<result column="personal_passwd_change_date"
+			property="personalPasswdChangeDate" />
+	</resultMap>
+
+	<select id="memberListCnt" parameterType="personal"
+		resultType="int">
+		SELECT count(*) FROM
+		tb_personal
+		<trim prefix=" where (" suffix=")">
+			<include refid="memberSearch"></include>
+		</trim>
+	</select>
+
+	<sql id="memberSearch">
+		<if test="search == 'personal_id'">
+		<![CDATA[ personal_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'personal_name'"> 
+		<![CDATA[ personal_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+
+
+	<select id="memberList" parameterType="personal"
+		resultMap="personalLoginMap"> 
+		<![CDATA[
+		SELECT personal_id, member_Type_id, personal_name, personal_email, personal_birth,
+			personal_address, personal_phone, personal_join_date, personal_login_fail_count,
+			personal_account_banned_date, personal_passwd_change_date
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_personal pk_tb_personal) */
+			rownum as rnum, personal_id, member_Type_id, personal_name, personal_email, personal_birth,
+			personal_address, personal_phone, personal_join_date, personal_login_fail_count,
+			personal_account_banned_date, personal_passwd_change_date
+			FROM (
+					select * from tb_personal order by personal_join_date desc
+				 ) sortedMemberList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="memberSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+
+
+
+</mapper>

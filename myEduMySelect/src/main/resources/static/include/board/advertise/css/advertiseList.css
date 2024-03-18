@@ -1,0 +1,111 @@
+#main {
+	background-color: #f3f5fa;
+	padding-bottom : 50px;
+}
+
+#hero {
+	height: 350px;
+	background-color: #48d1cc;
+}
+
+.banner {
+    text-align: center;
+    font-size: 45px;
+	font-weight: 600; 
+    color: white;
+    width : 100%;
+    margin-top:-70px;
+}
+
+.descBox {
+	background-color : white;
+	color : #37517e;
+	font: 15px bold;
+	margin-top: 25px;
+	margin-bottom: -20px;
+	padding : 35px;
+	text-align: left;
+	border-radius: 20px;
+}
+
+.descBox span {
+	font-size: 18px;
+}
+
+
+.advertiseSearch input {
+	height : 35px;
+	width : 300px;
+	float: right;
+}
+
+#boardSearchBtn, #boardAll {
+	height:35px;
+    padding: 5px 15px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 5px;
+    float: right;
+}
+
+#boardSearchBtn:hover, #boardAll:hover, #advertiseInsertBtn:hover {
+	background-color: #37517e;
+}
+
+.pagination a {
+	margin-top: 30px;
+	color: #48d1cc;
+	font-weight: 600;
+}
+
+.pagination a:hover {
+	color : #48d1cc;
+}
+
+.active a  {
+	background-color:#48d1cc !important; 
+	color : white;
+	border-color:#48d1cc !important; 
+}
+
+
+#advertiseInsertBtn  {
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    float: right;
+    font-weight: 600;
+    margin-top : 20px;
+}
+
+table {
+	width : 100%;
+	border-collapse: separate;
+    border-spacing: 50px;
+}	
+
+td {
+	text-align: center;
+	margin : 50px;
+	height : 300px;
+	width : 30%;
+	background-color: white;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+h5{
+	font-weight: 600; 
+}
+
+.advLink {
+	color : #37517e;
+}

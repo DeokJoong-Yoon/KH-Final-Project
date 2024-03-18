@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>								
+<%@ page trimDirectiveWhitespaces="true" %>	
+<%@ include file="/WEB-INF/views/common/common.jspf" %>										
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -30,7 +31,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-  <link href="/resources/include/assets/css/matchingBoard.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingBoard.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -39,6 +40,22 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+	
+	
+	<!-- <script>
+		window.onload = function(){
+			let confirmMsg = "${confirmMsg}";
+			if(confirmMsg) {
+				let result = confirm(comfirmMsg);
+				if(result) {
+					window.location.href= "/useraccount/login";
+				} else {
+					window.location.href= "/matching/boardList";
+				}
+			}
+		}
+	</script> -->
+
 </head>
 
 <body>
@@ -99,48 +116,109 @@
      
       <div class="container">
 
+		<!-- ======= 검색 영역 ======= -->
 		<div class="mcBoardListSearch">
-			<input type="text" placeholder="검색어 입력">
-			<button type="button" id="mcBoardSearchBtn">검색</button>
-		</div><br><br>
+			<form id="f_search" name="f_search">
+				<%-- 페이징 처리를 위한 파라미터 --%>
+				<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+	 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+	 			
+	 			<button type="button" id="mcGoBack">맞춤형 검색으로 이동</button>
+	 			<button type="button" id="mcBoardAll">전체 보기</button>
+
+				<button type="button" id="mcBoardSearchBtn">검색</button>	 			
+				<input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
+			</form>
+		</div><br><br>  <!-- 검색 영역 끝 -->
 		
+		
+		<!-- 로그인 세션 임시 확인 -->
+		<div class="userId">${userId }</div>
+		<div class="acaId">${acaId }</div>
+		<div class="acaName">${acaName }</div>
+		
+		
+		<!-- ========= 게시글 목록 영역 ======== -->
 		<div class="mcBoardList">
+			
 			<table>
 				<thead>
 					<tr>
 						<th>글 번호</th>
-						<th>비밀글 여부</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>등록일</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>100</td>
-						<td></td>
-						<td>제목100</td>
-						<td>작성자100</td>
-						<td>등록일100</td>
-					</tr>
-					<tr>
-						<td>99</td>
-						<td>[비밀글]</td>
-						<td>제목99</td>
-						<td>작성자99</td>
-						<td>등록일99</td>
-					</tr>
-					<tr>
-						<td>98</td>
-						<td>[비밀글]</td>
-						<td>제목98</td>
-						<td>작성자98</td>
-						<td>등록일98</td>
-					</tr>
+				<tbody id="mcBoardList">
+					<c:choose>
+						<c:when test="${not empty mBoardList}">
+							<c:forEach var="matchingBoard" items="${mBoardList }" varStatus="status">
+								<tr data-num="${matchingBoard.matchingNo }">
+									<td>${matchingBoard.matchingNo }</td>
+									<td>
+										<form name="privateChk" id="privateChk">
+											<input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }"/>
+											<input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }"/>
+										</form>
+										<c:choose>
+										    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
+										        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
+										        <a class="mbdLink" href="">
+										        	${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+										        </a>
+										    </c:when>
+										    <c:otherwise>
+										    	<a class="mbdLink" href="">
+										    		${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+										    	</a>
+										    </c:otherwise>
+										</c:choose>
+										<c:if test="${matchingBoard.commentCnt > 0 }">
+							        		<span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
+							        	</c:if>
+									</td>
+									<td class="writerId">${matchingBoard.personalId }</td>
+									<td>${matchingBoard.matchingRegisterDate }</td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="5">등록된 게시글이 존재하지 않습니다</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
 				</tbody>	
 			</table>
 		</div>
       </div>
+      
+      <%------------ 페이징 출력 시작 ---------- --%>
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination justify-content-center">
+		    <!-- 이전 바로가기 5개 존재 여부를 prev 필드의 값으로 확인 -->
+		    <c:if test="${pageMaker.prev }">
+			    <li class="page-item">
+			    	<a href="${pageMaker.startPage - 1 }" class="page-link">이전</a>
+			    </li>
+			</c:if>
+			
+			<!-- 바로가기 번호 출력 -->
+			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	       		<li class="page-item  ${pageMaker.cvo.pageNum == num ? 'active':''}">
+		           <a href="${num}" class="page-link">${num}</a>
+ 		        </li>
+	       </c:forEach>
+			
+			<!-- 다음 바로가기 5개 존재 여부를 next 필드의 값으로 확인 -->
+			<c:if test="${pageMaker.next }">
+				<li class="page-item">
+					<a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+				</li>
+			</c:if>
+		  </ul>
+		</nav>
     </section><!-- 매칭게시판 목록 끝 -->
 
   
@@ -219,6 +297,8 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+	
+
   <!-- Vendor JS Files -->
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -229,7 +309,34 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
+  <script src="/resources/include/matching/js/matchingBoard.js"></script>
+  
+  
+  <script>
+  
+/*   	$(function() {
+  		let word = "<c:out value='${matchingBoard.keyword}' />";
+  		let value ="";
+  		
+  		if(word != "") {
+			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
+			value = "#mcBoardList tr td.mbdLink";
+			console.log($(value + ":contains('" + word + "')").html());
+			$(value + ":contains('" + word + "')").each(function(){
+				let regex = new RegExp(word, 'gi');
+				$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+			})
+  		}
+  	}) */
+	$(function() {
+		let popUp = "${popUp}";
+		if (popUp != "") {
+			alert(popUp);
+		}
+	});
+  </script>
 
 </body>
 

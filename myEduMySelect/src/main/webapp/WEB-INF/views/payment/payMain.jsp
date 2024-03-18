@@ -101,13 +101,13 @@
 									<div class="box">
 										<h3>결제자 정보</h3>
 										<ul class="list-group">
-										    <li class="list-group-item border-0" id="academy_id"><span class="bi bi-check"></span>ykdj92</li>
-										    <li class="list-group-item border-0" id="academy_number"><span class="bi bi-check"></span>106358484</li>
-										    <li class="list-group-item border-0" id="academy_name"><span class="bi bi-check"></span>KH 교육센터</li>
+										    <li class="list-group-item border-0" id="academy_id"><span class="bi bi-check"></span>${academyLoginVo.academyId}</li>
+										    <li class="list-group-item border-0" id="academy_number"><span class="bi bi-check"></span>${academyLoginVo.academyNumber}</li>
+										    <li class="list-group-item border-0" id="academy_name"><span class="bi bi-check"></span>${academyLoginVo.academyName}</li>
 										    <li class="list-group-item border-0" id="academy_status"><span class="bi bi-check"></span>0</li>
-										    <li class="list-group-item border-0" id="academy_manager_name"><span class="bi bi-check"></span>윤덕중</li>
-										    <li class="list-group-item border-0" id="academy_manager_email"><span class="bi bi-check"></span>ykdj92@naver.com</li>
-										    <li class="list-group-item border-0" id="academy_manager_phone"><span class="bi bi-check"></span>01072098826</li>
+										    <li class="list-group-item border-0" id="academy_manager_name"><span class="bi bi-check"></span>${academyLoginVo.academyManagerName}</li>
+										    <li class="list-group-item border-0" id="academy_manager_email"><span class="bi bi-check"></span>${academyLoginVo.academyManagerEmail}</li>
+										    <li class="list-group-item border-0" id="academy_manager_phone"><span class="bi bi-check"></span>${academyLoginVo.academyManagerPhone}</li>
 										</ul>
 									</div>
 								</div>
