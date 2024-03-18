@@ -113,44 +113,43 @@
 		
 			<div class="container">
 
-				<div class="boardDetail">
-					<table class="table text-center" id="table">
-						<thead>
-							<tr>
-								<td colspan="12" class="text-center">제목 :
-									${detail.commonTitle}</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="text-start">글번호 :
-									${detail.commonNo} (조회수 : ${detail.commonReadcnt})</td>
-								<td colspan="3" class="text-start">작성자 :
-									${detail.personalId}</td>
-								<td colspan="3" class="text-start">작성일 :
-									${detail.commonRegisterDate}</td>
-								<td colspan="3" class="text-start">좋아요 :</td>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-								<th colspan="2" class="text-center">내용</th>
-								<td colspan="10" rowspan="10"
-									class="text-start content-size">${detail.commonContent}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<form id="f_data" name="f_data">
+					<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo}"/>
+		      	</form>
+					<div class="boardDetail">
+						<table class="table text-center" id="table">
+							<thead>
+								<tr>
+									<td colspan="12" class="text-center">제목 :
+										${detail.commonTitle}</td>
+								</tr>
+								<tr>
+									<td colspan="3" class="text-start">글번호 :
+										${detail.commonNo} (조회수 : ${detail.commonReadcnt})</td>
+									<td colspan="3" class="text-start">작성자 :
+										${detail.personalId}</td>
+									<td colspan="3" class="text-start">작성일 :
+										${detail.commonRegisterDate}</td>
+									<td colspan="3" class="text-start">좋아요 :</td>
+								</tr>
+							</thead>
+	
+							<tbody>
+								<tr>
+									<th colspan="2" class="text-center">내용</th>
+									<td colspan="10" rowspan="10"
+										class="text-start content-size">${detail.commonContent}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 
 					
 				<div class="col-md-12 text-end ms-auto" id=BtnGroup>
-					<button type="button" id="freeUpdateBtn"
-						class="btn btn-primary btn-sm">글수정</button>
-					<button type="button" id="freeDeleteBtn"
-						class="btn btn-primary btn-sm">글삭제</button>
-					<button type="button" id="freeWriterBtn"
-						class="btn btn-primary btn-sm">글쓰기</button>
-					<button type="button" id="freeListBtn"
-						class="btn btn-primary btn-sm">목록</button>
+					<button type="button" id="freeUpdateBtn" class="btn btn-primary btn-sm">글수정</button>
+					<button type="button" id="freeDeleteBtn" class="btn btn-primary btn-sm">글삭제</button>
+					<button type="button" id="freeWriterBtn" class="btn btn-primary btn-sm">글쓰기</button>
+					<button type="button" id="freeListBtn" class="btn btn-primary btn-sm">목록</button>
 				</div>
 			</div>
 		
@@ -159,9 +158,9 @@
 	</main>
 
 	
-	<section >
+	<%-- <section >
 			<jsp:include page="freereply.jsp" />
-	</section>
+	</section> --%>
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -268,10 +267,10 @@
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/board/free/js/freeDetail.js"></script>
-	
+	<!-- 
 	<script>
 	$(document).ready(function() {
-	    let commonNo = 10001; // 예시로 고정된 commonNo
+	    let commonNo = null;
 
 	    // AJAX 요청을 통해 상세 정보를 받아옴
 	    $.getJSON("/free/freeDetail?commonNo=" + commonNo, function(data) {
@@ -280,7 +279,7 @@
 	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
 	    });
 	});
-	</script> 
+	</script>  -->
 	
 </body>
 
