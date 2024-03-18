@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myedumyselect.common.SessionUtil;
+import com.myedumyselect.common.file.FileVO;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
@@ -77,4 +78,19 @@ public class AdvertiseController {
         aService.advertiseInsertWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
         return "redirect:/advertise/advertiseBoardList"; 
 	}
+	
+	
+	//홍보게시판 게시글 상세 보기
+	@GetMapping("/advertiseDetail")
+	public String advertiseDetail(AdvertiseVO aVO, Model model) {
+		log.info("advertiseDetail() 메소드 호출");
+		
+		AdvertiseVO detail = aService.advertiseDetail(aVO);
+		model.addAttribute("detail", detail);
+		
+		log.info(detail.toString());
+		
+		return "board/advertise/advertiseBoardDetail";
+	}
+	
 }

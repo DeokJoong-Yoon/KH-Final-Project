@@ -16,4 +16,7 @@ public interface AdvertiseService {
 	
 	//홍보게시판 글 등록
 	public void advertiseInsertWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception;
+	
+	//홍보게시판 상세페이지 이동
+	public AdvertiseVO advertiseDetail(AdvertiseVO aVO);
 }

@@ -68,5 +68,17 @@ public class AdvertiseTest {
 //	}
 	
 	
+	@Test
+	public void detailTest() {
+		log.info("상세페이지 조회");
+		
+		AdvertiseVO aVO = new AdvertiseVO();
+		aVO.setCommonNo(20013);
+		
+		AdvertiseVO vo = aDAO.advertiseDetail(aVO);
+		
+		log.info(vo.toString());
+	}
+	
 
 }

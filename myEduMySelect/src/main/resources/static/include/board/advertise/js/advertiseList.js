@@ -3,8 +3,9 @@ $(function(){
 	//제목 클릭 시 상세 페이지 이동
 	$(".advLink").on("click", function() {
 		
-		let commonNo = $(this).closest("tr").attr("data-num");		//게시글 번호
-		let userId = $(".userId").text();							//접속한 개인회원 id
+		let commonNo = $(this).closest("td").attr("data-num");		//게시글 번호
+		console.log(commonNo);
+		/*let userId = $(".userId").text();							//접속한 개인회원 id
 		let acaId = $(".acaId").text();								//접속한 학원회원 id
 		
 		//글 제목 클릭 시, 로그인 시에만 열람 가능하도록 제어
@@ -13,7 +14,9 @@ $(function(){
 			$(this).attr("href", "/advertise/advertiseBoardList");
 		} else {
 			$(this).attr("href", "/advertise/advertiseBoardDetail?commonNo=" + commonNo)
-		}
+		}*/
+		
+		$(this).attr("href", "/advertise/advertiseDetail?commonNo=" + commonNo);
 	})
 	
 	
