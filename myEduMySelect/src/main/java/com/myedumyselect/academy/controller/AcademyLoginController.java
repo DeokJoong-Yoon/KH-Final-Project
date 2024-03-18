@@ -1,8 +1,6 @@
 package com.myedumyselect.academy.controller;
 
-import java.util.Optional;
-
-import javax.naming.Name;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,193 +12,245 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myedumyselect.academy.AcademySignUpDto;
-import com.myedumyselect.academy.SessionConst;
-import com.myedumyselect.academy.UserAccountLoginDto;
-import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
-import com.myedumyselect.matching.board.vo.MatchingBoardVO;
-import com.myedumyselect.personal.vo.PersonalLoginVO;
+import com.myedumyselect.academy.vo.AcademySignUpVo;
+import com.myedumyselect.auth.SessionInfo;
+import com.myedumyselect.auth.vo.LoginVo;
 
-import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 
-@SuppressWarnings("unused")
 @Controller
 @Slf4j
-@SessionAttributes("academyLoginVo")
+@SessionAttributes(SessionInfo.COMMON)
 public class AcademyLoginController {
-    
-	@Setter(onMethod_ = @Autowired)
-    private AcademyLoginService academyLoginService;
 
-	/**
-	 * 유저 계정 로그인 폼
-	 */
-	@GetMapping("/userAccount/login")
+	@Setter(onMethod_ = @Autowired)
+	private AcademyLoginService academyLoginService;
+
+	// 학원회원 로그인으로 이동
+	@GetMapping("/academyaccount/login")
 	public String userAccountLoginForm(Model model) {
-		model.addAttribute("userAccountLoginDto", new UserAccountLoginDto());
+		model.addAttribute("loginVo", new LoginVo());
 		return "/academy/login";
 	}
-	
-	/**
-	 * 유저 계정 로그인 POST
-	 */
-	@PostMapping("/userAccount/login") 
-	public String userAccountLogin(@Valid @ModelAttribute UserAccountLoginDto userAccountLoginDto,
-								BindingResult bindingResult,
-								HttpServletRequest request) {
+
+	// 학원회원 로그인 POST
+	@PostMapping("/academyaccount/login")
+	public String userAccountLogin(LoginVo loginVo, Model model, RedirectAttributes ras, HttpSession session, BindingResult bindingResult) {
 		// 바인딩 에러 확인
 		if(bindingResult.hasErrors()) {
 			return "/academy/login";
 		}
 		
-		if(userAccountLoginDto.getUserAccountType().equals("1")) {
-			// Personal
-			
-			//TODO: 로그인 로직 실행 및 객체 획득
-			//TODO: 세션 저장
-			//TODO: 세션에 로그인 회원 정보 보관
-			
-		} else if(userAccountLoginDto.getUserAccountType().equals("2")){
-			// Academy
-			Optional<AcademyLoginVo> optional = academyLoginService.loginProcess(userAccountLoginDto.getAcademyId(),
-					userAccountLoginDto.getAcademyPasswd());
-			
-			// 로그인 실패
-			if(optional.isEmpty()) {
-				bindingResult.reject("loginFailed", "아이디 및 비밀번호가 일치하지 않습니다.");
-				return "/academy/login";
-			}
-			
-			// 세션 저장
-			AcademyLoginVo academyLoginVo = optional.get();
-			// 세션에 있으면 있는 세션 반환, 없으면 신규 세션 생성 (getSession(false): 세션에 있으면 있는 세션반환만)
-			HttpSession session = request.getSession();
-			
-			// 세션에 로그인 회원 정보 보관
-			session.setAttribute(SessionConst.INFO, academyLoginVo);					
+		// POST 방식으로 /academyaccount/login 엔드포인트에 대한 요청을 처리하는 메서드이다.
+		// 요청에서 AcademyLoginVO 객체, Model 객체, RedirectAttributes 객체, HttpSession 객체를 받는다
+		Integer loginAttempts = (Integer) session.getAttribute("loginAttempts");
+		Date bannedUntil = (Date) session.getAttribute("bannedUntil");
+		// 세션에서 loginAttempts와 bannedUntil 속성을 가져온다. 결국 얘네도 변수 이름이다.
+		// loginAttempts는 로그인 시도 횟수를, bannedUntil은 계정 잠금이 해제되는 시간을 나타낸다.
+		// currentTiem는 현재시간을 나타내는 변수이다 . 밑에 System.currentTimeMillis()을 통해
+		// 현재 시간을 밀리초 단위로 가져온다. 결론적으로 이 변수는 계정 잠금 해제 시간을 계산할때 사용한다.
+		// lockoutTime 계정이 잠금되는 시간을 나타내는 변수이다 currentTime 와 똑같은 개념이다
+		// ex) 1분은 60초 1초는 1000밀리초 그래서 10분을 밀리초 단위로 계산하면 10 * 60 * 1000 이렇게된다 10분 =
+		// 600000 밀리초
+		// currentTime + 600000 잠금이 풀리는 시간을 계산하면 이런식이다.
+
+		// 즉시 잠금 해제
+		// session.removeAttribute("bannedUntil");
+
+		// 계정이 잠겨 있을 때
+		if (bannedUntil != null && new Date().before(bannedUntil)) {
+			long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
+			ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
+			return "redirect:/academyaccount/login";
 		}
+		// 계정이 잠겨 있고, 잠금 해제 시간이 현재 시간 이후인 경우를 검사한다.
+		// 계정이 잠겨 있을 때 사용자에게 알림 메시지를 추가하고, 로그인 페이지로 리다이렉트한다.
+
+		// 로그인 시도 횟수 카운트
+		if (loginAttempts == null) {
+			loginAttempts = 0;
+		}
+		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
+
+		// 로그인 시도
+		AcademyLoginVo academyLogin = academyLoginService.loginProcess(loginVo.getId(), loginVo.getPasswd());
+		// AcademyLoginService를 통해 로그인을 시도한다.
 		
-		return "redirect:/academy/home";
+		if(academyLogin != null){			
+			loginVo.setName(academyLogin.getAcademyName());
+			model.addAttribute(SessionInfo.COMMON, loginVo); 
+			session.removeAttribute("loginAttempts");// 로그인이 성공한 경우, 모델에 로그인 정보를 추가하고, 세션에서 로그인 시도 횟수 속성을 제거한다.
+			log.info("로그인 성공!");
+		} else {
+			loginAttempts++;
+			session.setAttribute("loginAttempts", loginAttempts);
+			
+			if (loginAttempts >= 5) {
+				long currentTime = System.currentTimeMillis();
+				Date lockoutTime = new Date(currentTime + (10 * 60 * 1000)); // 10분 후 시간
+				session.setAttribute("bannedUntil", lockoutTime);
+
+				long remainingTime = (lockoutTime.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
+				ras.addFlashAttribute("loginAttempts", "5/5");
+				ras.addFlashAttribute("errorMsg",
+						"아이디 및 비밀번호 입력 5회 이상 실패하였습니다. 계정 로그인이 10분간 제한됩니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
+				ras.addFlashAttribute("bannedUntil", lockoutTime);
+
+				return "redirect:/academyaccount/login";
+			} else {
+				ras.addFlashAttribute("errorMsg",
+						"아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + loginAttempts + "/5");
+
+				return "redirect:/academyaccount/login";
+			} // 로그인이 실패한 경우, 로그인 시도 횟수를 증가시키고, 잠금 시간을 설정한다.
+				// 잠금 시간까지 남은 시간을 계산하고, 알림 메시지를 추가하여 사용자에게 알린다.
+				// 로그인 시도 횟수가 5회 이상이면 계정을 잠그고, 잠금 해제 시간까지 알려주는 알림 메시지를 추가한다.
+				// 로그인 시도 횟수가 5회 미만인 경우, 실패 메시지와 함께 로그인 페이지로 리다이렉트한다.
+		}
+
+		return "redirect:/academyaccount/login"; // 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트한다.
 	}
 	
-	@PostMapping("/userAccount/logout")
-	public String logout(HttpSession session) {
-		if(session != null) {
-			// 세션을 제거한다. (안에 있는 데이터도 삭제)
-			session.removeAttribute(SessionConst.INFO);
-		}
-		
-		return "redirect:/";
-	}
 	
-	@GetMapping(value = "/userAccount/join/academy")
+	// 학원회원 회원가입으로 이동
+	@GetMapping(value = "/academyaccount/join")
 	public String joinForm(Model model) {
 		log.info("academyJoin 호출 성공");
 		// 모델 등록
-		model.addAttribute("academySignUpDto", new AcademySignUpDto());
+		model.addAttribute("academySignUpVo", new AcademySignUpVo());
 		return "academy/academyJoin";
 	}
 
+	// 학원회원 회원가입 POST
 	@PostMapping("/academyInsert")
-	public String academyInsert(@Valid @ModelAttribute AcademySignUpDto academySignUpDto,
-			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-		
+	public String academyInsert(@Valid @ModelAttribute AcademySignUpVo academySignUpVo,
+								BindingResult bindingResult) {
+
 		if(bindingResult.hasErrors()) {
 			return "academy/academyJoin";
 		}
-		
-		// 저장
+
+		// 학원회원 회원가입 처리
 		try {
 			log.info("academyInsert 호출 성공");
-			log.info("academySignUpDto : {}", academySignUpDto);
-			academyLoginService.academyInsert(academySignUpDto);
-			
-			// 회원가입이 완료되면 리다이렉션을 위해 메시지를 추가
-	        redirectAttributes.addFlashAttribute("signUpMessage", academySignUpDto.getAcademyName() + "님, 반갑습니다! 이제 홈페이지의 모든 서비스를 이용하실 수 있습니다.");
+			log.info("academySignUpVo : {}", academySignUpVo);
+			academyLoginService.academyInsert(academySignUpVo);
+			log.info("회원가입 성공!");
 		} catch (AcademyIdDuplicateException e) {
 			bindingResult.reject("duplicateAcademyId", "이미 존재하는 아이디입니다.");
 			return "academy/academyJoin";
-		}		
-		// 회원가입이 완료되면 홈페이지로 리다이렉션
+		}
+
 		return "redirect:/userAccount/join/complete";
 	}
-
-	@GetMapping("/academy/home")
-	public String home(AcademyLoginVo academyLoginVo,
-			Model model) {
-		
-		// 홈 페이지로 이동
-		if(academyLoginVo == null) {
-			return "/main/main"; 
-		} else {
-						
-			// 세션에 로그인 회원 정보 보관			
-			model.addAttribute("academyLoginVo", academyLoginVo);
-			return "/main/main"; 
-		}
-	}
-
-	@GetMapping("/userAccount/join")
+	
+	
+	/*학원회원 회원가입 페이지로 이동
+	@GetMapping("/academyaccount/join")
 	public String signUp() {
-		// 회원가입 페이지로 이동
+		// 회원가입 페이지(폼)로 이동
 		return "/academy/join"; // join.jsp
-	}
-
+	}*/
+	
+	// 학원회원 회원가입 완료 페이지로 이동
 	@GetMapping("/userAccount/join/complete")
-	public String completeSignUp(@ModelAttribute("academyName") String academyName, Model model) {
-	    AcademyLoginVo academyLoginVo = new AcademyLoginVo();
-	    academyLoginVo.setAcademyName(academyName);
-	    
-	    model.addAttribute("academyName", academyName);
-	    model.addAttribute("signUpMessage", academyLoginVo.getAcademyName() + "님, 반갑습니다! 이제 홈페이지의 모든 서비스를 이용하실 수 있습니다.");
-	    
-	    return "/academy/completeJoin";
+	public String completeSignUp(@ModelAttribute AcademyLoginVo academyLoginVo) {
+		// 회원가입 완료 페이지로 이동
+		return "/academy/completeJoin";
 	}
 	
-	@GetMapping("/mypage")
-	public String mypage(AcademyLoginVo academyLoginVo,Model model) {        
-	    // 로그인 여부 확인
-	    if(ObjectUtils.isEmpty(academyLoginVo)) {
-	        // 로그인되어 있지 않다면 로그인 페이지로 리다이렉트
-	    	model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
-	        return "redirect:/userAccount/login";
-	    } 
-	    
-	    // 로그인된 경우에는 학원 정보를 가져와서 모델에 추가
-	    String academyId = academyLoginVo.getAcademyId();
-	    Optional<AcademyLoginVo> academyInfoOptional = academyLoginService.findById(academyId);
+	// 학원회원 마이페이지로 이동
+	@GetMapping("/academyaccount/mypage")
+	public String mypage(Model model, HttpSession session) {
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 
-	    if (academyInfoOptional.isPresent()) {
-	        model.addAttribute("academyLoginVo", academyInfoOptional.get());
-	    } 
-	    return "/academy/mypage";
+		// 로그인이 되어있지 않다면
+		if(ObjectUtils.isEmpty(loginVo)) {
+			// 로그인 페이지로 리다이렉트
+			return "redirect:/academyaccount/login";
+		}
+		log.info("mypage 호출 성공");
+		// 로그인된 경우에는 학원 정보를 가져와서 모델에 추가
+		String academyId = loginVo.getId();
+		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+
+		if (academyLoginVo != null) {
+			model.addAttribute("academyLoginVo", academyLoginVo);
+		} else {
+			// 학원 정보가 없을 경우 처리
+			academyLoginVo = new AcademyLoginVo();
+			model.addAttribute("academyLoginVo", academyLoginVo);
+		}
+
+		return "/academy/mypage";
 	}
 	
-	// 아이디 중복체크 
-	@GetMapping("/checkDuplicate")
-    public String checkDuplicate(@RequestParam("academyId") String academyId) {
-        boolean isDuplicate = academyLoginService.isAcademyIdDuplicate(academyId);
-        if (isDuplicate) {
-            return "이미 사용 중인 아이디입니다.";
-        } else {
-            return "사용 가능한 아이디입니다.";
-        }
-    }
+	// 아이디 중복체크
+	@PostMapping("/checkId")
+	@ResponseBody
+	public int checkId(@RequestParam("academyId") String academyId) {
+		return academyLoginService.checkId(academyId);
+	}
 
+	// 이메일 중복체크
+	@PostMapping("/checkEmail")
+	@ResponseBody
+	public int checkEmail(@RequestParam("academyManagerEmail") String academyManagerEmail) {
+		return academyLoginService.checkEmail(academyManagerEmail);
+	}
+	
+	// 사업자등록번호 조회 및 중복여부 확인
+	@PostMapping("/findByNumber")
+	@ResponseBody
+	public AcademyLoginVo findByNumber(@RequestParam("academyNumber") String academyNumber) {
+		return academyLoginService.findByNumber(academyNumber);
+	}
+	
 
+    // 마이페이지 회원정보 수정
+	@PostMapping("/academyUpdate")
+	public String academyUpdate(@ModelAttribute AcademyLoginVo academyLogin, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		
+		//세션에서 가져온 academyLogin 객체에 업데이트된 정보를 적용,결론적으로 VO를 들고 오는구조 
+		AcademyLoginVo sessionAcademyLogin = academyLoginService.findById(loginVo.getId());
+		
+		sessionAcademyLogin.setAcademyManagerName(academyLogin.getAcademyManagerName());
+		sessionAcademyLogin.setAcademyManagerEmail(academyLogin.getAcademyManagerEmail());
+		sessionAcademyLogin.setAcademyManagerPhone(academyLogin.getAcademyManagerPhone());
+		sessionAcademyLogin.setAcademyTargetSubject(academyLogin.getAcademyTargetSubject());
+		sessionAcademyLogin.setAcademyFee(academyLogin.getAcademyFee());
+		sessionAcademyLogin.setAcademyTargetGrade(academyLogin.getAcademyTargetGrade());
+		sessionAcademyLogin.setAcademyKeyword1(academyLogin.getAcademyKeyword1());
+		
+		log.info("academyUpdate 호출 성공");
+		
+		// 개인 정보 업데이트
+		// personalLoginService의 personalUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
+		int result = academyLoginService.academyUpdate(sessionAcademyLogin);
 
+		// 업데이트가 실패하면 에러 메시지를 추가하고 로그인 페이지로 리다이렉트
+		if (result == 0) {
+			redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+			return "redirect:/academyaccount/login";
+		}
 
+		// 업데이트가 성공하면 세션에 업데이트된 personalLogin 객체를 저장하고 마이 페이지로 리다이렉트
+		session.setAttribute("academyLogin", sessionAcademyLogin);
+		return "redirect:/academy/mypage";
+	}
 
-
+	
 }

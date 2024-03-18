@@ -70,7 +70,7 @@ function pay_info(rsp, academy_id, academy_number, academy_name, academyStatus, 
       
       objs = document.createElement('input');
       objs.setAttribute('type', 'hidden');
-      objs.setAttribute('name', 'amount');
+      objs.setAttribute('name', 'payAmount');
       objs.setAttribute('value', rsp.paid_amount );
       form.appendChild(objs);
       

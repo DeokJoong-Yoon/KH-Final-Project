@@ -64,6 +64,19 @@
 		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
+	
+	<select id="memberDetail" parameterType="personal"
+		resultMap="personalLoginMap">
+		SELECT
+		*
+		FROM tb_personal
+		WHERE
+		personal_id = #{personalId}
+	</select>
+	
+	<delete id="memberDelete" parameterType="personal">
+		{ CALL delete_personal_data(#{personalId}) }
+	</delete>
 
 
 

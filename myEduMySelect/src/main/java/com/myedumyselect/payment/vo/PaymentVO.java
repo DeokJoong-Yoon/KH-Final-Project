@@ -1,15 +1,19 @@
 package com.myedumyselect.payment.vo;
 
+import com.myedumyselect.common.vo.CommonVO;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class PaymentVO {
+@EqualsAndHashCode(callSuper = false)
+public class PaymentVO extends CommonVO {
 	private String paymentId = "";
 	private String pg = "";
 	private String payMethod = "";
 	private String merchantUid = "";
 	private String name = "";
-	private int amount = 0;
+	private int payAmount = 0;
 	private String academyId = "";
 	private String academyNumber = "";
 	private String academyName = "";

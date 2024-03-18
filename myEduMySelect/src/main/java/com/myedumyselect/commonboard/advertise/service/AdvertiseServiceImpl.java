@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myedumyselect.common.file.FileUploadUtil;
@@ -52,10 +53,21 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	            FileVO fileVO = new FileVO();
 	            fileVO.setCommonNo(aVO.getCommonNo());
 	            fileVO.setFileName(fileName);
-	            fileVO.setFilePath("C:/uploadStorage/" + "advertise" + "/" + fileName); // 파일이 첨부되지 않은 경우 이 부분 수정
+	            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName); // 파일이 첨부되지 않은 경우 이 부분 수정
 	            aDAO.advertiseInsertFile(fileVO);
 	        }
 	    }   
 		
+		//썸네일 등록
+		aDAO.advertiseThumbnail(aVO);
+		
+	}
+
+	
+	//홍보게시판 글 상세 보기
+	@Override
+	public AdvertiseVO advertiseDetail(AdvertiseVO aVO) {
+		AdvertiseVO detail = aDAO.advertiseDetail(aVO);
+		return detail;
 	}
 }

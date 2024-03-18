@@ -6,6 +6,11 @@ import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 
 public interface AcademyAdminService {
 
-	List<AcademyAdminVO> memberList(AcademyAdminVO academyAdminVO);
+	public List<AcademyAdminVO> memberList(AcademyAdminVO academyAdminVO);
 
+	public int memberListCnt(AcademyAdminVO academyAdminVO);
+
+	public AcademyAdminVO memberDetail(AcademyAdminVO academyAdminVO);
+
+	public int memberDelete(AcademyAdminVO academyAdminVO);
 }

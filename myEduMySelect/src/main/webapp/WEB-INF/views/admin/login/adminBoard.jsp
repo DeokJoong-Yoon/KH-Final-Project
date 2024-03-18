@@ -240,20 +240,20 @@
 					</a></li>
 					<!-- End Tables Nav -->
 					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="#"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/payment"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
 					</a></li>
 					<!-- End Icons Nav -->
 					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>personal member</span>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/personal"> <i class="bi bi-person"></i> <span>personal member</span>
 					</a></li>
 					<!-- End Profile Page Nav -->
 
-					<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>academy member</span>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academy"> <i class="bi bi-person"></i> <span>academy member</span>
 					</a></li>
 					<!-- End Profile Page Nav -->
 
 					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"> <i class="bi bi-card-list"></i> <span>all academy member</span>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySource"> <i class="bi bi-card-list"></i> <span>all academy member</span>
 					</a></li>
 					<!-- End Register Page Nav -->
 

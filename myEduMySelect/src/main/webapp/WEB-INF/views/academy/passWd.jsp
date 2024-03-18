@@ -58,34 +58,37 @@
 
       <nav id="navbar" class="navbar">
 		<ul>
-          <li><a class="nav-link scrollto active" href="/mypage">나의 정보</a></li>
+          <li><a class="nav-link scrollto active" href="/academyaccount/mypage">나의 정보</a></li>
           <li><a class="nav-link scrollto" href="/mywrite">내가 작성한 글</a></li>
-          <li><a class="nav-link scrollto" href="/update">회원정보 변경</a></li>
+          <li><a class="nav-link scrollto" href="/academyUpdate">회원정보 변경</a></li>                    
           <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">자유게시판</a></li>
               <li><a href="#">홍보게시판</a></li>
               <li><a href="#">매칭게시판</a></li>
               <li><a href="#">문의게시판</a></li>
-              <li><a href="mypage">마이페이지</a></li>
+              <li><a href="/academyaccount/mypage">마이페이지</a></li>
+              <li><a href="/">회원탈퇴</a></li>
+              <li><a href="/payment">결제하기</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-		  <li><a class="getstarted scrollto"> 
-		  	  <c:choose>
-				<c:when test="${not empty academyLoginVo}">
-					<form action="userAccount/logout" method="POST">
-						<button type="submit">로그아웃</button>
-					</form>
-				</c:when>
-				<c:otherwise>
-					<form action="userAccount/login" method="POST">
-						<button type="submit">로그인/회원가입</button>
-					</form>
-				</c:otherwise>
-			  </c:choose>
-			  </a>
-		  </li>
+		  <c:choose>
+              <c:when test="${not empty commonLogin}">
+                  <li><a class="nav-link scrollto">
+                  <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
+                  <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                  ${commonLogin.name}님 환영합니다.</a></li>
+                  <li>
+                      <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                          <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                      </form>
+                  </li>
+              </c:when>
+              <c:otherwise>
+                  <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+              </c:otherwise>
+          </c:choose>
         </ul>     
         <ul>
           <li><a class="nav-link scrollto active" href="#mypage">나의 정보</a></li>
@@ -155,8 +158,7 @@
         <label for="academy_address">학원주소</label>
         <input type="text" name="academy_gu_address" id="academy_gu_address" readonly>
         <input type="text" name="academy_road_address" id="academy_road_address" readonly>
-        <input type="text" name="academy_dong_address" id="academy_dong_address" readonly>
-        <button id="search-address">검색</button>
+        <input type="text" name="academy_dong_address" id="academy_dong_address" readonly>        
       </div>      
       <br />
       <div class="input_group">

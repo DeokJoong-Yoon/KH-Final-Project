@@ -1,12 +1,19 @@
 package com.myedumyselect.commonboard.advertise.vo;
 
 
+import java.util.List;
+
+import com.myedumyselect.common.file.FileVO;
 import com.myedumyselect.common.vo.CommonVO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class AdvertiseVO extends CommonVO {
 	private int commonNo = 0;
@@ -21,5 +28,6 @@ public class AdvertiseVO extends CommonVO {
 	private String commonBlockConfirm = "";
 	private String commonBlockDate = "";
 	private String commonThumb = "";
-
+	private String commonFile = "";
+	private List<FileVO> fileVO; 
 }

@@ -9,17 +9,11 @@ $(function() {
 		// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm)
 		$("#detailForm").attr({
 			"method" : "get",
-			"action" : "/adminBoard/boardDetail"
+			"action" : "/adminBoard/freeBoardDetail"
 		});
 		$("#detailForm").submit();
 	});
 		
-
-	
-	$("#insertFormBtn").on("click", () => {
-		location.href = "/adminBoard/writeForm";
-	});
-	
 		/* 입력 양식 enter 제거 */
 	$("#keyword").bind("keydown", function(event) {
 		if (event.keyCode == 13) {
@@ -52,7 +46,7 @@ $(function() {
 		$("#noticeForm").find("input[name='pageNum']").val($(this).attr("href"));
 			$("#noticeForm").attr({
 				"method" : "get",
-				"action" : "/adminBoard/notice"
+				"action" : "/adminBoard/free"
 			});
 			$("#noticeForm").submit();
 	});
@@ -64,7 +58,7 @@ function goPage() {
 	}
 	$("#noticeForm").attr({
 		"method" : "get",
-		"action" : "/adminBoard/notice"
+		"action" : "/adminBoard/free"
 	});
 	$("#noticeForm").submit();
 }

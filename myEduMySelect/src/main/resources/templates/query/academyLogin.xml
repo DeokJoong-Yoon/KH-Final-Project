@@ -3,7 +3,7 @@
 <mapper namespace="com.myedumyselect.academy.dao.AcademyLoginDao">
 
     <resultMap type="academyLogin" id="academyLoginMap">
-        <id column="academy_id" property="academy"/>
+        <id column="academy_id" property="academyId"/>
         <result column="member_type_id" property="memberTypeId"/>
         <result column="academy_number" property="academyNumber"/>
         <result column="academy_join_date" property="academyJoinDate"/>
@@ -28,139 +28,179 @@
         <result column="academy_login_fail_count" property="academyLoginFailCount"/>
         <result column="academy_account_banned_date" property="academyAccountBannedDate"/>
     </resultMap>
-	
-	<!-- 로그인 select -->
-   	<select id="findByIdAndPasswd" parameterType="Map" resultMap="academyLoginMap">
-      SELECT DISTINCT 
-	      academy_id, 
-	      academy_passwd, 
-	      academy_number,
-	      academy_name, 
-	      academy_manager_email, 
-	      academy_gu_address, 
-	      academy_road_address, 
-	      academy_dong_address
-      FROM 
-      	tb_academy
-      WHERE 
-      	academy_id = #{academyId} AND academy_passwd = #{academyPasswd}
-   	</select>
-	
-	
-    <!-- 회원가입 insert -->
-   	<insert id="academyInsert" parameterType="academyLogin">
-       INSERT INTO tb_academy (
-            academy_id,
-            member_type_id,
-            academy_number,
-            academy_join_date,
-            academy_passwd,
-            academy_name,
-            academy_gu_address,
-            academy_dong_address,
-            academy_road_address,
-            academy_phone,
-            academy_manager_name,
-            academy_manager_email,
-            academy_manager_phone,
-            academy_target_grade,
-            academy_target_subject,
-            academy_keyword1,
-            academy_keyword2,
-            academy_keyword3,
-            academy_keyword4,
-            academy_keyword5,
-            academy_fee,
-            academy_passwd_change_date,
-            academy_login_fail_count,
-            academy_account_banned_date)
-        VALUES (
-            #{academyId},
-            #{memberTypeId},
-            #{academyNumber},
-            #{academyJoinDate},
-            #{academyPasswd},
-            #{academyName},
-            #{academyGuAddress},
-            #{academyDongAddress},
-            #{academyRoadAddress},
-            #{academyPhone},
-            #{academyManagerName},
-            #{academyManagerEmail},
-            #{academyManagerPhone},
-            #{academyTargetGrade},
-            #{academyTargetSubject},
-            #{academyKeyword1},
-            #{academyKeyword2},
-            #{academyKeyword3},
-            #{academyKeyword4},
-            #{academyKeyword5},
-            #{academyFee},
-            #{academyPasswdChangeDate},
-            #{academyLoginFailCount},
-            #{academyAccountBannedDate})
-   	</insert>  	
-   	
-   	<!-- 아이디 중복 체크 쿼리 -->
-	<select id="duplicate" resultType="int">
-		select count(*) from tb_academy where academy_id = #{academyId}	    
-	</select>
-   	
-   	<select id="findById" parameterType="String" resultMap="academyLoginMap">
-	   	select 
-	   		academy_id,
-            member_type_id,
-            academy_number,
-            academy_join_date,
-            academy_passwd,
-            academy_name,
-            academy_gu_address,
-            academy_dong_address,
-            academy_road_address,
-            academy_phone,
-            academy_manager_name,
-            academy_manager_email,
-            academy_manager_phone,
-            academy_target_grade,
-            academy_target_subject,
-            academy_keyword1,
-            academy_keyword2,
-            academy_keyword3,
-            academy_keyword4,
-            academy_keyword5,
-            academy_fee,
-            academy_passwd_change_date,
-            academy_login_fail_count,
-            academy_account_banned_date
-	  	from 
-	  		TB_ACADEMY
-	  	where
-	  		TB_ACADEMY.ACADEMY_ID = #{academyId}
-   	</select>
-   	
-   	<!-- 학원정보소스테이블 정보 조회 -->
-   	<select id="findByNumber" parameterType="String" resultMap="academyLoginMap">
-   		select 
-   			academy_number,
-   			academy_name,
-   			academy_gu_address,
-   			academy_road_address,
-   			academy_dong_address
-   		from 
-   			tb_academy_source
-   		where 
-   			tb_academy_source.academy_number = #{academyNumber}
-   	</select>
-   	    
-   	    
-    <!-- SELECT 기능 구현 
-    <select id="selectAcademyById" resultMap="academyResultMap" parameterType="AcademySignUpVo">
-        SELECT * FROM tb_academy WHERE academy_id = #{academyId}
-    </select>-->
 
-    <!-- UPDATE 기능 구현 
-    <update id="updateAcademy" parameterType="Academy">
-        UPDATE tb_academy
+    <!-- 로그인 select -->
+    <select id="findByIdAndPasswd" parameterType="Map" resultMap="academyLoginMap">
+        SELECT DISTINCT
+	        academy_id,
+	        academy_passwd,
+	        academy_number,
+	        academy_name,
+	        academy_manager_email,
+	        academy_gu_address,
+	        academy_road_address,
+	        academy_dong_address
+        FROM
+        	tb_academy
+        WHERE
+        	academy_id = #{academyId} AND academy_passwd = #{academyPasswd}
+    </select>
+
+
+    <!-- 회원가입 insert -->
+	<insert id="academyInsert" parameterType="academyLogin">
+	    INSERT INTO tb_academy (	    
+	        academy_id,
+	        member_type_id,
+	        academy_number,
+	        academy_join_date,
+	        academy_passwd,
+	        academy_name,
+	        academy_gu_address,
+	        academy_dong_address,
+	        academy_road_address,
+	        academy_phone,
+	        academy_manager_name,
+	        academy_manager_email,
+	        academy_manager_phone,
+	        academy_target_grade,
+	        academy_target_subject,
+	        academy_keyword1,
+	        academy_keyword2,
+	        academy_keyword3,
+	        academy_keyword4,
+	        academy_keyword5,
+	        academy_fee,
+	        academy_passwd_change_date,
+	        academy_login_fail_count,
+	        academy_account_banned_date
+	    ) VALUES (
+	        #{academyId},
+	        #{memberTypeId},
+	        #{academyNumber},
+	        #{academyJoinDate},
+	        #{academyPasswd},
+	        #{academyName},
+	        #{academyGuAddress},
+	        #{academyDongAddress},
+	        #{academyRoadAddress},
+	        #{academyPhone},
+	        #{academyManagerName},
+	        #{academyManagerEmail},
+	        #{academyManagerPhone},
+	        #{academyTargetGrade},
+	        #{academyTargetSubject},
+	        <choose>
+	            <!-- 사용자가 선택한 키워드 개수에 따라 쿼리가 동적으로 생성됨 -->
+	            <when test="academyKeyword1 != null">
+	                #{academyKeyword1},
+	            </when>
+	            <otherwise>null,</otherwise>
+	        </choose>
+	        <choose>
+	            <when test="academyKeyword2 != null">
+	                #{academyKeyword2},
+	            </when>
+	            <otherwise>null,</otherwise>
+	        </choose>
+	        <choose>
+	            <when test="academyKeyword3 != null">
+	                #{academyKeyword3},
+	            </when>
+	            <otherwise>null,</otherwise>
+	        </choose>
+	        <choose>
+	            <when test="academyKeyword4 != null">
+	                #{academyKeyword4},
+	            </when>
+	            <otherwise>null,</otherwise>
+	        </choose>
+	        <choose>
+	            <when test="academyKeyword5 != null">
+	                #{academyKeyword5},
+	            </when>
+	            <otherwise>null,</otherwise>
+	        </choose>
+	        #{academyFee},
+	        #{academyPasswdChangeDate},
+	        #{academyLoginFailCount},
+	        #{academyAccountBannedDate}
+	    )
+	</insert>
+
+
+    <!-- 아이디 중복 체크 쿼리 -->
+    <select id="checkId" resultType="int">
+        select
+        	count(*)
+        from
+        	tb_academy
+        where
+        	academy_id = #{academyId}
+    </select>
+
+    <!-- 이메일 중복 체크 쿼리-->
+    <select id="checkEmail" parameterType="academyLogin" resultType="int">
+        select
+        	count(academy_manager_email)
+        from
+        	tb_academy
+        where
+        	academy_manager_email = #{academyManagerEmail}
+    </select>
+	
+	
+    <select id="findById" parameterType="String" resultMap="academyLoginMap">
+        select
+	        academy_id,
+	        member_type_id,
+	        academy_number,
+	        academy_join_date,
+	        academy_passwd,
+	        academy_name,
+	        academy_gu_address,
+	        academy_dong_address,
+	        academy_road_address,
+	        academy_phone,
+	        academy_manager_name,
+	        academy_manager_email,
+	        academy_manager_phone,
+	        academy_target_grade,
+	        academy_target_subject,
+	        academy_keyword1,
+	        academy_keyword2,
+	        academy_keyword3,
+	        academy_keyword4,
+	        academy_keyword5,
+	        academy_fee,
+	        academy_passwd_change_date,
+	        academy_login_fail_count,
+	        academy_account_banned_date
+        from
+        	TB_ACADEMY
+        where
+        	TB_ACADEMY.ACADEMY_ID = #{academyId}
+    </select>
+
+    <!-- 학원정보소스테이블 정보 조회 -->
+    <select id="findByNumber" parameterType="String" resultMap="academyLoginMap">
+        select
+	        academy_number,
+	        academy_name,
+	        academy_gu_address,
+	        academy_road_address,
+	        academy_dong_address
+        from
+        	tb_academy_source
+        where
+        	academy_number = #{academyNumber}
+    </select>
+        
+
+    <!-- UPDATE 기능 구현 </update>-->
+    <update id="academyUpdate" parameterType="academyLogin">
+        UPDATE 
+        	tb_academy
         SET
             member_type_id = #{memberTypeId}, 
             academy_number = #{academyNumber}, 
@@ -185,14 +225,20 @@
             academy_passwd_change_date = #{academyPasswdChangeDate}, 
             academy_login_fail_count = #{academyLoginFailCount}, 
             academy_account_banned_date = #{academyAccountBannedDate}
-        WHERE academy_id = #{academyId}
-    </update>-->
+        WHERE 
+        	academy_id = #{academyId}
+    </update>
 
     <!-- DELETE 기능 구현 
     <delete id="deleteAcademy" parameterType="int">
-        DELETE FROM tb_academy WHERE academy_id = #{academyId}
+        DELETE 
+        
+        FROM 
+        	tb_academy
+        WHERE 
+        	academy_id = #{academyId}
     </delete>-->
-    
-   
+
+
 
 </mapper>

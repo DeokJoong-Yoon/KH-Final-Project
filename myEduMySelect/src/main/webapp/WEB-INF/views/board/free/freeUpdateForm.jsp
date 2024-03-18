@@ -117,19 +117,19 @@
 							</div>
 						</div>
 						<form id="updateForm" name="updateForm">
-							<input type="hidden" id="common_no_hidden" name="common_no" value="${freeUpdateData.common_no}" />
+							<input type="hidden" id="commonNo_hidden" name="commonNo" value="${freeUpdateData.commonNo}" />
 							<table>
 								<tr>
-									<td colspan="12" class="text-start"><input type="text" id="common_title" name="common_title" value="${freeUpdateData.common_title}"	placeholder="제목을 입력해 주세요" /></td>
+									<td colspan="12" class="text-start"><input type="text" id="commonTitle" name="commonTitle" value="${freeUpdateData.commonTitle}"	placeholder="제목을 입력해 주세요" /></td>
 								</tr>
 								<tr>
-									<td colspan="3" class="text-start">글번호 : ${freeUpdateData.common_no} (조회수 : ${freeUpdateData.common_readcnt})</td>
-									<td colspan="3" class="text-start">작성자 : ${freeUpdateData.personal_id}</td>
-									<td colspan="3" class="text-start">작성일 : ${freeUpdateData.common_register_date}</td>
+									<td colspan="3" class="text-start">글번호 : ${freeUpdateData.commonNo} (조회수 : ${freeUpdateData.commonReadcnt})</td>
+									<td colspan="3" class="text-start">작성자 : ${freeUpdateData.personalId}</td>
+									<td colspan="3" class="text-start">작성일 : ${freeUpdateData.commonRegisterDate}</td>
 									<td colspan="3" class="text-start">좋아요 :</td>
 								</tr>
 								<tr>
-									<td><textarea name="common_content" id="common_content" class="form-control custom-textarea" placeholder="내용을 입력해주세요.">${freeUpdateData.common_content}</textarea></td>
+									<td><textarea name="commonContent" id="commonContent" class="form-control custom-textarea" placeholder="내용을 입력해주세요.">${freeUpdateData.commonContent}</textarea></td>
 								</tr>
 								<%-- <c:if test="${not empty freeUpdateData.File}">
 									<tr>
@@ -266,30 +266,7 @@
 				alert(errorMsg);
 			}
 		});
-		 $(document).ready(function(){
-	            $("#submitBtn").click(function(){
-	                // 사용자가 입력한 데이터 가져오기
-	                var inputData = {
-	                    data1: $("#data1").val(),
-	                    data2: $("#data2").val()
-	                };
 
-	                // AJAX 요청
-	                $.ajax({
-	                    url: "/free/freeDetail",
-	                    type: "POST",
-	                    data: inputData,
-	                    success: function(response) {
-	                        // 성공적으로 응답을 받았을 때 실행되는 코드
-	                        console.log("응답 받은 데이터:", response);
-	                    },
-	                    error: function(xhr, status, error) {
-	                        // 에러 발생 시 실행되는 코드
-	                        console.error("에러 발생:", error);
-	                    }
-	                });
-	            });
-	        });
 	</script>
 
 </body>

@@ -3,8 +3,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ page import="com.myedumyselect.academy.SessionConst" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 
 <html>
@@ -57,7 +57,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
+
 <!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/completeSignUp.css"> -->
 
 </head>
@@ -83,20 +83,23 @@
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
 							<li><a href="#">문의게시판</a></li>
-							<li><a href="/mypage" id="mypageBtn">마이페이지</a></li>
+							<li><a href="/academyaccount/mypage" id="mypageBtn">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 					<c:choose>
-                        <c:when test="${not empty academyLoginVo}">							
-							<li><a class="nav-link scrollto">${academyLoginVo.academyName}님 환영합니다.</a></li>
+                        <c:when test="${not empty commonLogin}">
+                            <li><a class="nav-link scrollto">
+                            <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                            ${commonLogin.name}님 환영합니다.</a></li>
                             <li>
-                                <form action="userAccount/logout" method="POST">
+                                <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
                                     <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
                                 </form>
                             </li>
                         </c:when>
                         <c:otherwise>
-                            <li><a class="getstarted scrollto" href="userAccount/login">로그인/회원가입</a></li>
+                            <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
                         </c:otherwise>
                     </c:choose>
 				</ul>
@@ -115,7 +118,7 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					
+
 
 
 				</div>
@@ -128,15 +131,14 @@
 		</div>
 	</section>
 	<!-- End Hero -->
-	
-    <!-- 회원가입 완료 메시지 -->
-	<div class="signup-message-container">
-	    <div class="signup-message-content">   
-	        <h1>회원가입 완료!</h1>
-	        <h2>${signUpMessage}</h2>
-	        <a href="/" class="btn">홈페이지로 이동</a>
-	    </div>
-	</div>
+  <!-- 회원가입 완료 메시지 -->
+<div class="signup-message-container">
+   <div class="signup-message-content">
+   		<h1>회원가입 완료</h1>
+		<h2>${commonLogin.Name}님 회원가입을 축하드립니다!<br />이제 홈페이지의 모든 서비스를 이용하실수 있습니다.</h2>
+        <a href="/" class="btn">홈페이지로 이동</a>
+    </div>
+</div>
     
     
     <footer id="footer">

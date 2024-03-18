@@ -69,8 +69,19 @@
 	color: white; /* 헤더 텍스트 색상 지정 */
 }
 
-.
-
+.btn {
+	height: 35px;
+	padding: 5px 15px;
+	background-color: #48d1cc;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	margin-left: 5px;
+	float: right;
+}
 
 </style>
 </head>

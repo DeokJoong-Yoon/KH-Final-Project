@@ -1,12 +1,10 @@
 package com.myedumyselect.academy.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myedumyselect.academy.AcademySignUpDto;
-import com.myedumyselect.academy.controller.AcademyIdDuplicateException;
+
+import com.myedumyselect.academy.vo.AcademySignUpVo;
 import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
 
@@ -14,56 +12,88 @@ import lombok.Setter;
 
 @Service
 public class AcademyLoginServiceImpl implements AcademyLoginService {
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginDao academyLoginDao;
-	
-	
+
+
+	// 로그인
 	@Override
-	public Optional<AcademyLoginVo> loginProcess(String academyId, String academyPasswd) {
+	public AcademyLoginVo loginProcess(String academyId, String academyPasswd) {
 		return academyLoginDao.findByIdAndPasswd(academyId, academyPasswd);
-		
-		// Exception 활용
-		// Optional<AcademyLoginVo> optional = academyLoginDao.findByIdAndPasswd(academyLoginDto.getAcademyId(),
-		// 																academyLoginDto.getAcademyPasswd());
-		// if(optional.isEmpty()) {
-			// 로그인 실패일 때
-		// 	throw new AcademyLoginException();
-		// }
-		
-		// return optional.get();
 	}
-	
-	
-	public void academyInsert(AcademySignUpDto academySignUpDto) {
-		Optional<AcademyLoginVo> optional = academyLoginDao.findById(academySignUpDto.getAcademyId());
-		
-		// DB에서 조회한 값이 있으면
-		if(optional.isPresent()) {
-			// RuntimeException 던지기 (컨트롤러로)
-			throw new AcademyIdDuplicateException();
-		}
-		
-		academyLoginDao.academyInsert(academySignUpDto.toVo());
+ 
+	// 회원가입
+	public int academyInsert(AcademySignUpVo academySignUpVo) {
+		int result = 0;
+		result = academyLoginDao.academyInsert(academySignUpVo.toAcademyLoginVo());
+		return result;
+	}
+
+	/*
+	// 로그인 실패 횟수
+	@Override
+	public int updateacademyLoginFailCount(academyLoginVo login) {
+		return academyLoginDao.updateacademyLoginFailCount(login);
 	}
 
 
 	@Override
-	public Optional<AcademyLoginVo> findById(String academyId) { 
+	public int updateAccountBannedDate(String academyId, Date bannedDate) {
+		return academyLoginDao.updateAccountBannedDate(academyId, bannedDate);
+	}
+	*/
+
+	// 마이페이지에 Id값을 기준으로 정보 불러올 떄
+	@Override
+	public AcademyLoginVo findById(String academyId) {
 		return academyLoginDao.findById(academyId);
 	}
 	
+	// 마이페이지 정보 수정
 	@Override
-    public boolean isAcademyIdDuplicate(String academyId) {
-        // DAO를 통해 중복된 아이디가 있는지 확인하고 결과를 반환합니다.
-        Optional<AcademyLoginVo> existingAcademy = academyLoginDao.findById(academyId);
-        return existingAcademy.isPresent();
-    }
-
-
+	public int academyUpdate(AcademyLoginVo login) {
+		int result = 0;
+		result = academyLoginDao.academyUpdate(login);
+		return result;
+	}
+	
+	// 아이디 중복체크
 	@Override
-	public Optional<AcademyLoginVo> findByNumber(String academyNumber) {		
+	public int checkId(String id) {
+		int cnt = 0;
+		try {
+			cnt = academyLoginDao.checkId(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}
+	
+	// 이메일 중복체크
+	@Override
+	public int checkEmail(String email) {
+		int cnt = 0;
+		try {
+			cnt = academyLoginDao.checkEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}
+	
+	// 사업자등록번호 중복체크
+	@Override
+	public AcademyLoginVo findByNumber(String academyNumber) {		
 		return academyLoginDao.findByNumber(academyNumber);
 	}
 	
+	/*/ 사업자등록번호로 정보 조회
+	@Override
+	public AcademyLoginVo getAcademyInfo(String academyNumber) {
+		return academyLoginDao.findByNumber(academyNumber);
+	}*/
+
 }

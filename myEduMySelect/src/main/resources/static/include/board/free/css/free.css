@@ -367,8 +367,8 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #hero {
 	width: 100%;
-	height: 80vh;
-	background: #48d1cc;
+	height: 350px;
+	background-color: #48d1cc;
 }
 
 #hero .container {
@@ -538,12 +538,52 @@ section {
 	margin-bottom: 0;
 }
 
+.banner {
+    text-align: center;
+    font-size: 45px;
+	font-weight: 600; 
+    color: white;
+    width : 100%;
+    margin-top:-70px;
+}
+
+
+.descBox {
+	background-color : white;
+	color : #37517e;
+	font: 15px bold;
+	margin-top: 25px;
+	margin-bottom: -20px;
+	padding : 35px;
+	text-align: left;
+	border-radius: 20px;
+}
+
+.descBox span {
+	font-size: 18px;
+}
+
+
+.list {
+	background-color : #fff;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+	padding : 10px;
+	background-color : #f3f5fa;
+}
+	
+
 .list-group {
 	position: fixed;
 	margin: 0 0 50% 0;
 	padding: 10px;
 	top: 10%;
 	left: 15%;
+}
+
+
+.list table {
+	width: 100%;
+    border-collapse: collapse;
 }
 
 .list-group-item-action {
@@ -601,8 +641,17 @@ table{
 }
 
 #searchData {
-	height: 38px;
-	padding: 0 15px;
+	height:35px;
+    padding: 5px 15px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 5px;
+    float: right;
 
 }
 
@@ -625,8 +674,21 @@ table{
 	position: absolute;
 	margin-top:14%;
 	margin-left:35%;
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    float: right;
+    font-weight: 600;
+    margin-top : 20px;
 }
 
+#searchData:hover, #freeWriterBtn:hover {
+	background-color: #37517e;
+}
 
 .content-size {
 	width: 300px;
@@ -638,6 +700,7 @@ table{
 	position: absolute;
 	margin-top:14%;
 	margin-left:9%;
+	margin-bottom: 30px;
 }
 /*--------------------------------------------------------------
 # Clients

@@ -70,11 +70,26 @@
               <li><a href="#">홍보게시판</a></li>
               <li><a href="#">매칭게시판</a></li>
               <li><a href="#">문의게시판</a></li>
-              <li><a href="/mypage">마이페이지</a></li>
+              <li><a href="/academyaccount/mypage">마이페이지</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
+          <c:choose>
+              <c:when test="${not empty commonLogin}">
+                  <li><a class="nav-link scrollto">
+                  <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
+                  <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                  ${commonLogin.name}님 환영합니다.</a></li>
+                  <li>
+                      <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                          <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                      </form>
+                  </li>
+              </c:when>
+              <c:otherwise>
+                  <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+              </c:otherwise>
+          </c:choose>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -88,7 +103,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>회원가입</h1>
+          <h1>학원회원 로그인</h1>
           <h2>회원은 개인회원과 학원회원으로 나뉘어 집니다.</h2>
 
         </div>
@@ -104,43 +119,42 @@
     <!-- ======= academySignUp Form ======= -->
 
     <h1 style="text-align:center">로그인</h1>
-    <form:form action="/userAccount/login" modelAttribute="userAccountLoginDto" method="POST">
-    	<h1>로그인 페이지</h1>
-    	<!-- 글로벌 에러 출력 -->
-	    <spring:hasBindErrors name="userAccountLoginDto">
-           	<c:forEach var="error" items="${errors.globalErrors}">
-                <p class="error">${error.defaultMessage}</p>
-           	</c:forEach>
-	    </spring:hasBindErrors>
-			<div class="row">
-				<div class="col-md-4">
-					<form:radiobutton path="userAccountType" value="1" id="userAccountType1" />
-					<label for="userAccountType1" style="font-weight: 300;">개인</label>
-				</div>
-				<div class="col-md-4">
-					<form:radiobutton path="userAccountType" value="2" id="userAccountType2" />
-					<label for="userAccountType2" style="font-weight: 300;">학원</label>
-				</div>
-			</div>
+    <c:if test="${empty commonLogin}">
+        <form:form action="/academyaccount/login" modelAttribute="loginVo" method="POST">
+            <h1>학원 로그인 페이지</h1>
+            <!-- 글로벌 에러 출력 -->
+            <spring:hasBindErrors name="userAccountLoginDto">
+                <c:forEach var="error" items="${errors.globalErrors}">
+                    <p class="error">${error.defaultMessage}</p>
+                </c:forEach>
+            </spring:hasBindErrors>
 
-			<form:input path="academyId" type="text" name="academyId" id="academyId"
-				placeholder="아이디를 입력해주세요"/> <label for="academyId">아이디</label>
-			<form:errors path="academyId" cssClass="error" />
-		</div>
-		<div>
-			<form:input path="academyPasswd" type="password" name="academyPasswd" id="academyPasswd"
-				placeholder="비밀번호를 입력해주세요"/> <label for="academyPasswd">비밀번호</label>
-			<form:errors path="academyPasswd" cssClass="error" />
-		</div>
-		<button type="submit" id="loginBtn">로그인</button>
-   	</form:form>
-   	
-   	<!-- <c:if test="${not empty academyLogin}">
-			<h3>${academyLogin.academyName}님 환영합니다.</h3>
-			<button type="button" id="logoutBtn">로그아웃</button>
-	</c:if> -->
-   	
-   	<form method="GET" action="/userAccount/join" id="joinForm">
+                <!-- memberTypeId -->
+                <input type="hidden" name="memberTypeId" value="2">
+
+                <!-- id -->
+                <form:input path="id" type="text" name="id" id="id"
+                    placeholder="아이디를 입력해주세요"/> <label for="id">아이디</label>
+                <form:errors path="id" cssClass="error" />
+            </div>
+            <div>
+                <!-- passwd -->
+                <form:input path="passwd" type="password" name="passwd" id="passwd"
+                    placeholder="비밀번호를 입력해주세요"/> <label for="passwd">비밀번호</label>
+                <form:errors path="passwd" cssClass="error" />
+            </div>
+            <button type="submit" id="loginBtn">로그인</button>
+        </form:form>
+   	</c:if>
+
+   	<c:if test="${not empty commonLogin}">
+        <h3>${commonLogin.name}님 환영합니다.</h3>
+        <form method="POST" action="/useraccount/logout" id="joinForm">
+            <button class="join-button" type="submit">로그아웃</button>
+        </form>
+    </c:if>
+
+   	<form method="GET" action="/academyaccount/join" id="joinForm">
 		<button class="join-button" type="submit">회원가입하러가기</button>
 	</form>
 
@@ -152,7 +166,22 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
+	<!-- <script>
+	  $(document).ready(function() {
+	    let errorMsg = "${errorMsg}";
+	    if (errorMsg) {
+	        alert(errorMsg);
+	        errorMsg = "";
+	    }
+	    
+	    if (${not empty personalLogin}) {
+	        let personalName = "${commonLogin.name}"; 
+	        alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
+	    }
+	  });
+	</script> -->
+	
+	<!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -223,6 +252,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -231,8 +261,7 @@
   <script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  <!-- Template Main JS File -->  
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>
 

@@ -1,6 +1,6 @@
 package com.myedumyselect.academy.dao;
 
-import java.util.Optional;
+//import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,12 +9,27 @@ import com.myedumyselect.academy.vo.AcademyLoginVo;
 
 @Mapper
 public interface AcademyLoginDao {
-	Optional<AcademyLoginVo> findByIdAndPasswd(@Param("academyId") String academyId,
-													@Param("academyPasswd")String academyPasswd);
-	void academyInsert(AcademyLoginVo academyLoginVo); 
-	Optional<AcademyLoginVo> findById(String academyId);
+	AcademyLoginVo findByIdAndPasswd(@Param("academyId") String academyId,
+									 @Param("academyPasswd")String academyPasswd);
+	// 회원가입
+	int academyInsert(AcademyLoginVo academyLoginVo);
 	
-	/* tb_academy_source 정보 조회 */
-	Optional<AcademyLoginVo> findByNumber(String academyNumber);
+	// 아이디 찾기
+	AcademyLoginVo findById(String academyId);
 	
+	// 사업자 등록번호 찾기
+	AcademyLoginVo findByNumber(String academyNumber);
+	
+	// 아이디 중복검사
+	int checkId(String academyId);
+	
+	// 이메일 중복검사
+	int checkEmail(String academyManagerEmail);
+	
+	// 마이페이지 회원정보 수정
+	public int academyUpdate(AcademyLoginVo login);
+	
+	
+	
+	// TODO: int academyUpdate(AcademyLoginVo login);
 }

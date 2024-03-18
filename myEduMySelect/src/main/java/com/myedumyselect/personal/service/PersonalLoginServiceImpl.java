@@ -74,6 +74,12 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		return personalLogin;
 
 	}
+	
+	// 마이페이지 정보 조회
+	@Override
+	public PersonalLoginVO findId(String personalId) {
+		return personalLoginDao.findId(personalId);
+	}
 
 	// 마이페이지 정보수정
 	@Override

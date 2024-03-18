@@ -91,6 +91,17 @@
 		WHERE
 		personal_id = #{personalId}
 	</select>
+	
+	<select id="findId" parameterType="personalLogin" resultMap="personalLoginMap">
+		SELECT personal_id,
+		personal_name, personal_email,
+		personal_birth,
+		personal_address,
+		personal_phone
+		FROM tb_personal
+		WHERE
+		tb_personal.personal_id = #{personalId}
+	</select>
 
 	<!-- 마이페이지 수정 -->
 	<update id="personalUpdate" parameterType="personalLogin">

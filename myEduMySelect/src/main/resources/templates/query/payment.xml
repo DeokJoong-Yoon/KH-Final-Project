@@ -7,7 +7,7 @@
 		<result column="pay_method" property="payMethod" />
 		<result column="merchant_uid" property="merchantUid" />
 		<result column="name" property="name" />
-		<result column="amount" property="amount" />
+		<!-- <result column="amount" property="amount" /> -->
 		<result column="academy_id" property="academyId" />
 		<result column="academy_number" property="academyNumber" />
 		<result column="academy_name" property="academyName" />
@@ -19,14 +19,74 @@
 			property="academyManagerPhone" />
 		<result column="payment_status" property="paymentStatus" />
 		<result column="payment_date" property="paymentDate" />
+		<result column="amount" property="payAmount" />
 	</resultMap>
+
+	<sql id="boardSearch">
+		<if test="search == 'academy_name'">
+		<![CDATA[ academy_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'academy_id'"> 
+		<![CDATA[ academy_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+	<!-- 전체 레코드 수 조회 -->
+	<select id="boardListCnt" parameterType="payment"
+		resultType="int">
+		SELECT count(*) FROM
+		tb_payment
+		<trim prefix=" where (" suffix=")">
+			<include refid="boardSearch"></include>
+		</trim>
+	</select>
+
+	<select id="boardList" parameterType="payment"
+		resultMap="paymentMap"> 
+		<![CDATA[
+		SELECT *
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
+			rownum as rnum, payment_id, pg, pay_method, merchant_uid, name, academy_id, academy_number, academy_name, academy_manager_name,
+			academy_manager_email, academy_manager_phone, payment_status, payment_date, amount
+			FROM (
+				select * from tb_payment
+				order by payment_date desc
+			) sortedBoardList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="boardSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
 	
-	<select id="paymentSelect" parameterType="payment" resultMap="paymentMap">
+	<select id="boardDetail" parameterType="payment"
+		resultMap="paymentMap">
+		SELECT
+		*
+		FROM tb_payment
+		WHERE
+		payment_id = #{paymentId}
+	</select>
+	
+	<delete id="boardDelete" parameterType="payment">
+		DELETE FROM
+		tb_payment
+		WHERE
+		payment_id = #{paymentId}
+	</delete>
+
+
+	<select id="paymentSelect" parameterType="payment"
+		resultMap="paymentMap">
 		SELECT * from tb_payment
 		WHERE
 		merchant_uid = #{merchantUid}
 	</select>
-	
+
 	<insert id="paymentInsert" parameterType="payment">
 		insert into tb_payment(
 		payment_id,
@@ -49,7 +109,7 @@
 		#{payMethod},
 		#{merchantUid},
 		#{name},
-		#{amount},
+		#{payAmount},
 		#{academyId},
 		#{academyNumber},
 		#{academyName},

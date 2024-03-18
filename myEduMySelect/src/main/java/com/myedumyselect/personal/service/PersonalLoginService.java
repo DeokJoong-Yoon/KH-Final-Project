@@ -29,4 +29,6 @@ public interface PersonalLoginService {
 
 	/// 회원정보 수정
 	public int personalUpdate(PersonalLoginVO login);
+	
+	PersonalLoginVO findId(String personalId);
 }

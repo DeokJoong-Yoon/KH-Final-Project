@@ -10,12 +10,12 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class FreeVO extends CommonVO {
-	private int common_no	=0;
-	private String personal_id	="";
-	private int member_type_id	=0;
-	private String common_title	="";
-	private String common_content	="";
-	private String common_register_date;
-	private String common_edit;
-	private int common_readcnt	=0;
+	private int commonNo	=0;
+	private String personalId	="";
+	private int memberTypeId	=0;
+	private String commonTitle	="";
+	private String commonContent	="";
+	private String commonRegisterDate;
+	private String commonEdit;
+	private int commonReadcnt	=0;
 }

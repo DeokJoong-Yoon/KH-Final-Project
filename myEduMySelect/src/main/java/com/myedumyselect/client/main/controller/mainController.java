@@ -8,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
+import com.myedumyselect.auth.SessionInfo;
+import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.client.main.service.MainService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
@@ -19,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@SessionAttributes(SessionInfo.COMMON)
 public class mainController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -29,7 +33,30 @@ public class mainController {
 //		return "main/main";
 //	}
 	
+	@GetMapping("/")
+	public String mainIndex(Model model,  HttpSession session) {
+		
+		//개인+학원 공통 로그인 세션(통합)
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		String userId = "";
+		if(loginVo != null) {
+			log.info("로그인 세션 있음");
+			userId = loginVo.getId();
+		} else {
+			log.info("로그인 세션 없음");
+		}
+		model.addAttribute("userId", userId);
+		
+		return "main/main";
+	}
 	
+	// 개인/학원 로그인 선택화면
+	@GetMapping("/loginselect")
+	public String loginSelect() {
+		return "main/loginSelect";
+	}
+	
+	/*
 	@GetMapping("/")
 	public String mainIndex( Model model,  HttpSession session) {
 		
@@ -45,7 +72,7 @@ public class mainController {
 		model.addAttribute("userId", userId);
 		
 		return "main/main";
-	}
+	}*/
 	
 	
 	

@@ -25,27 +25,17 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="/resources/include/assets/vendor/aos/aos.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link href="/resources/include/assets/vendor/remixicon/remixicon.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+<link href="/resources/include/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
 
 <!-- Template Main CSS File -->
+<link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/board/free/css/freeDetail.css"
 	rel="stylesheet">
 
@@ -96,84 +86,81 @@
 	</header>
 	<!-- End Header -->
 
-	<!-- ======= 게시판 상세페이지 영역 ======= -->
-	<section id="hero"
-		class="d-flex align-items-center justify-content-center">
-		<div class="container">
+	<!-- ======= 설명 영역 ======= -->
+	<section id="hero" class="d-flex align-items-center  justify-content-center">
+		<div class="container" >
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<div class="text-center">
-						<h1>자유게시판 상세화면</h1>
+				<form id="detailForm">
+					<input type="hidden" id="commonNo" name="commonNo" />
+				</form>
+
+				<div class="col-12 text-center banner">
+		            자유 게시판<br/>
+		            <div class="descBox">
+		            	자유롭게 글을 작성할 수 있는 자유게시판입니다.<br>
+		            	질문, 후기, 정보 등 다양한 글을 남겨주세요!
+		            </div>
+		       </div> 
+		    </div>
+		</div>
+	</section> <!-- ======= 설명 영역 끝 ======= -->
+	
+	
+	<main id="main">
+	
+		<!-- ======= 자유게시판 상세 보기 ======= -->
+		<section class="board">
+		
+			<div class="container">
+
+				<form id="f_data" name="f_data">
+					<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo}"/>
+		      	</form>
+					<div class="boardDetail">
+						<table class="table text-center" id="table">
+							<thead>
+								<tr>
+									<td colspan="12" class="text-center">제목 :
+										${detail.commonTitle}</td>
+								</tr>
+								<tr>
+									<td colspan="3" class="text-start">글번호 :
+										${detail.commonNo} (조회수 : ${detail.commonReadcnt})</td>
+									<td colspan="3" class="text-start">작성자 :
+										${detail.personalId}</td>
+									<td colspan="3" class="text-start">작성일 :
+										${detail.commonRegisterDate}</td>
+									<td colspan="3" class="text-start">좋아요 :</td>
+								</tr>
+							</thead>
+	
+							<tbody>
+								<tr>
+									<th colspan="2" class="text-center">내용</th>
+									<td colspan="10" rowspan="10"
+										class="text-start content-size">${detail.commonContent}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<div class="container">
 
-							<form id="f_data" name="f_data" action="/free/freeUpdateForm"
-								method="post">
-								<input type="hidden" id="common_no" value="${detail.common_no}" />
-							</form>
-
-
-							<div class="row">
-								<div class="col-3 list-group">
-									<a href="/free/freeList"
-										class="list-group-item list-group-item-action">자유게시판</a> <a
-										href="/advertise/advertiseList"
-										class="list-group-item list-group-item-action">홍보게시판</a> <a
-										href="#" class="list-group-item list-group-item-action">공지게시판</a>
-								</div>
-								<div class="col-lg-9 table-container">
-									<table class="table text-center" id="table">
-										<thead>
-											<tr>
-												<td colspan="12" class="text-center">제목 :
-													${detail.common_title}</td>
-											</tr>
-											<tr>
-												<td colspan="3" class="text-start">글번호 :
-													${detail.common_no} (조회수 : ${detail.common_readcnt})</td>
-												<td colspan="3" class="text-start">작성자 :
-													${detail.personal_id}</td>
-												<td colspan="3" class="text-start">작성일 :
-													${detail.common_register_date}</td>
-												<td colspan="3" class="text-start">좋아요 :</td>
-											</tr>
-										</thead>
-
-										<tbody>
-											<tr>
-												<th colspan="2" class="text-center">내용</th>
-												<td colspan="10" rowspan="10"
-													class="text-start content-size">${detail.common_content}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="col-md-12 text-end ms-auto" id=BtnGroup>
-								<button type="button" id="freeUpdateBtn"
-									class="btn btn-primary btn-sm">글수정</button>
-								<button type="button" id="freeDeleteBtn"
-									class="btn btn-primary btn-sm">글삭제</button>
-								<button type="button" id="freeWriterBtn"
-									class="btn btn-primary btn-sm">글쓰기</button>
-								<button type="button" id="freeListBtn"
-									class="btn btn-primary btn-sm">목록</button>
-							</div>
-						</div>
-						<div style="margin-top: 20px;">
-							<jsp:include page="freereply.jsp" />
-						</div>
-
-					</div>
+					
+				<div class="col-md-12 text-end ms-auto" id=BtnGroup>
+					<button type="button" id="freeUpdateBtn" class="btn btn-primary btn-sm">글수정</button>
+					<button type="button" id="freeDeleteBtn" class="btn btn-primary btn-sm">글삭제</button>
+					<button type="button" id="freeWriterBtn" class="btn btn-primary btn-sm">글쓰기</button>
+					<button type="button" id="freeListBtn" class="btn btn-primary btn-sm">목록</button>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-			data-aos-delay="200"></div>
-	</section>
+		
+		</section>  <!-- 자유게시판 상세보기 끝 -->
+		
+	</main>
+
+	
+	<%-- <section >
+			<jsp:include page="freereply.jsp" />
+	</section> --%>
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -278,19 +265,21 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/board/free/js/freeDetail.js"></script>
-	<script src="/resources/include/board/common/main.js"></script>
+	<!-- 
 	<script>
 	$(document).ready(function() {
-	    let common_no = null; // 예시로 고정된 common_no
+	    let commonNo = null;
 
 	    // AJAX 요청을 통해 상세 정보를 받아옴
-	    $.getJSON("/free/getDetail/" + common_no, function(data) {
+	    $.getJSON("/free/freeDetail?commonNo=" + commonNo, function(data) {
+	    	
 	        let detail = data; // 받아온 데이터를 detail 변수에 저장
 	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
 	    });
 	});
-	</script>
+	</script>  -->
 	
 </body>
 

@@ -16,6 +16,7 @@
 		<result column="common_block_confirm" property="commonBlockConfirm" />
 		<result column="common_block_date" property="commonBlockDate" />
 		<result column="common_thumb" property="commonThumb" />
+		<result column="common_file" property="commonFile" />
 	</resultMap>
 	
 	
@@ -25,6 +26,24 @@
 		<result column="file_no" property="fileNo" />
 		<result column="file_path" property="filePath" />
 		<result column="file_name" property="fileName" />
+	</resultMap>
+	
+	
+	<!-- 게시글 상세 보기를 위한 resultMap -->
+	<resultMap type="advertiseBoard" id="boardAndFile">
+	    <!-- AdvertiseBoardVO에 대한 매핑 -->
+	    <result column="common_no" property="commonNo" />
+	    <result column="common_nickname" property="commonNickname" />
+	    <result column="common_title" property="commonTitle" />
+	    <result column="common_content" property="commonContent" />
+	    <result column="common_register_date" property="commonRegisterDate" />
+	    
+	    <!-- FileVO에 대한 매핑 -->
+	    <collection property="fileVO" ofType="file">
+	        <result column="file_no" property="fileNo"/>
+	        <result column="file_path" property="filePath"/>
+	        <result column="file_name" property="fileName"/>
+	    </collection>
 	</resultMap>
 	
 	
@@ -55,7 +74,7 @@
 		, 		common_readcnt
 		,		common_block_confirm
 		,		common_thumb
-		,		commonCommentCnt
+		,		common_file
 		FROM 	(
 				SELECT /*+ INDEX_DESC(tb_common_board PK_TB_COMMON_BOARD) */
 						rownum as rnum
@@ -68,9 +87,7 @@
 				,		common_readcnt
 				,		common_block_confirm
 				,		common_thumb
-				,		( SELECT COUNT(common_comment_no) 
-	            		  FROM tb_common_comment 
-	            		  WHERE common_no = tb_common_board.common_no)   as commonCommentCnt
+				,		common_file
 	            FROM	tb_common_board
 	            WHERE	rownum <= #{pageNum} * #{amount}
 	            AND		common_no >= 20000 AND common_no < 30000
@@ -85,71 +102,107 @@
 	
 	
 	<!-- 홍보게시판 글 등록 (only 글) -->
-	<!-- <insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="id">
-	    INSERT 
-	    INTO 	tb_common_board (
-					    			common_no
-					    		,	academy_id
-					    		, 	member_type_id
-					    		, 	common_nickname
-					    		, 	common_title
-					    		, 	common_content
-					    		, 	common_register_date
-					    		, 	common_thumb
-				)
-	    VALUES	(
-			    	advertise_board_seq.nextval
-			    , 	#{academyId}
-			    , 	2
-			    , 	#{commonNickname} 
-			    ,	#{commonTitle}
-			    ,	#{commonContent}
-			    ,	sysdate
-			    ,	#{commonThumb}
-		)
-		RETURNING common_no INTO #{commonNo}
-	</insert> -->
-	
-	<insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="id">
+	<insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="commonNo">
 	    <![CDATA[
 	    INSERT INTO tb_common_board (
-	        common_no,
-	        academy_id,
-	        member_type_id,
-	        common_nickname,
-	        common_title,
-	        common_content,
-	        common_register_date,
-	        common_thumb
+	        common_no
+	    ,	academy_id
+	    ,   member_type_id
+	    ,   common_nickname
+	    ,   common_title
+	    ,   common_content
+	    ,   common_register_date
 	    )
 	    VALUES (
-	        advertise_board_seq.nextval,
-	        #{academyId},
-	        2,
-	        #{commonNickname},
-	        #{commonTitle},
-	        #{commonContent},
-	        sysdate,
-	        #{commonThumb}
+	        advertise_board_seq.nextval
+	    ,   #{academyId}
+	    ,   2
+	    ,   #{commonNickname}
+	    ,   #{commonTitle}
+	    ,   #{commonContent}
+	    ,   sysdate
 	    )
 	    ]]>
 	    <selectKey keyProperty="commonNo" resultType="int" order="AFTER">
-	        SELECT advertise_board_seq.currval AS id FROM DUAL
+	        SELECT advertise_board_seq.currval AS commonNo FROM DUAL
 	    </selectKey>
 	</insert>
 	
 	
 	<!-- 홍보게시판 게시글 내 첨부파일 등록 -->
 	<insert id="advertiseInsertFile" parameterType="file">
-	    INSERT 
-	    INTO 	tb_file 
+	    INSERT
+	    INTO 	tb_file (common_no, file_no, file_name, file_path)
 	    VALUES 	(
 	    			#{commonNo}
-	    		, 	notice_board_file_seq.nextval 
+	    		, 	notice_board_file_seq.nextval
 	    		,	#{fileName}
 	    		, 	#{filePath}
 	    		)
 	</insert>
+	
+	
+	<!-- 홍보게시글 등록 시, advertiseVO의 thumb, file에 첫 번째 사진이 등록되게 하기 -->
+	<update id="advertiseThumbnail" parameterType="advertiseBoard">
+	    UPDATE tb_common_board
+			SET
+			    common_thumb = (
+			        SELECT
+			            CASE
+			                WHEN (
+			                		SELECT 	COUNT(*) 
+			                		FROM 	tb_file 
+			                		WHERE 	common_no = tb_common_board.common_no
+			                	) = 0 
+			                	THEN 'noimage.png'
+			                ELSE (
+			                		SELECT 	file_name 
+			                		FROM 	tb_file 
+			                		WHERE 	common_no = tb_common_board.common_no 
+			                		ORDER BY file_no 
+			                		FETCH FIRST 1 ROW ONLY)
+			            END
+			        FROM dual
+			    ),
+			    common_file = (
+			        SELECT
+			            CASE
+			                WHEN (
+			                		SELECT 	COUNT(*) 
+			                		FROM 	tb_file 
+			                		WHERE 	common_no = tb_common_board.common_no
+			                	) = 0 
+			                	THEN 'C:\uploadStorage\advertise\noimage.png'
+			                ELSE (
+			                		SELECT 	file_path 
+			                		FROM 	tb_file 
+			                		WHERE	common_no = tb_common_board.common_no 
+			                		ORDER BY file_no 
+			                		FETCH FIRST 1 ROW ONLY)
+			            END
+			        FROM dual
+			    )
+			WHERE common_no = #{commonNo}
+	</update>
+		
+	
+	<!-- 홍보게시판 게시글 상세 보기 -->
+	<select id="advertiseDetail" parameterType="advertiseBoard" resultMap="boardAndFile">
+		SELECT		b.common_no,
+		           	b.common_nickname,
+		           	b.common_title,
+		           	b.common_content,
+		           	to_char(b.common_register_date, 'YYYY-MM-DD HH24:MI') as common_register_date,
+		           	f.file_no,
+		           	f.file_path,
+		           	f.file_name
+	    FROM    	tb_common_board b
+	    LEFT JOIN 	tb_file f ON b.common_no = f.common_no
+	    WHERE   	b.common_no = #{commonNo}
+	</select>
+	
+	
+	
 	
 	
 </mapper>

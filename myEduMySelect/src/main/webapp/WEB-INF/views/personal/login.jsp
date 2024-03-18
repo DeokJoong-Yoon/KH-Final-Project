@@ -68,8 +68,8 @@
 <script>
 $(function() {
     $("#loginBtn").on("click", function() {      
-        if (!chkData("#personalId","아이디를")) return;
-        else if (!chkData("#personalPasswd","비밀번호를")) return;      
+        if (!chkData("#id","아이디를")) return;
+        else if (!chkData("#passwd","비밀번호를")) return;
         else {          
             $("#loginForm").attr({
                 "method":"post", 
@@ -94,7 +94,7 @@ $(function() {
 		<div class="container d-flex align-items-center">
 
 			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
+				<a href="/">MyEdu<br />MySelect
 				</a>
 			</h1>
 			<!-- Uncomment below if you prefer to use an image logo -->
@@ -110,12 +110,26 @@ $(function() {
 						<ul>
 							<li><a href="#">자유게시판</a></li>
 							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
+							<li><a href="/matching/">매칭게시판</a></li>
 							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
+							<li><a href="/myPage">마이페이지</a></li>
 						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="/signUp">로그인/회원가입</a></li>
+					<c:choose>
+                            <c:when test="${not empty commonLogin}">
+                                <li><a class="nav-link scrollto">
+                                <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
+                                <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                                ${commonLogin.name}님 환영합니다.</a></li>
+                                <li>
+                                    <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                                        <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                                    </form>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+                            </c:otherwise>
+                        </c:choose>
 
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
@@ -133,7 +147,7 @@ $(function() {
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<h1>로그인 페이지</h1>
+					<h1>회원 로그인 페이지</h1>
 					<h2></h2>
 
 
@@ -152,23 +166,24 @@ $(function() {
 
 
 	<main>
-		<c:if test="${empty personalLogin}">
+		<c:if test="${empty commonLogin}">
 			<form id="loginForm">
-				<h1>로그인 페이지</h1>
+				<h1>회원 로그인 페이지</h1>
 				<div>
-					<input type="text" name="personalId" id="personalId"
-						placeholder="아이디를 입력해주세요"> <label for="personalId">아이디</label>
+					<input type="text" name="id" id="id"
+						placeholder="아이디를 입력해주세요"> <label for="id">아이디</label>
 				</div>
 				<div>
-					<input type="password" name="personalPasswd" id="personalPasswd"
-						placeholder="비밀번호를 입력해주세요"> <label for="personalPasswd">비밀번호</label>
+					<input type="password" name="passwd" id="passwd"
+						placeholder="비밀번호를 입력해주세요"> <label for="passwd">비밀번호</label>
 				</div>
+				<input type="hidden" name="memberTypeId" id="memberTypeId" value="1">
 				<button type="button" id="loginBtn">로그인</button>
 			</form>
 		</c:if>
 
-		<c:if test="${not empty personalLogin}">
-			<h3>${personalLogin.personalName}님 환영합니다.</h3>
+		<c:if test="${not empty commonLogin}">
+			<h3>${commonLogin.name}님 환영합니다.</h3>
 			<button type="button" id="logoutBtn">로그아웃</button>
 		</c:if>
 
@@ -197,10 +212,10 @@ $(function() {
         
         if (${not empty personalLogin}) {
            
-            let personalName = "${personalLogin.personalName}";
+            let personalName = "${commonLogin.name}";
 
          
-            alert("환영합니다! ${personalLogin.personalName}님 MyEduMySelect 입니다");
+            alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
         }
     });
     
