@@ -41,7 +41,7 @@
 
 	<select id="memberListCnt" parameterType="academy"
 		resultType="int">
-		SELECT count(*) FROM
+		SELECT count(*)
 		FROM tb_academy
 		<trim prefix=" where (" suffix=")">
 			<include refid="memberSearch"></include>
