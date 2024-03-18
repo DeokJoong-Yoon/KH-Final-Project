@@ -29,7 +29,7 @@ public class AcademyAdminServiceImpl implements AcademyAdminService{
 	}
 
 	@Override
-	public PersonalAdminVO memberDetail(AcademyAdminVO academyAdminVO) {
+	public AcademyAdminVO memberDetail(AcademyAdminVO academyAdminVO) {
 		return academyAdminDAO.memberDetail(academyAdminVO);
 	}
 

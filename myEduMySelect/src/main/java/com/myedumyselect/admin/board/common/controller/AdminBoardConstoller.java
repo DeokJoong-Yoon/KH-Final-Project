@@ -277,7 +277,7 @@ public class AdminBoardConstoller {
 
 		return "admin/board/personalListView";
 	}
-	
+
 	@GetMapping("/personalListDetail")
 	public String personalListDetail(@ModelAttribute PersonalAdminVO personalAdminVO, Model model,
 			HttpSession session) {
@@ -290,13 +290,13 @@ public class AdminBoardConstoller {
 
 		return "admin/board/personalListDetail";
 	}
-	
+
 	@PostMapping("/personalDelete")
 	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model) throws Exception {
 		personalAdminService.memberDelete(personalAdminVO);
 		return "redirect:/adminBoard/personal";
-	}	
-	
+	}
+
 	/*************************************************************
 	 * Admin academy
 	 *************************************************************/
@@ -307,35 +307,39 @@ public class AdminBoardConstoller {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
-		
+
 		List<AcademyAdminVO> academyAdminList = academyAdminService.memberList(academyAdminVO);
 		model.addAttribute("academyAdminList", academyAdminList);
 		// 전체 레코드수 반환.
 		int total = academyAdminService.memberListCnt(academyAdminVO);
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(academyAdminVO, total));
-		
+
 		return "admin/board/academyListView";
 	}
+
+	@GetMapping("/acadmeyListDetail")
+	public String academyListDetail(@ModelAttribute AcademyAdminVO academyAdminVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		AcademyAdminVO detail = academyAdminService.memberDetail(academyAdminVO);
+		model.addAttribute("detail", detail);
+
+		return "admin/board/academyListDetail";
+	}
+
 	
-//	@GetMapping("/personalListDetail")
-//	public String personalListDetail(@ModelAttribute PersonalAdminVO personalAdminVO, Model model,
-//			HttpSession session) {
-//		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-//		if (adminLoginVO == null) {
-//			return "redirect:/admin/login";
-//		}
-//		PersonalAdminVO detail = personalAdminService.memberDetail(personalAdminVO);
-//		model.addAttribute("detail", detail);
-//		
-//		return "admin/board/personalListDetail";
-//	}
-//	
-//	@PostMapping("/personalDelete")
-//	public String personalDelete(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
-//			HttpSession session) throws Exception {
-//		personalAdminService.memberDelete(personalAdminVO);
-//		return "redirect:/adminBoard/personal";
-//	}	
-	
+	@PostMapping("/academyDelete")
+	public String academyDelete(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
+			HttpSession session) throws Exception {
+		academyAdminService.memberDelete(academyAdminVO);
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO != null) {
+			return "redirect:/adminBoard/academy";
+		}
+		return "redirect:/";
+	}	
+
 }

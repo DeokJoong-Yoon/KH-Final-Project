@@ -14,7 +14,7 @@ public interface AcademyAdminDAO {
 
 	public int memberListCnt(AcademyAdminVO academyAdminVO);
 
-	public PersonalAdminVO memberDetail(AcademyAdminVO academyAdminVO);
+	public AcademyAdminVO memberDetail(AcademyAdminVO academyAdminVO);
 
 	public int memberDelete(AcademyAdminVO academyAdminVO);
 
