@@ -124,6 +124,19 @@
 		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
+	
+	<select id="memberDetail" parameterType="academy"
+		resultMap="academyMap">
+		SELECT
+		*
+		FROM tb_academy
+		WHERE
+		academy_id = #{academyId}
+	</select>
+	
+	<delete id="memberDelete" parameterType="academy">
+		{ CALL delete_academy_data(#{academyId}) }
+	</delete>
 
 
 

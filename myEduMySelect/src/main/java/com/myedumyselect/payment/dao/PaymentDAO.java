@@ -15,4 +15,8 @@ public interface PaymentDAO {
 	public List<PaymentVO> boardList(PaymentVO paymentVO);
 
 	public int boardListCnt(PaymentVO paymentVO);
+
+	public PaymentVO boardDetail(PaymentVO paymentVO);
+
+	public int boardDelete(PaymentVO paymentVO);
 }

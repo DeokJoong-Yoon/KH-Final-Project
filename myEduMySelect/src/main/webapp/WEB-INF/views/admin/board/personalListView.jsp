@@ -238,25 +238,25 @@
 			</a></li>
 			<!-- End Tables Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/payment"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="#"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Icons Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/personal"> <i class="bi bi-person"></i> <span>personal member</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>personal member</span>
 			</a></li>
 			<!-- End Profile Page Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academy"> <i class="bi bi-person"></i> <span>academy member</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>academy member</span>
 			</a></li>
 			<!-- End Profile Page Nav -->
 
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySource"> <i class="bi bi-card-list"></i> <span>all academy source</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"> <i class="bi bi-card-list"></i> <span>all academy member</span>
 			</a></li>
 			<!-- End Register Page Nav -->
 
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/admin/accmountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
 			</a></li>
 			<!-- End Login Page Nav -->
 
@@ -267,19 +267,18 @@
 
 	<main id="main" class="main">
 		<form id="detailForm">
-			<input type="hidden" id="paymentId" name="paymentId" />
-			<input type="hidden" id="paymentName" name="paymentName" />
+			<input type="hidden" id="personalId" name="personalId" />
 		</form>
-		<form id="paymentForm" name="paymentForm">
+		<form id="personalForm" name="personalForm">
 			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
 			<div class="pagetitle">
-				<h1>Notice board</h1>
+				<h1>Personal List</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">notice board</li>
+						<li class="breadcrumb-item active">personal list</li>
 					</ol>
 				</nav>
 			</div>
@@ -289,7 +288,6 @@
 
 				<div class="row">
 					<div class="col-lg-12">
-
 						<div class="card">
 							<div class="card-body">
 								<div class="row g-2 align-items-center">
@@ -299,8 +297,8 @@
 									<div class="col-auto">
 										<select id="search" name="search" class="form-select form-select-sm">
 											<option value="all">All</option>
-											<option value="academy_name">academy name</option>
-											<option value="academy_id">academy id</option>
+											<option value="personal_id">Personal Id</option>
+											<option value="personal_name">Personal Name</option>
 										</select>
 									</div>
 									<div class="col-auto">
@@ -313,30 +311,29 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th scope="col">paymentId</th>
-											<th scope="col">academyName</th>
-											<th scope="col">academyManagerName</th>
-											<th scope="col">paymentDate</th>
-											<th scope="col">amount</th>
+											<th scope="col">personalId</th>
+											<th scope="col">personalName</th>
+											<th scope="col">personalPhone</th>
+											<th scope="col">personalEmail</th>
+											<th scope="col">personalJoinDate</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:choose>
-											<c:when test="${not empty paymentList}">
-												<c:forEach var="payment" items="${paymentList}" varStatus="statusNumber">
-													<%-- <c:if test="${statusNumber.index < 20}"></c:if> --%>
-														<tr data-num="${payment.paymentId}">
-															<th scope="row">${payment.paymentId}</th>
-															<th class="goDetail text-start">${payment.academyName}</th>
-															<td class="goDetail text-start">${payment.academyManagerName}</td>
-															<td class="goDetail text-start">${payment.paymentDate}</td>
-															<td class="goDetail text-start">${payment.paymentDate}</td>
+											<c:when test="${not empty personalAdminList}">
+												<c:forEach var="personal" items="${personalAdminList}" varStatus="statusNumber">
+														<tr data-num="${personal.personalId}">
+															<th scope="row">${personal.personalId}</th>
+															<th class="goDetail text-start">${personal.personalName}</th>
+															<td class="goDetail text-start">${personal.personalPhone}</td>
+															<td class="goDetail text-start">${personal.personalEmail}</td>
+															<td class="goDetail text-start">${personal.personalJoinDate}</td>
 														</tr>
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
 												<tr>
-													<td colspan="5">조건에 맞는 결제 내역이 없습니다.</td>
+													<td colspan="5">조건에 맞는 공지가 없습니다.</td>
 												</tr>
 											</c:otherwise>
 										</c:choose>
@@ -382,14 +379,15 @@
 	<!-- End Footer -->
 	<script>
       	$(function() {
-      		let word="<c:out value='${paymentVO.keyword}' />";
+      		/* 검색 후 검색 대상과 검색 단어 출력 */
+      		let word="<c:out value='${personalAdminVO.keyword}' />";
       		let value ="";
       		if (word != "") {
-      			$("#keyword").val("<c:out value='${paymentVO.keyword}' />");
-      			$("#search").val("<c:out value='${paymentVO.search}' />");
+      			$("#keyword").val("<c:out value='${personalAdminVO.keyword}' />");
+      			$("#search").val("<c:out value='${personalAdminVO.search}' />");
       			
-      			if ($("#search").val() != 'academy_name') {
-      				if($("#search").val() == 'academy_id') value = "#list tr td.goDetail";
+      			if ($("#search").val() != 'personal_id') {
+      				if($("#search").val() == 'personal_name') value = "#list tr td.goDetail";
       				console.log($(value + ":contains('" + word + "')").html());
       				$(value + ":contains('" + word +"')").each(function() {
       					let regex = new RegExp(word, 'gi');
@@ -414,6 +412,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<!-- Template Main JS File -->
 	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
-	<script src="/resources/include/admin/js/paymentBoardView.js"></script>
+	<script src="/resources/include/admin/js/personalListView.js"></script>
 </body>
 </html>

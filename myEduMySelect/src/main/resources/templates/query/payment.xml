@@ -62,6 +62,22 @@
 		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
+	
+	<select id="boardDetail" parameterType="payment"
+		resultMap="paymentMap">
+		SELECT
+		*
+		FROM tb_payment
+		WHERE
+		payment_id = #{paymentId}
+	</select>
+	
+	<delete id="boardDelete" parameterType="payment">
+		DELETE FROM
+		tb_payment
+		WHERE
+		payment_id = #{paymentId}
+	</delete>
 
 
 	<select id="paymentSelect" parameterType="payment"

@@ -23,4 +23,20 @@ public class AcademyAdminServiceImpl implements AcademyAdminService{
 		return list;
 	}
 
+	@Override
+	public int memberListCnt(AcademyAdminVO academyAdminVO) {
+		return academyAdminDAO.memberListCnt(academyAdminVO);
+	}
+
+	@Override
+	public PersonalAdminVO memberDetail(AcademyAdminVO academyAdminVO) {
+		return academyAdminDAO.memberDetail(academyAdminVO);
+	}
+
+	@Override
+	public int memberDelete(AcademyAdminVO academyAdminVO) {
+		return academyAdminDAO.memberDelete(academyAdminVO);
+		
+	}
+
 }

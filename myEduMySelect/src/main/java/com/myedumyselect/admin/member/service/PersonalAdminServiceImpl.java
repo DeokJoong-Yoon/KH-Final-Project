@@ -23,4 +23,20 @@ public class PersonalAdminServiceImpl implements PersonalAdminService {
 		return list;
 	}
 
+	@Override
+	public int memberListCnt(PersonalAdminVO personalAdminVO) {
+		return personalAdminDAO.memberListCnt(personalAdminVO);
+	}
+
+	@Override
+	public PersonalAdminVO memberDetail(PersonalAdminVO personalAdminVO) {
+		return personalAdminDAO.memberDetail(personalAdminVO);
+	}
+
+	@Override
+	public int memberDelete(PersonalAdminVO personalAdminVO) {
+		return personalAdminDAO.memberDelete(personalAdminVO);
+		
+	}
+
 }

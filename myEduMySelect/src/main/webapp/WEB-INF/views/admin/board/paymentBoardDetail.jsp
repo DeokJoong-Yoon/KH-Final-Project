@@ -225,38 +225,38 @@
 			</a></li>
 			<!-- End Dashboard Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/notice"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardView"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/free"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matching"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertisement"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="/notice/boardList"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Tables Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/payment"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
+			<li class="nav-item"><a class="nav-link collapsed" href="#"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
 			</a></li>
 			<!-- End Icons Nav -->
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/personal"> <i class="bi bi-person"></i> <span>personal member</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>personal member</span>
 			</a></li>
 			<!-- End Profile Page Nav -->
 
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academy"> <i class="bi bi-person"></i> <span>academy member</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="users-profile.html"> <i class="bi bi-person"></i> <span>academy member</span>
 			</a></li>
 			<!-- End Profile Page Nav -->
 
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySource"> <i class="bi bi-card-list"></i> <span>all academy source</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="pages-register.html"> <i class="bi bi-card-list"></i> <span>all academy member</span>
 			</a></li>
 			<!-- End Register Page Nav -->
 
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/admin/accmountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
+			<li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
 			</a></li>
 			<!-- End Login Page Nav -->
 
@@ -266,109 +266,142 @@
 	<!-- End Sidebar-->
 
 	<main id="main" class="main">
-		<form id="detailForm">
-			<input type="hidden" id="paymentId" name="paymentId" />
-			<input type="hidden" id="paymentName" name="paymentName" />
+		<form name="f_data" id="f_data">
+			<input type="hidden" name="paymentId" id="paymentId" value="${detail.paymentId}" />
 		</form>
-		<form id="paymentForm" name="paymentForm">
-			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
-			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+		<div class="pagetitle">
+			<h1>Dashboard</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
+					<li class="breadcrumb-item active">Payment Detail</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
 
-			<div class="pagetitle">
-				<h1>Notice board</h1>
-				<nav>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">notice board</li>
-					</ol>
-				</nav>
-			</div>
-			<!-- End Page Title -->
+		<section class="section">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title md-6 row">payment detail</h5>
 
-			<section class="section">
-
-				<div class="row">
-					<div class="col-lg-12">
-
-						<div class="card">
-							<div class="card-body">
-								<div class="row g-2 align-items-center">
-									<div class="col-auto">
-										<label for="search" class="card-title">search</label>
-									</div>
-									<div class="col-auto">
-										<select id="search" name="search" class="form-select form-select-sm">
-											<option value="all">All</option>
-											<option value="academy_name">academy name</option>
-											<option value="academy_id">academy id</option>
-										</select>
-									</div>
-									<div class="col-auto">
-										<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
-									</div>
-									<div class="col-auto">
-										<button type="button" id="searchData" class="btn btn-primary btn-sm">검색</button>
-									</div>
-								</div>
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th scope="col">paymentId</th>
-											<th scope="col">academyName</th>
-											<th scope="col">academyManagerName</th>
-											<th scope="col">paymentDate</th>
-											<th scope="col">amount</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:choose>
-											<c:when test="${not empty paymentList}">
-												<c:forEach var="payment" items="${paymentList}" varStatus="statusNumber">
-													<%-- <c:if test="${statusNumber.index < 20}"></c:if> --%>
-														<tr data-num="${payment.paymentId}">
-															<th scope="row">${payment.paymentId}</th>
-															<th class="goDetail text-start">${payment.academyName}</th>
-															<td class="goDetail text-start">${payment.academyManagerName}</td>
-															<td class="goDetail text-start">${payment.paymentDate}</td>
-															<td class="goDetail text-start">${payment.paymentDate}</td>
-														</tr>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<tr>
-													<td colspan="5">조건에 맞는 결제 내역이 없습니다.</td>
-												</tr>
-											</c:otherwise>
-										</c:choose>
-									</tbody>
-								</table>
-							</div>
-							<%-- ======================== 페이징 출력 시작 ========================--%>
-							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center">
-									<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
-									<c:if test="${pageMaker.prev}">
-										<li class="page-item"><a href="${pageMaker.startPage - 1}" class="page-link">Previous</a> <!-- <a href="${pageMaker.startPage - 10}" class="page-link">Previous</a> --></li>
-									</c:if>
-
-									<!-- 바로가기 번호 출력 -->
-									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-										<li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}"><a href="${num}" class="page-link">${num}</a></li>
-									</c:forEach>
-									<!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
-									<c:if test="${pageMaker.next}">
-										<li class="page-item"><a href="${pageMaker.endPage + 1}" class="page-link">Next</a></li>
-									</c:if>
-
-								</ul>
-
-							</nav>
-
-						</div>
+						<!-- Table with stripped rows -->
+						<form id="f_writeForm">
+							<table class="table table-striped">
+								<tbody>
+									<tr>
+										<td>
+											<div class="col-md-12 text-end">
+												<button type="button" id="boardDeleteBtn" class="btn btn-primary btn-sm">글삭제</button>
+												<button type="button" id="boardListBtn" class="btn btn-primary btn-sm">목록</button>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="paymentId" class="col-sm-2 col-form-label">Payment Id</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.paymentId}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="pg" class="col-sm-2 col-form-label">pg</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.pg}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="payMethod" class="col-sm-2 col-form-label">Pay Method</label>
+												<div class="col-sm-10 mt-2 mb-2">${detail.payMethod}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="merchantUid" class="col-sm-2 col-form-label">Merchant Uid</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.merchantUid}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="payAmount" class="col-sm-2 col-form-label">Pay Amount</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.payAmount}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="academyId" class="col-sm-2 col-form-label">Academy Id</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyId}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="academyNumber" class="col-sm-2 col-form-label">Academy Number</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyNumber}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="academyName" class="col-sm-2 col-form-label">Academy Name</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyName}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="academyManagerName" class="col-sm-2 col-form-label">Academy Manager Name</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyManagerName}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="academyManagerEmail" class="col-sm-2 col-form-label">Academy Manager Email</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyManagerEmail}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="academyManagerPhone" class="col-sm-2 col-form-label">Academy Manager Phone</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyManagerPhone}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
+												<label for="paymentDate" class="col-sm-2 col-form-label">PaymentDate</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.paymentDate}</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
 					</div>
 				</div>
-			</section>
-		</form>
+			</div>
+		</section>
+
 	</main>
 	<!-- End #main -->
 
@@ -377,28 +410,16 @@
 		<div class="copyright">
 			&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
 		</div>
-		<div class="credits">Designed by BootstrapMade</div>
+		<div class="credits">
+			<!-- All the links in the footer should remain intact. -->
+			<!-- You can delete the links only if you purchased the pro version. -->
+			<!-- Licensing information: https://bootstrapmade.com/license/ -->
+			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+		</div>
 	</footer>
 	<!-- End Footer -->
-	<script>
-      	$(function() {
-      		let word="<c:out value='${paymentVO.keyword}' />";
-      		let value ="";
-      		if (word != "") {
-      			$("#keyword").val("<c:out value='${paymentVO.keyword}' />");
-      			$("#search").val("<c:out value='${paymentVO.search}' />");
-      			
-      			if ($("#search").val() != 'academy_name') {
-      				if($("#search").val() == 'academy_id') value = "#list tr td.goDetail";
-      				console.log($(value + ":contains('" + word + "')").html());
-      				$(value + ":contains('" + word +"')").each(function() {
-      					let regex = new RegExp(word, 'gi');
-      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-      				});
-      			}
-      		}
-      	});
-      </script>
+
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
@@ -412,8 +433,10 @@
 	<script src="/resources/include/admin/admin/assets/vendor/php-email-form/validate.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/include/admin/admin/assets/vendor/tinymce/tinymce.min.js"></script>
 	<!-- Template Main JS File -->
 	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
-	<script src="/resources/include/admin/js/paymentBoardView.js"></script>
+	<script src="/resources/include/admin/js/paymentBoardDetail.js"></script>
+
 </body>
 </html>
