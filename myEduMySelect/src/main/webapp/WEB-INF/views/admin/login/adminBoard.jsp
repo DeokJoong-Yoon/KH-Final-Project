@@ -253,7 +253,7 @@
 					<!-- End Profile Page Nav -->
 
 					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySourceS"> <i class="bi bi-card-list"></i> <span>all academy member</span>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySource"> <i class="bi bi-card-list"></i> <span>all academy member</span>
 					</a></li>
 					<!-- End Register Page Nav -->
 

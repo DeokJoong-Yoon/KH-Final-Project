@@ -9,7 +9,7 @@ $(function() {
 		// 상세 페이지로 이동하기 위해 form 추가 (id : detailForm)
 		$("#detailForm").attr({
 			"method" : "get",
-			"action" : "/adminBoard/academyListDetail"
+			"action" : "/adminBoard/acadmeyListDetail"
 		});
 		$("#detailForm").submit();
 	});

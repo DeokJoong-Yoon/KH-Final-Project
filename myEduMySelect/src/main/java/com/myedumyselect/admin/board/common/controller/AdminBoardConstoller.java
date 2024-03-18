@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
@@ -292,12 +293,14 @@ public class AdminBoardConstoller {
 	}
 
 	@PostMapping("/personalDelete")
-	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model, HttpSession session) throws Exception {
+	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model, HttpSession session,
+			SessionStatus sessionStatus) throws Exception {
 		personalAdminService.memberDelete(personalAdminVO);
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 		if (adminLoginVO != null) {
 			return "redirect:/adminBoard/academy";
 		}
+		sessionStatus.setComplete();
 		return "redirect:/";
 	}
 
@@ -334,16 +337,16 @@ public class AdminBoardConstoller {
 		return "admin/board/academyListDetail";
 	}
 
-	
 	@PostMapping("/academyDelete")
-	public String academyDelete(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
-			HttpSession session) throws Exception {
+	public String academyDelete(@ModelAttribute AcademyAdminVO academyAdminVO, Model model, HttpSession session,
+			SessionStatus sessionStatus) throws Exception {
 		academyAdminService.memberDelete(academyAdminVO);
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 		if (adminLoginVO != null) {
 			return "redirect:/adminBoard/academy";
 		}
+		sessionStatus.setComplete();
 		return "redirect:/";
-	}	
+	}
 
 }
