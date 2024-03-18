@@ -66,6 +66,11 @@
 		<typeAlias
 			type="com.myedumyselect.common.file.FileVO"
 			alias="file" />
+			
+		<!-- ======================== like 영역======================== -->
+		<typeAlias
+			type="com.myedumyselect.commonboard.like.vo.LikeVO"
+			alias="like" />
 	</typeAliases>
 
 
