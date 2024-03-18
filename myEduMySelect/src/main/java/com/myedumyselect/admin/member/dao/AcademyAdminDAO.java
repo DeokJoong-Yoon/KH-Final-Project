@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
 

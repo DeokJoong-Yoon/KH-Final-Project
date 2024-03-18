@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.myedumyselect.academy.service.AcademyLoginService;
+import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
@@ -19,6 +21,8 @@ import com.myedumyselect.admin.member.service.AcademyAdminService;
 import com.myedumyselect.admin.member.service.PersonalAdminService;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
+import com.myedumyselect.auth.SessionInfo;
+import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.client.main.vo.PageDTO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
@@ -55,6 +59,9 @@ public class AdminBoardConstoller {
 
 	@Setter(onMethod_ = @Autowired)
 	private AcademyAdminService academyAdminService;
+
+	@Setter(onMethod_ = @Autowired)
+	private AcademyLoginService academyLoginService;
 
 	/*************************************************************
 	 * Admin notice
@@ -339,15 +346,19 @@ public class AdminBoardConstoller {
 	}
 
 	@PostMapping("/academyDelete")
-	public String academyDelete(@ModelAttribute AcademyAdminVO academyAdminVO, Model model, HttpSession session,
+	public String academyDelete(Model model, HttpSession session,
 			SessionStatus sessionStatus) throws Exception {
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		String academyId = loginVo.getId();
+		AcademyAdminVO 	academyAdminVO = new AcademyAdminVO();
+		academyAdminVO.setAcademyId(academyId);	
 		academyAdminService.memberDelete(academyAdminVO);
+		log.info(academyAdminVO.toString());
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 		if (adminLoginVO != null) {
 			return "redirect:/adminBoard/academy";
-		} 
-		log.info(academyAdminVO.toString());
-		
+		}
+
 		sessionStatus.setComplete();
 		session.invalidate();
 		return "redirect:/";
