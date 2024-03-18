@@ -110,7 +110,7 @@
 											<li class="bx bx-check">${paymentVO.payMethod}</li>
 											<li class="bx bx-check">${paymentVO.merchantUid}</li>
 											<li class="bx bx-check">${paymentVO.name}</li>
-											<li class="bx bx-check">${paymentVO.amount}</li>
+											<li class="bx bx-check">${paymentVO.payAmount}</li>
 											<li class="bx bx-check">${paymentVO.academyId}</li>
 											<li class="bx bx-check">${paymentVO.academyNumber}</li>
 											<li class="bx bx-check">${paymentVO.academyName}</li>

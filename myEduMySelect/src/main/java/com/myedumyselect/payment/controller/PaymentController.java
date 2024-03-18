@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.auth.SessionInfo;
+import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.payment.service.PaymentService;
 import com.myedumyselect.payment.vo.PaymentVO;
 
@@ -23,29 +26,35 @@ public class PaymentController {
 
 	@Setter(onMethod_ = @Autowired)
 	private PaymentService paymentService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private AcademyLoginService academyLoginService;
 
 	@GetMapping("/payMain")
 	public String paymentBoardView(HttpSession session, Model model) {
-		AcademyLoginVo academyLoginVo = (AcademyLoginVo) session.getAttribute("academyLoginVo");
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		String academyId = loginVo.getId();
+		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		
 		if (academyLoginVo == null) {
-			return "redirect:/userAccount/login";
+			return "redirect:/academyaccount/login";
 		}
-//		academyLoginVo.setAcademyId("C1Math153");
-//		academyLoginVo.setAcademyNumber("1000043685");
-//		academyLoginVo.setAcademyManagerName("KHKH");
-//		academyLoginVo.setAcademyName("유덕중");
-//		academyLoginVo.setAcademyManagerEmail("ykdj92@naver.com");
-//		academyLoginVo.setAcademyManagerPhone("01012341234");
+
 		model.addAttribute("academyLoginVo", academyLoginVo);
+		
+		log.info("로그인 학원 정보 : " + academyLoginVo.toString());
+		
 		return "payment/payMain";
 	}
 
 	@PostMapping("/paySuccess")
 	public String paySuccessView(@ModelAttribute PaymentVO pvo, Model model, HttpSession session) {
-		AcademyLoginVo academyLoginVo = (AcademyLoginVo) session.getAttribute("academyLoginVo");
-//		if (academyLoginVo == null) {
-//			return "redirect:/userAccount/login";
-//		}
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		String academyId = loginVo.getId();
+		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		if (academyLoginVo == null) {
+			return "redirect:/academyaccount/login";
+		}
 
 		paymentService.paymentInsert(pvo);
 		PaymentVO result = paymentService.paymentSelect(pvo);
@@ -55,10 +64,12 @@ public class PaymentController {
 
 	@GetMapping("/payFail")
 	public String paymentFailView(HttpSession session) {
-		AcademyLoginVo academyLoginVo = (AcademyLoginVo) session.getAttribute("academyLoginVo");
-//		if (academyLoginVo == null) {
-//			return "redirect:/userAccount/login";
-//		}
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		String academyId = loginVo.getId();
+		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		if (academyLoginVo == null) {
+			return "redirect:/academyaccount/login";
+		}
 		return "redirect:/userAccount/login";
 	}
 }
