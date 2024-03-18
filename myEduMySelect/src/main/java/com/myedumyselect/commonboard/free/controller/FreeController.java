@@ -48,7 +48,7 @@ public class FreeController {
 		if (result == 1) {
 			url = "/board/free/freeList";
 		} else {
-			ras.addFlashAttribute("errorMsg", "입력에 문제가 있어 다시 진행해 주세요.");
+			ras.addFlashAttribute("errorMsg","입력에 문제가 있어 다시 진행해 주세요.");
 			url = "/board/free/freeWriterForm";
 		}
 		return "redirect:"+url;
@@ -108,9 +108,9 @@ public class FreeController {
 		/* model.addAttribute("freeUpdateData", fvo); */
 	    
 	    if(result == 1) {
-	        url = "/board/freeDetail?commonNo=" + fvo.getCommonNo();
+	        url = "/free/freeDetail?commonNo=" + fvo.getCommonNo();
 	    } else {
-	        url = "/board/freeUpdateForm?commonNo=" + fvo.getCommonNo();
+	        url = "/free/freeUpdateForm?commonNo=" + fvo.getCommonNo();
 	    }
 	    return "redirect:" + url;
 	}
