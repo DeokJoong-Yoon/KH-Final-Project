@@ -29,26 +29,6 @@
 }
 
 
-
-/* #insertBtn, #resetBtn, #goBackBtn {
-	padding: 10px 20px;
-    background-color: #48d1cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    float: right;
-    font-weight: 600;
-    margin-top : 50px;
-    margin-left : 5px;
-}
-
-#insertBtn:hover, #resetBtn:hover, #goBackBtn:hover {
-	background-color: #37517e;
-} */
-
-
 .advDetail {
 	background-color : #fff;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -99,4 +79,35 @@ table td {
 img {
 	width : 500px;
 	margin-top : 20px;
+}
+
+#editPost, #deletePost {
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top:20px;
+    margin-left:5px;
+}
+
+#prevPost, #nextPost, #gotoList, #cancel, #editFinish {
+	padding: 10px 20px;
+    background-color: #48d1cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top:20px;
+    margin-left:5px;
+    float: right;
+}
+
+#editPost:hover, #deletePost:hover, #prevPost:hover, #nextPost:hover, #gotoList:hover, #cancel:hover, #editFinish:hover, #mcBtn:hover, #commentUpdateBtn:hover, #commentDeleteBtn:hover  {
+    background-color: #37517e;
 }

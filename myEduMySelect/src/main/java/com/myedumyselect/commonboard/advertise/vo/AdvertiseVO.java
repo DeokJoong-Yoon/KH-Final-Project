@@ -30,5 +30,4 @@ public class AdvertiseVO extends CommonVO {
 	private String commonThumb = "";
 	private String commonFile = "";
 	private List<FileVO> fileVO; 
-	//private FileVO fileVO;
 }

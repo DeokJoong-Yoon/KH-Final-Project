@@ -148,6 +148,30 @@
 					</tr>
 				</tbody>	
 			</table>
+			
+			<%-- <!-- ========== 찜 ========== -->
+			<div id="like-${like.commonId }-section">
+				<div id="like-${like.commonId }-count">
+					<c:choose>
+						<c:when test="${like.likeCheck == 1 }">
+							<div id="like-${like.likeId }"
+								class="my-auto my-heart fa-regular fa-solid fa-heart my-xl my-cursor on-Clicked"
+								onclick="likeClick(`${like.commonNo}`, `${like.likeMemberId}`, `${like.likeCheck}`, `${like.likeId}`)"></div>
+						</c:when>
+						<c:otherwise>
+							<div id="like-${like.likeId }"
+								class="my-auto fa-regular fa-heart my-xl my-cursor"
+								onclick="likeClick(`${like.commonNo}`, `${like.likeMemberId}`, `${like.likeCheck}`, `${like.likeId}`)"></div>
+						</c:otherwise>
+					</c:choose>
+					<br>
+					<div>${개수 }</div>
+				</div>
+			</div> --%>
+			
+			
+			
+			
 		</div>
 
 		
@@ -160,6 +184,10 @@
       	</div>
       </div>
     </section><!-- 매칭게시판 상세보기 끝 -->
+    
+    
+    
+   
     
 	
   
@@ -255,7 +283,9 @@
   
  
 	<script>
-		
+		function like() {
+			$("#like-" + commonNo)
+		}
 	</script>
 	
 </body>

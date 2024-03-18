@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myedumyselect.common.SessionUtil;
-import com.myedumyselect.common.file.FileVO;
+import com.myedumyselect.common.like.LikeVO;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
@@ -90,7 +90,16 @@ public class AdvertiseController {
 		
 		log.info(detail.toString());
 		
+		
+//		//찜
+//		LikeVO like = new LikeVO();
+//		like.setCommonNo(aVO.getCommonNo());
+//		like.setLikeMemberId(aVO.ge)
+//		
 		return "board/advertise/advertiseBoardDetail";
 	}
+	
+	
+	
 	
 }
