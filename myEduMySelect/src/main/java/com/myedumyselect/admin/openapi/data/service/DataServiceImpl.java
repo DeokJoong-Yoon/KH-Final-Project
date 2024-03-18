@@ -44,7 +44,7 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public List<AcademySourceVO> insertAcademySourceList(int listTotalCount) throws Exception {
-		int curIndex = 25562;
+		int curIndex = 0;
 		// http://openapi.seoul.go.kr:8088/446f765142796b6435314753745172/json/neisAcademyInfo/3/3/
 		StringBuffer site = new StringBuffer("http://openapi.seoul.go.kr:8088/");
 		site.append("446f765142796b6435314753745172");

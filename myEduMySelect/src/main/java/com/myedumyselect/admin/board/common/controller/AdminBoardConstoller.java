@@ -9,20 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
-import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 import com.myedumyselect.admin.member.service.AcademyAdminService;
+import com.myedumyselect.admin.member.service.AcademySourceService;
 import com.myedumyselect.admin.member.service.PersonalAdminService;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
-import com.myedumyselect.auth.SessionInfo;
-import com.myedumyselect.auth.vo.LoginVo;
+import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
 import com.myedumyselect.client.main.vo.PageDTO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
@@ -62,6 +60,10 @@ public class AdminBoardConstoller {
 
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginService academyLoginService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private AcademySourceService academySourceService;
+
 
 	/*************************************************************
 	 * Admin notice
@@ -300,16 +302,9 @@ public class AdminBoardConstoller {
 	}
 
 	@PostMapping("/personalDelete")
-	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model, HttpSession session,
-			SessionStatus sessionStatus) throws Exception {
+	public String personalDelete(@ModelAttribute PersonalAdminVO personalAdminVO, Model model) throws Exception {
 		personalAdminService.memberDelete(personalAdminVO);
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-		if (adminLoginVO != null) {
-			return "redirect:/adminBoard/academy";
-		}
-		sessionStatus.setComplete();
-		session.invalidate();
-		return "redirect:/";
+		return "redirect:/adminBoard/personal";
 	}
 
 	/*************************************************************
@@ -346,22 +341,49 @@ public class AdminBoardConstoller {
 	}
 
 	@PostMapping("/academyDelete")
-	public String academyDelete(Model model, HttpSession session,
-			SessionStatus sessionStatus) throws Exception {
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		String academyId = loginVo.getId();
-		AcademyAdminVO 	academyAdminVO = new AcademyAdminVO();
-		academyAdminVO.setAcademyId(academyId);	
+	public String academyDelete(@ModelAttribute AcademyAdminVO academyAdminVO, Model model) throws Exception {
 		academyAdminService.memberDelete(academyAdminVO);
-		log.info(academyAdminVO.toString());
+		return "redirect:/adminBoard/academy";
+
+	}
+//	@PostMapping("/academyDelete")
+//	public String academyDelete(Model model, HttpSession session, SessionStatus sessionStatus) throws Exception {
+//		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+//		String academyId = loginVo.getId();
+//		AcademyAdminVO academyAdminVO = new AcademyAdminVO();
+//		academyAdminVO.setAcademyId(academyId);
+//		AcademyAdminVO selectedAcademyAdminVO = academyAdminService.memberDetail(academyAdminVO);
+//		log.info("delete 결과 : " + academyAdminService.memberDelete(selectedAcademyAdminVO));
+//		log.info(selectedAcademyAdminVO.toString());
+//		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+//		if (adminLoginVO != null) {
+//			return "redirect:/adminBoard/academy";
+//		}
+//
+//		sessionStatus.setComplete();
+//		session.invalidate();
+//		return "redirect:/";
+//	}
+	
+	/*************************************************************
+	 * Admin academySourcec
+	 *************************************************************/
+	@GetMapping("/academySource")
+	public String academySourceBoardAdminView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
+			HttpSession session) {
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-		if (adminLoginVO != null) {
-			return "redirect:/adminBoard/academy";
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
 		}
 
-		sessionStatus.setComplete();
-		session.invalidate();
-		return "redirect:/";
+		List<AcademySourceVO> academySourceList = academySourceService.List(academySourceVO);
+		model.addAttribute("academySourceList", academySourceList);
+		// 전체 레코드수 반환.
+		int total = academySourceService.memberListCnt(academySourceVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(academySourceVO, total));
+
+		return "admin/board/academySourceListView";
 	}
 
 }

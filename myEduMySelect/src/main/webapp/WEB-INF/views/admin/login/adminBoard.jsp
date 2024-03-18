@@ -258,7 +258,7 @@
 					<!-- End Register Page Nav -->
 
 					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="pages-login.html"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
+					<li class="nav-item"><a class="nav-link collapsed" href="/admin/accountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
 					</a></li>
 					<!-- End Login Page Nav -->
 				</ul>
