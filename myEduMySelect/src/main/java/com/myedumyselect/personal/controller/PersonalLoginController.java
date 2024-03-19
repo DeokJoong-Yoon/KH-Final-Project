@@ -1,9 +1,8 @@
 package com.myedumyselect.personal.controller;
 
 import java.util.Date;
+import java.util.List;
 
-import com.myedumyselect.auth.SessionInfo;
-import com.myedumyselect.auth.vo.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myedumyselect.auth.SessionInfo;
+import com.myedumyselect.auth.vo.LoginVo;
+import com.myedumyselect.client.main.vo.PageDTO;
+import com.myedumyselect.common.vo.CommonVO;
+import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
+import com.myedumyselect.commonboard.free.service.FreeService;
+import com.myedumyselect.commonboard.free.vo.FreeVO;
+import com.myedumyselect.matching.board.service.MatchingBoardService;
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
@@ -31,7 +38,16 @@ import lombok.extern.slf4j.Slf4j;
 public class PersonalLoginController {
 
 	@Setter(onMethod_ = @Autowired)
-	private PersonalLoginService personalLoginService;	
+	private PersonalLoginService personalLoginService;
+
+	@Setter(onMethod_ = @Autowired)
+	private MatchingBoardService mbService;
+
+	@Setter(onMethod_ = @Autowired)
+	private FreeService freeService;
+
+	@Setter(onMethod_ = @Autowired)
+	private AdvertiseService aService;
 
 	@GetMapping("/useraccount/login")
 	public String loginForm() {
@@ -72,7 +88,8 @@ public class PersonalLoginController {
 		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
 
 		// 로그인 시도
-		PersonalLoginVO personalLogin = personalLoginService.loginProcess(new PersonalLoginVO(loginVo.getId(), loginVo.getPasswd()));
+		PersonalLoginVO personalLogin = personalLoginService
+				.loginProcess(new PersonalLoginVO(loginVo.getId(), loginVo.getPasswd()));
 		// PersonalLoginService를 통해 로그인을 시도한다.
 
 		if (personalLogin != null) {
@@ -138,11 +155,11 @@ public class PersonalLoginController {
 		return "redirect:/useraccount/join/complete";
 	}
 
-	//@GetMapping("/")
-	//public String home() {
-		// 홈 페이지로 이동
-	//	return "/personal/main"; // home.jsp
-	//}
+	// @GetMapping("/")
+	// public String home() {
+	// 홈 페이지로 이동
+	// return "/personal/main"; // home.jsp
+	// }
 
 	@GetMapping("/useraccount/join")
 	public String signUp() {
@@ -167,28 +184,28 @@ public class PersonalLoginController {
 	public String personalMyPage(Model model, HttpSession session) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		// 세션에서 personalLogin 속성을 가져옴 (세션에서 로그인 정보를 가져와서 personalLoginVO 객체로 캐스팅)
-		
+
 		// 로그인이 되어있지 않다면
 		if (ObjectUtils.isEmpty(loginVo)) {
 			// 로그인 페이지로 리다이렉트
 			return "redirect:useraccount/login";
 		}
 		log.info("myPage 호출성공");
-		
+
 		String personalId = loginVo.getId();
 		PersonalLoginVO personalLoginVO = personalLoginService.findId(personalId);
-		
-		if(personalLoginVO != null) {
+
+		if (personalLoginVO != null) {
 			model.addAttribute("personalLoginVO", personalLoginVO);
 		} else {
 			personalLoginVO = new PersonalLoginVO();
 			model.addAttribute("personalLoginVO", personalLoginVO);
-			
+
 		}
-		
+
 		return "personal/myPage";
 		// TODO: findById 필요!
-		
+
 	}
 
 	/// 회원정보수정
@@ -206,7 +223,8 @@ public class PersonalLoginController {
 		// 수정할
 		// 수 있다
 		// TODO: findById 필요!
-		PersonalLoginVO sessionPersonalLogin = personalLoginService.loginProcess(new PersonalLoginVO(loginVo.getId(), loginVo.getPasswd()));
+		PersonalLoginVO sessionPersonalLogin = personalLoginService
+				.loginProcess(new PersonalLoginVO(loginVo.getId(), loginVo.getPasswd()));
 
 		sessionPersonalLogin.setPersonalEmail(personalLogin.getPersonalEmail());
 		sessionPersonalLogin.setPersonalAddress(personalLogin.getPersonalAddress());
@@ -230,4 +248,96 @@ public class PersonalLoginController {
 		return "redirect:/myPage";
 	}
 
-}
+	// 사용자가 작성한 매칭 게시글 목록 보기 페이지로 이동
+	/*
+	 * @GetMapping("/personalMatchingList") public String getMatchingList(Model
+	 * model, HttpSession session) { // PersonalLoginVO personalLoginVO =
+	 * (PersonalLoginVO) // session.getAttribute("personalLogin"); LoginVo loginVo =
+	 * (LoginVo) session.getAttribute(SessionInfo.COMMON); if (loginVo == null) { //
+	 * 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리 return "redirect:/useraccount/login"; }
+	 * 
+	 * // 해당 사용자가 작성한 매칭 게시글 목록을 가져옵니다. List<MatchingBoardVO> userMatchingList =
+	 * mbService.getUserMatchingList(loginVo.getId());
+	 * model.addAttribute("userMatchingList", userMatchingList);
+	 * 
+	 * return "personal/personalMatchingList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동 }
+	 * 
+	 * // 자유 게시판
+	 * 
+	 * @GetMapping("/personalFreeList") public String getFreeList(Model model,
+	 * HttpSession session) {
+	 * 
+	 * LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+	 * 
+	 * if (loginVo == null) { // 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리 return
+	 * "redirect:/useraccount/login"; } List<FreeVO> userFreeList =
+	 * freeService.getUserFreeList(loginVo.getId());
+	 * model.addAttribute("userFreeList", userFreeList);
+	 * 
+	 * return "personal/personalFreeList";
+	 * 
+	 * }
+	 */
+
+	@GetMapping("/personalAllList")
+	public String getAllList(Model model, HttpSession session, @ModelAttribute CommonVO cvo) {
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		if (loginVo == null) {
+			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+			return "redirect:/useraccount/login";
+		}
+
+		// 해당 사용자가 작성한 매칭 게시글 목록을 가져옵니다.
+		//List<MatchingBoardVO> userMatchingList = mbService.getUserMatchingList(loginVo.getId());
+		//model.addAttribute("userMatchingList", userMatchingList);
+
+		// 해당 사용자가 작성한 자유 게시글 목록을 가져옵니다.
+		//List<FreeVO> userFreeList = freeService.getUserFreeList(loginVo.getId());
+		//model.addAttribute("userFreeList", userFreeList);
+
+		// 매칭 게시판 총 레코드 수 반환
+		//int totalMatchingCnt = mbService.pTotalMatchingCnt(loginVo.getId());
+		//model.addAttribute("totalMatchingCnt", totalMatchingCnt);
+
+		//PageDTO pageMaker = new PageDTO(cvo, totalMatchingCnt);
+		//model.addAttribute("pageMaker", pageMaker);
+
+		return "personal/personalAllList"; // 사용자가 작성한 모든 게시글 목록을 보여주는 페이지로 이동
+	}
+ 
+	// 비밀번호 변경 페이지
+	@GetMapping("/newPasswd")
+	public String passwordChangePage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		if (loginVo == null) {
+			return "redirect:/useraccount/login";
+		}
+		model.addAttribute("personalId", loginVo.getId());
+		return "personal/newPasswd";
+	} 
+       
+	@PostMapping("/changePasswd")       
+	public String updatePasswdChangeDate(@ModelAttribute PersonalLoginVO personalLogin, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		// 세션에서 LoginVo 객체 가져오기
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+
+		// 새로운 비밀번호 설정
+		loginVo.setPasswd(personalLogin.getPersonalPasswd());
+
+		// 변경된 비밀번호 업데이트
+		int result = personalLoginService.updatePasswdChangeDate(loginVo);
+
+		if (result == 0) {
+			redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+			return "redirect:/useraccount/login";
+		}
+
+		session.setAttribute(SessionInfo.COMMON, loginVo);
+
+		// 로그아웃 후 리다이렉트
+		session.invalidate(); // 세션 무효화
+		return "redirect:/useraccount/login";
+	}
+
+} 

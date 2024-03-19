@@ -5,11 +5,12 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.personal.dao.PersonalLoginDao;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.Setter;
-
+    
 @Service
 public class PersonalLoginServiceImpl implements PersonalLoginService {
 
@@ -74,7 +75,7 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		return personalLogin;
 
 	}
-	
+
 	// 마이페이지 정보 조회
 	@Override
 	public PersonalLoginVO findId(String personalId) {
@@ -86,6 +87,14 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 	public int personalUpdate(PersonalLoginVO login) {
 		int result = 0;
 		result = personalLoginDao.personalUpdate(login);
+		return result;
+	}
+
+	// 비밀번호 변경 일자
+	@Override
+	public int updatePasswdChangeDate(LoginVo login) {
+		int result = 0;
+		result = personalLoginDao.updatePasswdChangeDate(login);
 		return result;
 	}
 
