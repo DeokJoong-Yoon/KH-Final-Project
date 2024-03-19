@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.admin.board.academy.dao.AcademySourceAdminDAO">
+
+	<resultMap type="academySource" id="academySourceResultMap">
+	<id property="academyNumber" column="ACADEMY_NUMBER" />
+    <result property="academyGuAddress" column="ACADEMY_GU_ADDRESS"/>
+    <result property="academyType" column="ACADEMY_TYPE"/>
+    <result property="academyName" column="ACADEMY_NAME"/>
+    <result property="academyRoadAddress" column="ACADEMY_ROAD_ADDRESS"/>
+    <result property="academyDongAddress" column="ACADEMY_DONG_ADDRESS"/>
+    <result property="academyFieldName" column="ACADEMY_FIELD_NAME"/>
+    <result property="academyCurriculumSeriesName" column="ACADEMY_CURRICULUM_SERIES_NAME"/>
+    <result property="academyCurriculumListName" column="ACADEMY_CURRICULUM_LIST_NAME"/>
+    <result property="academyCurriculumName" column="ACADEMY_CURRICULUM_NAME"/>
+    <result property="academyTotalCapacity" column="ACADEMY_TOTAL_CAPACITY"/>
+    <result property="academyTotalCapacityPerDay" column="ACADEMY_TOTAL_CAPACITY_PER_DAY"/>
+    <result property="academyTuitionPerPerson" column="ACADEMY_TUITION_PER_PERSON"/>
+    <result property="academyTuitionOpenStatus" column="ACADEMY_TUITION_OPEN_STATUS"/>
+    <result property="academyDormitoryAcademyStatus" column="ACADEMY_DORMITORY_ACADEMY_STATUS"/>
+    <result property="academyRoadPostalNumber" column="ACADEMY_ROAD_POSTAL_NUMBER"/>
+    <result property="academyRegisterStatusName" column="ACADEMY_REGISTER_STATUS_NAME"/>
+    <result property="academyRegisterDate" column="ACADEMY_REGISTER_DATE"/>
+    <result property="academyClosedStartDate" column="ACADEMY_CLOSED_START_DATE"/>
+    <result property="academyClosedEndDate" column="ACADEMY_CLOSED_END_DATE"/>
+    <result property="academyOpenDate" column="ACADEMY_OPEN_DATE"/>
+    <result property="academyLoadingDateTime" column="ACADEMY_LOADING_DATE_TIME"/>
+</resultMap>
+
+	<select id="memberListCnt" parameterType="academySource"
+		resultType="int">
+		SELECT count(*)
+		FROM tb_academy_source
+		<trim prefix=" where (" suffix=")">
+			<include refid="memberSearch"></include>
+		</trim>
+	</select>
+
+	<sql id="memberSearch">
+		<if test="search == 'academy_number'">
+		<![CDATA[ academy_number LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'academy_name'"> 
+		<![CDATA[ academy_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+
+
+	<select id="memberList" parameterType="academySource"
+		resultMap="academySourceResultMap"> 
+		<![CDATA[
+		SELECT
+			ACADEMY_GU_ADDRESS, ACADEMY_TYPE, ACADEMY_NUMBER,
+			ACADEMY_NAME, ACADEMY_ROAD_ADDRESS, ACADEMY_DONG_ADDRESS,
+			ACADEMY_FIELD_NAME, ACADEMY_CURRICULUM_SERIES_NAME,
+			ACADEMY_CURRICULUM_LIST_NAME,
+			ACADEMY_CURRICULUM_NAME,
+			ACADEMY_TOTAL_CAPACITY,
+			ACADEMY_TOTAL_CAPACITY_PER_DAY,
+			ACADEMY_TUITION_PER_PERSON, ACADEMY_TUITION_OPEN_STATUS,
+			ACADEMY_DORMITORY_ACADEMY_STATUS,
+			ACADEMY_ROAD_POSTAL_NUMBER,
+			ACADEMY_REGISTER_STATUS_NAME,
+			ACADEMY_REGISTER_DATE,
+			ACADEMY_CLOSED_START_DATE, ACADEMY_CLOSED_END_DATE, ACADEMY_OPEN_DATE,
+			ACADEMY_LOADING_DATE_TIME
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_academy_source pk_tb_academy_source) */
+		   rownum as rnum,
+			ACADEMY_GU_ADDRESS, ACADEMY_TYPE, ACADEMY_NUMBER,
+			ACADEMY_NAME, ACADEMY_ROAD_ADDRESS, ACADEMY_DONG_ADDRESS,
+			ACADEMY_FIELD_NAME, ACADEMY_CURRICULUM_SERIES_NAME,
+			ACADEMY_CURRICULUM_LIST_NAME,
+			ACADEMY_CURRICULUM_NAME,
+			ACADEMY_TOTAL_CAPACITY,
+			ACADEMY_TOTAL_CAPACITY_PER_DAY,
+			ACADEMY_TUITION_PER_PERSON, ACADEMY_TUITION_OPEN_STATUS,
+			ACADEMY_DORMITORY_ACADEMY_STATUS,
+			ACADEMY_ROAD_POSTAL_NUMBER,
+			ACADEMY_REGISTER_STATUS_NAME,
+			ACADEMY_REGISTER_DATE,
+			ACADEMY_CLOSED_START_DATE, ACADEMY_CLOSED_END_DATE, ACADEMY_OPEN_DATE,
+			ACADEMY_LOADING_DATE_TIME
+			FROM (
+					select * from tb_academy_source order by ACADEMY_NUMBER
+				 ) sortedMemberList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="memberSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+	
+	<select id="memberDetail" parameterType="academySource"
+		resultMap="academySourceResultMap">
+		SELECT
+		*
+		FROM tb_academy_source
+		WHERE
+		academy_number = #{academyNumber}
+	</select>
+	
+	<delete id="memberDelete" parameterType="academySource">
+		{ CALL delete_academy_data(#{academyId}) }
+	</delete>
+
+
+
+</mapper>

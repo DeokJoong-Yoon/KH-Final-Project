@@ -10,4 +10,6 @@ public interface AcademySourceAdminService {
 
 	public List<AcademySourceVO> academySourceList(AcademySourceVO academySourceVO);
 
+	public AcademySourceVO memberDetail(AcademySourceVO academyAdminVO);
+
 }

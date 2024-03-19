@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/adminBoard/*")
 @Slf4j
-public class AdminBoardConstoller {
+public class AdminBoardController {
 
 	@Setter(onMethod_ = @Autowired)
 	private NoticeBoardService noticeBoardServcie;
@@ -384,6 +384,18 @@ public class AdminBoardConstoller {
 		model.addAttribute("pageMaker", new PageDTO(academySourceVO, total));
 
 		return "admin/board/academySourceListView";
+	}
+	
+	@GetMapping("/acadmeySourceListDetail")
+	public String academySourceListDetail(@ModelAttribute AcademySourceVO academyAdminVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		AcademySourceVO detail = academySourceAdminService.memberDetail(academyAdminVO);
+		model.addAttribute("detail", detail);
+
+		return "admin/board/academySourceListDetail";
 	}
 
 }
