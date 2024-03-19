@@ -163,10 +163,20 @@
 										<c:forEach var="free" items="${freeList}" varStatus="status">
 											<tr class="text-center" data-num="${free.commonNo}">
 												<td>${free.commonNo}</td>
-												<td class="goDetail text-start link-primary">${free.commonTitle}</td>
+												<%-- <td class="goDetail text-start link-primary">${free.commonTitle}</td> --%>
+												<td class="goDetail text-start">${free.commonTitle}
+												<c:if test="${free.freereplyCnt> 0}">
+													<span class="freereply_count">[${free.freereplyCnt}]</span>
+												</c:if>
+												</td>
 												<td class="name">${free.personalId}</td>
 												<td>${free.commonRegisterDate}</td>
 												<td>${free.commonReadcnt}</td>
+												<td><c:if test="${not empty free.commonFile}">
+													<img src="/uploadStorage/free/${free.commmonFile}" class="rounded w-50 h-50" />
+												</c:if> <c:if test="${empty free.commonFile}">
+													<img src="/resources/include/board/images/no-image-icon.png" class="rounded w-50 h-50" />
+												</c:if>
 											</tr>
 										</c:forEach>
 									</c:when>
@@ -179,10 +189,7 @@
 							</tbody>
 					</table>
 				</div>
-			<!-- 	<form id="detailForm">
-					<input type="hidden" id="commonNo" name="commonNo" />
-				</form> -->
-				
+			
 				<div class="text-end">
 					<button type="submit" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
 				</div>
@@ -306,6 +313,7 @@
 		if (word != "") {
 			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");
 			$("#search").val("<c:out value='${FreeVO.search}' />");
+			
 			if ($("#search").val() != 'commonContent') {
 				if ($("#search").val() == 'commonTitle')
 					value = "#list tr td.goDetail";

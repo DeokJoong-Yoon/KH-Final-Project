@@ -115,6 +115,7 @@
 
 				<form id="f_data" name="f_data">
 					<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo}"/>
+					<input type="hidden" name="commonFile" id="commonFile" value="${detail.commonFile}"/>
 		      	</form>
 					<div class="boardDetail">
 						<table class="table text-center" id="table">
@@ -140,6 +141,14 @@
 									<td colspan="10" rowspan="10"
 										class="text-start content-size">${detail.commonContent}</td>
 								</tr>
+								<c:if test="${not empty detail.commonFile}">
+									<tr>
+										<td class="align-middle">이미지</td>
+										<td class="text-start">
+											<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="width:20px; height:200px;" />
+										</td>
+									</tr>
+								</c:if>
 							</tbody>
 						</table>
 					</div>

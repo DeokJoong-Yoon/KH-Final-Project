@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myedumyselect.common.file.FileUploadUtil;
 import com.myedumyselect.commonboard.free.dao.FreeDAO;
 import com.myedumyselect.commonboard.free.reply.dao.FreeReplyDAO;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
@@ -69,16 +70,28 @@ public class FreeServiceImpl implements FreeService {
 	}
 	
 	@Override
-	public int freeUpdate(FreeVO fvo) {
+	public int freeUpdate(FreeVO fvo) throws Exception {
 		int result = 0;
+		if(!fvo.getFile().isEmpty()) {
+			if(!fvo.getCommonFile().isEmpty()) {
+				FileUploadUtil.fileDelete(fvo.getCommonFile());
+			}
+			
+			String fileName = FileUploadUtil.fileUpload(fvo.getFile(), "free");
+			fvo.setCommonFile(fileName);
+		}
 		result = freeDAO.freeUpdate(fvo);
 		return result;
 	}
 	
 	// 글 삭제 구현
 	@Override
-	public int freeDelete(FreeVO fvo) {
-		int result = freeDAO.freeDelete(fvo);
+	public int freeDelete(FreeVO fvo) throws Exception {
+		int result = 0;
+		if(!fvo.getCommonFile().isEmpty()) {
+			FileUploadUtil.fileDelete(fvo.getCommonFile());
+		}
+		result = freeDAO.freeDelete(fvo);
 		return result;
 	}
 	

@@ -131,12 +131,10 @@
 								<tr>
 									<td><textarea name="commonContent" id="commonContent" class="form-control custom-textarea" placeholder="내용을 입력해주세요.">${freeUpdateData.commonContent}</textarea></td>
 								</tr>
-								<%-- <c:if test="${not empty freeUpdateData.File}">
-									<tr>
-										<td>이미지파일첨부</td>
-										<td class="text-start"><input type="file" name="file" id="file" class="form-control" /></td>
-									</tr>
-								</c:if> --%>
+								<tr>
+									<td>이미지파일첨부</td>
+									<td class="text-start"><input type="file" name="commonFile" id="commonFile" class="form-control" /></td>
+								</tr>
 							</table>
 						</form>
 						<div class="col-md-5 text-end ms-auto" id=btnGroup>

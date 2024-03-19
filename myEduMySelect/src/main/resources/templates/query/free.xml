@@ -12,35 +12,61 @@
     <result column="common_register_date" property="commonRegisterDate" />
     <result column="common_edit" property="commonEdit" />
     <result column="common_readcnt" property="commonReadcnt" /> 
+    <result column="common_file" property="commonFile" />
 </resultMap>
 
-<select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
-    SELECT common_no, personal_id, member_type_id, common_title, common_content, 
-    to_char(common_register_date,'YYYY-MM-DD') as common_register_date, 
-    to_char(common_edit, 'YYYY-MM-DD') as common_edit, 
-    common_readcnt 
-    FROM tb_common_board
-    <where>
-        <include refid="freeSearch"></include>
-    </where>
-    ORDER BY common_no desc
+
+	<sql id="freeSearch">
+		<if test="search=='commonTitle'">
+				<![CDATA[ common_title LIKE '%' || #{keyword} ||'%' ]]>
+		</if>
+		<if test="search=='commonContent'">
+				<![CDATA[ common_content LIKE '%' || #{keyword} ||'%' ]]>
+		</if>
+		<if test="search=='personalId'">
+				<![CDATA[ personal_id LIKE '%' || #{keyword} ||'%' ]]>
+		</if>
+	</sql>
+	
+	
+	
+	<select id="freeListCnt" parameterType="freeBoard" resultType="int">
+		SELECT count(*) FROM tb_common_board
+		<trim prefix=" where (" suffix=")">
+			<include refid="freeSearch"></include>
+		</trim>
+	</select>
+	
+	
+	<select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
+    <![CDATA[
+    SELECT
+        common_no, personal_id, common_title, to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date, common_readcnt, common_file,
+        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_readcnt
+    FROM (
+            select /*+index_desc(tb_common_board tb_common_board_pk)*/
+                rownum AS rnum, common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
+            from tb_common_board
+            where]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="freeSearch"></include>
+		</trim>
+        <![CDATA[       rownum <= #{pageNum} * #{amount}
+         ) freeList         
+    where rnum > (#{pageNum} - 1) * #{amount}
+    ]]>
 </select>
 
 
 
 
-	<!-- <insert id="freeInsert" parameterType="freeBoard"> INSERT INTO tb_common_board(commonNo, 
-		personalId, memberTypeId, commonTitle, commonContent) VALUES (free_board_seq.nextval, 
-		#{personalId}, #{memberTypeId}, #{commonTitle}, #{commonContent}) </insert> -->
+	
+	
 
 	<insert id="freeInsert" parameterType="freeBoard">
-		<!-- <selectKey keyProperty="commonNo" resultType="int" order="BEFORE">
-			select free_board_seq.nextval from dual
-		</selectKey> -->
-
 		INSERT INTO tb_common_board(common_no, personal_id, member_type_id,
-		common_title, common_content)
-		VALUES (free_board_seq.nextval, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent})
+		common_title, common_content, common_file)
+		VALUES (free_board_seq.nextval, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent}, #{commonFile})
 	</insert>
 
 	<update id="readCntUpdate" parameterType="freeBoard">
@@ -53,7 +79,7 @@
 	<select id="freeDetail" parameterType="freeBoard" resultMap="freeBoardMap">
 		SELECT common_no, personal_id, member_type_id,
 		common_title, common_content, TO_CHAR(common_register_date,'YYYY-MM-DD
-		HH24:MI:SS') AS common_register_date, common_readcnt
+		HH24:MI:SS') AS common_register_date, common_readcnt, common_file
 		FROM
 		tb_common_board
 		WHERE common_no = #{commonNo}
@@ -63,8 +89,11 @@
 	<update id="freeUpdate" parameterType="freeBoard">
         UPDATE tb_common_board
         SET common_title = #{commonTitle},
-        common_content = #{commonContent},
-        common_register_date = sysdate
+      		common_content = #{commonContent},
+        	common_register_date = sysdate
+        	<if test="commonFile != ''">
+        		, common_file = #{commonFile}
+        	</if>
         WHERE common_no = #{commonNo}
     </update>
 
@@ -75,26 +104,30 @@
 		tb_common_board where common_no = #{commonNo}
 	</delete>
 
-
-	<sql id="freeSearch">
-		<if test="search=='common_title'">
-				<![CDATA[ common_title LIKE '%' || #{keyword} ||'%' ]]>
-		</if>
-		<if test="search=='common_content'">
-				<![CDATA[ common_content LIKE '%' || #{keyword} ||'%' ]]>
-		</if>
-		<if test="search=='personal_id'">
-				<![CDATA[ personal_id LIKE '%' || #{keyword} ||'%' ]]>
-		</if>
-	</sql>
-
-	<select id="freeListCnt" parameterType="freeBoard" resultType="int">
-		SELECT count(*) FROM tb_common_board
-		<trim prefix=" where (" suffix=")">
-			<include refid="freeSearch"></include>
-		</trim>
-	</select>
-
-	
-
 </mapper>
+
+<!-- <select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
+	    SELECT common_no, personal_id, member_type_id, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt 
+	    FROM tb_common_board
+	    <where>
+	        <if test="search=='commonTitle'">
+				<![CDATA[ common_title LIKE '%' || #{keyword} ||'%' ]]>
+			</if>
+			<if test="search=='commonContent'">
+					<![CDATA[ common_content LIKE '%' || #{keyword} ||'%' ]]>
+			</if>
+			<if test="search=='personalId'">
+					<![CDATA[ personal_id LIKE '%' || #{keyword} ||'%' ]]>
+			</if>
+	    </where>
+	    ORDER BY common_no desc
+	</select> -->
+	
+	
+<!-- <selectKey keyProperty="commonNo" resultType="int" order="BEFORE">
+			select free_board_seq.nextval from dual
+		</selectKey> -->
+
+	<!-- <insert id="freeInsert" parameterType="freeBoard"> INSERT INTO tb_common_board(commonNo, 
+		personalId, memberTypeId, commonTitle, commonContent) VALUES (free_board_seq.nextval, 
+		#{personalId}, #{memberTypeId}, #{commonTitle}, #{commonContent}) </insert> -->

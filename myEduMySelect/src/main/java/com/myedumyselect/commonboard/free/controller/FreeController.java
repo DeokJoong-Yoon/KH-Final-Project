@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myedumyselect.common.file.FileUploadUtil;
+import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.free.service.FreeService;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
 
@@ -31,30 +33,28 @@ public class FreeController {
 	/* 글 목록 구현*/
 	@GetMapping("/freeList")
 	public String freeList(@ModelAttribute FreeVO fvo, Model model) {
-		log.info("freeList 호출 성공");
+		log.info("freeList 호출 성공") ;
 		List<FreeVO> freeList = freeService.freeList(fvo);
-		model.addAttribute("freeList", freeList);
+		
+		int total = freeService.freeListCnt(fvo);
+		
+		model.addAttribute("pageMaker", new PageDTO(fvo, total));
 		return "board/free/freeBoardList";
+		
 	}
 	
 	
-	/* 글 쓰기 구현*/
+	/* 글 쓰기 구현
 	@PostMapping("/freeInsert")
-	public String freeInsert(FreeVO fvo, RedirectAttributes ras) {
-		log.info("freeInsert 호출 성공");
-
+	public String freeInsert(FreeVO fvo) throws Exception{
 		int result = 0;
-		String url = "";
-
-		result = freeService.freeInsert(fvo);
-		if (result == 1) {
-			url = "/free/freeList";
-		} else {
-			ras.addFlashAttribute("errorMsg","입력에 문제가 있어 다시 진행해 주세요.");
-			url = "/free/freeWriterForm";
+		if(fvo.getFile().getSize() > 0) {
+			String fileName = FileUploadUtil.fileUpload(fvo.getFile(), "free");
+			fvo.setcommonFile(fileName);
 		}
-		return "redirect:"+url;
-	}
+		result = freeDAO.freeInsert(fvo);
+		return result;
+	}*/
 	
 	
 	/* 글쓰기 폼 구현*/
@@ -83,12 +83,9 @@ public class FreeController {
 	//글 수정 구현
 	
 	@GetMapping(value="/freeUpdateForm")
-	public String freeUpdateForm(@RequestParam("commonNo") int commonNo, Model model) {
+	public String freeUpdateForm(@ModelAttribute FreeVO fvo, Model model) {
 	    log.info("freeUpdateForm 호출 성공");
-	    log.info("commonNo = " + commonNo);
-	    
-	    FreeVO fvo = new FreeVO();
-	    fvo.setCommonNo(commonNo);
+	    log.info("commonNo = " + fvo.getCommonNo());
 	    
 	    FreeVO freeUpdateData = freeService.freeUpdateForm(fvo);
 	    
@@ -98,7 +95,7 @@ public class FreeController {
 
 	
 
-	@PostMapping("/freeUpdate")
+	/*@PostMapping("/freeUpdate")
 	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
 	    log.info("freeUpdate 호출 성공");
 	    
@@ -107,7 +104,7 @@ public class FreeController {
 	    
 	    result = freeService.freeUpdate(fvo);
 	    ras.addFlashAttribute("freeVO", fvo);
-		/* model.addAttribute("freeUpdateData", fvo); */
+		/* model.addAttribute("freeUpdateData", fvo);
 	    
 	    if(result == 1) {
 	        url = "/free/freeDetail?commonNo=" + fvo.getCommonNo();
@@ -115,12 +112,12 @@ public class FreeController {
 	        url = "/free/freeUpdateForm?commonNo=" + fvo.getCommonNo();
 	    }
 	    return "redirect:" + url;
-	}
+	}*/
 	
 	
 	 //글 삭제
 	
-	@PostMapping("/freeDelete")
+	/*@PostMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
 		log.info("freeDelete 호출 성공");
 		
@@ -135,14 +132,28 @@ public class FreeController {
 			url="/free/freeDetail?commonNo="+fvo.getCommonNo();
 		}
 		return "redirect:"+url;
+	}*/
+	
+	@PostMapping("/freeUpdate")
+	public String freeUpdate(@ModelAttribute FreeVO fvo) throws Exception{
+		log.info("freeUpdate 호출 성공");
+		freeService.freeUpdate(fvo);
+		return "redirect:/free/freeList";
+	}
+	
+	@PostMapping("/freeDelete")
+	public String freeDelete(@ModelAttribute FreeVO fvo) throws Exception{
+		log.info("freeDelete 호출 성공");
+		freeService.freeDelete(fvo);
+		return "redirect:/free/freeList";
 	}
 	
 	
 	
 	@ResponseBody
-	@PostMapping(value="/replyCount", produces=MediaType.TEXT_PLAIN_VALUE)
-	public String replyCount(@RequestParam("commonNo") int commonNo) {
-		log.info("replyCount 호출 성공");
+	@PostMapping(value="/freereplyCount", produces=MediaType.TEXT_PLAIN_VALUE)
+	public String freereplyCount(@RequestParam("commonNo") int commonNo) {
+		log.info("freereplyCount 호출 성공");
 		
 		int result = 0;
 		result = freeService.freereplyCount(commonNo);
