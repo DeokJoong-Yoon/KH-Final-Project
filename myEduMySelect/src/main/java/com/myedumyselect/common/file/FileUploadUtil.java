@@ -44,9 +44,9 @@ public class FileUploadUtil {
 
 	
 	//파일 삭제 메소드
-	public static void fileDelete(String fileName) {
+	public static void fileDelete(String fileName) throws IOException {
 		log.info("fileDelete 호출 성공");
-		
+			
 		boolean result = false;
 		String dirName = fileName.substring(0, fileName.indexOf("_"));		//삭제할 파일이 존재하는 폴더 얻기
 		String docRoot = "C:/uploadStorage/" + dirName;
