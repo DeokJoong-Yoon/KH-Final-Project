@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
+import com.myedumyselect.admin.board.academy.service.AcademySourceAdminService;
 import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 import com.myedumyselect.admin.member.service.AcademyAdminService;
-import com.myedumyselect.admin.member.service.AcademySourceService;
 import com.myedumyselect.admin.member.service.PersonalAdminService;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
@@ -61,8 +61,8 @@ public class AdminBoardConstoller {
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginService academyLoginService;
 	
-//	@Setter(onMethod_ = @Autowired)
-//	private AcademySourceService academySourceService;
+	@Setter(onMethod_ = @Autowired)
+	private AcademySourceAdminService academySourceAdminService;
 
 
 	/*************************************************************
@@ -368,22 +368,22 @@ public class AdminBoardConstoller {
 	/*************************************************************
 	 * Admin academySourcec
 	 *************************************************************/
-//	@GetMapping("/academySource")
-//	public String academySourceBoardAdminView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
-//			HttpSession session) {
-//		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-//		if (adminLoginVO == null) {
-//			return "redirect:/admin/login";
-//		}
-//
-//		List<AcademySourceVO> academySourceList = academySourceService.List(academySourceVO);
-//		model.addAttribute("academySourceList", academySourceList);
-//		// 전체 레코드수 반환.
-//		int total = academySourceService.memberListCnt(academySourceVO);
-//		// 페이징 처리
-//		model.addAttribute("pageMaker", new PageDTO(academySourceVO, total));
-//
-//		return "admin/board/academySourceListView";
-//	}
+	@GetMapping("/academySource")
+	public String academySourceBoardAdminView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
+			HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+
+		List<AcademySourceVO> academySourceList = academySourceAdminService.academySourceList(academySourceVO);
+		model.addAttribute("academySourceList", academySourceList);
+		// 전체 레코드수 반환.
+		int total = academySourceAdminService.academySourceListCnt(academySourceVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(academySourceVO, total));
+
+		return "admin/board/academySourceListView";
+	}
 
 }
