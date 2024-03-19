@@ -170,6 +170,21 @@
 			</div> --%>
 			
 			
+			<!-- ========== 찜 ========== -->
+			<div id="like-section">
+				<c:choose>
+					<c:when test="${like.likeCheck eq 1}">
+						<img id="likeYesImg" src="/uploadStorage/like/likeYes.png"
+								onclick="toggleLike(${like.commonNo})" >
+					</c:when>
+					<c:otherwise>
+						<img id="likeNoImg" src="/uploadStorage/like/likeNo.png"
+								onclick="toggleLike(${like.commonNo})" >
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
+			
 			
 			
 		</div>
@@ -283,9 +298,34 @@
   
  
 	<script>
-		function like() {
-			$("#like-" + commonNo)
+		//좋아요 버튼 클릭 시 처리 함수
+		function toggleLike(commonNo) {
+			let likeData = {
+					commonNo : commonNo,
+					likeMemberId : 'aaa123' //세션에서 받아온 id
+			};
+			
+		
+			//Ajax 호출로 서버에 좋아요 처리 요청
+			$.ajax({
+				url: "/like",
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify(likeData),
+				success : function() {
+					alert("이 학원을 찜했습니다.");
+					updateLikeCount(commonNo);
+				}
+			});
 		}
+		
+		
+		/* //좋아요 수 업데이트 함수
+		function updateLikeCount(commonNo) {
+			$.get('/like/count?commonNo=' + commonNo, function(count) {
+				$("#like")
+			})
+		} */
 	</script>
 	
 </body>

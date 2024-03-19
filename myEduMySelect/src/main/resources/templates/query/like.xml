@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myedumyselect.commonboard.like.dao.LikeDAO">
+
+	<!-- LikeVO 별칭 일괄 부여 -->
+	<resultMap type="Like" id="LikeMap">
+		<id column="common_no" property="commonNo" />
+		<result column="like_member_id" property="likePropertyId" />
+		<result column="like_check" property="likeCheck" />
+		<result column="like_id" property="likeId" />
+	</resultMap>
+
+	
+	<!-- 좋아요 등록 -->
+	<insert id="insertLike" parameterType="like" >
+		INSERT	
+		INTO	tb_like	(common_no, like_member_id, like_check, like_id)
+		VALUES	( #{commonNo}, #{likeMemberId}, 1, like_seq.nextval )
+	</insert>
+	
+	
+	<!-- 좋아요 취소 -->
+	<update id="cancelLike" parameterType="like" >
+		UPDATE	tb_like
+		SET		like_check 		= 0
+		WHERE	common_no 		= #{commonNo}
+		AND		like_member_id 	= #{likeMemberId} 
+	</update>
+	
+	
+	<!-- 좋아요 개수 -->
+	<select id="getLikeCount" parameterType="int" resultType="int">
+		SELECT	COUNT ( NVL(like_check, 0) )
+		FROM	tb_like
+		WHERE   common_no	= #{common_no}
+		AND		like_check	= 1
+	</select>
+	
+	
+	<!-- 좋아요 여부 확인 -->
+	<select id="getLikeStatus" parameterType="like" resultType="java.lang.Integer">
+		SELECT	like_check
+		FROM	tb_like
+		WHERE	common_no		= #{commonNo}
+		AND		like_member_id 	= #{likeMemberId}
+	</select>
+</mapper>
