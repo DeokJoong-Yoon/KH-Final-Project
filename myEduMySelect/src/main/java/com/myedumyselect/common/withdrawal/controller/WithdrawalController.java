@@ -36,7 +36,7 @@ public class WithdrawalController {
 	private PersonalLoginService personalLoginService;
 	
 	
-	@GetMapping("/personal")
+	@PostMapping("/personal")
 	public String personalWithdrawal(Model model, HttpSession session, SessionStatus sessionStatus) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		
@@ -47,7 +47,7 @@ public class WithdrawalController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/academy")
+	@PostMapping("/academy")
 	public String academyWithdrawal(Model model, HttpSession session, SessionStatus sessionStatus) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		
