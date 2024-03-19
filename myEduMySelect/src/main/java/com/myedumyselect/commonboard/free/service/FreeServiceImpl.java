@@ -39,12 +39,12 @@ public class FreeServiceImpl implements FreeService {
 	
 	// 글 입력 구현
 	@Override
-	public int freeInsert(FreeVO fvo) {
+	public int freeInsert(FreeVO fvo) throws Exception{
 		int result = 0;
-		/*fvo.setcommonNo(0);
-		if(fvo.getcommonNo() == 0) {
-			return result;
-		}*/
+		if(fvo.getFile().getSize() > 0) {
+			String fileName = FileUploadUtil.fileUpload(fvo.getFile(), "free");
+			fvo.setCommonFile(fileName);
+		}
 		result = freeDAO.freeInsert(fvo);
 		return result;
 	}

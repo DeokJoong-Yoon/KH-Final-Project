@@ -30,27 +30,3 @@ $(function(){
         location.href = "/free/freeList";
     });    
 });
-
-/*$(function(){
-    let errorMsg = "${errorMsg}";
-    if(errorMsg != ""){
-        alert(errorMsg);
-    }
-});*/
-  /*var formData = new FormData($("#f_writeForm")[0]); // FormData 객체 생성
-
-            $.ajax({
-                url: "/free/freeInsert",
-                type: "POST",
-                data: formData,
-                processData: false, // FormData를 사용할 때 필요한 옵션
-                contentType: false, // FormData를 사용할 때 필요한 옵션
-                success: function(response) {
-                    // 성공 시 처리 로직, 예를 들어 리스트 페이지로 리다이렉트
-                    location.href = "/free/freeList";
-                },
-                error: function(xhr, status, error) {
-                    // 에러 시 처리 로직
-                    alert("오류 발생");
-                }
-            });*/
