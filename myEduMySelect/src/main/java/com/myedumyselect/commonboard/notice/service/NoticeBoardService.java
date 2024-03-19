@@ -15,7 +15,7 @@ public interface NoticeBoardService {
 
 	public NoticeBoardVO boardDetail(NoticeBoardVO noticeBoardVO);
 
-	public int boardDelete(NoticeBoardVO noticeBoardVO);
+	public int boardDelete(NoticeBoardVO noticeBoardVO) throws Exception;
 
 	public NoticeBoardVO updateForm(NoticeBoardVO noticeBoardVO);
 
