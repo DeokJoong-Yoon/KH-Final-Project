@@ -22,4 +22,25 @@ public class FreeReplyServiceImpl implements FreeReplyService {
         list = freereplyDAO.freereplyList(frvo);
         return list;
     }
+	
+	@Override
+	public int freereplyInsert(FreeReplyVO frvo) {
+		int result = 0;
+		result = freereplyDAO.freereplyInsert(frvo);
+		return result;
+	}
+	
+	@Override
+	public int freereplyUpdate(FreeReplyVO frvo) {
+		int result = 0;
+		result = freereplyDAO.freereplyUpdate(frvo);
+		return result;
+	}
+	
+	@Override
+	public int freereplyDelete(FreeReplyVO frvo) {
+		int result = 0;
+		result = freereplyDAO.freereplyDelete(frvo);
+		return result;
+	}
 }

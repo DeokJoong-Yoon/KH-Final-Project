@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myedumyselect.commonboard.free.dao.FreeDAO;
+import com.myedumyselect.commonboard.free.reply.dao.FreeReplyDAO;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
 
 import lombok.Setter;
@@ -15,8 +16,8 @@ public class FreeServiceImpl implements FreeService {
 	@Setter(onMethod_ = @Autowired)
 	private FreeDAO freeDAO;
 	
-	/*@Setter(onMethod_ = @Autowired)
-	private FreeReplyDAO freereplyDAO;*/
+	@Setter(onMethod_ = @Autowired)
+	private FreeReplyDAO freereplyDAO;
 	
 	
 	
@@ -78,6 +79,13 @@ public class FreeServiceImpl implements FreeService {
 	@Override
 	public int freeDelete(FreeVO fvo) {
 		int result = freeDAO.freeDelete(fvo);
+		return result;
+	}
+	
+	@Override
+	public int freereplyCount(int commonNo) {
+		int result = 0;
+		result = freereplyDAO.freereplyCount(commonNo);
 		return result;
 	}
 }

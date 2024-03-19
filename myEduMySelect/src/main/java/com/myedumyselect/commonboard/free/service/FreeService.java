@@ -13,5 +13,6 @@ public interface FreeService {
 	public FreeVO freeUpdateForm(FreeVO fvo);
 	public int freeUpdate(FreeVO fvo);
 	public int freeDelete(FreeVO fvo);
+	public int freereplyCount(int commonNo);
 	
 }

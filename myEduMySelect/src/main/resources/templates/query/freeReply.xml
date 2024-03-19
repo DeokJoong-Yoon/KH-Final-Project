@@ -2,18 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myedumyselect.commonboard.free.reply.dao.FreeReplyDAO">
 
-    <resultMap type="freereply" id="freereplyMap">
-        <id column="commonCommentNo" property="common_comment_no" />
-        <result column="commonNo" property="common_no" />
-        <result column="personalId" property="personal_id" />
-        <result column="commonCommentContent" property="common_comment_content" />
-        <result column="commonCommentDate" property="common_comment_date" />       
+    <resultMap type="freeReply" id="freeReplyMap">
+        <id column="common_comment_no" property="commonCommentNo" />
+        <result column="common_no" property="commonNo" />
+        <result column="personal_id" property="personalId" />
+        <result column="common_comment_content" property="commonCommentContent" />
+        <result column="common_comment_date" property="commonCommentDate" />       
     </resultMap>
     
-    <select id="freereplyList" parameterType="freereply" resultType="freereply">
-        select common_comment_no, common_no, personal_id, common_comment_content, to_char(common_comment_date, 'YYYY-MM-DD HH24:MI:SS') as common_comment_date
-        from tb_common_comment
-        where common_no = #{common_no}
-        order by common_comment_no desc
-    </select>
+    <select id="freereplyList" parameterType="freeReply" resultMap="freeReplyMap">
+	    select common_comment_no, common_no, personal_id, common_comment_content, to_char(common_comment_date, 'YYYY-MM-DD HH24:MI:SS') as common_comment_date
+	    from tb_common_comment
+	    where common_no = #{commonNo}
+	    order by common_comment_no desc
+	</select>
+
+
+	<insert id="freereplyInsert" parameterType="freeReply">
+	    insert into tb_common_comment(common_comment_no, common_no, personal_id, common_comment_content)
+	    values(free_board_comment_seq.nextval, #{commonNo}, #{personalId}, #{commonCommentContent})
+	</insert>
+	
+	<update id="freereplyUpdate" parameterType="freeReply">
+	    <![CDATA[
+	    update tb_common_comment
+	    set common_comment_content = COALESCE(#{commonCommentContent, jdbcType=VARCHAR}, ''),
+	        common_comment_date = sysdate
+	    where common_comment_no = #{commonCommentNo}
+	    ]]>
+	</update>
+
+
+	<delete id="freereplyDelete" parameterType="freeReply">
+		delete from tb_common_comment where common_no = #{commonNo}
+	</delete>
+
+	
+	<select id="freereplyCount" parameterType="int" resultType="int">
+		/* Reply - replyCount*/
+		select count(common_comment_no) from tb_common_comment where common_no = #{commonNo}
+	</select>
 </mapper>
