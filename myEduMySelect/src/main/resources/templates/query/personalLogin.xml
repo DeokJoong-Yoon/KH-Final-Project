@@ -92,6 +92,7 @@
 		personal_id = #{personalId}
 	</select>
 	
+	<!-- 마이페이지 -->
 	<select id="findId" parameterType="personalLogin" resultMap="personalLoginMap">
 		SELECT personal_id,
 		personal_name, personal_email,
@@ -109,11 +110,25 @@
 		SET
 		personal_email = #{personalEmail},
 		personal_address = #{personalAddress},
-		personal_phone = #{personalPhone},
-		personal_passwd = #{personalPasswd}
+		personal_phone = #{personalPhone}
+		
 		WHERE
 		personal_id = #{personalId}
 	</update> 
+	
+	
+		<!-- 비밀번호 변경 "일자" -->
+ <update id="updatePasswdChangeDate" parameterType="personalLogin">
+    UPDATE tb_personal
+    SET personal_passwd = #{personalPasswd},  <!-- 비밀번호 업데이트 -->
+        personal_passwd_change_date = SYSDATE
+    WHERE personal_id = #{personalId}
+</update>
+	
+		<!-- 현재 비밀번호 일치확인 -->
+	<select id="personalPasswdCheck" parameterType="String" resultMap="personalLoginMap">
+	  SELECT personal_passwd FROM tb_personal WHERE personal_id = #{personalId}
+	</select>
 
 
 

@@ -22,9 +22,9 @@ public class PersonalLoginVO {
 	private int personalLoginFailCount;
 	private Date personalAccountBannedDate;
 	private Date personalPasswdChangeDate;
+  
 	public PersonalLoginVO(String personalId, String personalPasswd) {
 		this.personalId = personalId;
 		this.personalPasswd = personalPasswd;
 	}
 }
- 
