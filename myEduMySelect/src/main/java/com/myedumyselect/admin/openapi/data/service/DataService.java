@@ -8,7 +8,7 @@ public interface DataService {
 
 	public int listTotalCount() throws Exception;
 
-	public List<AcademySourceVO> insertAcademySourceList(int listTotalCount) throws Exception;
+	public int insertAcademySourceList(int listTotalCount) throws Exception;
 	
 	public int listCurrCount();
 
