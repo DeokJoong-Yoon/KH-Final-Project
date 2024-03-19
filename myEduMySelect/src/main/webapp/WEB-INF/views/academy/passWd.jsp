@@ -42,8 +42,9 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academy.css">
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh3E263XmFcJlSAwiqF/X57qzdN1yW+i" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
 </head>
 
 <body>
@@ -119,10 +120,10 @@
 
     <!-- ======= academyPassWd Update Form ======= -->   
     
-    <form name="join" id="join">
+    <form name="changePasswdForm" id="changePasswdForm">
       <div class="input_group">
-        <label for="academy_id">아이디</label>
-        <input type="text" name="academy_id" id="academy_id" readonly>        
+        <label for="academyID">아이디</label>
+        <input type="text" name="academyID" id="academyID" readonly>        
       </div>
       <br />
       <div id="duplicate-message"></div>
@@ -132,51 +133,21 @@
 	  </div>
 	  <br />
 	  <div class="input_group">
-	    <label for="new_password">새 비밀번호</label>
-	    <input type="password" name="new_password" id="new_password" maxlength="20" placeholder="새 비밀번호 입력">
+	    <label for="new_passwd">새 비밀번호</label>
+	    <input type="password" name="new_passwd" id="new_passwd" maxlength="20" placeholder="새 비밀번호 입력">
 	    <label class="require">(최소 하나의 대문자/소문자/숫자/특수문자 포함  8~20자 이내로 입력) </label>
 	    <span id="password-check-message"></span>
 	  </div>
 	  <br />
 	  <div class="input_group">
-	    <label for="new_password2">새 비밀번호 확인</label>
-	    <input type="password" name="new_password2" id="new_password2" maxlength="20" onkeyup="checkPassword()">
-	    <span id="new_password-check-message"></span>
+	    <label for="new_passwd2">새 비밀번호 확인</label>
+	    <input type="password" name="new_passwd2" id="new_passwd2" maxlength="20" onkeyup="checkPassword()">
+	    <span id="new_passwd-check-message"></span>
 	  </div>
 	  <br />
-      <div class="input_group">
-        <label for="academy_number">사업자 등록번호</label>
-        <input type="text" name="academy_number" id="academy_number" maxlength="10" readonly>
-      </div>
-      <br />      
-      <div class="input_group">
-        <label for="academy_name">학원명</label>
-        <input type="text" name="academy_name" id="academy_name"  maxlength="100" readonly>
-      </div>
-      <br />
-      <div class="input_group">
-        <label for="academy_address">학원주소</label>
-        <input type="text" name="academy_gu_address" id="academy_gu_address" readonly>
-        <input type="text" name="academy_road_address" id="academy_road_address" readonly>
-        <input type="text" name="academy_dong_address" id="academy_dong_address" readonly>        
-      </div>      
-      <br />
-      <div class="input_group">
-        <label for="academy_phone">학원 전화번호</label>
-        <input type="text" name="academy_phone" id="academy_phone" readonly>
-      </div>
-      <br />      
-	  <div class="input_group" style="text-align:center">
-	    <span>
-	        <input type="submit" value="수정하기" class="myButton"/>
-	        <input type="reset" value="다시작성" class="myButton"/>
-	    </span>
-	  </div>
-	  <br />
-	  
 	</form>
-	<form action="/completeSignUp">
-	    <button type="submit">회원가입 완료 페이지로 이동</button>
+	<form action="/completeChangePasswd">
+	    <button type="submit">비밀번호 수정하기</button>
 	</form>
 
     <!-- ======= Contact Section ======= -->
@@ -264,7 +235,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/assets/js/academyPasswd.js"></script>
+  <!-- <script src="/resources/include/assets/js/academyPasswd.js"></script> -->
   		
 </body>
 

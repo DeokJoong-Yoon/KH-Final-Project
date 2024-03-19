@@ -134,9 +134,9 @@
   <!-- 회원가입 완료 메시지 -->
 <div class="signup-message-container">
    <div class="signup-message-content">
-   		<h1>회원가입 완료</h1>
-		<h2>${commonLogin.Name}님 회원가입을 축하드립니다!<br />이제 홈페이지의 모든 서비스를 이용하실수 있습니다.</h2>
-        <a href="/" class="btn">홈페이지로 이동</a>
+   		<h1>회원가입 완료!</h1>
+		<h2>이제 홈페이지의 모든 서비스를 이용하실수 있습니다.</h2>
+        <a href="/" class="btn btn-primary btn-sm">홈페이지로 이동</a>
     </div>
 </div>
     

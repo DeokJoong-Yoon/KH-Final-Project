@@ -47,19 +47,8 @@
 
   <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
 
-  <script>
-  	window.onload = function() {
-  		var confirmMessage = "${confirmMessage}";
-  		if (confirmMessage) {
-  			var result = confirm(confirmMessage);
-  			if(result) {
-  				window.location.href = "/academyaccount/login"; // 확인 눌렀을 경우 로그인 페이지로 이동
-  			} else {
-  				window.location.href = "/";
-  			}
-  		}
-  	};
-  </script>
+  
+  
 </head>
 
 <body>
@@ -125,186 +114,193 @@
     </div>
    </section><!-- End Hero -->
 	
-	<main id="main">
+	<main id="main">		
+		
+	<form:form action="/updateUserInfo" modelAttribute="academyLoginVo" method="POST" name="mypage" id="updateForm">
+		
+		<div class="input_group">
+			<label for="academyId">아이디</label>
+			<form:input path="academyId" type="text" class="form-control" style="width: 400px;" maxlength="12" readonly="true" />
+		</div>		
+		
+		<div class="input_group">
+			<label for="academyPasswd" style="display: inline-block;" >비밀번호</label>
+			<form:input path="academyPasswd" type="password"  class="form-control" style="width: 400px;"/>
+			<button type="button">비밀번호 변경</button>
+		</div>		
+		
+		<div class="input_group">
+			<label for="academyNumber">사업자 등록번호</label>
+			<form:input path="academyNumber" type="text" class="form-control" style="width: 400px;" readonly="true" />
+		</div>		
+		
+		<div class="input_group">
+			<label for="academyManagerName">담당자 이름</label>
+			<form:input path="academyManagerName" type="text" class="form-control" style="width: 400px;" />
+		</div>		
+		
+		<div class="input_group">
+			<label for="academyManagerEmail">담당자 이메일</label>
+			<form:input path="academyManagerEmail" type="text" class="form-control" style="width: 400px;" />
+			<button id="emailCheckBtn" class="emailCheck">중복체크</button>
+		</div>		
+		
+		<div class="input_group">
+			<label for="academyManagerPhone">담당자 전화번호</label>
+			<form:input path="academyManagerPhone" type="text" class="form-control" style="width: 400px;" />
+		</div>		
 
+		<div class="input_group">
+			<label for="academyName">학원명</label>
+			<form:input path="academyName" type="text" class="form-control" style="width: 400px;" readonly="true" />
+		</div>		
+
+		<div class="input_group">
+			<label for="academy_address">학원주소</label>
+			<form:input path="academyGuAddress" type="text" class="form-control" style="width: 400px;" readonly="true" />
+			<form:input path="academyRoadAddress" type="text" class="form-control" style="width: 400px;" readonly="true" />
+			<form:input path="academyDongAddress" type="text" class="form-control" style="width: 400px;" readonly="true" />
+		</div>		
+
+		<div class="input_group">
+			<label for="academyPhone">학원 전화번호</label>
+			<form:input path="academyPhone" type="text" class="form-control" style="width: 400px;" readonly="true" />
+		</div>		
+			
+		<div class="input_group">
+			<label for="academyTargetSubject">교습과목</label>
+			<form:input path="academyTargetSubject" type="text" class="form-control" style="width: 400px;" />
+		</div>		
+		<br />
 		
+		<div class="input_group">
+			<label for="academy_fee" style="font-weight: bold;">수강료</label>			
+			<div class="row">
+				<div class="col-md-4">
+					<form:radiobutton path="academyFee" id="fee1" value="10만원 미만" />
+					<label for="fee1" style="font-weight: 300px;">10만원 미만</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyFee" id="fee2" value="10만원 이상 20만원 미만" />
+					<label for="fee2" style="font-weight: 300px;">10만원 이상 20만원 미만</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyFee" id="fee3" value="20만원 이상 30만원 미만" />
+					<label for="fee3" style="font-weight: 300px;">20만원 이상 30만원 미만</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<form:radiobutton path="academyFee" id="fee4" value="30만원 이상 40만원 미만" />
+					<label for="fee4" style="font-weight: 300px;">30만원 이상 40만원 미만</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyFee" id="fee5" value="40만원 이상 50만원 미만" />
+					<label for="fee5" style="font-weight: 300px;">40만원 이상 50만원 미만</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyFee" id="fee6" value="50만원 이상" />
+					<label for="fee6" style="font-weight: 300px;">50만원 이상</label>
+				</div>
+			</div>
+		</div>		
+		<br />
 		
-	<form:form action="/updateUserInfo" modelAttribute="academyLoginVo" method="post" name="mypage" id="mypage">
-        <div class="input_group">
-            <label for="academyId">아이디</label>
-            <form:input path="academyId" type="text" maxlength="12" readonly="true"/>
-        </div>
-      <br />
-      <div class="input_group">
-        <label for="academyPasswd">비밀번호</label>
-        <form:input path="academyPasswd" type="password"/>
-      </div>
-      <br />      
-      <div class="input_group">
-        <label for="academyNumber">사업자 등록번호</label>
-        <form:input path="academyNumber" type="text" readonly="true"/>
-      </div>
-      <br />
-      <div class="input_group">
-        <label for="academyManagerName">담당자 이름</label>
-        <form:input path="academyManagerName" type="text"/>
-      </div>
-      <br />
-      <div class="input_group">
-        <label for="academyManagerEmail">담당자 이메일</label>
-        <form:input path="academyManagerEmail" type="text"/>
-      </div>
-      <br />
-        <div class="input_group">
-            <label for="academyManagerPhone">담당자 전화번호</label>
-        <form:input path="academyManagerPhone" type="text"/>
-      </div>
-      <br />
-      <div class="input_group">
-        <label for="academyName">학원명</label>
-        <form:input path="academyName" type="text" readonly="true"/>
-      </div>
-      <br />
-      <div class="input_group">
-        <label for="academy_address">학원주소</label>
-        <form:input path="academyGuAddress" type="text"  readonly="true"/>
-        <form:input path="academyRoadAddress" type="text" readonly="true"/>
-        <form:input path="academyDongAddress" type="text" readonly="true"/>
-      </div>      
-      <br />
-      <div class="input_group">
-        <label for="academyPhone">학원 전화번호</label>
-        <form:input path="academyPhone" type="text" readonly="true"/>
-      </div>
-      <br />
-      <div class="input_group">
-        <label for="academyTargetSubject">교습과목</label>
-        <form:input path="academyTargetSubject" type="text"/>
-      </div>
-      <br />
-      <div class="input_group">
-	    <label for="academy_fee" style="font-weight:bold;" >수강료</label>
-	    <div class="row" >
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee1" value="10만원 미만"/>
-	            <label for="fee1" style="font-weight:300px;" >10만원 미만</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee2" value="10만원 이상 20만원 미만"/>
-	            <label for="fee2" style="font-weight:300px;">10만원 이상 20만원 미만</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee3" value="20만원 이상 30만원 미만"/>
-	            <label for="fee3" style="font-weight:300px;">20만원 이상 30만원 미만</label>
-	        </div>
-	    </div>
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee4" value="30만원 이상 40만원 미만"/>
-	            <label for="fee4" style="font-weight:300px;">30만원 이상 40만원 미만</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee5" value="40만원 이상 50만원 미만"/>
-	            <label for="fee5" style="font-weight:300px;">40만원 이상 50만원 미만</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyFee" id="fee6" value="50만원 이상"/>
-	            <label for="fee6" style="font-weight:300px;">50만원 이상</label>
-	        </div>
-	    </div>
-	  </div>
-	  <br />
-	  <div class="input_group">
-	    <label for="academyTargetGrade" style="font-weight:bold;">대상 학년</label>
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyTargetGrade" id="grade1" value="미취학" disabled="true"/>
-	            <label for="grade1" style="font-weight:300px;">미취학</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyTargetGrade" id="grade2" value="초등저학년" disabled="true"/>
-	            <label for="grade2" style="font-weight:300px;">초등저학년</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyTargetGrade" id="grade3" value="초등고학년" disabled="true"/>
-	            <label for="grade3" style="font-weight:300px;">초등고학년</label>
-	        </div>
-	    </div>
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyTargetGrade" id="grade4" value="중등" disabled="true"/>
-	            <label for="grade4" style="font-weight:300px;">중등</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyTargetGrade" id="grade5" value="고등" disabled="true"/>
-	            <label for="grade5" style="font-weight:300px;">고등</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:radiobutton path="academyTargetGrade" id="grade6" value="성인" disabled="true"/>
-	            <label for="grade6" style="font-weight:300px;">성인</label>
-	        </div>
-	    </div>
- 	  </div>
-	  <br />
-	  <div class="input_group">
-	  	<label for="academy_keyword" style="font-weight:bold;">키워드 선택</label>
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="basic" value="기초부터" disabled="true"/>
-	            <label for="basic" style="font-weight:300px;">기초부터</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="intermediate" value="심화수업" disabled="true"/>
-	            <label for="intermediate" style="font-weight:300px;">심화수업</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="advanced" value="친절한 강사" disabled="true"/>
-	            <label for="advanced" style="font-weight:300px;">친절한 강사</label>
-	        </div>
-	    </div>
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="attribute" value="꼼꼼한 관리" disabled="true"/>
-	            <label for="attribute" style="font-weight:300px;">꼼꼼한 관리</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="thorough" value="숙제 없음" disabled="true"/>
-	            <label for="thorough" style="font-weight:300px;">숙제 없음</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="thorough" value="자기주도적" disabled="true"/>
-	            <label for="thorough" style="font-weight:300px;">자기주도적</label>
-	        </div>
-	    </div>	  
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="attribute" value="강의식 수업" disabled="true"/>
-	            <label for="attribute" style="font-weight:300px;">강의식 수업</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="thorough" value="입시 대비" disabled="true"/>
-	            <label for="thorough" style="font-weight:300px;">입시 대비</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" id="thorough" value="꼼꼼한 관리" disabled="true"/>
-	            <label for="thorough" style="font-weight:300px;">재밌는 수업</label>
-	        </div>
-	    </div>	  
-	  </div>      
-	  <br />
-	  <div class="input_group">
-	    <span>
-	        <button type="button" name="updateBtn" id="updateBtn" class="updateBtn">회원정보 수정하기</button>	        
-	        <a href="/payment/payMain">결제하기</a>	        
-	        <button type="button">탈퇴하기</button>	        
-	    </span>
-	  </div>
-	  <br />
+		<div class="input_group">
+			<label for="academyTargetGrade" style="font-weight: bold;">대상 학년</label>			
+			<div class="row">
+				<div class="col-md-4">
+					<form:radiobutton path="academyTargetGrade" id="grade1" value="미취학"/>
+					<label for="grade1" style="font-weight: 300px;">미취학</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyTargetGrade" id="grade2" value="초등저학년"/>
+					<label for="grade2" style="font-weight: 300px;">초등저학년</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyTargetGrade" id="grade3" value="초등고학년"/>
+					<label for="grade3" style="font-weight: 300px;">초등고학년</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<form:radiobutton path="academyTargetGrade" id="grade4" value="중등"/>
+					<label for="grade4" style="font-weight: 300px;">중등</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyTargetGrade" id="grade5" value="고등"/>
+					<label for="grade5" style="font-weight: 300px;">고등</label>
+				</div>
+				<div class="col-md-4">
+					<form:radiobutton path="academyTargetGrade" id="grade6" value="성인"/>
+					<label for="grade6" style="font-weight: 300px;">성인</label>
+				</div>
+			</div>
+		</div>
+		<br />
+
+		<div class="input_group">
+			<label for="academy_keyword" style="font-weight: bold;">키워드 선택</label>			
+			<div class="row">
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="basic" value="기초부터"/>
+					<label for="basic" style="font-weight: 300px;">기초부터</label>
+				</div>
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="intermediate" value="심화수업"/>
+					<label for="intermediate" style="font-weight: 300px;">심화수업</label>
+				</div>
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="advanced" value="친절한 강사"/>
+					<label for="advanced" style="font-weight: 300px;">친절한 강사</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="attribute" value="꼼꼼한 관리"/>
+					<label for="attribute" style="font-weight: 300px;">꼼꼼한 관리</label>
+				</div>
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="thorough" value="숙제 없음"/>
+					<label for="thorough" style="font-weight: 300px;">숙제 없음</label>
+				</div>
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="thorough" value="자기주도적"/>
+					<label for="thorough" style="font-weight: 300px;">자기주도적</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="attribute" value="강의식 수업"/>
+					<label for="attribute" style="font-weight: 300px;">강의식 수업</label>
+				</div>
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="thorough" value="입시 대비"/>
+					<label for="thorough" style="font-weight: 300px;">입시 대비</label>
+				</div>
+				<div class="col-md-4">
+					<form:checkbox path="academyKeyword1" id="thorough" value="꼼꼼한 관리"/>
+					<label for="thorough" style="font-weight: 300px;">재밌는 수업</label>
+				</div>
+			</div>
+		</div>
+		<br />
+
+		<div class="input_group">
+			<span>
+				<button type="button" name="updateBtn" id="updateBtn" class="btn btn-primary btn-sm">회원정보 수정하기</button> 
+				<a href="/payment/payMain" class="btn btn-primary btn-sm">결제하기</a>
+								
+			</span>
+			
+		</div>	
+		<br />
 	  
 	</form:form>
 	
-	<form action="/adminBoard/academyDelete" method="POST">
-		<button type="submit">탈퇴하기</button>
+	<form id="withdrawalForm" action="/withdrawal/academy" method="POST">
+		<button type="submit" id="withdrawalBtn"
+			class="btn btn-primary btn-sm">탈퇴하기</button>
 	</form>
 
 	</main>
@@ -388,28 +384,53 @@
 	<!-- End Footer -->
 
 	<div id="preloader"></div>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+		<i class="bi bi-arrow-up-short"></i>
+	</a>
 
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
-	<script
-		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	<script
-		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+	<script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
+	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  	<script src="/resources/include/assets/js/academy.js"></script>
+  	<script src="/resources/include/academy/academyJoin.js"></script>
+	<script src="/resources/include/academy/common.js"></script>
+	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/academy/mypage.js"></script>
 	
+	
+	<script>
+  	window.onload = function() {
+  		var confirmMessage = "${confirmMessage}";
+  		if (confirmMessage) {
+  			var result = confirm(confirmMessage);
+  			if(result) {
+  				window.location.href = "/academyaccount/login"; // 확인 눌렀을 경우 로그인 페이지로 이동
+  			} else {
+  				window.location.href = "/";
+  			}
+  		}
+  	};
+  </script>
+  
+  <script>
+	  $(document).ready(function() {
+		    $("#withdrawalBtn").click(function() {
+		        // confirm 창을 띄우고 사용자가 '예'를 선택한 경우에만 form을 제출합니다.
+		        var confirmWithdrawal = confirm("정말로 탈퇴하시겠습니까?");
+		        if (confirmWithdrawal) {
+		            $("#withdrawalForm").submit();
+		        }
+		    });
+		});
+  </script>
 </body>
 
 </html>

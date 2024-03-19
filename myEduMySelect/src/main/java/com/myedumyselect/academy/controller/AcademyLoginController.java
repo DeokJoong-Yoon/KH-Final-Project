@@ -2,17 +2,20 @@ package com.myedumyselect.academy.controller;
 
 import java.util.Date;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
@@ -38,9 +41,20 @@ public class AcademyLoginController {
 
 	// 학원회원 로그인으로 이동
 	@GetMapping("/academyaccount/login")
-	public String userAccountLoginForm(Model model) {
+	public String userAccountLoginForm(Model model, HttpSession session) {		
+		
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		
+		if(loginVo != null) {
+			if(loginVo.getMemberTypeId() == 1) {
+				log.info("잘못된 접근");
+				model.addAttribute("confirmMessage", "잘못된 접근입니다.");
+				return "/main/loginSelect";
+			}
+		}		
+		
 		model.addAttribute("loginVo", new LoginVo());
-		return "/academy/login";
+		return "/academy/login";		
 	}
 
 	// 학원회원 로그인 POST
@@ -49,7 +63,7 @@ public class AcademyLoginController {
 		// 바인딩 에러 확인
 		if(bindingResult.hasErrors()) {
 			return "/academy/login";
-		}
+		}		
 		
 		// POST 방식으로 /academyaccount/login 엔드포인트에 대한 요청을 처리하는 메서드이다.
 		// 요청에서 AcademyLoginVO 객체, Model 객체, RedirectAttributes 객체, HttpSession 객체를 받는다
@@ -122,20 +136,46 @@ public class AcademyLoginController {
 	}
 	
 	
-	// 학원회원 회원가입으로 이동
+	// 학원회원 회원가입으로 이동	
 	@GetMapping(value = "/academyaccount/join")
-	public String joinForm(Model model) {
+	public String joinForm(Model model, HttpSession session) {
+		
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		
+		if(loginVo != null) {
+			if(loginVo.getMemberTypeId() == 1) {
+				log.info("잘못된 접근");
+				model.addAttribute("confirmMessage", "잘못된 접근입니다.");
+				return "/main/loginSelect";
+			} else {
+				return "/main/main";
+			}
+		}	
 		log.info("academyJoin 호출 성공");
 		// 모델 등록
 		model.addAttribute("academySignUpVo", new AcademySignUpVo());
 		return "academy/academyJoin";
+		
+		/*
+		AcademyLoginVo academyLogin = (AcademyLoginVo) session.getAttribute("academyLogin");
+		if(academyLogin == null) {			
+			log.info("잘못된 접근");
+			model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			return "main/loginSelect";
+			
+		} else if(loginVo != null) {
+			model.addAttribute("confirmMessage", "잘못된 접근입니다");
+			return "main/errorPage";
+		}		
+		*/
 	}
 
 	// 학원회원 회원가입 POST
 	@PostMapping("/academyInsert")
 	public String academyInsert(@Valid @ModelAttribute AcademySignUpVo academySignUpVo,
-								BindingResult bindingResult) {
-
+								BindingResult bindingResult, HttpSession session, Model model, LoginVo loginVo) {
+						
+		
 		if(bindingResult.hasErrors()) {
 			return "academy/academyJoin";
 		}
@@ -173,9 +213,18 @@ public class AcademyLoginController {
 	@GetMapping("/academyaccount/mypage")
 	public String mypage(Model model, HttpSession session) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-
+		
+		if(loginVo != null) {
+			if(loginVo.getMemberTypeId() == 1) {
+				log.info("잘못된 접근");
+				model.addAttribute("confirmMessage", "잘못된 접근입니다.");
+				return "/main/main";
+			}
+		}		
+		
 		// 로그인이 되어있지 않다면
 		if(ObjectUtils.isEmpty(loginVo)) {
+			model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 			// 로그인 페이지로 리다이렉트
 			return "redirect:/academyaccount/login";
 		}
@@ -216,7 +265,6 @@ public class AcademyLoginController {
 		return academyLoginService.findByNumber(academyNumber);
 	}
 	
-
     // 마이페이지 회원정보 수정
 	@PostMapping("/academyUpdate")
 	public String academyUpdate(@ModelAttribute AcademyLoginVo academyLogin, HttpSession session,
@@ -238,7 +286,7 @@ public class AcademyLoginController {
 		log.info("academyUpdate 호출 성공");
 		
 		// 개인 정보 업데이트
-		// personalLoginService의 personalUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
+		// academyLoginService의 academyUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
 		int result = academyLoginService.academyUpdate(sessionAcademyLogin);
 
 		// 업데이트가 실패하면 에러 메시지를 추가하고 로그인 페이지로 리다이렉트
@@ -251,6 +299,65 @@ public class AcademyLoginController {
 		session.setAttribute("academyLogin", sessionAcademyLogin);
 		return "redirect:/academy/mypage";
 	}
+	
+	/* 비밀번호 변경 */
+	@GetMapping("/changePasswd")
+    public String passwordChangePage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+		
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+
+		if (loginVo != null) {
+			if (loginVo.getMemberTypeId() == 1) {
+				log.info("잘못된 접근");
+				model.addAttribute("confirmMessage", "잘못된 접근입니다.");
+				return "/main/main";
+			}
+		} else {
+			model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+			return "main/loginSelect";
+		}
+		
+        model.addAttribute("academyId", loginVo.getId());
+        return "academy/passWd";
+    }
+	
+	/*
+	@PostMapping("/checkCurrentPassword")
+	@ResponseBody
+	public boolean checkCurrentPassword(@RequestParam("academyId") String academyId,
+	                                    @RequestParam("currentPassword") String currentPassword) {
+	    // 현재 비밀번호가 일치하는지 확인하는 로직을 추가
+	    //boolean isValidPassword = academyLoginService.updatePasswdChangeDate(AcademyLoginVo AcademyLoginVo.builder());
+	    //return isValidPassword;
+	}
+	*/
+	
+    @PostMapping("/changePasswd")
+    public String updatePasswdChangeDate(@ModelAttribute AcademyLoginVo academyLogin, HttpSession session,
+                                         RedirectAttributes redirectAttributes) {
+        // 세션에서 LoginVo 객체 가져오기
+        LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+
+        // 새로운 비밀번호 설정
+        loginVo.setPasswd(academyLogin.getAcademyPasswd());
+
+        // 변경된 비밀번호 업데이트
+        int result = academyLoginService.updatePasswdChangeDate(academyLogin);;
+
+        if (result == 0) {
+            redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+            return "redirect:/academyaccount/login";
+        }
+
+    
+        session.setAttribute(SessionInfo.COMMON, loginVo);
+
+        // 로그아웃 후 리다이렉트
+        session.invalidate(); // 세션 무효화
+        return "redirect:/academyaccount/login";
+    }
+
+
 
 	
 }

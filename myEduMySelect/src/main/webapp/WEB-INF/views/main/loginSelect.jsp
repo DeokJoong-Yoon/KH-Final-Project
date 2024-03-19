@@ -209,7 +209,22 @@
   <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>
-
+	
+	
+	<script>
+  	window.onload = function() {
+  		var confirmMessage = "${confirmMessage}";
+  		if (confirmMessage) {
+  			var result = confirm(confirmMessage);
+  			if(result) {
+  				window.location.href = "/"; // 확인 눌렀을 경우 로그인 페이지로 이동
+  			} else {
+  				window.location.href = "/";
+  			}
+  		}
+  	};
+  </script>
+	
 </body>
 
 </html>

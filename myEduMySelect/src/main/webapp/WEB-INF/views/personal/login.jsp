@@ -85,6 +85,18 @@ $(function() {
 });
 
     </script>
+
+
+<script>
+    window.onload = function() {
+        var confirmMessage = "${confirmMessage}";
+        if (confirmMessage) {
+            alert(confirmMessage);
+        }
+    };
+</script>
+
+
 </head>
 <body>
 

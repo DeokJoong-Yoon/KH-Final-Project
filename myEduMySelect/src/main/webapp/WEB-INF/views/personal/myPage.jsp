@@ -247,6 +247,19 @@ $(function(){
 });
 </script>
 
+<script>
+	window.onload = function() {
+		var confirmMessage = "${confirmMessage}"};
+		if(confirmMessage) {
+			var result = confirm(confirmMessage);
+			if(result) {
+				window.location.href = "/main/loginSelect";
+			} else {
+				window.location.href = "/";
+			}
+		}
+	}
+</script>
 
 
 
