@@ -109,7 +109,6 @@
       	<form name="formData" id="formData">
       		<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo }"/>
       		<%-- <input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' /> --%>
-      		<p>${detail.fileVO }</p>
       	</form>
       
       	<div class="userId">${userId }</div>
@@ -142,7 +141,7 @@
 					</tr>
 					<tr>
 						<th>이미지</th>
-						<td>
+						<td id="lastTd">
 							<c:forEach var="file" items="${detail.fileVO }">
 								<img src="${file.filePath}" alt="이미지">
 							</c:forEach>
@@ -290,7 +289,7 @@
                     if (status == 0) {
                     	$("#likeMsg").text("이 학원을 찜할까요?");
                     	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                    	$("#likeImage").on("click", function(){
+                    	$("#likeButton").on("click", function(){
                     		$.ajax({
                     			type: "post",
                     			url: "/like/insert",
@@ -314,7 +313,7 @@
                     	if(status == 1) {
                     		$("#likeMsg").text("찜한 학원입니다.");
                     		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                    		$("#likeImage").on("click", function(){
+                    		$("#likeButton").on("click", function(){
                         		$.ajax({
                         			type: "post",
                         			url: "/like/toggle",
@@ -337,7 +336,7 @@
                     	} else {
                     		$("#likeMsg").text("이 학원을 찜할까요?");
                     		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                    		$("#likeImage").on("click", function(){
+                    		$("#likeButton").on("click", function(){
                         		$.ajax({
                         			type: "post",
                         			url: "/like/toggle",

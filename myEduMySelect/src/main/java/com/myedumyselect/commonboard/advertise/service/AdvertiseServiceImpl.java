@@ -105,24 +105,51 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 			List<FileVO> nowFiles = aDAO.advertiseNowFile(aVO.getCommonNo());
 			
 			aDAO.advertiseDeleteFile(aVO);			//기존의 파일을 삭제
+			
+			
+			boolean empty = true;
 			for (MultipartFile file : files) {
-				if (!file.isEmpty()) { 				//새로 첨부한 파일들 업데이트 진행
-		            String fileName = FileUploadUtil.fileUpload(file , "advertise");
-
-		            FileVO fileVO = new FileVO();
-		            fileVO.setCommonNo(aVO.getCommonNo());
-		            fileVO.setFileName(fileName);
-		            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName);
-		            
-		            //파일 업데이트 수행
-		            int fileResult = aDAO.advertiseInsertFile(fileVO);
-		            
-		            if(fileResult == 0) {
-		            	result = 0;
-		            }
-		            
-				} 
+				empty = file.isEmpty();
+				if(!empty) { 
+					System.out.println("empty 아님");
+					break; 
+				} else {
+					System.out.println("empty임");
+				}
 			}
+			
+			
+			if(!empty) {
+				for (MultipartFile file : files) {
+					
+					if (!file.isEmpty()) { 				//새로 첨부한 파일들 업데이트 진행
+						System.out.println("새로운 파일들");
+			            String fileName = FileUploadUtil.fileUpload(file , "advertise");
+
+			            FileVO fileVO = new FileVO();
+			            fileVO.setCommonNo(aVO.getCommonNo());
+			            fileVO.setFileName(fileName);
+			            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName);
+			            
+			            //파일 업데이트 수행
+			            int fileResult = aDAO.advertiseInsertFile(fileVO);
+			            
+			            if(fileResult == 0) {
+			            	result = 0;
+			            }
+			            
+					} 
+				} 
+			} else {
+				System.out.println("기존 파일");
+				for(FileVO nowFile : nowFiles) {
+					int nowResult = aDAO.advertiseInsertFile(nowFile);
+	                if(nowResult == 0) {
+	                	result = 0; 
+	                }
+				}
+			}
+				
 			
 			//썸네일 등록
 			aDAO.advertiseThumbnail(aVO);
