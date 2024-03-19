@@ -240,6 +240,21 @@
         	academy_id = #{academyId}
     </update>
 	
+	<!-- 비밀번호 변경 "일자" -->
+	<update id="updatePasswdChangeDate" parameterType="personalLogin">
+	    UPDATE 
+	    	tb_academy
+	    SET 
+	    	academy_Passwd = #{academyPasswd},  <!-- 비밀번호 업데이트 -->
+	        academy_passwd_change_date = SYSDATE
+	    WHERE academy_id = #{academyId}
+	</update>
+	
+	<!-- 현재 비밀번호 일치확인 -->
+	<select id="personalPasswdCheck" parameterType="String" resultMap="academyLoginMap">
+	  SELECT academy_Passwd FROM tb_academy WHERE academy_id = #{academyId}
+	</select>
+	
     <!-- DELETE 기능 구현 
     <delete id="deleteAcademy" parameterType="int">
         DELETE 

@@ -106,8 +106,7 @@
                         <c:otherwise>
                             <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
                         </c:otherwise>
-                    </c:choose>
-               		</li>
+                    </c:choose>               		
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
