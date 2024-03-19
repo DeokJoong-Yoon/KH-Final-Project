@@ -4,7 +4,7 @@
 <mapper namespace="com.myedumyselect.commonboard.like.dao.LikeDAO">
 
 	<!-- LikeVO 별칭 일괄 부여 -->
-	<resultMap type="Like" id="LikeMap">
+	<resultMap type="like" id="likeMap">
 		<id column="common_no" property="commonNo" />
 		<result column="like_member_id" property="likePropertyId" />
 		<result column="like_check" property="likeCheck" />
@@ -20,29 +20,33 @@
 	</insert>
 	
 	
-	<!-- 좋아요 취소 -->
-	<update id="cancelLike" parameterType="like" >
-		UPDATE	tb_like
-		SET		like_check 		= 0
-		WHERE	common_no 		= #{commonNo}
-		AND		like_member_id 	= #{likeMemberId} 
-	</update>
+	<!-- 좋아요 변경 -->
+	<update id="toggleLike" parameterType="like">
+	    UPDATE 	tb_like
+	    SET 	like_check = CASE
+	       						WHEN like_check = 0  THEN  1
+						        WHEN like_check = 1  THEN  2
+						        WHEN like_check = 2  THEN  1
+	    END
+	    WHERE common_no = #{commonNo}
+	    AND like_member_id = #{likeMemberId}
+	</update> 
 	
 	
-	<!-- 좋아요 개수 -->
+	<!-- 좋아요 개수
 	<select id="getLikeCount" parameterType="int" resultType="int">
 		SELECT	COUNT ( NVL(like_check, 0) )
 		FROM	tb_like
 		WHERE   common_no	= #{common_no}
 		AND		like_check	= 1
-	</select>
+	</select> -->
 	
 	
-	<!-- 좋아요 여부 확인 -->
-	<select id="getLikeStatus" parameterType="like" resultType="java.lang.Integer">
-		SELECT	like_check
-		FROM	tb_like
-		WHERE	common_no		= #{commonNo}
-		AND		like_member_id 	= #{likeMemberId}
-	</select>
+	<!-- 좋아요 여부 확인-->
+	<select id="getLike" parameterType="like" resultType="java.lang.Integer">
+	    SELECT 	like_check
+	    FROM 	tb_like
+	    WHERE 	common_no	 	= #{commonNo}
+	    AND 	like_member_id 	= #{likeMemberId}
+	</select> 
 </mapper>

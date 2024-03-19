@@ -8,14 +8,16 @@ import com.myedumyselect.commonboard.like.vo.LikeVO;
 public interface LikeDAO {
 	
 	//좋아요 등록
-	public void insertLike(LikeVO lvo);
+	public int insertLike(LikeVO lvo);
 	
-	//좋아요 취소
-	public void cancelLike(LikeVO lvo);
+	//좋아요 변경
+	public int toggleLike(LikeVO lvo);
 	
 	//좋아요 개수
-	public int getLikeCount(int commonNo);
+	//public int getLikeCount(int commonNo);
 	
-	//좋아요 여부 확인
-	public Integer getLikeStatus(LikeVO lvo);
+	//좋아요 상태 확인
+	public Integer getLike(LikeVO lvo);
+	//public int getLike(LikeVO lvo);
+	
 }

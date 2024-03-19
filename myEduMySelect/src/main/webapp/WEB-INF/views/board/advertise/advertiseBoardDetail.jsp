@@ -171,19 +171,23 @@
 			
 			
 			<!-- ========== 찜 ========== -->
-			<div id="like-section">
+			<%-- <div id="like-section">
+				<p>dd${detail.commonNo}</p>
 				<c:choose>
 					<c:when test="${like.likeCheck eq 1}">
 						<img id="likeYesImg" src="/uploadStorage/like/likeYes.png"
-								onclick="toggleLike(${like.commonNo})" >
+								onclick="toggleLike(${detail.commonNo})" >
 					</c:when>
 					<c:otherwise>
 						<img id="likeNoImg" src="/uploadStorage/like/likeNo.png"
-								onclick="toggleLike(${like.commonNo})" >
+								onclick="toggleLike(${detail.commonNo})" >
 					</c:otherwise>
 				</c:choose>
-			</div>
-			
+			</div> --%>
+			<div id="likeButton">
+		        <img id="likeImage" src="/uploadStorage/like/likeNo.png">
+		        <p id="likeMsg"></p>
+		    </div>
 			
 			
 			
@@ -297,36 +301,121 @@
   <script src="/resources/include/board/advertise/js/advertiseDetail.js"></script>
   
  
-	<script>
-		//좋아요 버튼 클릭 시 처리 함수
-		function toggleLike(commonNo) {
-			let likeData = {
-					commonNo : commonNo,
-					likeMemberId : 'aaa123' //세션에서 받아온 id
-			};
-			
-		
-			//Ajax 호출로 서버에 좋아요 처리 요청
-			$.ajax({
-				url: "/like",
-				type: "POST",
-				contentType: "application/json",
-				data: JSON.stringify(likeData),
-				success : function() {
-					alert("이 학원을 찜했습니다.");
-					updateLikeCount(commonNo);
-				}
-			});
-		}
-		
-		
-		/* //좋아요 수 업데이트 함수
-		function updateLikeCount(commonNo) {
-			$.get('/like/count?commonNo=' + commonNo, function(count) {
-				$("#like")
-			})
-		} */
-	</script>
+	
+	<script type="text/javascript">
+        $(document).ready(function() {
+        	
+        	let commonNo = ${detail.commonNo};
+        	
+            // 페이지 로딩 시 getLike 실행
+            $.ajax({
+                type: "POST",
+                url: "/like/get",
+                data: JSON.stringify({
+                			commonNo: commonNo,
+                			likeMemberId : 'aaa111'
+                		}),
+             	headers : {"Content-Type" : "application/json"},
+                dataType: "text",
+                success: function(status) {
+                    // 결과값에 따라 이미지 변경
+                    if (status == 0) {
+                    	$("#likeMsg").text("이 학원을 찜할까요?");
+                    	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
+                    	$("#likeImage").on("click", function(){
+                    		$.ajax({
+                    			type: "post",
+                    			url: "/like/insert",
+                    			data: JSON.stringify({
+                        			commonNo: commonNo,
+                        			likeMemberId : 'aaa111'
+                        		}),
+                        		contentType: "application/json; charset=utf-8",
+                                dataType: "text",
+                                success: function(){
+                                	$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
+                                	location.reload();
+                                	alert("이 학원을 찜했습니다!");
+                                },
+                        		error: function(){
+                        			alert("insert 실패");
+                        		}
+                    		})
+                    	})
+                    } else {
+                    	if(status == 1) {
+                    		$("#likeMsg").text("찜한 학원입니다.");
+                    		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
+                    		$("#likeImage").on("click", function(){
+                        		$.ajax({
+                        			type: "post",
+                        			url: "/like/toggle",
+                        			data: JSON.stringify({
+                            			commonNo: commonNo,
+                            			likeMemberId : 'aaa111'
+                            		}),
+                            		contentType: "application/json; charset=utf-8",
+                                    dataType: "text",
+                                    success: function(){
+                                    	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
+                                    	alert("찜을 취소했습니다.");
+                                    	location.reload();
+                                    },
+                            		error: function(){
+                            			alert("update 실패");
+                            		}
+                        		})
+                        	})
+                    	} else {
+                    		$("#likeMsg").text("이 학원을 찜할까요?");
+                    		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
+                    		$("#likeImage").on("click", function(){
+                        		$.ajax({
+                        			type: "post",
+                        			url: "/like/toggle",
+                        			data: JSON.stringify({
+                            			commonNo: commonNo,
+                            			likeMemberId : 'aaa111'
+                            		}),
+                            		contentType: "application/json; charset=utf-8",
+                                    dataType: "text",
+                                    success: function(){
+                                    	$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
+                                    	location.reload();
+                                    	alert("이 학원을 찜했습니다!");
+                                    },
+                            		error: function(){
+                            			alert("update 실패");
+                            		}
+                        		})
+                        	})
+                    	}
+                    }
+                },
+                error: function(){
+                	alert("getLike 실패");
+                }
+            });
+        });
+
+        /* function toggleLike() {
+            $.ajax({
+                type: "POST",
+                url: "/like/toggle",
+                data: JSON.stringify({"commonNo": commonNo}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function(data) {
+                    // toggle 결과값에 따라 이미지 변경
+                    if (data === "좋아요 등록") {
+                        $('#likeImage').attr('src', "/uploadStorage/like/likeYes.png");
+                    } else if (data === "좋아요 취소") {
+                        $('#likeImage').attr('src', "/uploadStorage/like/likeNo.png");
+                    }
+                }
+            });
+        } */
+    </script>
 	
 </body>
 

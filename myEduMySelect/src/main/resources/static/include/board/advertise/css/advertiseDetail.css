@@ -111,3 +111,27 @@ img {
 #editPost:hover, #deletePost:hover, #prevPost:hover, #nextPost:hover, #gotoList:hover, #cancel:hover, #editFinish:hover, #mcBtn:hover, #commentUpdateBtn:hover, #commentDeleteBtn:hover  {
     background-color: #37517e;
 }
+
+
+
+
+#likeImage {
+    width: 150px;
+}
+
+#likeButton {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    flex-direction: column; /* 세로로 요소 배치 */
+}
+
+#likeMsg {
+    text-align: center;
+    display: block; /* 블록 수준 요소로 설정 */
+    font-size : 18px;
+    color: #37517e;
+    font-weight: 600;
+    margin-top: 8px;
+    
+}
