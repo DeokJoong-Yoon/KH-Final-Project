@@ -10,6 +10,8 @@ public interface DataService {
 
 	public List<AcademySourceVO> insertAcademySourceList(int listTotalCount) throws Exception;
 	
-	public int selectAcademySourceCount();
+	public int listCurrCount();
+
+	public int deleteAcademySourceList();
 
 }
