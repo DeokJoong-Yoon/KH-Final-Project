@@ -258,7 +258,11 @@
 					<!-- End Register Page Nav -->
 
 					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/admin/accountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySourceLoad"> <i class="bi bi-menu-button-wide"></i> <span>academy source load</span>
+					</a></li>
+					
+					<hr>
+					<li class="nav-item"><a class="nav-link collapsed" href="/admin/accountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span>admin account create</span>
 					</a></li>
 					<!-- End Login Page Nav -->
 				</ul>

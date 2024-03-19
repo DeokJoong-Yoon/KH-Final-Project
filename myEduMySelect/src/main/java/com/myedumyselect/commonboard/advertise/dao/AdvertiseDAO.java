@@ -25,6 +25,18 @@ public interface AdvertiseDAO {
 	//홍보게시판 글 등록 시 첫 번째 파일을 썸네일로 설정
 	public int advertiseThumbnail(AdvertiseVO aVO);
 	
+	//홍보게시판 게시글 삭제
+	public int advertiseDelete(AdvertiseVO aVO);
+
 	//홍보게시판 상세페이지 이동
 	public AdvertiseVO advertiseDetail(AdvertiseVO aVO);
+	
+	//홍보게시판 게시글만 수정
+	public int advertiseUpdate(AdvertiseVO aVO);
+	
+	//첨부파일 삭제
+	public int advertiseDeleteFile(AdvertiseVO aVO);
+	
+	//기존에 존재하는 첨부파일 모두 가져오기
+	public List<FileVO> advertiseNowFile(int commonNo);
 }
