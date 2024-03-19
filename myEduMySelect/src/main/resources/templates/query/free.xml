@@ -54,6 +54,8 @@
         <![CDATA[       rownum <= #{pageNum} * #{amount}
          ) freeList         
     where rnum > (#{pageNum} - 1) * #{amount}
+    and common_no >= 10000 and common_no <20000
+    ORDER BY common_no desc
     ]]>
 </select>
 

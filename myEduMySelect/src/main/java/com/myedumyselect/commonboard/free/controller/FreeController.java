@@ -34,7 +34,9 @@ public class FreeController {
 	@GetMapping("/freeList")
 	public String freeList(@ModelAttribute FreeVO fvo, Model model) {
 		log.info("freeList 호출 성공") ;
+		
 		List<FreeVO> freeList = freeService.freeList(fvo);
+		model.addAttribute("freeList", freeList);
 		
 		int total = freeService.freeListCnt(fvo);
 		

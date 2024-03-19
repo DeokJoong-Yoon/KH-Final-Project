@@ -83,4 +83,17 @@ public class FreeDAOTests {
 		
 		log.info("삭제된 행의 수: "+freeDAO.freeDelete(freeVO));
 	}*/
+	
+	/*@Test
+	public void testFreeList() {
+		FreeVO fvo = new FreeVO();
+		fvo.setPageNum(1);
+		fvo.setAmount(12);
+		
+		List<FreeVO> list = freeDAO.freeList(fvo);
+		for(FreeVO vo : list) {
+			log.info(vo.toString());
+		}
+		log.info("총 레코드수 : " + freeDAO.freeListCnt(fvo));
+	}*/
 }

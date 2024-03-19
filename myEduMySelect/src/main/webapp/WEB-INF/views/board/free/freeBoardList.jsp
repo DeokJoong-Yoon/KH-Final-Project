@@ -122,8 +122,8 @@
 			
 				<div id="freeSearch" class="text-right" style="width:300%;">
 					<form id="f_search" name="f_search">
-					<%-- <input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
-					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"> --%>
+					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 						<div class="row g-2 alian-items-center">
 							<div class="col-auto">
 								<label for="search">검색조건</label>
@@ -173,9 +173,10 @@
 												<td>${free.commonRegisterDate}</td>
 												<td>${free.commonReadcnt}</td>
 												<td><c:if test="${not empty free.commonFile}">
-													<img src="/uploadStorage/free/${free.commmonFile}" class="rounded w-50 h-50" />
-												</c:if> <c:if test="${empty free.commonFile}">
-													<img src="/resources/include/board/images/no-image-icon.png" class="rounded w-50 h-50" />
+												    <img src="/uploadStorage/free/${free.commonFile}" class="rounded w-50 h-50" />
+												</c:if>
+												<c:if test="${empty free.commonFile}">
+												    <img src="/resources/include/board/images/no-image-icon.png" class="rounded w-50 h-50" />
 												</c:if>
 											</tr>
 										</c:forEach>
@@ -189,7 +190,28 @@
 							</tbody>
 					</table>
 				</div>
-			
+				<%------------------------ 페이징 출력 --------------------------%>
+				<nav aria-label = "Page navigation example">
+					<ul class="pagination justify-content-center">
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item">
+								<a href="${pageMaker.startPage - 1}" class="page-link">Prev</a>
+							</li>
+						</c:if>
+						
+						<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+							<li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}">
+								<a href="${num}" class="page-link">${num}</a>
+							</li> 
+						</c:forEach>
+						
+						<c:if test="${pageMaker.next}">
+							<li class="page-item">
+								<a href="${pageMaker.endPage + 1 }" class="page-link">Next</a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
 				<div class="text-end">
 					<button type="submit" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
 				</div>
