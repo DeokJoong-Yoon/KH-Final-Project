@@ -34,6 +34,10 @@
 		#{personalId}, #{memberTypeId}, #{commonTitle}, #{commonContent}) </insert> -->
 
 	<insert id="freeInsert" parameterType="freeBoard">
+		<!-- <selectKey keyProperty="commonNo" resultType="int" order="BEFORE">
+			select free_board_seq.nextval from dual
+		</selectKey> -->
+
 		INSERT INTO tb_common_board(common_no, personal_id, member_type_id,
 		common_title, common_content)
 		VALUES (free_board_seq.nextval, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent})

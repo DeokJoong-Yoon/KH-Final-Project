@@ -158,9 +158,9 @@
 	</main>
 
 	
-	<%-- <section >
+	<section >
 			<jsp:include page="freereply.jsp" />
-	</section> --%>
+	</section>
 
 	<main id="main"></main>
 	<!-- End #main -->
@@ -267,20 +267,6 @@
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/board/free/js/freeDetail.js"></script>
-	<!-- 
-	<script>
-	$(document).ready(function() {
-	    let commonNo = null;
-
-	    // AJAX 요청을 통해 상세 정보를 받아옴
-	    $.getJSON("/free/freeDetail?commonNo=" + commonNo, function(data) {
-	    	
-	        let detail = data; // 받아온 데이터를 detail 변수에 저장
-	        // 이후에 detail 변수를 사용하여 화면에 상세 정보를 표시하거나, 댓글을 불러오는 등의 작업을 수행할 수 있음
-	    });
-	});
-	</script>  -->
-	
 </body>
 
 </html>

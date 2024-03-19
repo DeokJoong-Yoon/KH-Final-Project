@@ -35,3 +35,10 @@ $(function(){
         location.href = "/free/freeList";
     });    
 });
+
+/*$(function(){
+    let errorMsg = "${errorMsg}";
+    if(errorMsg != ""){
+        alert(errorMsg);
+    }
+});*/

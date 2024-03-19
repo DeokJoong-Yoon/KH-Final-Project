@@ -34,7 +34,23 @@ $(function() {
         });
    	 	}
    	 });
+   	 
+   	 /* 취소 */
+   	 $("#freeCancelBtn").on("click", function(){
+			$("#updateForm").each(function(){
+				this.reset();
+		});
+	});
+	
+	/* 목록 */
+	$("#freeListBtn").on("click", function(){
+		location.href="/free/freeList";
+	})
+   	 
+   	 
 });
+
+
 
 function chkData(selector, message) {
     if($(selector).val().trim() === "") {

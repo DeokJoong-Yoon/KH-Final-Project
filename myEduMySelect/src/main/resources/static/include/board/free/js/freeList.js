@@ -12,7 +12,7 @@ $(function(){
     });
     
     /* 글쓰기 버튼 클릭 */
-    $("#insertFormBtn").on("click", () => {
+    $("#freeWriterBtn").on("click", () => {
         location.href = "/free/freeWriterForm";
     });
     

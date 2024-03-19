@@ -3,6 +3,7 @@ package com.myedumyselect.commonboard.free.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.commonboard.free.service.FreeService;
@@ -32,7 +34,7 @@ public class FreeController {
 		log.info("freeList 호출 성공");
 		List<FreeVO> freeList = freeService.freeList(fvo);
 		model.addAttribute("freeList", freeList);
-		return "/board/free/freeBoardList";
+		return "board/free/freeBoardList";
 	}
 	
 	
@@ -46,10 +48,10 @@ public class FreeController {
 
 		result = freeService.freeInsert(fvo);
 		if (result == 1) {
-			url = "/board/free/freeList";
+			url = "/free/freeList";
 		} else {
 			ras.addFlashAttribute("errorMsg","입력에 문제가 있어 다시 진행해 주세요.");
-			url = "/board/free/freeWriterForm";
+			url = "/free/freeWriterForm";
 		}
 		return "redirect:"+url;
 	}
@@ -60,7 +62,7 @@ public class FreeController {
 	public String freeWriterForm() {
 		log.info("freeWriterForm 호출 성공");
 
-		return "/board/free/freeWriterForm";
+		return "board/free/freeWriterForm";
 	}
 
 	
@@ -73,7 +75,7 @@ public class FreeController {
 		FreeVO detail = freeService.freeDetail(fvo);
 		model.addAttribute("detail", detail);
 
-		return "/board/free/freeBoardDetail";
+		return "board/free/freeBoardDetail";
 	}
 
 	
@@ -91,7 +93,7 @@ public class FreeController {
 	    FreeVO freeUpdateData = freeService.freeUpdateForm(fvo);
 	    
 	    model.addAttribute("freeUpdateData", freeUpdateData);
-	    return "/board/free/freeUpdateForm";
+	    return "board/free/freeUpdateForm";
 	}
 
 	
@@ -115,9 +117,6 @@ public class FreeController {
 	    return "redirect:" + url;
 	}
 	
-	// 수정기능이 되지 않아 우선 보류....
-
-
 	
 	 //글 삭제
 	
@@ -139,17 +138,16 @@ public class FreeController {
 	}
 	
 	
-	// 삭제는 정상처리로 알려주는데 실제로 삭제가 안되서 이것도 보류...
 	
-	/*@ResponseBody
+	@ResponseBody
 	@PostMapping(value="/replyCount", produces=MediaType.TEXT_PLAIN_VALUE)
 	public String replyCount(@RequestParam("commonNo") int commonNo) {
 		log.info("replyCount 호출 성공");
 		
 		int result = 0;
-		result = freeService.replyCount(commonNo);
+		result = freeService.freereplyCount(commonNo);
 		
 		return String.valueOf(result);
-	}*/
+	}
 
 }
