@@ -315,6 +315,14 @@
 	<script src="/resources/include/board/advertise/js/advertiseList.js"></script>
 	<script src="/resources/include/board/common/main.js"></script>
 
+	<script>
+		$(function() {
+			let popUp = "${popUp}";
+			if (popUp != "") {
+				alert(popUp);
+			}
+		});
+	</script>
 
 </body>
 

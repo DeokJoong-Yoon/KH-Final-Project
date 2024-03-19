@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.common.SessionUtil;
 import com.myedumyselect.common.vo.PageDTO;
@@ -54,13 +55,13 @@ public class AdvertiseController {
 	}
 	
 	
-	//홀보게시판 글쓰기 입력 폼 출력
+	//홍보게시판 글쓰기 입력 폼 출력
 	@GetMapping("/advertiseWriteForm")
 	public String writeForm(Model model, HttpSession session) {
 		log.info("writeForm 호출 성공");
 		
-		//개인회원 로그인 세션 받기
-		SessionUtil.personalLoginCheck(session, model, "로그인 후 열람 가능합니다.");
+//		//개인회원 로그인 세션 받기
+//		SessionUtil.personalLoginCheck(session, model, "로그인 후 열람 가능합니다.");
 		
 		return "board/advertise/advertiseInsertForm";
 	}
@@ -90,14 +91,84 @@ public class AdvertiseController {
 		
 		log.info(detail.toString());
 		
-		
-//		//찜
-//		LikeVO like = new LikeVO();
-//		like.setCommonNo(aVO.getCommonNo());
-//		like.setLikeMemberId(aVO.ge)
-//		
 		return "board/advertise/advertiseBoardDetail";
 	}
+	
+	
+	//홍보 게시판 글 삭제
+	@GetMapping("/advertiseDelete")
+	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras, HttpSession session) throws Exception {
+		log.info("delete 호출 성공");
+		
+		//게시글 상세정보 가져오기
+		AdvertiseVO avo = new AdvertiseVO();
+		avo.setCommonNo(commonNo);
+		AdvertiseVO detail = aService.advertiseDetail(avo);
+		
+		//게시글 작성자 id 추출
+		String writer = detail.getAcademyId();
+		log.info("작성자 : " + writer);
+		
+		int result = 0;
+		String url = "";
+		
+		result = aService.advertiseDelete(avo);
+		
+		if(result == 1) {
+			ras.addFlashAttribute("popUp", "삭제 완료되었습니다.");
+			url = "/advertise/advertiseBoardList";
+			log.info("result : 1");
+		} else {
+			ras.addFlashAttribute("popUp", "삭제에 실패하였습니다. 다시 시도해 주세요.");
+			url = "/advertise/advertiseDetail?commonNo=" + avo.getCommonNo();
+			log.info("result : 0");
+		}
+		
+		return "redirect:" + url;
+	}
+	
+	
+	//홍보게시판 글 수정 폼 출력
+	@GetMapping("/advertiseUpdate")
+	public String advertiseUpdateForm(@ModelAttribute AdvertiseVO avo, Model model) {
+		log.info("updateForm 호출 성공");
+		log.info("boardNumber = " + avo.getCommonNo());
+
+		AdvertiseVO updateData = aService.advertiseUpdateForm(avo);
+
+		model.addAttribute("updateData", updateData);
+		return "board/advertise/advertiseUpdateForm";
+	}
+	
+	//홍보게시판 글 수정
+	@PostMapping("/advertiseUpdate")
+	public String advertiseUpdateWithFiles(@RequestParam("commonNo") int commonNo, AdvertiseVO aVO,
+											@RequestParam("file1") MultipartFile file1,
+								            @RequestParam("file2") MultipartFile file2,
+								            @RequestParam("file3") MultipartFile file3,
+								            @RequestParam("file4") MultipartFile file4,
+								            @RequestParam("file5") MultipartFile file5,
+								            RedirectAttributes ras ) throws Exception {
+		
+		int result = 0;
+		String url = "";
+		
+		result = aService.advertiseUpdateWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
+		
+		if (result == 1) {
+			ras.addFlashAttribute("popUp", "수정 완료되었습니다.");
+			url = "/advertise/advertiseDetail?commonNo=" + commonNo;
+			log.info("result : 1");
+		} else {
+			ras.addFlashAttribute("popUp", "수정에 실패하였습니다. 다시 시도해 주세요.");
+			url = "/advertise/advertiseUpdate?commonNo=" + commonNo;
+			log.info("result : 0");
+		}
+		
+		return "redirect:" + url;
+	}
+	
+	
 	
 	
 	

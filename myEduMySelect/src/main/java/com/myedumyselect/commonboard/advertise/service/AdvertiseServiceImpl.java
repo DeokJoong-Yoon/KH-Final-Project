@@ -1,11 +1,11 @@
 package com.myedumyselect.commonboard.advertise.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.myedumyselect.common.file.FileUploadUtil;
@@ -69,5 +69,65 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	public AdvertiseVO advertiseDetail(AdvertiseVO aVO) {
 		AdvertiseVO detail = aDAO.advertiseDetail(aVO);
 		return detail;
+	}
+	
+	
+	//홍보게시판 글 삭제
+	@Override
+	public int advertiseDelete(AdvertiseVO aVO) throws Exception {
+		int result = 0;
+		result = aDAO.advertiseDelete(aVO);
+		return result;
+	}
+	
+	
+	//홍보게시판 글 수정 폼 이동
+	@Override
+	public AdvertiseVO advertiseUpdateForm(AdvertiseVO aVO) {
+		AdvertiseVO updateData = aDAO.advertiseDetail(aVO);
+		return updateData;
+	}
+	
+	
+	//홍보게시판 글 수정 (+파일)
+	@Override
+	public int advertiseUpdateWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception {
+		
+		int result = 0;
+		
+		//게시글 글 수정
+		result = aDAO.advertiseUpdate(aVO);
+		
+		//게시글 파일 수정
+		if(files != null && !files.isEmpty()) {		
+			
+			//기존에 존재하는 파일 가져오기
+			List<FileVO> nowFiles = aDAO.advertiseNowFile(aVO.getCommonNo());
+			
+			aDAO.advertiseDeleteFile(aVO);			//기존의 파일을 삭제
+			for (MultipartFile file : files) {
+				if (!file.isEmpty()) { 				//새로 첨부한 파일들 업데이트 진행
+		            String fileName = FileUploadUtil.fileUpload(file , "advertise");
+
+		            FileVO fileVO = new FileVO();
+		            fileVO.setCommonNo(aVO.getCommonNo());
+		            fileVO.setFileName(fileName);
+		            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName);
+		            
+		            //파일 업데이트 수행
+		            int fileResult = aDAO.advertiseInsertFile(fileVO);
+		            
+		            if(fileResult == 0) {
+		            	result = 0;
+		            }
+		            
+				} 
+			}
+			
+			//썸네일 등록
+			aDAO.advertiseThumbnail(aVO);
+		} 
+		
+		return result;
 	}
 }

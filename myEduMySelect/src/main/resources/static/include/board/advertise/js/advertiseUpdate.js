@@ -1,34 +1,32 @@
-let buttonCheck = 0;
-
 $(function(){
-	 $("#freeUpdateBtn").on("click", function(){
-        if(!chkData("#common_title","글제목을")) return;
-        else if(!chkData("#common_content","글내용을"))return;
-        else {
-            $("#f_updateForm").attr({
-                "method":"post",
-                "action":"/free/freeUpdate"
-            });
-            $("#f_updateForm").submit();
-        }
-    });    
 	
-	$("#freeCancelBtn").on("click", function(){
-		$("#f_updateForm").each(function(){
-			this.reset();
-		});
-	});
-	
-	$("#freeListBtn").click(function(){
-		location.href="/free/freeList";
-	});	
-});
+	$("#editFinish").on("click", function(){
+		
+		if(!chkData("#commonTitle","제목을"))		return;
+		if (!chkData("#commonContent","글 내용을"))	return;
+		
+		//첨부파일 유효성 검사
+		for(let i=1; i<=5; i++) {
+			if($("#file" + i).val() != "") {		// 업로드 할 이미지 파일이 존재한다면.
+				if(!chkFile($("#file" + i))) 
+					return;
+			}
+		}
+		
+		
+		$("#formData").attr({
+			"method":"post",
+			"enctype":"multipart/form-data",
+			"action":"/advertise/advertiseUpdate"
+		})
+		$("#formData").submit();
 
-function getParameterByName(name, url = window.location.href) {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+		
+		$("#cancel").on("click", function(){
+			$("#formData").each(function(){
+				this.reset();
+			});
+		});
+		
+	})
+})

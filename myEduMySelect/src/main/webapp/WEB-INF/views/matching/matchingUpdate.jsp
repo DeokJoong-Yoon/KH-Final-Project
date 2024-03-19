@@ -96,7 +96,7 @@
 
   <main id="main">
  
-    <!-- ======= 매칭게시판 상세 보기 ======= -->
+    <!-- ======= 매칭게시판 수정 폼 ======= -->
     <section class="mcBoard">
      
       <div class="container">
@@ -158,7 +158,7 @@
       		<button type="button" id="editFinish">수정 완료</button>
       	</div>
       </div>
-    </section><!-- 매칭게시판 상세보기 끝 -->
+    </section><!-- 매칭게시판 수정 폼 끝 -->
 
   
   </main><!-- End #main -->

@@ -172,7 +172,7 @@
 			                		FROM 	tb_file 
 			                		WHERE 	common_no = tb_common_board.common_no
 			                	) = 0 
-			                	THEN 'C:\uploadStorage\advertise\noimage.png'
+			                	THEN '../../uploadStorage/advertise/noimage.png'
 			                ELSE (
 			                		SELECT 	file_path 
 			                		FROM 	tb_file 
@@ -202,7 +202,38 @@
 	</select>
 	
 	
+	<!-- 홍보게시판 글 삭제 -->
+	<delete id="advertiseDelete" parameterType="advertiseBoard">
+		DELETE	FROM  tb_common_board
+		WHERE	common_no  = #{commonNo} 
+	</delete>
 	
+	
+	<!-- 홍보게시판 게시글만 수정 -->
+	<update id="advertiseUpdate" parameterType="advertiseBoard">
+		UPDATE	tb_common_board
+		SET		common_title	= #{commonTitle},
+				common_content	= #{commonContent},
+				common_edit		= sysdate
+		WHERE	common_no		= #{commonNo}
+	</update>
+	
+	
+	<!-- 게시글 내 첨부파일 삭제 -->
+	<delete id="advertiseDeleteFile" parameterType="advertiseBoard">
+		DELETE
+		FROM	tb_file
+		WHERE	common_no = #{commonNo}
+	</delete>
+	
+	
+	<!-- 게시글에 현재 존재하는 파일 경로 찾아오기 -->
+	<select id="advertiseNowFile" parameterType="int" resultMap="fileMap">
+		SELECT	*
+		FROM	tb_file
+		WHERE	common_no = #{commonNo}
+	</select>
+
 	
 	
 </mapper>
