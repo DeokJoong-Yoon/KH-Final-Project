@@ -66,6 +66,13 @@ public class FreeController {
 
 		return "board/free/freeWriterForm";
 	}
+	
+	/*@PostMapping("/freeInsert")
+	public String freeInsert(FreeVO fvo) throws Exception{
+		log.info("freeInsert 호출 성공");
+		freeService.freeInsert(fvo);
+		return "redirect:/free/freeList";
+	}*/
 
 	
 	

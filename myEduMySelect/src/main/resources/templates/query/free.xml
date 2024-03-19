@@ -60,11 +60,6 @@
 </select>
 
 
-
-
-	
-	
-
 	<insert id="freeInsert" parameterType="freeBoard">
 		INSERT INTO tb_common_board(common_no, personal_id, member_type_id,
 		common_title, common_content, common_file)

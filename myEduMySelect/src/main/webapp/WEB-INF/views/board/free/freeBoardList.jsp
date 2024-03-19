@@ -163,20 +163,20 @@
 										<c:forEach var="free" items="${freeList}" varStatus="status">
 											<tr class="text-center" data-num="${free.commonNo}">
 												<td>${free.commonNo}</td>
-												<%-- <td class="goDetail text-start link-primary">${free.commonTitle}</td> --%>
 												<td class="goDetail text-start">${free.commonTitle}
-												<c:if test="${free.freereplyCnt> 0}">
+												<c:if test="${free.freereplyCnt > 0}">
 													<span class="freereply_count">[${free.freereplyCnt}]</span>
 												</c:if>
 												</td>
 												<td class="name">${free.personalId}</td>
-												<td>${free.commonRegisterDate}</td>
-												<td>${free.commonReadcnt}</td>
-												<td><c:if test="${not empty free.commonFile}">
-												    <img src="/uploadStorage/free/${free.commonFile}" class="rounded w-50 h-50" />
+												<td class="text-start">${free.commonRegisterDate}</td>
+												<td class="text-center">${free.commonReadcnt}</td>
+												<td>
+												<c:if test="${not empty free.commonFile}">
+												    <img src="/uploadStorage/free/${free.commonFile}" class="rounded w-20 h-20" />
 												</c:if>
 												<c:if test="${empty free.commonFile}">
-												    <img src="/resources/include/board/images/no-image-icon.png" class="rounded w-50 h-50" />
+												    <img src="/resources/include/board/images/no-image-icon.png" class="rounded w-20 h-20" />
 												</c:if>
 											</tr>
 										</c:forEach>
