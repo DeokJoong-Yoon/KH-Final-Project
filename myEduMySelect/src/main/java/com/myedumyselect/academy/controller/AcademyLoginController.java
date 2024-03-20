@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes("academyLogin")
+@SessionAttributes(SessionInfo.COMMON)
 public class AcademyLoginController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -97,9 +97,7 @@ public class AcademyLoginController {
 			loginAttempts = 0;
 		}
 		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
-		
-		
-		
+
 		// 로그인 시도
 		AcademyLoginVo academyLogin = academyLoginService.loginProcess(loginVo.getId(), loginVo.getPasswd());
 		// AcademyLoginService를 통해 로그인을 시도한다.
@@ -178,7 +176,7 @@ public class AcademyLoginController {
 		if (bindingResult.hasErrors()) {
 			return "academy/academyJoin";
 		}
-		
+
 		// 학원회원 회원가입 처리
 		try {
 			log.info("academyInsert 호출 성공");
@@ -280,8 +278,6 @@ public class AcademyLoginController {
 	@PostMapping("/academyUpdate")
 	public String academyUpdate(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
 		log.info("컨트롤러 /academyUpdate 호출!");
-		
-		AcademyLoginVo academyLogin = academyLoginService.loginProcess(loginVo.getId(), loginVo.getPasswd());
 		
 		// 세션에서 로그인 정보 가져오기
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
