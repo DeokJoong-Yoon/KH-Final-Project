@@ -34,11 +34,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-<<<<<<< HEAD
-@SessionAttributes(SessionInfo.COMMON)
-=======
+
+
+
 @SessionAttributes(SessionInfo.COMMON)			// dj
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
+
 public class AcademyLoginController {
 
 	@Setter(onMethod_ = @Autowired)
