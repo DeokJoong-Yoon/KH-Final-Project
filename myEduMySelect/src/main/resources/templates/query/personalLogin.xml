@@ -10,8 +10,6 @@
 		<result column="personal_email" property="personalEmail" />
 		<result column="personal_passwd" property="personalPasswd" />
 		<result column="personal_birth" property="personalBirth" />
-		<result column="personal_zip_code" property="personalZipCode" />
-		<result column="personal_detail_address" property="personalDetailAddress" />
 		<result column="personal_address" property="personalAddress" />
 		<result column="personal_phone" property="personalPhone" />
 		<result column="personal_join_date" property="personalJoinDate" />
@@ -74,10 +72,10 @@
 	<insert id="personalInsert" parameterType="personalLogin">
 		INSERT INTO
 		tb_personal (personal_id, personal_name, personal_passwd,
-		personal_email, personal_birth, personal_zip_code, personal_address, personal_detail_address, personal_phone)
+		personal_email, personal_birth, personal_address, personal_phone)
 		VALUES (#{personalId}, #{personalName}, #{personalPasswd},
 		#{personalEmail}, #{personalBirth},
-		#{personalZipCode}, #{personalAddress}, #{personalDetailAddress},
+		 #{personalAddress},
 		#{personalPhone})
 	</insert>
 
@@ -86,10 +84,8 @@
 	<select id="findId" parameterType="personalLogin" resultMap="personalLoginMap">
 		SELECT personal_id,
 		personal_name, personal_email,
-		personal_birth,
-		personal_zip_code,
+		personal_birth,		
 		personal_address,
-		personal_detail_address,
 		personal_phone
 		FROM tb_personal
 		WHERE
@@ -100,10 +96,8 @@
 	<update id="personalUpdate" parameterType="personalLogin">
 		UPDATE tb_personal
 		SET
-		personal_email = #{personalEmail},
-		personal_zip_code = #{personalZipCode},
+		personal_email = #{personalEmail},		
 		personal_address = #{personalAddress},
-		personal_detail_address = #{personalDetailAddress},
 		personal_phone = #{personalPhone}
 		
 		WHERE

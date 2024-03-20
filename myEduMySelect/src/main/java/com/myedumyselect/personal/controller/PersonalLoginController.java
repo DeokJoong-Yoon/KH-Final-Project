@@ -226,11 +226,17 @@ public class PersonalLoginController {
 				.loginProcess(new PersonalLoginVO(loginVo.getId(), loginVo.getPasswd()));
 
 		sessionPersonalLogin.setPersonalEmail(personalLogin.getPersonalEmail());
-		sessionPersonalLogin.setPersonalZipCode(personalLogin.getPersonalZipCode());
-		sessionPersonalLogin.setPersonalAddress(personalLogin.getPersonalAddress());
-		sessionPersonalLogin.setPersonalDetailAddress(personalLogin.getPersonalDetailAddress());
+		//sessionPersonalLogin.setPersonalAddress(personalLogin.getPersonalAddress());
+		if (!personalLogin.getPersonalAddress().equals(",,")) {
+			sessionPersonalLogin.setPersonalAddress(personalLogin.getPersonalAddress());
+		} else {
+			PersonalLoginVO pvo = personalLoginService.personalMyPage(sessionPersonalLogin);
+			sessionPersonalLogin.setPersonalAddress(pvo.getPersonalAddress());
+		}
+	    sessionPersonalLogin.setPersonalPhone(personalLogin.getPersonalPhone());
+	    sessionPersonalLogin.setPersonalPhone(personalLogin.getPersonalPhone());
 		sessionPersonalLogin.setPersonalPhone(personalLogin.getPersonalPhone());
-		sessionPersonalLogin.setPersonalPasswd(personalLogin.getPersonalPasswd());
+	
 
 		log.info("personalUpdate 호출 성공");
 

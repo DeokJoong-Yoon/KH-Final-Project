@@ -180,16 +180,31 @@
             <form:input path="personalBirth" type="text" value="${personalLoginVO.personalBirth}" id="personalBirth" name="personalBirth" class="form-control" style="width: 250px" disabled="true" />
         </div>
         <br />
+        
         <!-- 주소 -->
-        <div class="form-group">
-    <label for="personalAddress">주소</label>
-    <form:input path="personalZipCode" type="text" value="${personalLoginVO.personalZipCode}" id="personal_ZipCode" name="personalZipCode" class="form-control" style="width:250px" />
-    <form:input path="personalAddress" type="text" value="${personalLoginVO.personalAddress}" id="personal_Address" name="personalAddress" class="form-control" style="width: 250px" />
-    <form:input path="personalDetailAddress" type="text" value="${personalLoginVO.personalDetailAddress}" id="personalDetailAddress" name="personalDetailAddress" class="form-control" style="width:250px" />
-    <button type="button" onclick="findAddr()" class="btn btn-primary">주소찾기</button>
-</div>
+        <div class="md-3 row">
+        <label for="personalAddress" class="col-sm-2 col-form-label">주소</label>
+        <div class="col-sm-10">
+            <input id="personal_post" name="personalAddress" type="text" class="form-control" placeholder="우편번호" readonly required />
+            <input id="personal_addr" name="personalAddress" type="text" class="form-control" placeholder="주소" readonly required />
+            <button type="button" name="" onclick="findAddr()">주소찾기</button>
+        </div>
+    </div>
+    <div class="md-3 row">
+        <div class="col-sm-8">
+            <label>현재 주소</label>
+            <input type="text" class="form-control" value="${personalLoginVO.personalAddress}" placeholder="상세주소입력" readonly />
+        </div>
+    </div>
 
+    <div class="md-3 row">
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="personalAddress" name="personalAddress" placeholder="상세주소입력" />
+        </div>
+    </div>
         <br />
+        
+        
         <!-- 전화번호 -->   
         <div class="form-group">
             <label for="personalPhone">전화번호</label>
@@ -255,7 +270,6 @@
 					{
 						oncomplete : function(data) {
 
-<<<<<<< HEAD
 							console.log(data);
 
 							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -264,11 +278,11 @@
 							var roadAddr = data.roadAddress; // 도로명 주소 변수
 							var jibunAddr = data.jibunAddress; // 지번 주소 변수
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('personal_ZipCode').value = data.zonecode;
+							document.getElementById('personal_post').value = data.zonecode;
 							if (roadAddr !== '') {
-								document.getElementById("personal_Address").value = roadAddr;
+								document.getElementById("personal_addr").value = roadAddr;
 							} else if (jibunAddr !== '') {
-								document.getElementById("personal_Address").value = jibunAddr;
+								document.getElementById("personal_addr").value = jibunAddr;
 							}
 						}
 					}).open();
@@ -276,7 +290,7 @@
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-=======
+
 <script>
 	window.onload = function() {
 		var confirmMessage = "${confirmMessage}"};
@@ -290,7 +304,7 @@
 		}
 	}
 </script>
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
+
 
 
 

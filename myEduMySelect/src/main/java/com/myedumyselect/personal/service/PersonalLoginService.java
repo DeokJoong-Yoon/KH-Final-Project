@@ -26,7 +26,7 @@ public interface PersonalLoginService {
 	public int emailCheck(String email);
 
 	// 마이페이지
-	public PersonalLoginVO personalMyPage(PersonalLoginVO login);
+	public PersonalLoginVO personalMyPage(PersonalLoginVO sessionPersonalLogin);
 
 	/// 회원정보 수정
 	public int personalUpdate(PersonalLoginVO login);
