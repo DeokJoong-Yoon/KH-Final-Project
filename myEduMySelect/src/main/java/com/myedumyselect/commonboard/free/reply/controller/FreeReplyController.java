@@ -51,7 +51,7 @@ public class FreeReplyController {
 	}
 	
 	@PutMapping(value = "/{commonCommentNo}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-	public String freereplyUpdate(@PathVariable("commonCommentNo") int commonCommentNo, FreeReplyVO frvo){
+	public String freereplyUpdate(@PathVariable("commonCommentNo") int commonCommentNo, @RequestBody FreeReplyVO frvo){
 		frvo.setCommonCommentNo(commonCommentNo);
 		int result = freereplyService.freereplyUpdate(frvo);
 		return (result == 1) ? "SUCCESS": "FAILURE";

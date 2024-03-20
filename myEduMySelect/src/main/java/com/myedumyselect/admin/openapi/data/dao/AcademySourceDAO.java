@@ -12,10 +12,12 @@ public interface AcademySourceDAO {
 
 	public int insertAcademySource(AcademySourceVO academySourceVO);
 
-	public int selectAcademySourceCount();
-
 	public int memberListCnt(AcademySourceVO academySourceVO);
 
 	public List<AcademySourceVO> memberList(AcademySourceVO academySourceVO);
+
+	public int getCurrAcademySource();
+
+	public int deleteAcademySourceList();
 
 }

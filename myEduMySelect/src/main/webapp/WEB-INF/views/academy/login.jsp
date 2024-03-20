@@ -47,6 +47,37 @@
     <style>
         .error { display: block; padding: 10px 0px; font-size: 18px; color: #dc3545; }
     </style>
+
+	<script>
+		$(function() {
+		    $("#loginBtn").on("click", function() {      
+		        if (!chkData("#id","아이디를")) return;
+		        else if (!chkData("#passwd","비밀번호를")) return;
+		        else {          
+		            $("#loginForm").attr({
+		                "method":"post", 
+		                "action":"/useraccount/login"      
+		            });                     
+		            $("#loginForm").submit();      
+		        }
+		    });
+		    
+		    $("#logoutBtn").on("click", function() {
+		        location.href = "/useraccount/logout"
+		    });
+		});
+    </script>
+
+
+	<script>
+	    window.onload = function() {
+	        var confirmMessage = "${confirmMessage}";
+	        if (confirmMessage) {
+	            alert(confirmMessage);
+	        }
+	    };
+	</script>
+
 </head>
 
 <body>
@@ -68,7 +99,7 @@
             <ul>
               <li><a href="#">자유게시판</a></li>
               <li><a href="#">홍보게시판</a></li>
-              <li><a href="#">매칭게시판</a></li>
+              <li><a href="/matching/">매칭게시판</a></li>
               <li><a href="#">문의게시판</a></li>
               <li><a href="/academyaccount/mypage">마이페이지</a></li>
             </ul>
@@ -128,38 +159,42 @@
                     <p class="error">${error.defaultMessage}</p>
                 </c:forEach>
             </spring:hasBindErrors>
-
+			
+			<div>
                 <!-- memberTypeId -->
                 <input type="hidden" name="memberTypeId" value="2">
 
-                <!-- id -->
-                <form:input path="id" type="text" name="id" id="id"
-                    placeholder="아이디를 입력해주세요"/> <label for="id">아이디</label>
-                <form:errors path="id" cssClass="error" />
-            </div>
-            <div>
-                <!-- passwd -->
-                <form:input path="passwd" type="password" name="passwd" id="passwd"
-                    placeholder="비밀번호를 입력해주세요"/> <label for="passwd">비밀번호</label>
+                <!-- id -->                
+                <form:input path="id" type="text" name="id" id="id" placeholder="아이디를 입력해주세요"/>
+                <label for="id">아이디</label>
+                <form:errors path="id" cssClass="error" />            
+            	
+            	<br />
+                <!-- passwd -->                
+                <form:input path="passwd" type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요"/>
+                <label for="passwd">비밀번호</label>
                 <form:errors path="passwd" cssClass="error" />
+                <br />
+                <button type="submit" id="loginBtn">로그인</button>	
             </div>
-            <button type="submit" id="loginBtn">로그인</button>
         </form:form>
    	</c:if>
 
    	<c:if test="${not empty commonLogin}">
         <h3>${commonLogin.name}님 환영합니다.</h3>
         <form method="POST" action="/useraccount/logout" id="joinForm">
-            <button class="join-button" type="submit">로그아웃</button>
+            <button type="submit" class="btn btn-primary btn-sm" >로그아웃</button>
         </form>
     </c:if>
-
-   	<form method="GET" action="/academyaccount/join" id="joinForm">
-		<button class="join-button" type="submit">회원가입하러가기</button>
-	</form>
-
+	
+	<c:if test="${empty commonLogin}">
+	   	<form method="GET" action="/academyaccount/join" id="joinForm">
+			<button type="submit" class="btn btn-primary btn-sm">회원가입하러가기</button>
+		</form>
+	</c:if>
+	
 	<form method="GET" action="/" id="homeForm">
-		<button class="home-button" type="submit">홈으로 가기</button>
+		<button type="submit" class="btn btn-primary btn-sm">홈으로 가기</button>
 	</form>
 
     <!-- ======= Contact Section ======= -->
@@ -264,7 +299,39 @@
   <!-- Template Main JS File -->  
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>
+	
+	<script>
+  	window.onload = function() {
+  		var confirmMessage = "${confirmMessage}";
+  		if (confirmMessage) {
+  			var result = confirm(confirmMessage);
+  			if(result) {
+  				window.location.href = "/"; // 확인 눌렀을 경우 로그인 페이지로 이동
+  			} else {
+  				window.location.href = "/";
+  			}
+  		}
+  	};
+  </script>
+  
+  <script>
+    $(function() {
+        let errorMsg = "${errorMsg}";
+        if(errorMsg) {
+            alert(errorMsg);
+            errorMsg = "";
+        }
+    });
+    
+    $(function() {
+        if (${not empty academyLogin}) {           
+            let academyManagerName = "${commonLogin.name}";
+            alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
+        }
+    });
 
+</script>
+	
 </body>
 
 </html>

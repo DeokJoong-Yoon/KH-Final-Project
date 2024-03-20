@@ -131,7 +131,6 @@
 										${detail.personalId}</td>
 									<td colspan="3" class="text-start">작성일 :
 										${detail.commonRegisterDate}</td>
-									<td colspan="3" class="text-start">좋아요 :</td>
 								</tr>
 							</thead>
 	

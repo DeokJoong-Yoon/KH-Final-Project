@@ -29,6 +29,8 @@ public interface AcademyLoginDao {
 	// 마이페이지 회원정보 수정
 	public int academyUpdate(AcademyLoginVo login);
 	
+	// 비밀번호 변경
+	public int updatePasswdChangeDate(AcademyLoginVo login);
 	
 	
 	// TODO: int academyUpdate(AcademyLoginVo login);

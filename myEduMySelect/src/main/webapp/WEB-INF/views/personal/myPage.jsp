@@ -190,7 +190,7 @@
 </div>
 
         <br />
-        <!-- 전화번호 -->  
+        <!-- 전화번호 -->   
         <div class="form-group">
             <label for="personalPhone">전화번호</label>
             <form:input path="personalPhone" type="text" value="${personalLoginVO.personalPhone}" id="personalPhone" name="personalPhone" class="form-control" style="width: 250px" />
@@ -255,6 +255,7 @@
 					{
 						oncomplete : function(data) {
 
+<<<<<<< HEAD
 							console.log(data);
 
 							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -275,6 +276,21 @@
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+=======
+<script>
+	window.onload = function() {
+		var confirmMessage = "${confirmMessage}"};
+		if(confirmMessage) {
+			var result = confirm(confirmMessage);
+			if(result) {
+				window.location.href = "/main/loginSelect";
+			} else {
+				window.location.href = "/";
+			}
+		}
+	}
+</script>
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 
 
 

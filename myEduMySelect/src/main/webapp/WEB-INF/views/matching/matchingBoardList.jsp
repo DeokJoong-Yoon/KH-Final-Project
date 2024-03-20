@@ -316,20 +316,6 @@
   
   <script>
   
-/*   	$(function() {
-  		let word = "<c:out value='${matchingBoard.keyword}' />";
-  		let value ="";
-  		
-  		if(word != "") {
-			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
-			value = "#mcBoardList tr td.mbdLink";
-			console.log($(value + ":contains('" + word + "')").html());
-			$(value + ":contains('" + word + "')").each(function(){
-				let regex = new RegExp(word, 'gi');
-				$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-			})
-  		}
-  	}) */
 	$(function() {
 		let popUp = "${popUp}";
 		if (popUp != "") {

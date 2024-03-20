@@ -19,34 +19,19 @@
 
 <!-- Favicons -->
 <link href="/resources/include/assets/img/favicon.png" rel="icon">
-<link href="/resources/include/assets/img/apple-touch-icon.png"
-	rel="apple-touch-icon">
+<link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="/resources/include/assets/vendor/aos/aos.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link href="/resources/include/assets/vendor/remixicon/remixicon.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+<link href="/resources/include/assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
@@ -132,10 +117,10 @@
 
   <main id="main">
 
-    <!-- ======= academySignUp Form ======= -->
+  <!-- ======= academySignUp Form ======= -->
 
-    <h1 style="text-align:center">회원가입</h1>
-    <form:form action="/academyInsert" modelAttribute="academySignUpVo" method="post" name="join" id="join">
+  <h1 style="text-align:center">회원가입</h1>
+  <form:form action="/academyInsert" modelAttribute="academySignUpVo" method="post" name="join" id="join">
 
      <!-- 글로벌 에러 출력 -->
      <spring:hasBindErrors name="academySignUpVo">
@@ -303,54 +288,78 @@
        </div>
       </div> 
      <br />
-     <div class="input_group"> 
-	    <label for="academyKeyword1" style="font-weight:bold;">키워드 선택 </label>
+     
+	<div class="input_group">
+	    <label for="academyKeyword1" style="font-weight: bold;">키워드 선택 </label>
 	    <form:errors path="academyKeyword1" cssClass="error" />
 	    <div class="row">
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword1" name="academyKeyword" id="keyword1" value="기초부터"/>
-	            <label for="keyword1" style="font-weight:300px;">기초부터</label>
+	            <form:checkbox path="academyKeyword1" name="academyKeyword" id="keyword1" class="keyword-checkbox" value="기초부터" />
+	            <label for="keyword1" style="font-weight: 300px;">기초부터</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword2" name="academyKeyword" id="keyword2" value="심화수업"/>
-	            <label for="keyword2" style="font-weight:300px;">심화수업</label>
+	            <form:checkbox path="academyKeyword2" name="academyKeyword" id="keyword2" class="keyword-checkbox" value="심화수업" />
+	            <label for="keyword2" style="font-weight: 300px;">심화수업</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword3" name="academyKeyword" id="keyword3" value="친절한 강사"/>
-	            <label for="keyword3" style="font-weight:300px;">친절한 강사</label>
-	        </div>
-	    </div>
-	    <div class="row">
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword4" name="academyKeyword" id="keyword4" value="꼼꼼한 관리"/>
-	            <label for="keyword4" style="font-weight:300px;">꼼꼼한 관리</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword5" value="숙제 없음"/>
-	            <label for="keyword5" style="font-weight:300px;">숙제 없음</label>
-	        </div>
-	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword6" value="자기주도적"/>
-	            <label for="keyword6" style="font-weight:300px;">자기주도적</label>
+	            <form:checkbox path="academyKeyword3" name="academyKeyword" id="keyword3" class="keyword-checkbox" value="친절한 강사" />
+	            <label for="keyword3" style="font-weight: 300px;">친절한 강사</label>
 	        </div>
 	    </div>
 	    <div class="row">
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword7" value="강의식 수업"/>
-	            <label for="keyword7" style="font-weight:300px;">강의식 수업</label>
+	            <form:checkbox path="academyKeyword4" name="academyKeyword" id="keyword4" class="keyword-checkbox" value="꼼꼼한 관리" />
+	            <label for="keyword4" style="font-weight: 300px;">꼼꼼한 관리</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword8" value="입시 대비"/>
-	            <label for="keyword8" style="font-weight:300px;">입시 대비</label>
+	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword5" class="keyword-checkbox" value="숙제 없음" />
+	            <label for="keyword5" style="font-weight: 300px;">숙제 없음</label>
 	        </div>
 	        <div class="col-md-4">
-	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword9" value="재밌는 수업"/>
-	            <label for="keyword9" style="font-weight:300px;">재밌는 수업</label>
+	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword6" class="keyword-checkbox" value="자기주도적" />
+	            <label for="keyword6" style="font-weight: 300px;">자기주도적</label>
+	        </div>
+	    </div>
+	    <div class="row">
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword7" class="keyword-checkbox" value="강의식 수업" />
+	            <label for="keyword7" style="font-weight: 300px;">강의식 수업</label>
+	        </div>
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword8" class="keyword-checkbox" value="입시 대비" />
+	            <label for="keyword8" style="font-weight: 300px;">입시 대비</label>
+	        </div>
+	        <div class="col-md-4">
+	            <form:checkbox path="academyKeyword5" name="academyKeyword" id="keyword9" class="keyword-checkbox" value="재밌는 수업" />
+	            <label for="keyword9" style="font-weight: 300px;">재밌는 수업</label>
 	        </div>
 	    </div>
 	</div>
-
-    <br />
+	<br />
+	
+	<!-- 키워드 선택 제어 -->
+	<script>
+	    window.onload = function() {
+	        var maxKeywords = 5;
+	        var checkboxes = document.querySelectorAll('.keyword-checkbox');
+	        function checkboxClickHandler() {
+	            var checkedCount = 0;
+	            checkboxes.forEach(function(checkbox) {
+	                if (checkbox.checked) {
+	                    checkedCount++;
+	                }
+	            });
+	            if (checkedCount > maxKeywords) {
+	                this.checked = false;
+	                alert('키워드는 최대 ' + maxKeywords + '개의 항목만 선택할 수 있습니다.');
+	            }
+	        }
+	        checkboxes.forEach(function(checkbox) {
+	            checkbox.addEventListener('click', checkboxClickHandler);
+	        });
+	    };
+	</script>
+		
     <div class="input_group">
        <span>
            <input type="submit" class="myButton" value="회원가입" id="submit-btn"/>
@@ -358,9 +367,9 @@
        </span>
     </div>
     <br />
-    </form:form>
+  </form:form>
 
-    <!-- ======= Contact Section ======= -->
+  <!-- ======= Contact Section ======= -->
 
   </main><!-- End #main -->
 

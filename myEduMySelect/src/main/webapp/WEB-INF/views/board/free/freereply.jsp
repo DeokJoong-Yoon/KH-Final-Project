@@ -118,7 +118,7 @@
                     "X-HTTP-Method-Override": "PUT"
                 },
                 data: JSON.stringify({
-                    commonCommentContent: commonCommentContent, // 받아온 댓글 내용 전달
+                	commonCommentContent: commonCommentContent, // 받아온 댓글 내용 전달
                 }),
                 dataType: 'text',
                 error: function(xhr, textStatus, errorThrown) {
@@ -131,6 +131,7 @@
                     console.log("result: " + result);
                     if (result == "SUCCESS") {
                         alert("댓글 수정이 완료되었습니다.");
+                        console.log($("updateForm").val());
                         dataReset();
                         listAll(commonNo);
                     }

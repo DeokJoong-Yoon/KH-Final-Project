@@ -69,10 +69,15 @@
               <li><a href="#">자유게시판</a></li>
               <li><a href="#">홍보게시판</a></li>
               <li><a href="#">매칭게시판</a></li>
-              <li><a href="#">문의게시판</a></li>
-              <li><a href="/mypage">마이페이지</a></li>
-            </ul>
-          </li>
+              <li><a href="/notice/boardList">공지게시판</a></li>
+			  <c:if test="${commonLogin.memberTypeId == 1}">
+				  <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">회원마이페이지</a></li>
+			  </c:if>
+			  <c:if test="${commonLogin.memberTypeId == 2}">
+                  <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+              </c:if>
+			  </ul></li>
+		  <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <c:choose>
               <c:when test="${not empty commonLogin}">
                   <li><a class="nav-link scrollto">
@@ -209,7 +214,22 @@
   <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>
-
+	
+	
+	<script>
+  	window.onload = function() {
+  		var confirmMessage = "${confirmMessage}";
+  		if (confirmMessage) {
+  			var result = confirm(confirmMessage);
+  			if(result) {
+  				window.location.href = "/"; // 확인 눌렀을 경우 로그인 페이지로 이동
+  			} else {
+  				window.location.href = "/";
+  			}
+  		}
+  	};
+  </script>
+	
 </body>
 
 </html>

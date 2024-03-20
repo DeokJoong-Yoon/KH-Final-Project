@@ -126,7 +126,6 @@
 									<td colspan="3" class="text-start">글번호 : ${freeUpdateData.commonNo} (조회수 : ${freeUpdateData.commonReadcnt})</td>
 									<td colspan="3" class="text-start">작성자 : ${freeUpdateData.personalId}</td>
 									<td colspan="3" class="text-start">작성일 : ${freeUpdateData.commonRegisterDate}</td>
-									<td colspan="3" class="text-start">좋아요 :</td>
 								</tr>
 								<tr>
 									<td><textarea name="commonContent" id="commonContent" class="form-control custom-textarea" placeholder="내용을 입력해주세요.">${freeUpdateData.commonContent}</textarea></td>

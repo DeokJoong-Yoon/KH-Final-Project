@@ -366,7 +366,7 @@ public class AdminBoardController {
 //	}
 	
 	/*************************************************************
-	 * Admin academySourcec
+	 * Admin academySource
 	 *************************************************************/
 	@GetMapping("/academySource")
 	public String academySourceBoardAdminView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
@@ -396,6 +396,20 @@ public class AdminBoardController {
 		model.addAttribute("detail", detail);
 
 		return "admin/board/academySourceListDetail";
+	}
+	
+	/*************************************************************
+	 * Admin academySourceLoad
+	 *************************************************************/
+	@GetMapping("/adminBoard/academySourceLoad")
+	public String academySourceLoadView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
+			HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+
+		return "admin/board/adminAcademySourceLoad";
 	}
 
 }

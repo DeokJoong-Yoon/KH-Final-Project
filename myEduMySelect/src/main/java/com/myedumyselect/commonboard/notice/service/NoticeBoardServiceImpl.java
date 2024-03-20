@@ -52,7 +52,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 
 	@Override
-	public int boardDelete(NoticeBoardVO noticeBoardVO) {
+	public int boardDelete(NoticeBoardVO noticeBoardVO) throws Exception {
 		int result = 0;
 		if (!noticeBoardVO.getCommonFile().isEmpty()) { // boardFile 필드의 값이 null 이거나 "" 아니면 (이미지 파일이 존재하면)
 			FileUploadUtil.fileDelete(noticeBoardVO.getCommonFile());

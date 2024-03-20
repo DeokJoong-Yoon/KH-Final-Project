@@ -108,6 +108,7 @@
       
       	<form name="formData" id="formData">
       		<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo }"/>
+      		<%-- <input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' /> --%>
       	</form>
       
       	<div class="userId">${userId }</div>
@@ -140,7 +141,7 @@
 					</tr>
 					<tr>
 						<th>이미지</th>
-						<td>
+						<td id="lastTd">
 							<c:forEach var="file" items="${detail.fileVO }">
 								<img src="${file.filePath}" alt="이미지">
 							</c:forEach>
@@ -149,41 +150,7 @@
 				</tbody>	
 			</table>
 			
-			<%-- <!-- ========== 찜 ========== -->
-			<div id="like-${like.commonId }-section">
-				<div id="like-${like.commonId }-count">
-					<c:choose>
-						<c:when test="${like.likeCheck == 1 }">
-							<div id="like-${like.likeId }"
-								class="my-auto my-heart fa-regular fa-solid fa-heart my-xl my-cursor on-Clicked"
-								onclick="likeClick(`${like.commonNo}`, `${like.likeMemberId}`, `${like.likeCheck}`, `${like.likeId}`)"></div>
-						</c:when>
-						<c:otherwise>
-							<div id="like-${like.likeId }"
-								class="my-auto fa-regular fa-heart my-xl my-cursor"
-								onclick="likeClick(`${like.commonNo}`, `${like.likeMemberId}`, `${like.likeCheck}`, `${like.likeId}`)"></div>
-						</c:otherwise>
-					</c:choose>
-					<br>
-					<div>${개수 }</div>
-				</div>
-			</div> --%>
 			
-			
-			<!-- ========== 찜 ========== -->
-			<%-- <div id="like-section">
-				<p>dd${detail.commonNo}</p>
-				<c:choose>
-					<c:when test="${like.likeCheck eq 1}">
-						<img id="likeYesImg" src="/uploadStorage/like/likeYes.png"
-								onclick="toggleLike(${detail.commonNo})" >
-					</c:when>
-					<c:otherwise>
-						<img id="likeNoImg" src="/uploadStorage/like/likeNo.png"
-								onclick="toggleLike(${detail.commonNo})" >
-					</c:otherwise>
-				</c:choose>
-			</div> --%>
 			<div id="likeButton">
 		        <img id="likeImage" src="/uploadStorage/like/likeNo.png">
 		        <p id="likeMsg"></p>
@@ -322,7 +289,7 @@
                     if (status == 0) {
                     	$("#likeMsg").text("이 학원을 찜할까요?");
                     	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                    	$("#likeImage").on("click", function(){
+                    	$("#likeButton").on("click", function(){
                     		$.ajax({
                     			type: "post",
                     			url: "/like/insert",
@@ -346,7 +313,7 @@
                     	if(status == 1) {
                     		$("#likeMsg").text("찜한 학원입니다.");
                     		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                    		$("#likeImage").on("click", function(){
+                    		$("#likeButton").on("click", function(){
                         		$.ajax({
                         			type: "post",
                         			url: "/like/toggle",
@@ -369,7 +336,7 @@
                     	} else {
                     		$("#likeMsg").text("이 학원을 찜할까요?");
                     		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                    		$("#likeImage").on("click", function(){
+                    		$("#likeButton").on("click", function(){
                         		$.ajax({
                         			type: "post",
                         			url: "/like/toggle",
@@ -398,23 +365,16 @@
             });
         });
 
-        /* function toggleLike() {
-            $.ajax({
-                type: "POST",
-                url: "/like/toggle",
-                data: JSON.stringify({"commonNo": commonNo}),
-                contentType: "application/json; charset=utf-8",
-                dataType: "text",
-                success: function(data) {
-                    // toggle 결과값에 따라 이미지 변경
-                    if (data === "좋아요 등록") {
-                        $('#likeImage').attr('src', "/uploadStorage/like/likeYes.png");
-                    } else if (data === "좋아요 취소") {
-                        $('#likeImage').attr('src', "/uploadStorage/like/likeNo.png");
-                    }
-                }
-            });
-        } */
+        
+        //삭제 시 팝업
+		$(function() {
+			let popUp = "${popUp}";
+			if (popUp != "") {
+				alert(popUp);
+			}
+			
+		});
+		
     </script>
 	
 </body>

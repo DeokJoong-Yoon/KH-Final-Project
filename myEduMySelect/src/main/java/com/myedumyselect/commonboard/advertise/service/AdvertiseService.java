@@ -19,4 +19,13 @@ public interface AdvertiseService {
 	
 	//홍보게시판 상세페이지 이동
 	public AdvertiseVO advertiseDetail(AdvertiseVO aVO);
+	
+	//홍보게시판 게시글 삭제
+	public int advertiseDelete(AdvertiseVO aVO) throws Exception;
+	
+	//홍보게시판 글 수정 폼 이동
+	public AdvertiseVO advertiseUpdateForm(AdvertiseVO aVO);
+	
+	//홍보게시판 게시글 수정
+	public int advertiseUpdateWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception;
 }

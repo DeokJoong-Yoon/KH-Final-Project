@@ -90,6 +90,13 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 		return academyLoginDao.findByNumber(academyNumber);
 	}
 	
+	// 비밀번호 변경
+	@Override
+	public int updatePasswdChangeDate(AcademyLoginVo login) {
+		
+		return academyLoginDao.updatePasswdChangeDate(login);
+	}
+	
 	/*/ 사업자등록번호로 정보 조회
 	@Override
 	public AcademyLoginVo getAcademyInfo(String academyNumber) {

@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>								
+<%@ page trimDirectiveWhitespaces="true" %>	
+<%@ include file="/WEB-INF/views/common/common.jspf" %>										
 <!DOCTYPE html>
 <html lang="kr">
-
+ 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+ 
   <title>MyEduMySelect </title>
   <meta content="" name="description">
-  <meta content="" name="keywords">
-
+  <meta content="" name="keywords"> 
+   
   <!-- Favicons -->
   <link href="/resources/include/assets/img/favicon.png" rel="icon">
   <link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -30,7 +31,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
-  <link href="/resources/include/matching/css/matchingDetail.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingBoard.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -39,8 +40,21 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
-
+	
+	
+	<!-- <script>
+		window.onload = function(){
+			let confirmMsg = "${confirmMsg}";
+			if(confirmMsg) {
+				let result = confirm(comfirmMsg);
+				if(result) {
+					window.location.href= "/useraccount/login";
+				} else {
+					window.location.href= "/matching/boardList";
+				}
+			}
+		}
+	</script> -->
 
 </head>
 
@@ -83,84 +97,122 @@
     <div class="container">
       <div class="row" >
 		<div class="col-12 text-center mcBanner">
-            매칭 게시판<br/>
+            내가 쓴 글 목록(매칭 게시판)<br/>
             <div class="mcDescBox">
-            	여러분이 선택한 조건에 기반하여 자동 등록된 게시물을 볼 수 있는 <b>매칭 게시판</b>입니다.<br>
-  				당신에게 딱 맞는 학원이 당신을 찾아올 거예요!<br>
+            	<p>내가 쓴 글이 뭐가있을까?</p>
             </div>
         </div>  
       </div>
     </div>
    </section><!-- 설명영역 끝 -->
 
-
+ 
   <main id="main">
  
-    <!-- ======= 매칭게시판 수정 폼 ======= -->
-    <section class="mcBoard">
-     
-      <div class="container">
-      <p><b>매칭 게시글 수정은 '덧붙이는 말' 수정만 가능합니다.</b></p>
-		<div class="mcBoardDetail">
-		
-			<form id="updateForm">
-				<input type="hidden" id="matchingNo" name="matchingNo" value="${updateData.matchingNo }"/>
-		
-				<table>
-					<tr>
-						<th>글 번호</th>
-							<td>${updateData.matchingNo }</td>
-						</tr>
-					<tr>
-						<th>등록 일시</th>
-						<td>${updateData.matchingRegisterDate }</td>
-					</tr>
-				</table>
-				<br>
-				<table>
-					<tbody>
-						<tr>
-							<th>지역</th>
-							<td>${updateData.matchingGuAddress }&nbsp ${updateData.matchingDongAddress}</td>
-						</tr>
-						<tr>
-							<th>과목</th>
-							<td>${updateData.matchingTargetSubject }</td>
-						</tr>
-						<tr>
-							<th>학년</th>
-							<td>${updateData.matchingTargetGrade }</td>
-						</tr>
-						<tr>
-							<th>희망 수강료</th>
-							<td>${updateData.matchingFee }</td>
-						</tr>
-						<tr>
-							<th>키워드</th>
-							<td>
-								${updateData.matchingKeyword1 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword2 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword3 }
-							</td>
-						</tr>
-						<tr>
-							<th>덧붙이는 말</th>
-							<td>
-								<textarea name="matchingComment" id="matchingComment" rows="6">${updateData.matchingComment }</textarea>
-							</td>
-						</tr>
-					</tbody>	
-				</table>
-			</form>
-		</div>
 
-		
-		<div class="detailButtons">
-      		<button type="button" id="cancel">취소</button>
-      		<button type="button" id="editFinish">수정 완료</button>
-      	</div>
-      </div>
-    </section><!-- 매칭게시판 수정 폼 끝 -->
+ 
 
-  
+    <!-- ======= 매칭게시판 목록 ======= -->
+<section class="mcBoard">
+    <div class="container">
+        <div class="mcBoardListSearch">
+            <form id="f_search" name="f_search">
+                <%-- 페이징 처리를 위한 파라미터 --%>
+                <input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
+                <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+                
+                <button type="button" id="mcBoardAll">전체 보기</button>
+
+                <button type="button" id="mcBoardSearchBtn">검색</button>                
+                <input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
+            </form>
+        </div><br><br>
+        
+        <div class="userId">${userId }</div>
+        <div class="acaId">${acaId }</div>
+        <div class="acaName">${acaName }</div>
+        
+        <div class="mcBoardList">
+            <table>
+                <thead>
+                    <tr>
+                        <th>글 번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>등록일</th>
+                    </tr>
+                </thead>
+                <tbody id="mcBoardList">
+                    <c:choose>
+                        <c:when test="${not empty userMatchingList}">
+                            <c:forEach var="matchingBoard" items="${userMatchingList}" varStatus="status">
+                                <tr data-num="${matchingBoard.matchingNo }">
+                                    <td>${matchingBoard.matchingNo }</td>
+                                    <td>
+                                        <form name="privateChk" id="privateChk">
+                                            <input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }"/>
+                                            <input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }"/>
+                                        </form>
+                                        <c:choose>
+                                            <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
+                                                <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
+                                                <a class="mbdLink" href="">
+                                                    ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="mbdLink" href="">
+                                                    ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:if test="${matchingBoard.commentCnt > 0 }">
+                                            <span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
+                                        </c:if>
+                                    </td>
+                                    <td class="writerId">${matchingBoard.academyId }</td>
+                                    <td>${matchingBoard.matchingRegisterDate }</td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="5">등록된 게시글이 존재하지 않습니다</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
+                </tbody>    
+            </table>
+        </div>
+    </div>
+    
+    <%------------ 페이징 출력 시작 ---------- --%>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- 이전 바로가기 5개 존재 여부를 prev 필드의 값으로 확인 -->
+            <c:if test="${pageMaker.prev }">
+                <li class="page-item">
+                    <a href="${pageMaker.startPage - 1 }" class="page-link">이전</a>
+                </li>
+            </c:if>
+            
+            <!-- 바로가기 번호 출력 -->
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                <li class="page-item  ${pageMaker.cvo.pageNum == num ? 'active':''}">
+                    <a href="${num}" class="page-link">${num}</a>
+                </li>
+            </c:forEach>
+            
+            <!-- 다음 바로가기 5개 존재 여부를 next 필드의 값으로 확인 -->
+            <c:if test="${pageMaker.next }">
+                <li class="page-item">
+                    <a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+                </li>
+            </c:if>
+        </ul>
+    </nav>
+</section><!-- 매칭게시판 목록 끝 -->
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -180,7 +232,7 @@
               <strong>Email:</strong> info@example.com<br>
             </p>
           </div>
-
+ 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
@@ -236,6 +288,8 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+	
+
   <!-- Vendor JS Files -->
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -248,10 +302,26 @@
   <!-- Template Main JS File -->
   <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/js/common.js"></script>
-  <script src="/resources/include/matching/js/matchingUpdate.js"></script>
+  <script src="/resources/include/matching/js/matchingBoard.js"></script>
   
- 
+<!--   
+  <script>
+  
+   	$(function() {
+  		let word = "<c:out value='${matchingBoard.keyword}' />";
+  		let value ="";
+  		
+  		if(word != "") {
+			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
+			value = "#mcBoardList tr td.mbdLink";
+			console.log($(value + ":contains('" + word + "')").html());
+			$(value + ":contains('" + word + "')").each(function(){
+				let regex = new RegExp(word, 'gi');
+				$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+			})
+  		}
+  	}) 
+  </script> -->
 
 </body>
 

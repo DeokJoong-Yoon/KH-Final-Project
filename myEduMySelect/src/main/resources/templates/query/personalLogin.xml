@@ -109,7 +109,7 @@
 		WHERE
 		personal_id = #{personalId}
 	</update> 
-	
+	 
 	
 		<!-- 비밀번호 변경 "일자" -->
  <update id="updatePasswdChangeDate" parameterType="personalLogin">

@@ -365,7 +365,7 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
-	<!-- Vendor JS Files -->
+	<!-- Vendor JS Files --> 
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
 	<script
 		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

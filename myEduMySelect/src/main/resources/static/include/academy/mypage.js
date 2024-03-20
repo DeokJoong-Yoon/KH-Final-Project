@@ -1,3 +1,15 @@
+$(document).ready(function() {
+    // Update button click event
+    $("#updateBtn").click(function() {
+        // Perform form validation here if needed
+        
+        // Submit the form
+        $("#updateForm").submit();
+    });
+});
+
+
+/* 아래 부터는 main.js 내용 */
 (function() {
 	"use strict";
 

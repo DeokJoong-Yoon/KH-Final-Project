@@ -1,23 +1,4 @@
-/* 키워드 선택 최대 5개까지 제어 */
-	var selectedKeywords = []; // 사용자가 선택한 키워드를 저장할 배열
-    // 체크박스를 클릭할 때마다 선택된 항목을 추적하여 배열에 저장
-	$('input[name="academyKeyword"]').change(function() {
-	    var keywordSelect = $('input[name="academyKeyword"]:checked');
-	    selectedKeywords = []; // 배열 초기화
-	    keywordSelect.each(function() {
-	        selectedKeywords.push($(this).val());
-	    });
-	
-	    // 최대 선택 항목 수를 확인하고 초과할 경우 마지막 항목을 해제
-	    if (selectedKeywords.length > 5) {
-	        alert('키워드는 최대 5개까지 선택 가능합니다.');
-	        keywordSelect.last().prop('checked', false);
-	        selectedKeywords.pop(); // 배열에서도 마지막 항목 제거
-	    }
-	});
-	$(document).ready(function() {
-	
-
+$(document).ready(function() {
 	
     /* 아이디 중복 체크 버튼에 클릭 이벤트 핸들러 등록 */
     $(document).on('click', '#checkDuplicateBtn', function(event) {
@@ -84,8 +65,6 @@
 	    checkEmailDuplication(emailAddress);
 	});
 	
-	
-	
 	/* 이메일 선택 */
 	$(document).on('change', '#domain-list', function() {
 	    const selectedDomain = $(this).val(); // 선택된 도메인 값 가져오기
@@ -121,10 +100,7 @@
 	        }
 	    });
 	}
-
-
-    
-    
+	
     /* 담당자 전화번호 유효성 검사 */
 	$('#academyManagerPhone').on('input', function() {
 	    const phoneInput = $(this).val();
@@ -180,26 +156,16 @@
 		});
     });
     
-
     // 선택된 조건의 내용을 담을 변수 선언
-    let academyId, memberTypeId, academyNumber, joinDate, academyPasswd, academyName,
+    var academyId, academyNumber,  academyPasswd, academyName,
     	guValue, dongValue, roadValue, academyPhone, managerName,
     	managerEmail, managerPhone, targetGrade, targetSubject,
-    	keywordValue, fee, passwdChange, loginFail, accountDate;
+    	selectedKeywords, fee, passwdChange, loginFail, accountDate;
     	
-	
-    
     /* 회원가입 버튼 클릭 이벤트 핸들러 */
 	document.getElementById('submit-btn').addEventListener('click', function(event) {
 	    event.preventDefault(); // 기본 동작 방지
-		
-		// 사용자가 선택한 키워드를 배열로 저장
-	    keywordSelect = [];
-	    $('input[name="academyKeyword"]:checked').each(function() {
-	        keywordSelect.push($(this).val());
-	    });
-		
-		
+	
 	    // 필수 입력 사항을 체크할 요소들의 배열
 	    var requiredInputs = document.querySelectorAll('input[required]');
 	    // 중복 체크가 필요한 요소들의 배열
@@ -208,7 +174,7 @@
 	    var allInputs = Array.from(requiredInputs).concat(Array.from(duplicateCheckInputs));
 	    // 포커스를 이동할 대상을 담을 변수
 	    var targetInput = null;
-	
+	    
 	    // 미입력 필드 확인
 	    for (var i = 0; i < requiredInputs.length; i++) {
 	        if (!requiredInputs[i].value) {
@@ -221,7 +187,7 @@
 	            break; // 첫 번째로 발견된 빈 필드에 포커스 설정
 	        }
 	    }
-
+		
 	    // 중복 체크 필드 확인
 	    if (!targetInput) {
 	        for (var i = 0; i < duplicateCheckInputs.length; i++) {
@@ -236,9 +202,6 @@
 	            }
 	        }
 	    }
-	    	
-		
-		
 		
 		// 변수에 선택된 value 저장
 		 academyId = $("#academyId").val();
@@ -259,17 +222,8 @@
 		 fee = $("input[name='academyFee']:checked").val();
 		 passwdChange = $("#academyPasswdChangeDate").val();
 		 loginFail = $("#academyLoginFailCount").val();
-		 accountDate= $("#academyAccountBannedDate")	
-		 keywordValue = [];
-		 $("input[name='academyKeyword']:checked").each(function() {
-             keywordValue.push($(this).val());
-         });
-		
-		console.log(keywordValue.length);
-		for(let i = 0; i < keywordValue.length;i++) {
-			$("input[name='academyKeyword" + (i+1) + "']").val(keywordValue[i]);
-		}			
-		
+		 accountDate= $("#academyAccountBannedDate").val();		 
+				
 		// 회원가입 정보들 value에 저장
  		let value = {
 			 academyId : academyId,
@@ -289,16 +243,15 @@
 			 academyPasswdChangeDate : passwdChange,
 			 academyLoginFailCount : loginFail,
 			 academyAccountBannedDate : accountDate,
-			 academyKeyword1 : keywordValue[0],
-			 academyKeyword2 : keywordValue[1],
-			 academyKeyword3 : keywordValue[2],
-			 academyKeyword4 : keywordValue[3],
-			 academyKeyword5 : keywordValue[4]
+			 academyKeyword1 : selectedKeywords[0],
+			 academyKeyword2 : selectedKeywords[1],
+			 academyKeyword3 : selectedKeywords[2],
+			 academyKeyword4 : selectedKeywords[3],
+			 academyKeyword5 : selectedKeywords[4]
 	    }            
 		
 	    // 유효성 검사 후 회원가입 프로세스 진행
 	    if (!targetInput) {
-	        
 	 		
 	        // 모든 조건을 만족했을 경우 회원가입 프로세스 진행
 	        // 회원가입 정보 저장 AJAX 요청
@@ -529,6 +482,17 @@ document.getElementById("mypageBtn").addEventListener("click", function(event) {
 	} else {
         window.location.href = "/academyaccount/mypage"; // 세션값이 있을 경우 마이페이지로 이동
     }
+});
+
+/* 마이페이지 회원정보 수정하기 버튼 클릭에 따른 제어 */
+$(document).ready(function() {
+    // Update button click event
+    $("#updateBtn").click(function() {
+        // Perform form validation here if needed
+        
+        // Submit the form
+        $("#updateForm").submit();
+    });
 });
 
 

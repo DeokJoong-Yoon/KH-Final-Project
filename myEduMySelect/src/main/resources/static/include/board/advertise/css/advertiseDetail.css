@@ -77,7 +77,8 @@ table td {
 
 
 img {
-	width : 500px;
+	max-width : 600px;
+	height: auto; 
 	margin-top : 20px;
 }
 
@@ -135,3 +136,28 @@ img {
     margin-top: 8px;
     
 }
+
+#commonTitle {
+	width : 100%;
+	border-color : #dddddd;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#commonContent {
+	resize: none;
+	width : 100%;
+	border-color : #dddddd;
+	padding: 10px;
+	margin-top: 6px;
+}
+
+#likeButton:hover {
+	cursor: pointer;
+}
+
+#lastTd {
+	padding-bottom : 32px;
+}
+
