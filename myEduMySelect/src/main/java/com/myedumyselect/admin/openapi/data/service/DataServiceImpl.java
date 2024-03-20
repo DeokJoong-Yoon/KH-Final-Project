@@ -68,8 +68,8 @@ public class DataServiceImpl implements DataService {
 			}
 
 			List<AcademySourceVO> academyList = mapJsonToAcademyList(currentResult.toString());
-			
-			for(AcademySourceVO asv : academyList) {
+
+			for (AcademySourceVO asv : academyList) {
 				result += academySourceDAO.insertAcademySource(asv);
 				try {
 					Thread.sleep(50);
@@ -123,113 +123,6 @@ public class DataServiceImpl implements DataService {
 
 		return academyList;
 	}
-
-	private AcademySourceVO mapJsonToAcademySource(String json) throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-		JsonNode rootNode = objectMapper.readTree(json);
-
-		JsonNode rowNode = rootNode.path("neisAcademyInfo").path("row");
-		if (rowNode.isArray() && rowNode.size() > 0) {
-			JsonNode firstRow = rowNode.get(0);
-
-			AcademySourceVO academySourceVO = new AcademySourceVO();
-			academySourceVO.setAcademyNumber(firstRow.path("ACA_ASNUM").asText());
-			academySourceVO.setAcademyGuAddress(firstRow.path("ADMST_ZONE_NM").asText());
-			academySourceVO.setAcademyType(firstRow.path("ACA_INSTI_SC_NM").asText());
-			academySourceVO.setAcademyName(firstRow.path("ACA_NM").asText());
-			academySourceVO.setAcademyRoadAddress(firstRow.path("FA_RDNMA").asText());
-			academySourceVO.setAcademyDongAddress(firstRow.path("FA_RDNDA").asText());
-			academySourceVO.setAcademyFieldName(firstRow.path("REALM_SC_NM").asText());
-			academySourceVO.setAcademyCurriculumSeriesName(firstRow.path("LE_ORD_NM").asText());
-			academySourceVO.setAcademyCurriculumListName(firstRow.path("LE_CRSE_LIST_NM").asText());
-			academySourceVO.setAcademyCurriculumName(firstRow.path("LE_CRSE_NM").asText());
-			academySourceVO.setAcademyTotalCapacity(firstRow.path("TOFOR_SMTOT").asInt());
-			academySourceVO.setAcademyTotalCapacityPerDay(firstRow.path("DTM_RCPTN_ABLTY_NMPR_SMTOT").asInt());
-			academySourceVO.setAcademyTuitionPerPerson(firstRow.path("PSNBY_THCC_CNTNT").asText());
-			academySourceVO.setAcademyTuitionOpenStatus(firstRow.path("THCC_OTHBC_YN").asText());
-			academySourceVO.setAcademyDormitoryAcademyStatus(firstRow.path("BRHS_ACA_YN").asText());
-			academySourceVO.setAcademyRoadPostalNumber(firstRow.path("FA_RDNZC").asText());
-			academySourceVO.setAcademyRegisterStatusName(firstRow.path("REG_STTUS_NM").asText());
-			academySourceVO.setAcademyRegisterDate(firstRow.path("REG_YMD").asText());
-			academySourceVO.setAcademyClosedStartDate(firstRow.path("CAA_BEGIN_YMD").asText());
-			academySourceVO.setAcademyClosedEndDate(firstRow.path("CAA_END_YMD").asText());
-			academySourceVO.setAcademyOpenDate(firstRow.path("ESTBL_YMD").asText());
-			academySourceVO.setAcademyLoadingDateTime(firstRow.path("LOAD_DTM").asText());
-
-			return academySourceVO;
-		}
-
-		return null; // 빈 값 반환 또는 예외 처리
-	}
-
-//	@Override
-//	public List<AcademySourceVO> insertAcademySourceList(int listTotalCount) throws Exception {
-//	    List<AcademySourceVO> resultList = new ArrayList<>();
-//	    String baseUrl = "http://openapi.seoul.go.kr:8088/446f765142796b6435314753745172/json/neisAcademyInfo/";
-//
-//	    for (int curIndex = 25000; curIndex <= listTotalCount; curIndex++) {
-//	        String url = baseUrl + curIndex + "/" + curIndex + "/";
-//	        OpenApiDTO openApi = new OpenApiDTO(url, "GET");
-//	        StringBuffer currentResult = URLConnectUtil.openAPIData(openApi);
-//
-//	        if (currentResult == null || currentResult.toString().isEmpty()) {
-//	            break; // 데이터 없으면 종료
-//	        }
-//
-//	        AcademySourceVO academySourceVO = mapJsonToAcademySource(currentResult.toString());
-//	        if (academySourceVO != null) {
-//	            resultList.add(academySourceVO);
-//	            academySourceDAO.insertAcademySource(academySourceVO);
-//	        }
-//
-//	        // 1000 milliseconds = 1 second
-////	        try {
-////	            Thread.sleep(10);
-////	        } catch (InterruptedException e) {
-////	            e.printStackTrace();
-////	        }
-//	    }
-//	    
-//	    return resultList;
-//	}
-//	
-//	private AcademySourceVO mapJsonToAcademySource(String json) throws Exception {
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		JsonNode rootNode = objectMapper.readTree(json);
-//
-//		JsonNode rowNode = rootNode.path("neisAcademyInfo").path("row");
-//		if (rowNode.isArray() && rowNode.size() > 0) {
-//			JsonNode firstRow = rowNode.get(0);
-//
-//			AcademySourceVO academySourceVO = new AcademySourceVO();
-//			academySourceVO.setAcademyNumber(firstRow.path("ACA_ASNUM").asText());
-//			academySourceVO.setAcademyGuAddress(firstRow.path("ADMST_ZONE_NM").asText());
-//			academySourceVO.setAcademyType(firstRow.path("ACA_INSTI_SC_NM").asText());
-//			academySourceVO.setAcademyName(firstRow.path("ACA_NM").asText());
-//			academySourceVO.setAcademyRoadAddress(firstRow.path("FA_RDNMA").asText());
-//			academySourceVO.setAcademyDongAddress(firstRow.path("FA_RDNDA").asText());
-//			academySourceVO.setAcademyFieldName(firstRow.path("REALM_SC_NM").asText());
-//			academySourceVO.setAcademyCurriculumSeriesName(firstRow.path("LE_ORD_NM").asText());
-//			academySourceVO.setAcademyCurriculumListName(firstRow.path("LE_CRSE_LIST_NM").asText());
-//			academySourceVO.setAcademyCurriculumName(firstRow.path("LE_CRSE_NM").asText());
-//			academySourceVO.setAcademyTotalCapacity(firstRow.path("TOFOR_SMTOT").asInt());
-//			academySourceVO.setAcademyTotalCapacityPerDay(firstRow.path("DTM_RCPTN_ABLTY_NMPR_SMTOT").asInt());
-//			academySourceVO.setAcademyTuitionPerPerson(firstRow.path("PSNBY_THCC_CNTNT").asText());
-//			academySourceVO.setAcademyTuitionOpenStatus(firstRow.path("THCC_OTHBC_YN").asText());
-//			academySourceVO.setAcademyDormitoryAcademyStatus(firstRow.path("BRHS_ACA_YN").asText());
-//			academySourceVO.setAcademyRoadPostalNumber(firstRow.path("FA_RDNZC").asText());
-//			academySourceVO.setAcademyRegisterStatusName(firstRow.path("REG_STTUS_NM").asText());
-//			academySourceVO.setAcademyRegisterDate(firstRow.path("REG_YMD").asText());
-//			academySourceVO.setAcademyClosedStartDate(firstRow.path("CAA_BEGIN_YMD").asText());
-//			academySourceVO.setAcademyClosedEndDate(firstRow.path("CAA_END_YMD").asText());
-//			academySourceVO.setAcademyOpenDate(firstRow.path("ESTBL_YMD").asText());
-//			academySourceVO.setAcademyLoadingDateTime(firstRow.path("LOAD_DTM").asText());
-//
-//			return academySourceVO;
-//		}
-//
-//		return null; // 빈 값 반환 또는 예외 처리
-//	}
 
 	@Override
 	public int listCurrCount() {

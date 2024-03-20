@@ -269,25 +269,16 @@
 		<form id="detailForm">
 			<input type="hidden" id="commonNo" name="commonNo" />
 		</form>
-		<form id="noticeForm" name="noticeForm">
+		<form id="advertiseForm" name="advertiseForm">
 			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
-			<%-- 			<input type="text" name="keyword" id="keyword" />
-			<c:if test="${not empty matchingBoard.keyword}">
-				<input type="text" name="keyword" id="keyword" />
-			</c:if>
-			
-			<c:otherwise>
-				<input type="hidden" name="keyword" id="keyword" value="${matchingBoard.keyword}"/>
-			</c:otherwise> --%>
-
 			<div class="pagetitle">
-				<h1>Free board</h1>
+				<h1>Advertise Board</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">free board</li>
+						<li class="breadcrumb-item active">advertise board</li>
 					</ol>
 				</nav>
 			</div>
@@ -297,7 +288,6 @@
 
 				<div class="row">
 					<div class="col-lg-12">
-
 						<div class="card">
 							<div class="card-body">
 								<div class="row g-2 align-items-center">
@@ -330,15 +320,15 @@
 									</thead>
 									<tbody>
 										<c:choose>
-											<c:when test="${not empty freeBoardList}">
-												<c:forEach var="free" items="${freeBoardList}" varStatus="statusNumber">
+											<c:when test="${not empty advertiseBoardList}">
+												<c:forEach var="advertise" items="${advertiseBoardList}" varStatus="statusNumber">
 													<%-- <c:if test="${statusNumber.index < 20}"></c:if> --%>
-														<tr data-num="${free.commonNo}">
-															<th scope="row">${free.commonNo}</th>
-															<th class="goDetail text-start">${free.commonTitle}</th>
-															<td class="goDetail text-start">${free.commonNickname}</td>
-															<td class="goDetail text-start">${free.commonRegisterDate}</td>
-															<td class="goDetail text-start">${free.commonReadcnt}</td>
+														<tr data-num="${advertise.commonNo}">
+															<th scope="row">${advertise.commonNo}</th>
+															<th class="goDetail text-start">${advertise.commonTitle}</th>
+															<td class="goDetail text-start">${advertise.commonNickname}</td>
+															<td class="goDetail text-start">${advertise.commonRegisterDate}</td>
+															<td class="goDetail text-start">${advertise.commonReadcnt}</td>
 														</tr>
 												</c:forEach>
 											</c:when>
@@ -391,11 +381,11 @@
 	<script>
       	$(function() {
       		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${freeBoardAdminVO.keyword}' />";
+      		let word="<c:out value='${advertiseVO.keyword}' />";
       		let value ="";
       		if (word != "") {
-      			$("#keyword").val("<c:out value='${freeBoardAdminVO.keyword}' />");
-      			$("#search").val("<c:out value='${freeBoardAdminVO.search}' />");
+      			$("#keyword").val("<c:out value='${advertiseVO.keyword}' />");
+      			$("#search").val("<c:out value='${advertiseVO.search}' />");
       			
       			if ($("#search").val() != 'common_content') {
       				//:contains() 는 특정 텍스트를 포함한 요소 반환
@@ -426,6 +416,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<!-- Template Main JS File -->
 	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
-	<script src="/resources/include/admin/js/freeBoardAdminView.js"></script>
+	<script src="/resources/include/admin/js/advertiseBoardAdminView.js"></script>
 </body>
 </html>

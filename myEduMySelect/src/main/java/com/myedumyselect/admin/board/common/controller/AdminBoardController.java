@@ -22,6 +22,8 @@ import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
 import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
 import com.myedumyselect.client.main.vo.PageDTO;
+import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
+import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
@@ -46,8 +48,8 @@ public class AdminBoardController {
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardAdminService freeBoardAdminService;
 
-//	@Setter(onMethod_ = @Autowired)
-//	private AdvertiseBoardAdminService AdvertiseBoardAdminService;
+	@Setter(onMethod_ = @Autowired)
+	private AdvertiseService advertiseService;
 
 	@Setter(onMethod_ = @Autowired)
 	private PaymentService paymentService;
@@ -60,10 +62,9 @@ public class AdminBoardController {
 
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginService academyLoginService;
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private AcademySourceAdminService academySourceAdminService;
-
 
 	/*************************************************************
 	 * Admin notice
@@ -230,6 +231,27 @@ public class AdminBoardController {
 	}
 
 	/*************************************************************
+	 * Admin advertise
+	 *************************************************************/
+	@GetMapping("/advertise")
+	public String advertiseBoardAdminView(@ModelAttribute AdvertiseVO advertiseVO, Model model, HttpSession session) {
+		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+
+		List<AdvertiseVO> advertiseBoardList = advertiseService.advertiseList(advertiseVO);
+		model.addAttribute("advertiseBoardList", advertiseBoardList);
+
+		// 전체 레코드수 반환.
+		int total = advertiseService.advertiseListCnt(advertiseVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(advertiseVO, total));
+
+		return "admin/board/advertiseBoardAdminView";
+	}
+
+	/*************************************************************
 	 * Admin payment
 	 *************************************************************/
 	@GetMapping("/payment")
@@ -364,7 +386,7 @@ public class AdminBoardController {
 //		session.invalidate();
 //		return "redirect:/";
 //	}
-	
+
 	/*************************************************************
 	 * Admin academySource
 	 *************************************************************/
@@ -385,9 +407,10 @@ public class AdminBoardController {
 
 		return "admin/board/academySourceListView";
 	}
-	
+
 	@GetMapping("/acadmeySourceListDetail")
-	public String academySourceListDetail(@ModelAttribute AcademySourceVO academyAdminVO, Model model, HttpSession session) {
+	public String academySourceListDetail(@ModelAttribute AcademySourceVO academyAdminVO, Model model,
+			HttpSession session) {
 		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
@@ -397,7 +420,7 @@ public class AdminBoardController {
 
 		return "admin/board/academySourceListDetail";
 	}
-	
+
 	/*************************************************************
 	 * Admin academySourceLoad
 	 *************************************************************/
