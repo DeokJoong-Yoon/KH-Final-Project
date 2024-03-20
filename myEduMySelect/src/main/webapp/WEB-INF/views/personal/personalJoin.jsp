@@ -200,26 +200,22 @@
 			<div class="md-3 row">
 				<label for="personalAddress" class="col-sm-2 col-form-label">주소</label>
 				<div class="col-sm-10">
-					<input id="personal_post" name="personalAddress" type="text"
+					<input id="personal_ZipCode" name="personalZipCode" type="text"
 						placeholder="우편번호" readonly required> <input
-						id="personal_addr" name="personalAddress" type="text"
-						placeholder="주소" readonly required> <br>
+						id="personal_Address" name="personalAddress" type="text"
+						placeholder="주소" readonly required>
 					<button type="button" name="personalAddress" onclick="findAddr()">주소찾기</button>
+					<input type="text" class="form-control" id="personalDetailAddress"
+						name="personalDetailAddress" placeholder="상세주소입력" required />
 				</div>
 			</div>
-			
-			<div class="md-3 row">
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="personalAddress"
-						name="personalAddress" placeholder="상세주소입력" required />
-				</div>
-			</div>
-	
+
+
 			<div class="md-3 row">
 				<label for="personalPhone" class="col-sm-2 col-form-label">전화번호</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="personalPhone"
-						name="personalPhone" placeholder="전화번호 입력" required  />
+						name="personalPhone" placeholder="전화번호 입력" required />
 				</div>
 			</div>
 
@@ -250,11 +246,11 @@
 							var roadAddr = data.roadAddress; // 도로명 주소 변수
 							var jibunAddr = data.jibunAddress; // 지번 주소 변수
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('personal_post').value = data.zonecode;
+							document.getElementById('personal_ZipCode').value = data.zonecode;
 							if (roadAddr !== '') {
-								document.getElementById("personal_addr").value = roadAddr;
+								document.getElementById("personal_Address").value = roadAddr;
 							} else if (jibunAddr !== '') {
-								document.getElementById("personal_addr").value = jibunAddr;
+								document.getElementById("personal_Address").value = jibunAddr;
 							}
 						}
 					}).open();
@@ -369,7 +365,7 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
-	<!-- Vendor JS Files -->
+	<!-- Vendor JS Files --> 
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
 	<script
 		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

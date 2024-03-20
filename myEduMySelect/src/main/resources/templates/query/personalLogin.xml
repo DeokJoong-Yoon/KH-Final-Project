@@ -10,6 +10,8 @@
 		<result column="personal_email" property="personalEmail" />
 		<result column="personal_passwd" property="personalPasswd" />
 		<result column="personal_birth" property="personalBirth" />
+		<result column="personal_zip_code" property="personalZipCode" />
+		<result column="personal_detail_address" property="personalDetailAddress" />
 		<result column="personal_address" property="personalAddress" />
 		<result column="personal_phone" property="personalPhone" />
 		<result column="personal_join_date" property="personalJoinDate" />
@@ -72,32 +74,22 @@
 	<insert id="personalInsert" parameterType="personalLogin">
 		INSERT INTO
 		tb_personal (personal_id, personal_name, personal_passwd,
-		personal_email, personal_birth, personal_address, personal_phone)
+		personal_email, personal_birth, personal_zip_code, personal_address, personal_detail_address, personal_phone)
 		VALUES (#{personalId}, #{personalName}, #{personalPasswd},
 		#{personalEmail}, #{personalBirth},
-		#{personalAddress},
+		#{personalZipCode}, #{personalAddress}, #{personalDetailAddress},
 		#{personalPhone})
 	</insert>
 
-
-	<!-- 마이페이지  -->
-	<select id="personalMyPage" parameterType="personalLogin">
-		SELECT personal_id,
-		personal_name, personal_email,
-		personal_birth,
-		personal_address,
-		personal_phone
-		FROM tb_personal
-		WHERE
-		personal_id = #{personalId}
-	</select>
 	
 	<!-- 마이페이지 -->
 	<select id="findId" parameterType="personalLogin" resultMap="personalLoginMap">
 		SELECT personal_id,
 		personal_name, personal_email,
 		personal_birth,
+		personal_zip_code,
 		personal_address,
+		personal_detail_address,
 		personal_phone
 		FROM tb_personal
 		WHERE
@@ -109,13 +101,15 @@
 		UPDATE tb_personal
 		SET
 		personal_email = #{personalEmail},
+		personal_zip_code = #{personalZipCode},
 		personal_address = #{personalAddress},
+		personal_detail_address = #{personalDetailAddress},
 		personal_phone = #{personalPhone}
 		
 		WHERE
 		personal_id = #{personalId}
 	</update> 
-	
+	 
 	
 		<!-- 비밀번호 변경 "일자" -->
  <update id="updatePasswdChangeDate" parameterType="personalLogin">

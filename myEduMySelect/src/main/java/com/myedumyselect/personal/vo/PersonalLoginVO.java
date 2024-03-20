@@ -4,7 +4,7 @@ import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.NoArgsConstructor; 
 
 @Data
 @NoArgsConstructor
@@ -16,7 +16,9 @@ public class PersonalLoginVO {
 	private String personalPasswd;
 	private String personalEmail;
 	private String personalBirth;
+	private String personalZipCode;
 	private String personalAddress;
+	private String personalDetailAddress;
 	private String personalPhone;
 	private Date personalJoinDate;
 	private int personalLoginFailCount;
