@@ -156,7 +156,7 @@ function validateAddress(personalAddress) {
     }
 
     if (!validateBirth(personalBirth)) {
-        alert("올바른 생년월일을 입력해주세요. (YYYY-MM-DD)");
+        alert("올바른 생년월일을 입력해주세요. (숫자 8자리 입력 - YYYYMMDD)");
         $("#personalBirth").focus();
         return false;
     }

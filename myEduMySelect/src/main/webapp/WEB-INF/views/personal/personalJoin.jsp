@@ -53,7 +53,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 <link rel="stylesheet" type="text/css"
-	href="/resources/include/assets/css/personalJoin.css">
+	href="/resources/include/personal/css/personalJoin.css">
 
 <script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
 <script src="/resources/include/personal/joinForm.js"></script>
@@ -99,143 +99,103 @@
 		</div>
 	</header>
 	<!-- End Header -->
+	
 	<!-- ======= Hero Section ======= -->
-	<section id="hero" class="d-flex align-items-center">
+	<section class="mcHero d-flex align-items-center">
 
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<h1>개인회원 가입</h1>
-					<h2></h2>
-
-
-				</div>
-				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-					data-aos-delay="200">
-					<img src="/resources/include/assets/img/hero-img.png"
-						class="img-fluid animated" alt="">
-				</div>
+				<div class="col-12 text-center mcBanner">
+		            개인 회원가입<br/>
+		        </div> 
 			</div>
 		</div>
 	</section>
 	<!-- End Hero -->
 
-
-	<div class="container">
-		<div class="text-center">
-			<h3>회원가입</h3>
+	<!-- ======= 회원가입 폼 ======= -->
+	<section class="joinForm">
+		<div class="container">
+		
+			<form id="f_joinForm">
+				<table>
+					<tr>
+						<th>
+							<label for="personalId">아이디</label>
+						</th>
+						<td>
+							<input type="text" name="personalId" id="personalId" placeholder="아이디 입력" required />
+							<button type="button" onclick="checkId()">중복확인</button>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalName">이름</label>
+						</th>
+						<td>
+							<input type="text" name="personalName" id="personalName" placeholder="이름 입력" required />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalPasswd">비밀번호</label>
+						</th>
+						<td>
+							<input type="password" name="personalPasswd" id="personalPasswd" placeholder="비밀번호 입력" required />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalPasswdConfirm" >비밀번호 확인</label>
+						</th>
+						<td>
+							<input type="password" name="personalPasswdConfirm" id="personalPasswdConfirm" placeholder="비밀번호 확인" required />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalEmail">이메일</label>
+						</th>
+						<td>
+							<input type="text" id="personalEmail" name="personalEmail" placeholder="이메일 입력" required />
+							<button type="button" onclick="checkEmail()">중복확인</button>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalBirth">생년월일</label>
+						</th>
+						<td>
+							<input type="text" id="personalBirth" name="personalBirth" placeholder="생년월일 입력" required />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalAddress" >주소</label>
+						</th>
+						<td>
+							<input type="text" id="personal_post" name="personalAddress" placeholder="우편번호" readonly required>
+							<input type="text" id="personal_addr" name="personalAddress" placeholder="주소" readonly required> 
+							<button type="button" name="personalAddress" onclick="findAddr()">주소찾기</button><br>
+							<input type="text" id="personalAddress" name="personalAddress" placeholder="상세주소입력" required />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<label for="personalPhone" >전화번호</label>
+						</th>
+						<td>
+							<input type="text" id="personalPhone" name="personalPhone" placeholder="전화번호 입력" required />
+						</td>
+					</tr>
+				</table>
+	
+			</form>
+			<div class="text-end">
+				<button type="button" id="personalInsertBtn">가입하기</button>
+			</div>
 		</div>
-		<form id="f_joinForm">
-
-			<div class="mb-3 row">
-				<label for="personalId" class="col-sm-2 col-form-label">아이디</label>
-				<div class="col-sm-8">
-					<input type="text" name="personalId" id="personalId"
-						class="form-control" placeholder="아이디 입력" required />
-				</div>
-				<div class="col-sm-2">
-					<a class="btn btn-primary" onclick="checkId()">중복확인</a>
-				</div>
-			</div>
-
-
-
-
-
-
-			<div class="mb-3 row">
-				<label for="personalName" class="col-sm-2 col-form-label">이름</label>
-				<div class="col-sm-8">
-					<input type="text" name="personalName" id="personalName"
-						class="form-control" placeholder="이름 입력" required />
-				</div>
-			</div>
-
-
-
-			<div class="mb-3 row">
-				<label for="personalPasswd" class="col-sm-2 col-form-label">비밀번호</label>
-				<div class="col-sm-8">
-					<input type="password" name="personalPasswd" id="personalPasswd"
-						class="form-control" placeholder="비밀번호 입력" required />
-				</div>
-			</div>
-
-			<div class="mb-3 row">
-				<label for="personalPasswdConfirm" class="col-sm-2 col-form-label">비밀번호
-					확인</label>
-				<div class="col-sm-8">
-					<input type="password" name="personalPasswdConfirm"
-						id="personalPasswdConfirm" class="form-control"
-						placeholder="비밀번호 확인" required />
-				</div>
-			</div>
-
-
-
-			<div class="mb-3 row">
-				<label for="personalEmail" class="col-sm-2 col-form-label">이메일</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="personalEmail"
-						name="personalEmail" placeholder="이메일 입력" required />
-				</div>
-				<div class="col-sm-2">
-					<a class="btn btn-primary" onclick="checkEmail()">중복확인</a>
-				</div>
-			</div>
-
-
-
-			<div class="md-3 row">
-				<label for="personalBirth" class="col-sm-2 col-form-label">생년월일</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="personalBirth"
-						name="personalBirth" placeholder="생년월일 입력" required />
-				</div>
-			</div>
-
-
-				<div class="md-3 row">
-				<label for="personalAddress" class="col-sm-2 col-form-label">주소</label>
-				<div class="col-sm-10">
-					<input id="personal_post" name="personalAddress" type="text"
-						placeholder="우편번호" readonly required> <input
-						id="personal_addr" name="personalAddress" type="text"
-						placeholder="주소" readonly required> <br>
-					<button type="button" name="personalAddress" onclick="findAddr()">주소찾기</button>
-				</div>
-			</div>
-			
-			<div class="md-3 row">
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="personalAddress"
-						name="personalAddress" placeholder="상세주소입력" required />
-				</div>
-			</div>
-
-
-			<div class="md-3 row">
-				<label for="personalPhone" class="col-sm-2 col-form-label">전화번호</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="personalPhone"
-						name="personalPhone" placeholder="전화번호 입력" required />
-				</div>
-			</div>
-
-
-		</form>
-
-
-
-
-
-		<div class="text-end">
-			<button type="button" id="personalInsertBtn"
-				class="btn btn-primary btn-sm">가입하기</button>
-		</div>
-	</div>
+	</section>
 
 	<script>
 		function findAddr() {
