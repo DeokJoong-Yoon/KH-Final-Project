@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@SessionAttributes(SessionInfo.COMMON)
+@SessionAttributes("academyLogin")
 public class AcademyLoginController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -97,14 +97,16 @@ public class AcademyLoginController {
 			loginAttempts = 0;
 		}
 		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
-
+		
+		
+		
 		// 로그인 시도
 		AcademyLoginVo academyLogin = academyLoginService.loginProcess(loginVo.getId(), loginVo.getPasswd());
 		// AcademyLoginService를 통해 로그인을 시도한다.
 
 		if (academyLogin != null) {
 			loginVo.setName(academyLogin.getAcademyName());
-			model.addAttribute(SessionInfo.COMMON, loginVo);
+			model.addAttribute("academyLogin", academyLogin);
 			session.removeAttribute("loginAttempts");// 로그인이 성공한 경우, 모델에 로그인 정보를 추가하고, 세션에서 로그인 시도 횟수 속성을 제거한다.
 			log.info("로그인 성공!");
 		} else {
@@ -176,7 +178,7 @@ public class AcademyLoginController {
 		if (bindingResult.hasErrors()) {
 			return "academy/academyJoin";
 		}
-
+		
 		// 학원회원 회원가입 처리
 		try {
 			log.info("academyInsert 호출 성공");
@@ -279,6 +281,8 @@ public class AcademyLoginController {
 	public String academyUpdate(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
 		log.info("컨트롤러 /academyUpdate 호출!");
 		
+		AcademyLoginVo academyLogin = academyLoginService.loginProcess(loginVo.getId(), loginVo.getPasswd());
+		
 		// 세션에서 로그인 정보 가져오기
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		if(loginVo != null) {
@@ -301,8 +305,10 @@ public class AcademyLoginController {
 		} else {
 			academyLoginVo = new AcademyLoginVo();
 			model.addAttribute("academyLoginVo", academyLoginVo);
-		}
+			
+		} 
 		
+		// 각 정보가 null이 아니면
 		if(academyLoginVo.getAcademyManagerName() != null) {
 			model.addAttribute("academyManagerName", academyLoginVo.getAcademyManagerName());
 		}
@@ -374,10 +380,12 @@ public class AcademyLoginController {
 			redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
 			return "redirect:/academyaccount/login";
 		} 
-			// 업데이트 성공 시
-			session.setAttribute("academyLoginVo", academyLoginVo);
-			model.addAttribute("academyLoginVo", academyLoginVo);
-			
+		
+		// 업데이트 성공 시
+		session.setAttribute("academyLoginVo", academyLoginVo);
+		log.info("세션에 academyLoginVo 등록 {} : ", session);
+		model.addAttribute("academyLoginVo", academyLoginVo);
+		log.info("모델에 academyLoginVo 등록 {} : ", model);
 		
 		
 		return "redirect:/academyaccount/mypage";

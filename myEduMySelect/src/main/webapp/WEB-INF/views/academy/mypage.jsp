@@ -44,7 +44,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 	
-  <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css"> -->
 
   
   
