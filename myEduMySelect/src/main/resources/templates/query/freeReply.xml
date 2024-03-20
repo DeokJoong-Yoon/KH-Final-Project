@@ -34,12 +34,12 @@
 
 
 	<delete id="freereplyDelete" parameterType="freeReply">
-		delete from tb_common_comment where common_no = #{commonNo}
+		delete from tb_common_comment where common_comment_no = #{commonCommentNo}
 	</delete>
 
 	
 	<select id="freeReplyCnt" parameterType="int" resultType="int">
-		select count(common_comment_no) from tb_common_comment where common_no = #{commonNo}
+		SELECT COUNT(*)  from tb_common_comment where common_no = #{commonNo}
 	</select>
 	
 	<delete id="freereplyChoiceDelete" parameterType="freeReply">

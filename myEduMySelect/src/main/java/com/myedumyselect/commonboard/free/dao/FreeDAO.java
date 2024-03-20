@@ -16,4 +16,5 @@ public interface FreeDAO {
 	public int freeUpdate(FreeVO fvo);
 	public int freeDelete(FreeVO fvo);
 	public int freeListCnt(FreeVO fvo);
+	public List<FreeVO> boardListExcel(FreeVO bvo);
 }

@@ -352,7 +352,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    // 각 게시물의 댓글 수를 가져와서 표시하는 함수
-		    function updateReplyCount(commonNo) {
+		    function updatefreeReplyCnt(commonNo) {
 		        $.ajax({
 		            type: 'POST',
 		            url: '/freeReplyCnt',

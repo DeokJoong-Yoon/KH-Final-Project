@@ -98,7 +98,7 @@ public class FreeServiceImpl implements FreeService {
 	@Override
 	public int freeReplyCnt(int commonNo) {
 		int result = 0;
-		result = freereplyDAO.freeReplyCnt(commonNo);
-		return result;
+	    result = freereplyDAO.freeReplyCnt(commonNo);
+	    return result;
 	}
 }

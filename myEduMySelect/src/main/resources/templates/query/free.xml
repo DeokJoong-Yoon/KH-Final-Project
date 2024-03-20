@@ -98,8 +98,7 @@
 
 
 	<delete id="freeDelete" parameterType="freeBoard">
-		DELETE FROM
-		tb_common_board where common_no = #{commonNo}
+		DELETE FROM tb_common_board where common_no = #{commonNo}
 	</delete>
 
 </mapper>

@@ -8,9 +8,10 @@ $(function(){
 	    $("#f_data").submit();
 	});
 
-	$("#freeDeleteBtn").on("click", ()=>{
+
+	/*$("#freeDeleteBtn").on("click", ()=>{
 		$.ajax({
-			url : "/free/freeReplyCnt",
+			url : "/free/freeDelete",
 			type : "post",
 			data : "commonNo=" + $("#commonNo").val(),
 			dataType : "text",
@@ -27,8 +28,17 @@ $(function(){
 				}
 			}
 		});
-	});
+	});*/
 	
+	
+		$("#freeDeleteBtn").on("click", () => {
+			    $("#f_data").attr({
+			        "method":"get",
+			        "action":"/free/freeDelete"
+			    });
+			    $("#f_data").submit();
+			});
+
 	
 	
 

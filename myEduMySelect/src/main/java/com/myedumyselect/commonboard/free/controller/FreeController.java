@@ -158,7 +158,7 @@ public class FreeController {
 		return "redirect:/free/freeList";
 	}
 	
-	@PostMapping("/freeDelete")
+	@GetMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo) throws Exception{
 		log.info("freeDelete 호출 성공");
 		freeService.freeDelete(fvo);
@@ -171,12 +171,13 @@ public class FreeController {
 	@ResponseBody
 	@PostMapping(value="/freeReplyCnt", produces=MediaType.TEXT_PLAIN_VALUE)
 	public String freeReplyCnt(@RequestParam("commonNo") int commonNo) {
-		log.info("freeReplyCnt 호출 성공");
-		
-		int result = 0;
-		result = freeService.freeReplyCnt(commonNo);
-		
-		return String.valueOf(result);
+	    log.info("freeReplyCnt 호출 성공");
+	    
+	    int result = 0;
+	    result = freeService.freeReplyCnt(commonNo);
+	    
+	    return String.valueOf(result);
 	}
+
 
 }
