@@ -75,9 +75,8 @@
 							<h6>${adminLogin.adminName}</h6> <span>Administrator</span>
 						</li>
 						<li>
-							<hr class="dropdown-divider">
+							<hr class="dropdown-divider" />
 						</li>
-
 						<li>
 							<a class="myPage dropdown-item d-flex align-items-center" href="/admin/myPage">
 								<i class="bi bi-person"></i>
@@ -85,28 +84,13 @@
 							</a>
 						</li>
 						<li>
-							<hr class="dropdown-divider">
+							<hr class="dropdown-divider" />
+							<a class="dropdown-item d-flex align-items-center" href="/admin/logout">
+								<i class="bi bi-box-arrow-right"></i>
+								<span>Sign Out</span>
+							</a>
 						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center" href="./users-profile.html"> <i class="bi bi-gear"></i> <span>Account Settings</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center" href="./pages-faq.html"> <i class="bi bi-question-circle"></i> <span>Need Help?</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center" href="/admin/logout"> <i class="bi bi-box-arrow-right"></i> <span>Sign Out</span>
-						</a></li>
-
-					</ul> <!-- End Profile Dropdown Items --></li>
-				<!-- End Profile Nav -->
-
-
+					</ul>
 			</ul>
 		</nav>
 		<!-- End Icons Navigation -->

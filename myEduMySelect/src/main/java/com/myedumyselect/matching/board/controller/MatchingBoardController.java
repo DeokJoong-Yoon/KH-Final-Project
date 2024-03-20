@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.auth.vo.LoginVo;
+import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.matching.board.service.MatchingBoardService;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
@@ -31,24 +31,24 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/matching/*")
 @SessionAttributes(SessionInfo.COMMON)
 public class MatchingBoardController {
-
+	
 	@Autowired
 	private MatchingBoardService mbService;
+	@Autowired
+	private SessionCheckService sessionCheckService;
 
 	// 매칭 메인 페이지에 글 목록 미리보기 구현
 	@GetMapping("/")
 	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, Model model, HttpSession session) {
 		log.info("mBoardListPreview() 호출 성공");
-
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		if (loginVo == null) {
-			model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
-			return "matching/matchingMain";
+		String alertMsg = "경고";
+		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
+		if (checkedSessionResult == "FALSE") {
+			return "redirect:/";
 		}
 
 		List<MatchingBoardVO> list = mbService.mBoardListPreview(mbVO);
 		model.addAttribute("mBoardList", list);
-		model.addAttribute("loginVo", loginVo);
 
 		return "matching/matchingMain";
 	}
@@ -57,30 +57,55 @@ public class MatchingBoardController {
 	@GetMapping("/boardList")
 	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
 		log.info("mBoardList() 호출 성공");
-
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-
-		// 세션이 있을 때만 아이디를 모델에 추가
-		if (loginVo != null) {
-			String userId = loginVo.getId();
-			model.addAttribute("userId", userId);
+		
+		String alertMsg = "경고";
+		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
+		if (checkedSessionResult == "FALSE") {
+			return "redirect:/";
 		}
-
 		// 전체 레코드 조회
 		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
 		model.addAttribute("mBoardList", list);
-   
+		
 		// 전체 레코드 수 반환
 		int total = mbService.mBoardListCnt(mbVO);
-  
+		
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(mbVO, total));
 		model.addAttribute("kwd", mbVO.getKeyword());
-
+		
 		log.info(mbVO.getKeyword());
-
+		
 		return "matching/matchingBoardList";
 	}
+//	// 매칭게시판 전체보기 구현
+//	@GetMapping("/boardList")
+//	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
+//		log.info("mBoardList() 호출 성공");
+//		
+//		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+//
+//		// 세션이 있을 때만 아이디를 모델에 추가
+//		if (loginVo != null) {
+//			String userId = loginVo.getId();
+//			model.addAttribute("userId", userId);
+//		}
+//
+//		// 전체 레코드 조회
+//		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
+//		model.addAttribute("mBoardList", list);
+//   
+//		// 전체 레코드 수 반환
+//		int total = mbService.mBoardListCnt(mbVO);
+//  
+//		// 페이징 처리
+//		model.addAttribute("pageMaker", new PageDTO(mbVO, total));
+//		model.addAttribute("kwd", mbVO.getKeyword());
+//
+//		log.info(mbVO.getKeyword());
+//
+//		return "matching/matchingBoardList";
+//	}
 
 	// 맞춤형 검색 결과 구현
 	@PostMapping(value = "/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
