@@ -26,10 +26,10 @@ public interface AcademyLoginService {
 	
 	
 	// 회원정보 수정
-	public int academyUpdate(AcademyLoginVo login);
+	int academyUpdate(AcademyLoginVo login);
 	
 	// 비밀번호 변경
-	public int updatePasswdChangeDate(AcademyLoginVo login);
+	int updatePasswdChangeDate(AcademyLoginVo login);
 	
 	
 	// TODO: 회원 정보 수정

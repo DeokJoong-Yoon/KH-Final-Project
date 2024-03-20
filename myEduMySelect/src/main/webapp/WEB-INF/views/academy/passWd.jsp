@@ -43,7 +43,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+	
   <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
 
   
@@ -82,8 +82,8 @@
 		  <c:choose>
               <c:when test="${not empty commonLogin}">
                   <li><a class="nav-link scrollto">
-                  <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                  <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                  <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
+                  <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
                   ${commonLogin.name}님 환영합니다.</a></li>
                   <li>
                       <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
@@ -121,24 +121,32 @@
 
     <!-- ======= academyPassWd Update Form ======= -->   
     
-    <form id="changePasswdForm" action="/passwdChange" method="POST">      
-	  <div class="input_group">
-	    <label for="new_passwd">새 비밀번호</label>
-	    <input type="password" name="newPasswd1" id="newPasswd1" maxlength="20" placeholder="새 비밀번호 입력">
-	    <label class="require">(최소 하나의 대문자/소문자/숫자/특수문자 포함  8~20자 이내로 입력) </label>
+    <form:form action="/passwdChange" modelAttribute="academyLoginVo" id="changePasswdForm" name="changePasswdForm" method="POST">
+      <div class="input_group">
+	    <label for="academyPasswd">기존 비밀번호</label>
+	    <input type="password" name="academyPasswd" id="academyPasswd" maxlength="20" placeholder="새 비밀번호 입력">	    
 	    <span id="password-check-message"></span>
 	  </div>
 	  <br />
+	  	      
 	  <div class="input_group">
-	    <label for="new_passwd2">새 비밀번호 확인</label>
-	    <input type="password" name="newPasswd2" id="newPasswd2" maxlength="20" onkeyup="checkPassword()">
+	    <label for="newPasswd">새 비밀번호</label>
+	    <input type="password" name="newPasswd" id="newPasswd" maxlength="20" placeholder="새 비밀번호 입력"/>
+	    <label class="require">(최소 하나의 대문자/소문자/숫자/특수문자 포함  8~20자 이내로 입력) </label>
+	    <span id="new_password-check-message"></span>
+	  </div>
+	  <br />
+	  
+	  <div class="input_group">
+	    <label for="newPasswd2">새 비밀번호 확인</label>
+	    <input type="password" name="newPasswd2" id="newPasswd2" maxlength="20" onkeyup="checkPassword()"/>
 	    <span id="new_passwd-check-message"></span>
 	  </div>
 	  <br />
 	  <button type="button" id="changePasswdBtn" class="btn btn-primary">비밀번호 변경</button>
-	</form>
+	</form:form>
 	
-	<script>
+	<!-- <script>
 	function checkPassword() {
 	    var newPassword = document.getElementById("newPasswd").value;
 	    var confirmPassword = document.getElementById("newPasswd2").value;
@@ -176,7 +184,8 @@
 	    }
 	});
 
-	</script>
+	</script> -->
+	
 	
     <!-- ======= Contact Section ======= -->  	
   </main><!-- End #main -->
@@ -273,10 +282,11 @@
 	<script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	
-  	<script src="/resources/include/assets/js/academy.js"></script>
+	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/academy/newPasswd.js"></script>
+  	<!-- <script src="/resources/include/assets/js/academy.js"></script>
   	<script src="/resources/include/academy/academyJoin.js"></script>
-	<script src="/resources/include/academy/common.js"></script>
+	<script src="/resources/include/academy/common.js"></script> -->
 	<script src="/resources/include/assets/js/main.js"></script>
 	<!-- <script src="/resources/include/academy/mypage.js"></script> -->
 

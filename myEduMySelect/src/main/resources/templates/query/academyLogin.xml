@@ -198,7 +198,7 @@
         
 
     <!-- 비밀번호 변경 페이지 비밀번호 수정 </update>-->
-    <update id="changePasswd" parameterType="academyLogin">
+    <update id="passwdChange" parameterType="academyLogin">
         UPDATE 
         	tb_academy
         SET            
@@ -212,8 +212,7 @@
     <update id="academyUpdate" parameterType="academyLogin">
         UPDATE 
         	tb_academy
-        SET
-            member_type_id = #{memberTypeId}, 
+        SET             
             academy_number = #{academyNumber}, 
             academy_join_date = #{academyJoinDate}, 
             academy_passwd = #{academyPasswd},
@@ -232,10 +231,7 @@
             academy_keyword3 = #{academyKeyword3}, 
             academy_keyword4 = #{academyKeyword4}, 
             academy_keyword5 = #{academyKeyword5}, 
-            academy_fee = #{academyFee},
-            academy_passwd_change_date = #{academyPasswdChangeDate}, 
-            academy_login_fail_count = #{academyLoginFailCount}, 
-            academy_account_banned_date = #{academyAccountBannedDate}
+            academy_fee = #{academyFee}            
         WHERE 
         	academy_id = #{academyId}
     </update>

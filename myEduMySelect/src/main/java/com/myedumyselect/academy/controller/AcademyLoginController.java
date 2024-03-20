@@ -276,40 +276,118 @@ public class AcademyLoginController {
 
 	// 마이페이지 회원정보 수정
 	@PostMapping("/academyUpdate")
-	public String academyUpdate(@ModelAttribute AcademyLoginVo academyLoginVo, HttpSession session,
-			RedirectAttributes redirectAttributes, Model model) {
+	public String academyUpdate(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
 		log.info("컨트롤러 /academyUpdate 호출!");
+		
+		// 세션에서 로그인 정보 가져오기
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-
+		if(loginVo != null) {
+			if(loginVo.getMemberTypeId() == 1) {
+				redirectAttributes.addFlashAttribute("errorMsg", "잘못된 접근입니다");
+				return "/loginselect";
+			}
+		}
+		log.info("loginVo null값 아니며 memberTypeId==2 {} : ", loginVo);
+		// 수정할 학원 회원의 아이디 가져오기
+		String academyId = loginVo.getId();
+		
+		// 학원 회원 정보 가져오기
+		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		
+		// 학원 회원 정보가 null이 아니면 모델에 추가
+		if(academyLoginVo != null) {			
+			model.addAttribute("academyLoginVo", academyLoginVo);
+			log.info("academyLoginVo null값 아닐 때 모델에 정상 등록 {} : ", academyLoginVo);
+		} else {
+			academyLoginVo = new AcademyLoginVo();
+			model.addAttribute("academyLoginVo", academyLoginVo);
+		}
+		
+		if(academyLoginVo.getAcademyManagerName() != null) {
+			model.addAttribute("academyManagerName", academyLoginVo.getAcademyManagerName());
+		}
+		
+		if(academyLoginVo.getAcademyManagerEmail() != null) {
+			model.addAttribute("academyManagerEmail", academyLoginVo.getAcademyManagerEmail());
+		}
+		
+		if(academyLoginVo.getAcademyManagerPhone() != null) {
+			model.addAttribute("academyManagerPhone", academyLoginVo.getAcademyManagerPhone());
+		}
+		
+		if(academyLoginVo.getAcademyTargetSubject() != null) {
+			model.addAttribute("academyTargetSubject", academyLoginVo.getAcademyTargetSubject());
+		}
+		
+		if(academyLoginVo.getAcademyFee() != null) {
+			model.addAttribute("academyFee", academyLoginVo.getAcademyFee());
+		}
+		
+		if(academyLoginVo.getAcademyTargetGrade() != null) {
+			model.addAttribute("academyTargetGrade", academyLoginVo.getAcademyTargetGrade());
+		}
+		
+		if(academyLoginVo.getAcademyKeyword1() != null) {
+			model.addAttribute("academyKeyword1", academyLoginVo.getAcademyKeyword1());
+		}
+		
+		log.info("academyLoginVo 모델 정보 등록 {} : ", academyLoginVo);
 		// 세션에서 가져온 academyLogin 객체에 업데이트된 정보를 적용,결론적으로 VO를 들고 오는구조
-		AcademyLoginVo sessionAcademyLogin = academyLoginService.findById(loginVo.getId());
-		log.info("아이디를 통해 정보 가져오기 성공!");
-		log.info("매니저 이름 : {}", sessionAcademyLogin.getAcademyManagerName());
-		/*sessionAcademyLogin.setAcademyManagerName(academyLoginVo.getAcademyManagerName());
-		sessionAcademyLogin.setAcademyManagerEmail(academyLoginVo.getAcademyManagerEmail());
-		sessionAcademyLogin.setAcademyManagerPhone(academyLoginVo.getAcademyManagerPhone());
-		sessionAcademyLogin.setAcademyTargetSubject(academyLoginVo.getAcademyTargetSubject());
-		sessionAcademyLogin.setAcademyFee(academyLoginVo.getAcademyFee());
-		sessionAcademyLogin.setAcademyTargetGrade(academyLoginVo.getAcademyTargetGrade());
-		sessionAcademyLogin.setAcademyKeyword1(academyLoginVo.getAcademyKeyword1());
+		//AcademyLoginVo sessionAcademyLogin = academyLoginService.findById(loginVo.getAcademyId());
+		
+		//log.info("매니저 이름 : {}", sessionAcademyLogin.getAcademyManagerName());
+		//log.info("아이디로 불러온 정보 {} ", sessionAcademyLogin.getAcademyId());
+		academyLoginVo.setAcademyManagerName(academyLoginVo.getAcademyManagerName());
+		academyLoginVo.setAcademyManagerEmail(academyLoginVo.getAcademyManagerEmail());
+		academyLoginVo.setAcademyManagerPhone(academyLoginVo.getAcademyManagerPhone());
+		academyLoginVo.setAcademyPhone(academyLoginVo.getAcademyPhone());
+		academyLoginVo.setAcademyTargetSubject(academyLoginVo.getAcademyTargetSubject());
+		academyLoginVo.setAcademyFee(academyLoginVo.getAcademyFee());
+		academyLoginVo.setAcademyTargetGrade(academyLoginVo.getAcademyTargetGrade());
+		/*academyLoginVo.setAcademyKeyword1(academyLoginVo.getAcademyKeyword1());
+		academyLoginVo.setAcademyKeyword1(academyLoginVo.getAcademyKeyword2());
+		academyLoginVo.setAcademyKeyword1(academyLoginVo.getAcademyKeyword3());
+		academyLoginVo.setAcademyKeyword1(academyLoginVo.getAcademyKeyword4());
+		academyLoginVo.setAcademyKeyword1(academyLoginVo.getAcademyKeyword5());
 		*/
-		log.info("academyUpdate 호출 성공");
-
+		
+		/*
+		String academyManagerName = academyLoginVo.getAcademyId();
+		academyLoginVo.setAcademyId(academyManagerName);
+		log.info("academyManagerName 수정 반영 {} : ", academyManagerName);
+		/* AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId); 
+		
+		model.addAttribute("academyLoginVo", academyLoginVo);
+		
+		log.info("academyLoginVo 객체 정보 {} : ", academyLoginVo);
+		*/
+		
+		
 		// 학원 정보 업데이트
 		// academyLoginService의 academyUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
-		int result = academyLoginService.academyUpdate(sessionAcademyLogin);
-
+		int result = academyLoginService.academyUpdate(academyLoginVo);
+		//log.info("sessionAcademyLogin.toString() 2번 {} : ", academyLoginVo.toString());
+		log.info("result값 {} : ", result);
+		
 		// 업데이트가 실패하면 에러 메시지를 추가하고 로그인 페이지로 리다이렉트
-		if (result == 0) {
+		if (result == 0) {			
 			redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
 			return "redirect:/academyaccount/login";
-		}
-
-		// 업데이트가 성공하면 세션에 업데이트된 academyLoginVo 객체를 저장하고 마이 페이지로 리다이렉트
-		session.setAttribute(SessionInfo.COMMON, sessionAcademyLogin);
-		//model.addAttribute(result);
-		log.info("모델에 저장완료!");
+		} 
+			// 업데이트 성공 시
+			session.setAttribute("academyLoginVo", academyLoginVo);
+			model.addAttribute("academyLoginVo", academyLoginVo);
+			
+		
+		
 		return "redirect:/academyaccount/mypage";
+		// 업데이트가 성공하면 세션에 업데이트된 academyLoginVo 객체를 저장하고 마이 페이지로 리다이렉트
+		
+		//model.addAttribute(result);
+		
+		
+		
+		
 	}
 
 	/* 비밀번호 변경 */
@@ -336,27 +414,34 @@ public class AcademyLoginController {
 	/* 비밀번호 변경 POST */
 	@PostMapping("/passwdChange")
 	public String updatePasswdChangeDate(@ModelAttribute AcademyLoginVo login, HttpSession session, Model model,
-			RedirectAttributes redirectAttributes) {
-		// 세션에서 LoginVo 객체 가져오기
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+	        RedirectAttributes redirectAttributes) {
+		
+		
+	    // 세션에서 LoginVo 객체 가져오기
+	    LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+	    log.info("세션에서 가져온 LoginVo 객체 정보 {} : ", loginVo);
+	    // 새로운 비밀번호 설정
+	    loginVo.setPasswd(login.getAcademyPasswd());
 
-		// 새로운 비밀번호 설정
-		loginVo.setPasswd(login.getAcademyPasswd());
+	    // 변경된 비밀번호 업데이트
+	    int result = academyLoginService.updatePasswdChangeDate(login);
 
-		// 변경된 비밀번호 업데이트
-		int result = academyLoginService.updatePasswdChangeDate(login);
+	    if (result == 0) {
+	        redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+	        return "redirect:/academyaccount/login";
+	    }
 
-		if (result == 0) {
-			redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
-			return "redirect:/academyaccount/login";
-		}
+	    // 세션에 LoginVo 객체를 다시 설정
+	    session.setAttribute(SessionInfo.COMMON, loginVo);
+	    log.info("비밀번호 변경 완료 ", loginVo);
+	    redirectAttributes.addFlashAttribute("errorMsg", "비밀번호 변경 완료");
 
-		session.setAttribute(SessionInfo.COMMON, loginVo);
-
-		// 로그아웃 후 리다이렉트
-		session.invalidate(); // 세션 무효화
-		return "redirect:/academyaccount/login";
+	    // 로그아웃 후 리다이렉트
+	    session.invalidate(); // 세션 무효화
+	    log.info("비밀번호 변경완료, 다시 로그인");
+	    return "redirect:/academyaccount/login";
 	}
+
 
 	/*
 	 * @PostMapping("/checkCurrentPassword")

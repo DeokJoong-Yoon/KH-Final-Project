@@ -65,25 +65,26 @@
           <li><a class="nav-link scrollto active" href="/">홈</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="/free/freeList">자유게시판</a></li>
-              <li><a href="#">홍보게시판</a></li>
-              <li><a href="/matching/">매칭게시판</a></li>
-              <li><a href="/notice/boardList">공지게시판</a></li>
-              <c:if test="${commonLogin.memberTypeId == 1}">
-					    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">회원마이페이지</a></li>
-					</c:if>
-	                         <c:if test="${commonLogin.memberTypeId == 2}">
-	                             <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
-	                         </c:if>
-				</ul></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+					<li class="dropdown"><a href="#"><span>메뉴</span> <i
+							class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="/free/freeList">자유게시판</a></li>
+							<li><a href="#">홍보게시판</a></li>
+							<li><a href="/matching/">매칭게시판</a></li>
+							<li><a href="/notice/boardList">공지게시판</a></li>
+							<c:if test="${commonLogin.memberTypeId == 1}">
+								<li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">마이페이지</a></li>
+							</c:if>
+							<c:if test="${commonLogin.memberTypeId == 2}">
+								<li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+							</c:if>
+						</ul></li>
+					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 		  <c:choose>
               <c:when test="${not empty commonLogin}">
                   <li><a class="nav-link scrollto">
-                  <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                  <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                  <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
+                  <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
                   ${commonLogin.name}님 환영합니다.</a></li>
                   <li>
                       <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
@@ -314,7 +315,8 @@
 								
 			</span>
 			<!-- 홍보 게시판에서 내가 쓴 글 목록 보기 -->  
-        	<a href="/academyMatchingList" class="btn btn-primary">홍보 게시판 내가 쓴 글 목록</a>
+        	<a href="/advertise/advertiseBoardList" class="btn btn-primary">홍보 게시판 내가 쓴 글 목록</a>
+        	<a href="/academyMatchingList" class="btn btn-primary">매칭 게시판 내가 쓴 글 목록</a>
 			
 		</div>	
 		<br />
@@ -358,8 +360,14 @@
 	        	event.preventDefault(); // 기본 제출 동작 방지
 	        	console.log("폼 제출 버튼 클릭!");	        	
 	        	
+	        	
 	        	var academyManagerName = $("#academyManagerName").val();
-	        	console.log("Academy manager name: ", academyManagerName);
+	        	var academyManagerEmail = $("#academyManagerEmail").val();
+	        	var academyManagerPhone = $("#academyManagerPhone").val();	        	
+	        	var academyTargetSubject = $("#academyTargetSubject").val();
+	        	var academyTargetGrade = $("#academyTargetGrade").val();
+	        	var academyFee = $("#academyFee").val();
+	        	console.log("폼 제출 되는 내용  : ", academyManagerName);
 	        	
 	            // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
 	            if (confirm("회원 정보를 수정하시겠습니까?")) {

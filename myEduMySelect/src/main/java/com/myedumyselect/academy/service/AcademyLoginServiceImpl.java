@@ -93,8 +93,9 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 	// 비밀번호 변경
 	@Override
 	public int updatePasswdChangeDate(AcademyLoginVo login) {
-		
-		return academyLoginDao.updatePasswdChangeDate(login);
+		int result = 0;
+		result = academyLoginDao.updatePasswdChangeDate(login);
+		return result;
 	}
 	
 	/*/ 사업자등록번호로 정보 조회

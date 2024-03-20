@@ -78,8 +78,8 @@
 			<c:choose>
                 <c:when test="${not empty commonLogin}">
                     <li><a class="nav-link scrollto">
-                    <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                    <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                    <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
+                    <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
                     ${commonLogin.name}님 환영합니다.</a></li>
                     <li>
                         <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
