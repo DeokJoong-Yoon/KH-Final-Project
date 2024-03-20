@@ -34,7 +34,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+<<<<<<< HEAD
 @SessionAttributes(SessionInfo.COMMON)
+=======
+@SessionAttributes(SessionInfo.COMMON)			// dj
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 public class AcademyLoginController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -44,7 +48,7 @@ public class AcademyLoginController {
 	@GetMapping("/academyaccount/login")
 	public String userAccountLoginForm(Model model, HttpSession session) {
 
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);  // dj
 
 		if (loginVo != null) {
 			if (loginVo.getMemberTypeId() == 1) {
@@ -103,8 +107,8 @@ public class AcademyLoginController {
 		// AcademyLoginService를 통해 로그인을 시도한다.
 
 		if (academyLogin != null) {
-			loginVo.setName(academyLogin.getAcademyName());
-			model.addAttribute("academyLogin", academyLogin);
+			loginVo.setName(academyLogin.getAcademyName());			// dj
+			model.addAttribute("loginVo", SessionInfo.COMMON);
 			session.removeAttribute("loginAttempts");// 로그인이 성공한 경우, 모델에 로그인 정보를 추가하고, 세션에서 로그인 시도 횟수 속성을 제거한다.
 			log.info("로그인 성공!");
 		} else {
@@ -141,10 +145,10 @@ public class AcademyLoginController {
 	@GetMapping(value = "/academyaccount/join")
 	public String joinForm(Model model, HttpSession session) {
 
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);		// dj
 
 		if (loginVo != null) {
-			if (loginVo.getMemberTypeId() == 1) {
+			if (loginVo.getMemberTypeId() == 1) {				// dj
 				log.info("잘못된 접근");
 				model.addAttribute("confirmMessage", "잘못된 접근입니다.");
 				return "/main/loginSelect";
@@ -154,7 +158,7 @@ public class AcademyLoginController {
 		}
 		log.info("academyJoin 호출 성공");
 		// 모델 등록
-		model.addAttribute("academySignUpVo", new AcademySignUpVo());
+		model.addAttribute("academySignUpVo", new AcademySignUpVo());		// dj
 		return "academy/academyJoin";
 
 		/*
@@ -208,10 +212,10 @@ public class AcademyLoginController {
 	// 학원회원 마이페이지로 이동
 	@GetMapping("/academyaccount/mypage")
 	public String mypage(Model model, HttpSession session) {
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);				// dj
 
 		if (loginVo != null) {
-			if (loginVo.getMemberTypeId() == 1) {
+			if (loginVo.getMemberTypeId() == 1) {				// dj
 				log.info("잘못된 접근");
 				model.addAttribute("confirmMessage", "잘못된 접근입니다.");
 				return "/main/main";
@@ -219,15 +223,15 @@ public class AcademyLoginController {
 		}
 
 		// 로그인이 되어있지 않다면
-		if (ObjectUtils.isEmpty(loginVo)) {
+		if (ObjectUtils.isEmpty(loginVo)) {				// dj
 			model.addAttribute("confirmMessage", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 			// 로그인 페이지로 리다이렉트
 			return "redirect:/academyaccount/login";
 		}
 		log.info("mypage 호출 성공");
 		// 로그인된 경우에는 학원 정보를 가져와서 모델에 추가
-		String academyId = loginVo.getId();
-		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		String academyId = loginVo.getId();				// dj
+		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);				// dj
 						
 		if (academyLoginVo != null) {
 			model.addAttribute("academyLoginVo", academyLoginVo);
@@ -280,16 +284,16 @@ public class AcademyLoginController {
 		log.info("컨트롤러 /academyUpdate 호출!");
 		
 		// 세션에서 로그인 정보 가져오기
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		if(loginVo != null) {
-			if(loginVo.getMemberTypeId() == 1) {
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);				// dj
+		if(loginVo != null) {				// dj
+			if(loginVo.getMemberTypeId() == 1) {				// dj
 				redirectAttributes.addFlashAttribute("errorMsg", "잘못된 접근입니다");
 				return "/loginselect";
 			}
 		}
-		log.info("loginVo null값 아니며 memberTypeId==2 {} : ", loginVo);
+		log.info("loginVo null값 아니며 memberTypeId==2 {} : ", loginVo);		
 		// 수정할 학원 회원의 아이디 가져오기
-		String academyId = loginVo.getId();
+		String academyId = loginVo.getId();				// dj
 		
 		// 학원 회원 정보 가져오기
 		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
@@ -398,7 +402,7 @@ public class AcademyLoginController {
 	@GetMapping("/passwdChangePage")
 	public String passwdChangePage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);				// dj
 
 		if (loginVo != null) {
 			if (loginVo.getMemberTypeId() == 1) {
@@ -411,7 +415,7 @@ public class AcademyLoginController {
 			return "main/loginSelect";
 		}
 
-		model.addAttribute("academyId", loginVo.getId());
+		model.addAttribute("academyId", loginVo.getId());				// dj
 		return "academy/passWd";
 	}
 
@@ -423,9 +427,9 @@ public class AcademyLoginController {
 		
 	    // 세션에서 LoginVo 객체 가져오기
 	    LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-	    log.info("세션에서 가져온 LoginVo 객체 정보 {} : ", loginVo);
+	    log.info("세션에서 가져온 LoginVo 객체 정보 {} : ", loginVo);					// dj
 	    // 새로운 비밀번호 설정
-	    loginVo.setPasswd(login.getAcademyPasswd());
+	    loginVo.setPasswd(login.getAcademyPasswd());					// dj
 
 	    // 변경된 비밀번호 업데이트
 	    int result = academyLoginService.updatePasswdChangeDate(login);
@@ -436,8 +440,8 @@ public class AcademyLoginController {
 	    }
 
 	    // 세션에 LoginVo 객체를 다시 설정
-	    session.setAttribute(SessionInfo.COMMON, loginVo);
-	    log.info("비밀번호 변경 완료 ", loginVo);
+	    session.setAttribute(SessionInfo.COMMON, loginVo);					// dj
+	    log.info("비밀번호 변경 완료 ", loginVo);					// dj
 	    redirectAttributes.addFlashAttribute("errorMsg", "비밀번호 변경 완료");
 
 	    // 로그아웃 후 리다이렉트

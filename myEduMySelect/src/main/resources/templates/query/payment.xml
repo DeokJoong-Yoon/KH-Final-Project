@@ -153,11 +153,11 @@
 		END AS result
 		FROM (SELECT COUNT(*) AS cnt
 		FROM tb_payment
-		WHERE academy_id = #{acadmey_id}) sub,
+		WHERE academy_id = #{academyId}) sub,
 		(SELECT payment_date
 		FROM (SELECT payment_date
 		FROM tb_payment
-		WHERE academy_id = #{acadmey_id}
+		WHERE academy_id = #{academyId}
 		ORDER BY TO_DATE(payment_date, 'YYYYMMDD') DESC)
 		WHERE ROWNUM = 1) sub2
 	</select>

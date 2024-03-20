@@ -133,9 +133,12 @@
 		
 		
 		<!-- 로그인 세션 임시 확인 -->
-		<div class="userId">${userId }</div>
-		<div class="acaId">${acaId }</div>
-		<div class="acaName">${acaName }</div>
+		<label>개인 아이디</label>
+		<div class="userId">${personLoginVo.personalId}</div>
+		<label>학원 아이디</label>
+		<div class="acaId">${academyLoginVo.academyId}</div>
+		<label>학원 이름</label>
+		<div class="acaName">${academyLoginVo.academyName}</div>
 		
 		
 		<!-- ========= 게시글 목록 영역 ======== -->
