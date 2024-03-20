@@ -24,6 +24,7 @@ public interface AcademyLoginService {
 	// 이메일 중복체크
 	int checkEmail(String academyManagerEmail);
 	
+	
 	// 회원정보 수정
 	public int academyUpdate(AcademyLoginVo login);
 	

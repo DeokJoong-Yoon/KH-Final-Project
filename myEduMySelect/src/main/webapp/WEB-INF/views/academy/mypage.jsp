@@ -43,7 +43,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+	
   <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css">
 
   
@@ -119,7 +119,7 @@
 	
 	<main id="main">		
 		
-	<form:form id="academyUpdateForm" action="/updateUserInfo" modelAttribute="academyLoginVo" method="POST" name="academyMyPage">
+	<form:form id="academyUpdateForm" action="/academyUpdate" modelAttribute="academyLoginVo" method="POST" name="academyMyPage">
 		
 		<div class="input_group">
 			<label for="academyId">아이디</label>
@@ -128,7 +128,7 @@
 		
 		<div class="input_group">
 			<label for="academyPasswd" style="display: inline-block;" >비밀번호</label>
-			<form:input path="academyPasswd" type="password"  class="form-control" style="width: 400px;"/>
+			<form:input path="academyPasswd" type="password"  class="form-control" style="width: 400px;" readonly="true" />
 			<button type="button" id="changePasswdBtn">비밀번호 변경</button>
 		</div>		
 		
@@ -139,18 +139,35 @@
 		
 		<div class="input_group">
 			<label for="academyManagerName">담당자 이름</label>
-			<form:input path="academyManagerName" type="text" class="form-control" style="width: 400px;" />
+			<form:input path="academyManagerName" type="text" class="form-control" style="width: 400px;" name="academyManagerName"/>
 		</div>		
 		
-		<div class="input_group">
+		<%-- <div class="input_group">
 			<label for="academyManagerEmail">담당자 이메일</label>
 			<form:input path="academyManagerEmail" type="text" class="form-control" style="width: 400px;" />
 			<button id="emailCheckBtn" class="emailCheck">중복체크</button>
-		</div>		
+		</div> --%>		
+		
+		<div class="input_group">
+		    <label for="academyManagerEmail">담당자 이메일</label>
+		    기존 이메일주소입니다. 변경을 원하시면  <strong>@ 앞까지의<br/>이메일 주소</strong>만 다시입력 후 중복체크를 진행해주세요.<form:input path="academyManagerEmail" type="text" class="form-control" style="width: 400px;" placeholder="변경하실 주소 중, @ 앞의 주소만 입력해주세요"/>		    
+		    @
+		    <form:input path="academyManagerEmail1" type="text" class="form-control" style="width: 400px;" placeholder="아래 항목을 선택해주세요"/>
+		    <select class="box" style="width: 400px;"  id="domain-list">
+		        <option value="custom">직접입력</option>
+		        <option value="naver.com">naver.com</option>
+		        <option value="google.com">google.com</option>
+		        <option value="hanmail.net">hanmail.net</option>
+		        <option value="nate.com">nate.com</option>
+		        <option value="kakao.com">kakao.com</option>
+		    </select>
+		    <button id="emailCheckBtn" class="emailCheck">중복체크</button>
+		    <div id="email-check-message"></div>
+		</div>
 		
 		<div class="input_group">
 			<label for="academyManagerPhone">담당자 전화번호</label>
-			<form:input path="academyManagerPhone" type="text" class="form-control" style="width: 400px;" />
+			<form:input path="academyManagerPhone" type="text" maxlength="11" class="form-control" style="width: 400px;"/>
 		</div>		
 
 		<div class="input_group">
@@ -167,7 +184,7 @@
 
 		<div class="input_group">
 			<label for="academyPhone">학원 전화번호</label>
-			<form:input path="academyPhone" type="text" class="form-control" style="width: 400px;" readonly="true" />
+			<form:input path="academyPhone" type="text" maxlength="11" class="form-control" style="width: 400px;" readonly="true" />
 		</div>		
 			
 		<div class="input_group">
@@ -303,7 +320,7 @@
 		<br />
 	  
 	</form:form>
-	
+	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
 	<!-- 키워드 선택 제어 -->
 	<script>
 	    window.onload = function() {
@@ -337,23 +354,28 @@
 	
 	<script>
 	    $(function() {
-	        $("#academyUpdateForm").on("submit", function(event) {
-	            event.preventDefault(); // 기본 제출 동작 방지
+	        $("#updateBtn").on("click", function(event) {
+	        	event.preventDefault(); // 기본 제출 동작 방지
+	        	console.log("폼 제출 버튼 클릭!");	        	
+	        	
+	        	var academyManagerName = $("#academyManagerName").val();
+	        	console.log("Academy manager name: ", academyManagerName);
+	        	
 	            // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
-	            if (confirm("개인 정보를 수정하시겠습니까?")) {
+	            if (confirm("회원 정보를 수정하시겠습니까?")) {
 	                // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
 	                $.ajax({
-	                    url: "/updateUserInfo",
+	                    url: "/academyUpdate",
 	                    type: "POST",
 	                    data: $(this).serialize(),
 	                    success: function(response) {
 	                        // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
-	                        alert("개인 정보가 성공적으로 업데이트되었습니다.");
+	                        alert("회원 정보가 성공적으로 업데이트되었습니다.");
 	                        // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.
 	                        location.reload();
 	                    },
 	                    error: function(xhr, status, error) {
-	                        alert("개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+	                        alert("회원 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
 	                        console.error(xhr.responseText);
 	                    }
 	                });
@@ -468,11 +490,12 @@
 
 	<!-- Template Main JS File -->
 	
-  	<script src="/resources/include/assets/js/academy.js"></script>
-  	<script src="/resources/include/academy/academyJoin.js"></script>
-	<script src="/resources/include/academy/common.js"></script>
+  	<script src="/resources/include/academy/mypage.js"></script>
+  	<!-- <script src="/resources/include/assets/js/academy.js"></script> -->
+  	<!-- <script src="/resources/include/academy/academyJoin.js"></script> -->
+	<!-- <script src="/resources/include/academy/common.js"></script> -->
 	<script src="/resources/include/assets/js/main.js"></script>
-	<!-- <script src="/resources/include/academy/mypage.js"></script> -->
+	
 
 
 	<script>

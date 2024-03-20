@@ -73,15 +73,15 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 	
 	// 이메일 중복체크
 	@Override
-	public int checkEmail(String email) {
-		int cnt = 0;
-		try {
-			cnt = academyLoginDao.checkEmail(email);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("cnt: " + cnt);
-		return cnt;
+	public int checkEmail(String academyManagerEmail) {	    
+	    int cnt = 0;
+	    try {
+	        cnt = academyLoginDao.checkEmail(academyManagerEmail);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    System.out.println("cnt: " + cnt);
+	    return cnt;
 	}
 	
 	// 사업자등록번호 중복체크

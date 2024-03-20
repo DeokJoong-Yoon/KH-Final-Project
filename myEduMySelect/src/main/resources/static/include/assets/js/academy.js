@@ -484,18 +484,6 @@ document.getElementById("mypageBtn").addEventListener("click", function(event) {
     }
 });
 
-/* 마이페이지 회원정보 수정하기 버튼 클릭에 따른 제어 */
-$(document).ready(function() {
-    // Update button click event
-    $("#updateBtn").click(function() {
-        // Perform form validation here if needed
-        
-        // Submit the form
-        $("#updateForm").submit();
-    });
-});
-
-
 /* 아래부터 main.js 파일 */				
     
 (function() {

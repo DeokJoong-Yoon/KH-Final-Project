@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#submit-btn").on("click", function() {
-      // 아이디 중복체크가 됐는지 먼저 확인 후 
+      // 아이디 중복체크가 됐는지 먼저 확인 후  
         if ($("#duplicate-message").text() === '사용 가능한 아이디입니다.') {
             // 중복체크가 해소되면 다른 필드들에 대한 빈 값 체크
             if (!chkData("#academyPasswd", "비밀번호를")) return;

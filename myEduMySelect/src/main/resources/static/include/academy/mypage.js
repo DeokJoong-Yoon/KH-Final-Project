@@ -1,12 +1,172 @@
-$(document).ready(function() {
-    // Update button click event
-    $("#updateBtn").click(function() {
-        // Perform form validation here if needed
-        
-        // Submit the form
-        $("#updateForm").submit();
+/* 담당자 이름 유효성 검사 */
+document.addEventListener('DOMContentLoaded', function() {
+    const managerNameInput = document.getElementById('academyManagerName');
+    const regex = /^[a-zA-Z가-힣]+$/; // 한글과 영문 대소문자만 허용하는 정규표현식
+     
+    managerNameInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value;
+        if (!regex.test(inputValue)) {
+            showErrorMessage(managerNameInput, '담당자 이름은 한글 또는 영문 대소문자만 입력 가능합니다.');
+        } else {
+            hideErrorMessage(managerNameInput);
+        }
     });
+    
+    function showErrorMessage(inputElement, message) {
+        const parentElement = inputElement.parentElement;
+        let errorMessageElement = parentElement.querySelector('.error-message');
+        if (!errorMessageElement) {
+            errorMessageElement = document.createElement('span');
+            errorMessageElement.className = 'error-message';
+            parentElement.appendChild(errorMessageElement);
+        }
+        errorMessageElement.textContent = message;
+    }
+    
+    function hideErrorMessage(inputElement) {
+        const parentElement = inputElement.parentElement;
+        const errorMessageElement = parentElement.querySelector('.error-message');
+        if (errorMessageElement) {
+            parentElement.removeChild(errorMessageElement);
+        }
+    }
+}); 
+
+/* 교습과목 유효성 검사 */
+document.addEventListener('DOMContentLoaded', function() {
+    const subjectInput = document.getElementById('academyTargetSubject');
+
+    subjectInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value.trim();
+
+        if (/^[가-힣]*$/.test(inputValue)) { // 한글만 포함된 경우
+            hideErrorMessage();
+        } else { // 다른 문자가 포함된 경우
+            showErrorMessage('교습과목은 공백, 특수문자 없이 한글로만 입력해주세요.');
+        }
+    }); 
+
+    function showErrorMessage(message) {
+        const parentElement = subjectInput.parentElement;
+        let errorMessageElement = parentElement.querySelector('.error-message');
+        if (!errorMessageElement) {
+            errorMessageElement = document.createElement('span');
+            errorMessageElement.className = 'error-message';
+            parentElement.appendChild(errorMessageElement);
+        }
+        errorMessageElement.textContent = message;
+    }
+
+    function hideErrorMessage() {
+        const parentElement = subjectInput.parentElement;
+        const errorMessageElement = parentElement.querySelector('.error-message');
+        if (errorMessageElement) {
+            parentElement.removeChild(errorMessageElement);
+        }
+    }
 });
+
+/* 학원전화번호, 담당자전화번호, 사업자등록번호 입력 필드 유효성 검사 */
+document.addEventListener('DOMContentLoaded', function() {
+    const managerPhoneInput = document.getElementById('academyManagerPhone');
+    const academyPhoneInput = document.getElementById('academyPhone');    
+    
+    const regex = /^[0-9]*$/; // 숫자만 허용하는 정규표현식
+    
+    managerPhoneInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value;
+        if (!regex.test(inputValue)) {
+            showErrorMessage(managerPhoneInput, '숫자만 입력 가능합니다.');
+        } else {
+            hideErrorMessage(managerPhoneInput);
+        }
+    });
+    
+    academyPhoneInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value;
+        if (!regex.test(inputValue)) {
+            showErrorMessage(academyPhoneInput, '숫자만 입력 가능합니다.');
+        } else {
+            hideErrorMessage(academyPhoneInput);
+        }
+    });    
+    
+    function showErrorMessage(inputElement, message) {
+        const parentElement = inputElement.parentElement;
+        let errorMessageElement = parentElement.querySelector('.error-message');
+        if (!errorMessageElement) {
+            errorMessageElement = document.createElement('span');
+            errorMessageElement.className = 'error-message';
+            parentElement.appendChild(errorMessageElement);
+        }
+        errorMessageElement.textContent = message;
+    }
+    
+    function hideErrorMessage(inputElement) {
+        const parentElement = inputElement.parentElement;
+        const errorMessageElement = parentElement.querySelector('.error-message');
+        if (errorMessageElement) {
+            parentElement.removeChild(errorMessageElement);
+        }
+    }
+});
+
+$(document).ready(function() {
+    // 이메일 중복체크 버튼에 클릭 이벤트 핸들러 등록
+    $('#emailCheckBtn').on('click', function(event) {
+        event.preventDefault(); // 기본 동작 방지
+
+        // 입력된 이메일 유효성 검사
+        const emailPrefix = $('#academyManagerEmail').val();
+        const emailSuffix = $('#academyManagerEmail1').val();
+        const emailAddress = emailPrefix + '@' + emailSuffix;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(emailAddress)) {
+            alert("이메일을 올바른 형식으로 입력 후 다시 중복체크 버튼을 눌러주세요");
+            return;
+        }
+
+        // 이메일 중복 체크 함수 호출
+        checkEmailDuplication(emailAddress);
+    });
+
+    // 이메일 선택
+    $('#domain-list').on('change', function() {
+        const selectedDomain = $(this).val(); // 선택된 도메인 값 가져오기
+        if (selectedDomain === 'custom') {
+            // "직접입력" 옵션이 선택된 경우 입력 필드를 초기화하고 readonly 속성 해제
+            $('#academyManagerEmail1').val('').prop('readonly', false);
+        } else {
+            // 선택된 도메인을 이메일 주소 뒤에 추가하여 입력 필드에 설정하고 readonly 속성 적용
+            $('#academyManagerEmail1').val(selectedDomain).prop('readonly', true);
+        }
+    });
+
+    // 이메일 중복 체크 함수
+    function checkEmailDuplication(emailAddress) {
+        // AJAX를 이용하여 서버로 중복 체크 요청
+        $.ajax({
+            url: "/checkEmail", // 중복 체크를 수행하는 컨트롤러의 URL
+            type: "POST",
+            data: {academyManagerEmail: emailAddress}, // 서버로 전송할 데이터
+            success: function(response) {
+                // 서버로부터의 응답에 따라 중복 메시지 표시
+                if (response == 0) {
+                    $('#email-check-message').text('사용 가능한 이메일 주소입니다.');
+                    // 이메일 주소를 입력 필드에 채우고 readonly 처리
+                    $('#academyManagerEmail').val(emailAddress).prop('readonly', true);
+                    console.log("이메일 입력 성공!");
+                } else {
+                    $('#email-check-message').text('이미 사용 중인 이메일 주소입니다, 다시 입력해주세요.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("서버 에러 발생: " + error);
+            }
+        });
+    }
+});
+
 
 
 /* 아래 부터는 main.js 내용 */

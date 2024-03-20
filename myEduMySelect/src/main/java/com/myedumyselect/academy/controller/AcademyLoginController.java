@@ -228,13 +228,26 @@ public class AcademyLoginController {
 		// 로그인된 경우에는 학원 정보를 가져와서 모델에 추가
 		String academyId = loginVo.getId();
 		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
-
+						
 		if (academyLoginVo != null) {
 			model.addAttribute("academyLoginVo", academyLoginVo);
 		} else {
 			// 학원 정보가 없을 경우 처리
 			academyLoginVo = new AcademyLoginVo();
 			model.addAttribute("academyLoginVo", academyLoginVo);
+		}
+		
+		// 담당자 전화번호 모델에 등록
+		if(academyLoginVo.getAcademyManagerPhone() != null) {
+			model.addAttribute("academyManagerPhone", academyLoginVo.getAcademyManagerPhone());
+		}
+		// 학원 전화번호 모델에 등록
+		if(academyLoginVo.getAcademyPhone() != null) {
+			model.addAttribute("academyPhone", academyLoginVo.getAcademyPhone());
+		}		
+		// 담당자 이름 모델에 등록
+		if(academyLoginVo.getAcademyManagerName() != null) {
+			model.addAttribute("academyManagerName", academyLoginVo.getAcademyManagerName());
 		}
 
 		return "/academy/mypage";
@@ -251,7 +264,7 @@ public class AcademyLoginController {
 	@PostMapping("/checkEmail")
 	@ResponseBody
 	public int checkEmail(@RequestParam("academyManagerEmail") String academyManagerEmail) {
-		return academyLoginService.checkEmail(academyManagerEmail);
+	    return academyLoginService.checkEmail(academyManagerEmail);
 	}
 
 	// 사업자등록번호 조회 및 중복여부 확인
@@ -263,25 +276,26 @@ public class AcademyLoginController {
 
 	// 마이페이지 회원정보 수정
 	@PostMapping("/academyUpdate")
-	public String academyUpdate(@ModelAttribute AcademyLoginVo academyLogin, HttpSession session,
-			RedirectAttributes redirectAttributes) {
-
+	public String academyUpdate(@ModelAttribute AcademyLoginVo academyLoginVo, HttpSession session,
+			RedirectAttributes redirectAttributes, Model model) {
+		log.info("컨트롤러 /academyUpdate 호출!");
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 
 		// 세션에서 가져온 academyLogin 객체에 업데이트된 정보를 적용,결론적으로 VO를 들고 오는구조
 		AcademyLoginVo sessionAcademyLogin = academyLoginService.findById(loginVo.getId());
-
-		sessionAcademyLogin.setAcademyManagerName(academyLogin.getAcademyManagerName());
-		sessionAcademyLogin.setAcademyManagerEmail(academyLogin.getAcademyManagerEmail());
-		sessionAcademyLogin.setAcademyManagerPhone(academyLogin.getAcademyManagerPhone());
-		sessionAcademyLogin.setAcademyTargetSubject(academyLogin.getAcademyTargetSubject());
-		sessionAcademyLogin.setAcademyFee(academyLogin.getAcademyFee());
-		sessionAcademyLogin.setAcademyTargetGrade(academyLogin.getAcademyTargetGrade());
-		sessionAcademyLogin.setAcademyKeyword1(academyLogin.getAcademyKeyword1());
-
+		log.info("아이디를 통해 정보 가져오기 성공!");
+		log.info("매니저 이름 : {}", sessionAcademyLogin.getAcademyManagerName());
+		/*sessionAcademyLogin.setAcademyManagerName(academyLoginVo.getAcademyManagerName());
+		sessionAcademyLogin.setAcademyManagerEmail(academyLoginVo.getAcademyManagerEmail());
+		sessionAcademyLogin.setAcademyManagerPhone(academyLoginVo.getAcademyManagerPhone());
+		sessionAcademyLogin.setAcademyTargetSubject(academyLoginVo.getAcademyTargetSubject());
+		sessionAcademyLogin.setAcademyFee(academyLoginVo.getAcademyFee());
+		sessionAcademyLogin.setAcademyTargetGrade(academyLoginVo.getAcademyTargetGrade());
+		sessionAcademyLogin.setAcademyKeyword1(academyLoginVo.getAcademyKeyword1());
+		*/
 		log.info("academyUpdate 호출 성공");
 
-		// 개인 정보 업데이트
+		// 학원 정보 업데이트
 		// academyLoginService의 academyUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
 		int result = academyLoginService.academyUpdate(sessionAcademyLogin);
 
@@ -291,9 +305,11 @@ public class AcademyLoginController {
 			return "redirect:/academyaccount/login";
 		}
 
-		// 업데이트가 성공하면 세션에 업데이트된 personalLogin 객체를 저장하고 마이 페이지로 리다이렉트
-		session.setAttribute("academyLogin", sessionAcademyLogin);
-		return "redirect:/academy/mypage";
+		// 업데이트가 성공하면 세션에 업데이트된 academyLoginVo 객체를 저장하고 마이 페이지로 리다이렉트
+		session.setAttribute(SessionInfo.COMMON, sessionAcademyLogin);
+		//model.addAttribute(result);
+		log.info("모델에 저장완료!");
+		return "redirect:/academyaccount/mypage";
 	}
 
 	/* 비밀번호 변경 */
