@@ -259,8 +259,8 @@ public class PersonalLoginController {
 	    }
 
 	    // 해당 사용자가 작성한 매칭 게시글 목록을 가져옵니다.
-	    List<MatchingBoardVO> userMatchingList = mbService.getUserMatchingList(loginVo.getId());
-	    model.addAttribute("userMatchingList", userMatchingList);
+	  //  List<MatchingBoardVO> userMatchingList = mbService.getUserMatchingList(loginVo.getId());
+	//    model.addAttribute("userMatchingList", userMatchingList);
 
 	    return "personal/personalMatchingList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
 	}
@@ -276,8 +276,8 @@ public class PersonalLoginController {
 	    }
 	    
 	    // 해당 사용자가 작성한 자유 게시글 목록을 가져옵니다.
-	    List<FreeVO> userFreeList = freeService.getUserFreeList(loginVo.getId());
-	    model.addAttribute("userFreeList", userFreeList);
+	 //   List<FreeVO> userFreeList = freeService.getUserFreeList(loginVo.getId());
+	//    model.addAttribute("userFreeList", userFreeList);
 
 	    return "personal/personalFreeList";
 	}
