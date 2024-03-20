@@ -250,7 +250,7 @@
 	<!-- 다음 게시글 번호 추출 -->
 	<select id="nextCommonNo" parameterType="advertiseBoard" resultType="int">
 		<![CDATA[
-			SELECT	MIN (common_no)
+			SELECT	NVL ( MIN (common_no), -1)
 			FROM 	tb_common_board
 			WHERE	common_no > #{commonNo}
 		]]>

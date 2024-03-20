@@ -221,7 +221,7 @@
 	<!-- 이전 게시글 번호 추출 -->
 	<select id="prevMatchingNo" parameterType="matchingBoard" resultType="int">
 		<![CDATA[
-			SELECT	MAX (matching_no)
+			SELECT	NVL ( MAX (matching_no), 0 )
 			FROM 	tb_matching_board
 			WHERE	matching_no < #{matchingNo}
 		]]>
@@ -231,7 +231,7 @@
 	<!-- 다음 게시글 번호 추출 -->
 	<select id="nextMatchingNo" parameterType="matchingBoard" resultType="int">
 		<![CDATA[
-			SELECT	MIN (matching_no)
+			SELECT	NVL ( MIN (matching_no), 0)
 			FROM 	tb_matching_board
 			WHERE	matching_no > #{matchingNo}
 		]]>

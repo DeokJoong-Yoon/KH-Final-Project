@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -216,24 +217,41 @@ public class MatchingBoardController {
 	
 	//이전 게시글 이동
 	@GetMapping("/prev/{matchingNo}")
-	public String prevPost(MatchingBoardVO mbVO) {
+	public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
 		
 		//이전 게시글의 번호
 		int prevNo = mbService.prevMatchingNo(mbVO);
 		
-		return "redirect:/matching/boardDetail?matchingNo=" + prevNo;
+		//주소 담을 변수
+		String url = "";
+		
+		if(prevNo == -1) {
+			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
+		} else {
+			url =  "redirect:/matching/boardDetail?matchingNo=" + prevNo;
+		}
+		
+		return url;
 	}
 	
 	
 	//다음 게시글 이동
 	@GetMapping("/next/{matchingNo}")
-	public String nextPost(MatchingBoardVO mbVO) {
+	public String nextPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
 		
 		//다음 게시글의 번호
 		int nextNo = mbService.nextMatchingNo(mbVO);
 		
+		//주소 담을 변수
+		String url = "";
 		
-		return "redirect:/matching/boardDetail?matchingNo=" + nextNo;
+		if(nextNo == -1) {
+			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
+		} else {
+			url =  "redirect:/matching/boardDetail?matchingNo=" + nextNo;
+		}
+		
+		return url;
 	}
 
 }

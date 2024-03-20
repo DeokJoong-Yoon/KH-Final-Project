@@ -171,6 +171,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	@Override
 	public int prevCommonNo(AdvertiseVO aVO) {
 		int prev = aDAO.prevCommonNo(aVO);
+		
 		return prev;
 	}
 

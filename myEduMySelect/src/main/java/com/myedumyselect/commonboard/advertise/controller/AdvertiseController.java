@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -194,24 +195,41 @@ public class AdvertiseController {
 	
 	//이전 게시글 이동
 	@GetMapping("/prev/{commonNo}")
-	public String prevPost(AdvertiseVO avo) {
+	public String prevPost(AdvertiseVO avo, @PathVariable int commonNo) {
 		
 		//이전 게시글의 번호
 		int prevNo = aService.prevCommonNo(avo);
 		
-		return "redirect:/advertise/advertiseDetail?commonNo=" + prevNo;
+		//주소 담을 변수
+		String url = "";
+		
+		if(prevNo < 20001) {
+			url = "redirect:/advertise/advertiseDetail?commonNo=" + commonNo;
+		} else {
+			url =  "redirect:/advertise/advertiseDetail?commonNo=" + prevNo;
+		}
+		
+		return url;
 	}
 	
 	
 	//다음 게시글 이동
 	@GetMapping("/next/{commonNo}")
-	public String nextPost(AdvertiseVO avo) {
+	public String nextPost(AdvertiseVO avo, @PathVariable int commonNo) {
 		
 		//다음 게시글의 번호
 		int nextNo = aService.nextCommonNo(avo);
 		
+		//주소 담을 변수
+		String url = "";
 		
-		return "redirect:/advertise/advertiseDetail?commonNo=" + nextNo;
+		if(nextNo == -1) {
+			url = "redirect:/advertise/advertiseDetail?commonNo=" + commonNo;
+		} else {
+			url =  "redirect:/advertise/advertiseDetail?commonNo=" + nextNo;
+		}
+		
+		return url;
 	}
 	
 	
