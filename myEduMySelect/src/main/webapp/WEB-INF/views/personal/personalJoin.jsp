@@ -197,16 +197,21 @@
 			</div>
 
 
-			<div class="md-3 row">
+				<div class="md-3 row">
 				<label for="personalAddress" class="col-sm-2 col-form-label">주소</label>
 				<div class="col-sm-10">
-					<input id="personal_ZipCode" name="personalZipCode" type="text"
+					<input id="personal_post" name="personalAddress" type="text"
 						placeholder="우편번호" readonly required> <input
-						id="personal_Address" name="personalAddress" type="text"
-						placeholder="주소" readonly required>
+						id="personal_addr" name="personalAddress" type="text"
+						placeholder="주소" readonly required> <br>
 					<button type="button" name="personalAddress" onclick="findAddr()">주소찾기</button>
-					<input type="text" class="form-control" id="personalDetailAddress"
-						name="personalDetailAddress" placeholder="상세주소입력" required />
+				</div>
+			</div>
+			
+			<div class="md-3 row">
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="personalAddress"
+						name="personalAddress" placeholder="상세주소입력" required />
 				</div>
 			</div>
 
@@ -246,11 +251,11 @@
 							var roadAddr = data.roadAddress; // 도로명 주소 변수
 							var jibunAddr = data.jibunAddress; // 지번 주소 변수
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('personal_ZipCode').value = data.zonecode;
+							document.getElementById('personal_post').value = data.zonecode;
 							if (roadAddr !== '') {
-								document.getElementById("personal_Address").value = roadAddr;
+								document.getElementById("personal_addr").value = roadAddr;
 							} else if (jibunAddr !== '') {
-								document.getElementById("personal_Address").value = jibunAddr;
+								document.getElementById("personal_addr").value = jibunAddr;
 							}
 						}
 					}).open();
@@ -258,6 +263,7 @@
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 
 

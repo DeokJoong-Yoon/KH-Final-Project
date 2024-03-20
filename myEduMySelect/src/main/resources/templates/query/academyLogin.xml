@@ -197,7 +197,7 @@
     </select>
         
 
-    <!-- 마이페이지 정보 수정 </update>-->
+    <!-- 비밀번호 변경 페이지 비밀번호 수정 </update>-->
     <update id="changePasswd" parameterType="academyLogin">
         UPDATE 
         	tb_academy
@@ -208,7 +208,7 @@
         	academy_passwd = #{academyPasswd}
     </update>
 	
-	<!-- 비밀번호 변경 </update>-->
+	<!-- 마이페이지 정보 수정 </update>-->
     <update id="academyUpdate" parameterType="academyLogin">
         UPDATE 
         	tb_academy

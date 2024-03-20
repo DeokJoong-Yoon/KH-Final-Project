@@ -300,7 +300,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -310,6 +310,8 @@
   <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->  
+  <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  <script src="/resources/include/academy/academyLogin.js"></script>  
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>
 	

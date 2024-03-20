@@ -22,6 +22,8 @@ public class AcademyLoginVo {
  private String academyPhone;
  private String academyManagerName;
  private String academyManagerEmail;
+ private String academyManagerEmail1;
+ private String academyManagerEmail2;
  private String academyManagerPhone;
  private String academyTargetGrade;
  private String academyTargetSubject;
@@ -33,13 +35,14 @@ public class AcademyLoginVo {
  private String academyFee;
  private LocalDateTime academyPasswdChangeDate;
  private Integer academyLoginFailCount = 0;
- private LocalDateTime academyAccountBannedDate;
-
+ private LocalDateTime academyAccountBannedDate; 
+ 
  @Builder
  public AcademyLoginVo(String academyId, int memberTypeId, String academyNumber, LocalDateTime academyJoinDate,
                        String academyPasswd, String academyName, String academyGuAddress, String academyDongAddress,
                        String academyRoadAddress, String academyPhone, String academyManagerName, String academyManagerEmail,
-                       String academyManagerPhone, String academyTargetGrade, String academyTargetSubject, String academyKeyword1,
+                       String academyManagerEmail1, String academyManagerEmail2, String academyManagerPhone, 
+                       String academyTargetGrade, String academyTargetSubject, String academyKeyword1,
                        String academyKeyword2, String academyKeyword3, String academyKeyword4, String academyKeyword5,
                        String academyFee, LocalDateTime academyPasswdChangeDate, Integer academyLoginFailCount,
                        LocalDateTime academyAccountBannedDate) {
@@ -55,6 +58,8 @@ public class AcademyLoginVo {
   this.academyPhone = academyPhone;
   this.academyManagerName = academyManagerName;
   this.academyManagerEmail = academyManagerEmail;
+  this.academyManagerEmail1 = academyManagerEmail1;
+  this.academyManagerEmail2 = academyManagerEmail2;
   this.academyManagerPhone = academyManagerPhone;
   this.academyTargetGrade = academyTargetGrade;
   this.academyTargetSubject = academyTargetSubject;
