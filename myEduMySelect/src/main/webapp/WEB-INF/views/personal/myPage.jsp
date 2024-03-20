@@ -182,11 +182,15 @@
         <br />
         <!-- 주소 -->
         <div class="form-group">
-            <label for="personalAddress">주소</label>
-            <form:input path="personalAddress" type="text" value="${personalLoginVO.personalAddress}" id="personalAddress" name="personalAddress" class="form-control" style="width: 250px" />
-        </div>
+    <label for="personalAddress">주소</label>
+    <form:input path="personalZipCode" type="text" value="${personalLoginVO.personalZipCode}" id="personal_ZipCode" name="personalZipCode" class="form-control" style="width:250px" />
+    <form:input path="personalAddress" type="text" value="${personalLoginVO.personalAddress}" id="personal_Address" name="personalAddress" class="form-control" style="width: 250px" />
+    <form:input path="personalDetailAddress" type="text" value="${personalLoginVO.personalDetailAddress}" id="personalDetailAddress" name="personalDetailAddress" class="form-control" style="width:250px" />
+    <button type="button" onclick="findAddr()" class="btn btn-primary">주소찾기</button>
+</div>
+
         <br />
-        <!-- 전화번호 -->
+        <!-- 전화번호 -->  
         <div class="form-group">
             <label for="personalPhone">전화번호</label>
             <form:input path="personalPhone" type="text" value="${personalLoginVO.personalPhone}" id="personalPhone" name="personalPhone" class="form-control" style="width: 250px" />
@@ -201,10 +205,8 @@
         
     </div>
 </form:form>
-
-
 <form id="deleteForm" action="/withdrawal/personal" method="post">
-    <button type="submit" onclick="return confirm('정말 회원탈퇴를 하시겠습니까?')">회원탈퇴</button>
+    <button type="submit" onclick="return confirm('정말 회원 탈퇴 하시겠습니까?')">회원탈퇴</button>
 </form>
 
 
@@ -247,7 +249,32 @@
         });
     });
 </script>
+	<script>
+		function findAddr() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
 
+							console.log(data);
+
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+							// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var roadAddr = data.roadAddress; // 도로명 주소 변수
+							var jibunAddr = data.jibunAddress; // 지번 주소 변수
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('personal_ZipCode').value = data.zonecode;
+							if (roadAddr !== '') {
+								document.getElementById("personal_Address").value = roadAddr;
+							} else if (jibunAddr !== '') {
+								document.getElementById("personal_Address").value = jibunAddr;
+							}
+						}
+					}).open();
+		}
+	</script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
 

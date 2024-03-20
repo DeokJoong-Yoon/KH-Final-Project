@@ -16,7 +16,9 @@ public class PersonalLoginVO {
 	private String personalPasswd;
 	private String personalEmail;
 	private String personalBirth;
+	private String personalZipCode;
 	private String personalAddress;
+	private String personalDetailAddress;
 	private String personalPhone;
 	private Date personalJoinDate;
 	private int personalLoginFailCount;

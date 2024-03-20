@@ -17,8 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.auth.vo.LoginVo;
-import com.myedumyselect.client.main.vo.PageDTO;
-import com.myedumyselect.common.vo.CommonVO;
+
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.free.service.FreeService;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
@@ -227,7 +226,9 @@ public class PersonalLoginController {
 				.loginProcess(new PersonalLoginVO(loginVo.getId(), loginVo.getPasswd()));
 
 		sessionPersonalLogin.setPersonalEmail(personalLogin.getPersonalEmail());
+		sessionPersonalLogin.setPersonalZipCode(personalLogin.getPersonalZipCode());
 		sessionPersonalLogin.setPersonalAddress(personalLogin.getPersonalAddress());
+		sessionPersonalLogin.setPersonalDetailAddress(personalLogin.getPersonalDetailAddress());
 		sessionPersonalLogin.setPersonalPhone(personalLogin.getPersonalPhone());
 		sessionPersonalLogin.setPersonalPasswd(personalLogin.getPersonalPasswd());
 
@@ -249,37 +250,43 @@ public class PersonalLoginController {
 	}
 
 	// 사용자가 작성한 매칭 게시글 목록 보기 페이지로 이동
-	/*
-	 * @GetMapping("/personalMatchingList") public String getMatchingList(Model
-	 * model, HttpSession session) { // PersonalLoginVO personalLoginVO =
-	 * (PersonalLoginVO) // session.getAttribute("personalLogin"); LoginVo loginVo =
-	 * (LoginVo) session.getAttribute(SessionInfo.COMMON); if (loginVo == null) { //
-	 * 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리 return "redirect:/useraccount/login"; }
-	 * 
-	 * // 해당 사용자가 작성한 매칭 게시글 목록을 가져옵니다. List<MatchingBoardVO> userMatchingList =
-	 * mbService.getUserMatchingList(loginVo.getId());
-	 * model.addAttribute("userMatchingList", userMatchingList);
-	 * 
-	 * return "personal/personalMatchingList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동 }
-	 * 
-	 * // 자유 게시판
-	 * 
-	 * @GetMapping("/personalFreeList") public String getFreeList(Model model,
-	 * HttpSession session) {
-	 * 
-	 * LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-	 * 
-	 * if (loginVo == null) { // 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리 return
-	 * "redirect:/useraccount/login"; } List<FreeVO> userFreeList =
-	 * freeService.getUserFreeList(loginVo.getId());
-	 * model.addAttribute("userFreeList", userFreeList);
-	 * 
-	 * return "personal/personalFreeList";
-	 * 
-	 * }
-	 */
+	@GetMapping("/personalMatchingList")
+	public String getMatchingList(Model model, HttpSession session) {
+	    LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+	    if (loginVo == null) {
+	        // 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+	        return "redirect:/useraccount/login";
+	    }
 
-	@GetMapping("/personalAllList")
+	    // 해당 사용자가 작성한 매칭 게시글 목록을 가져옵니다.
+	    List<MatchingBoardVO> userMatchingList = mbService.getUserMatchingList(loginVo.getId());
+	    model.addAttribute("userMatchingList", userMatchingList);
+
+	    return "personal/personalMatchingList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
+	}
+
+	// 자유 게시판
+	@GetMapping("/personalFreeList")
+	public String getFreeList(Model model, HttpSession session) {
+	    LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
+
+	    if (loginVo == null) {
+	        // 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+	        return "redirect:/useraccount/login";
+	    }
+	    
+	    // 해당 사용자가 작성한 자유 게시글 목록을 가져옵니다.
+	    List<FreeVO> userFreeList = freeService.getUserFreeList(loginVo.getId());
+	    model.addAttribute("userFreeList", userFreeList);
+
+	    return "personal/personalFreeList";
+	}
+	
+	//홍보게시판
+	
+
+
+	/*@GetMapping("/personalAllList")
 	public String getAllList(Model model, HttpSession session, @ModelAttribute CommonVO cvo) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		if (loginVo == null) {
@@ -288,22 +295,22 @@ public class PersonalLoginController {
 		}
 
 		// 해당 사용자가 작성한 매칭 게시글 목록을 가져옵니다.
-		//List<MatchingBoardVO> userMatchingList = mbService.getUserMatchingList(loginVo.getId());
-		//model.addAttribute("userMatchingList", userMatchingList);
+		List<MatchingBoardVO> userMatchingList = mbService.getUserMatchingList(loginVo.getId());
+		model.addAttribute("userMatchingList", userMatchingList);
 
 		// 해당 사용자가 작성한 자유 게시글 목록을 가져옵니다.
-		//List<FreeVO> userFreeList = freeService.getUserFreeList(loginVo.getId());
-		//model.addAttribute("userFreeList", userFreeList);
+		List<FreeVO> userFreeList = freeService.getUserFreeList(loginVo.getId());
+		model.addAttribute("userFreeList", userFreeList);
 
 		// 매칭 게시판 총 레코드 수 반환
-		//int totalMatchingCnt = mbService.pTotalMatchingCnt(loginVo.getId());
-		//model.addAttribute("totalMatchingCnt", totalMatchingCnt);
+		int totalMatchingCnt = mbService.pTotalMatchingCnt(loginVo.getId());
+		model.addAttribute("totalMatchingCnt", totalMatchingCnt);
 
-		//PageDTO pageMaker = new PageDTO(cvo, totalMatchingCnt);
-		//model.addAttribute("pageMaker", pageMaker);
+		PageDTO pageMaker = new PageDTO(cvo, totalMatchingCnt);
+		model.addAttribute("pageMaker", pageMaker);
 
 		return "personal/personalAllList"; // 사용자가 작성한 모든 게시글 목록을 보여주는 페이지로 이동
-	}
+	}*/
  
 	// 비밀번호 변경 페이지
 	@GetMapping("/newPasswd")
