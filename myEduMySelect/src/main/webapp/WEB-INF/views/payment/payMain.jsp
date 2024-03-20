@@ -114,9 +114,14 @@
 								<div class="row" data-aos="fade-up" data-aos-delay="100">
 									<div class="box">
 										<h3>결제 수단</h3>
+										<select>
+											<option>카드결제</option>
+											<option>계좌이체</option>
+										</select>
 										<ul>
-											<li><i class="bx bx-check"></i> 현금계좌이체</li>
 											<li><i class="bx bx-check"></i> 카드결제</li>
+											<li>
+											<a class="bx bx-check" href="/payment/payMain">계좌이체결제</a></li>
 										</ul>
 									</div>
 								</div>

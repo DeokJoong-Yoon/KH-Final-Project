@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myedumyselect.academy.vo.AcademyLoginVo;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
 import com.myedumyselect.common.file.FileUploadUtil;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
@@ -56,5 +57,10 @@ public class PaymentServiceImpl implements PaymentService {
 		int result = 0;
 		result = paymentDAO.boardDelete(paymentVO);
 		return result;
+	}
+
+	@Override
+	public int paymentCheck(AcademyLoginVo academyLoginVo) {
+		return paymentDAO.paymentCheck(academyLoginVo);
 	}
 }

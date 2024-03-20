@@ -8,13 +8,6 @@
 
 (function() {
   "use strict";
-  
-  document.getElementById("paymentBtn").addEventListener("click", function() {
-	  
-	  
-	  alert("결제버튼")
-	});
-
   /**
    * Easy selector helper function
    */

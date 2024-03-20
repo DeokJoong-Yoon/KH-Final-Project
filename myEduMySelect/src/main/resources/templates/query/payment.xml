@@ -22,6 +22,18 @@
 		<result column="amount" property="payAmount" />
 	</resultMap>
 
+	<!-- <resultMap type="academy" id="academyMap"> <id column="payment_id" 
+		property="paymentId" /> <result column="pg" property="pg" /> <result column="pay_method" 
+		property="payMethod" /> <result column="merchant_uid" property="merchantUid" 
+		/> <result column="name" property="name" /> <result column="academy_id" property="academyId" 
+		/> <result column="academy_number" property="academyNumber" /> <result column="academy_name" 
+		property="academyName" /> <result column="academy_manager_name" property="academyManagerName" 
+		/> <result column="academy_manager_email" property="academyManagerEmail" 
+		/> <result column="academy_manager_phone" property="academyManagerPhone" 
+		/> <result column="payment_status" property="paymentStatus" /> <result column="payment_date" 
+		property="paymentDate" /> <result column="amount" property="payAmount" /> 
+		</resultMap> -->
+
 	<sql id="boardSearch">
 		<if test="search == 'academy_name'">
 		<![CDATA[ academy_name LIKE '%' || #{keyword} || '%' ]]>
@@ -62,7 +74,7 @@
 		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
-	
+
 	<select id="boardDetail" parameterType="payment"
 		resultMap="paymentMap">
 		SELECT
@@ -71,7 +83,7 @@
 		WHERE
 		payment_id = #{paymentId}
 	</select>
-	
+
 	<delete id="boardDelete" parameterType="payment">
 		DELETE FROM
 		tb_payment
@@ -87,6 +99,13 @@
 		merchant_uid = #{merchantUid}
 	</select>
 
+	<!-- <insert id="paymentInsert" parameterType="payment"> insert into tb_payment( 
+		payment_id, pg, pay_method, merchant_uid, name, amount, academy_id, academy_number, 
+		academy_name, academy_manager_name, academy_manager_email, academy_manager_phone, 
+		payment_status, to_char(payment_date, 'YYYYMMDD') as payment_date, ) values 
+		( payment_seq.nextval, #{pg}, #{payMethod}, #{merchantUid}, #{name}, #{payAmount}, 
+		#{academyId}, #{academyNumber}, #{academyName}, #{academyManagerName}, #{academyManagerEmail}, 
+		#{academyManagerPhone}, #{paymentStatus}, sysdate ) </insert> -->
 	<insert id="paymentInsert" parameterType="payment">
 		insert into tb_payment(
 		payment_id,
@@ -117,8 +136,31 @@
 		#{academyManagerEmail},
 		#{academyManagerPhone},
 		#{paymentStatus},
-		#{paymentDate}
+		to_char(sysdate, 'YYYYMMDD')
 		)
 	</insert>
+
+	<select id="paymentCheck" parameterType="academyLogin"
+		resultType="int">
+		SELECT CASE
+		WHEN cnt >= 1 THEN
+		CASE
+		WHEN TO_DATE(payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 30 THEN 1
+		ELSE 0
+		END
+		ELSE
+		0
+		END AS result
+		FROM (SELECT COUNT(*) AS cnt
+		FROM tb_payment
+		WHERE academy_id = #{acadmey_id}) sub,
+		(SELECT payment_date
+		FROM (SELECT payment_date
+		FROM tb_payment
+		WHERE academy_id = #{acadmey_id}
+		ORDER BY TO_DATE(payment_date, 'YYYYMMDD') DESC)
+		WHERE ROWNUM = 1) sub2
+	</select>
+
 
 </mapper>
