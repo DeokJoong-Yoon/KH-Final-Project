@@ -81,7 +81,7 @@
 
 	
 	<!-- 마이페이지 -->
-	<select id="findId" parameterType="personalLogin" resultMap="personalLoginMap">
+	<select id="findId" parameterType="String" resultMap="personalLoginMap">
 		SELECT personal_id,
 		personal_name, personal_email,
 		personal_birth,		
