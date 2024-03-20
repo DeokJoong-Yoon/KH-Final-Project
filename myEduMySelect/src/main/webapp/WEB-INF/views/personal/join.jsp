@@ -102,8 +102,8 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<h2>환영합니다! 함께하는 회원가입</h2>
-					<h2>다양한 서비스를 경험하세요.</h2>
+					<h1>JOIN</h1>
+	          		<h2>MyEduMySelect에 가입하여 <br>더 많은 서비스를 즐겨 보세요!</h2>
 					<h3>회원 유형 선택</h3>
 					<p>당신은 우리 서비스의 일원이 되어 다양한 혜택을 누릴 수 있습니다. 회원 유형을 선택해주세요:</p>
 					<ul>

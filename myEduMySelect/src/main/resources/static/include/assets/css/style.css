@@ -1823,3 +1823,19 @@ section {
     padding-top: 4px;
   }
 }
+
+
+.getstarted.scrollto  {
+	background-color: white;
+	border: none;
+}
+
+a.getstarted.scrollto
+{
+	color: #47b2e4;
+}
+
+.getstarted.scrollto
+{
+	color: #47b2e4;
+}

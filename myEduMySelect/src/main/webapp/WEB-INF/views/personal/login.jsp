@@ -1,100 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="kr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인 페이지</title>
-<link rel="stylesheet" href="/resources/include/css/style.css">
-</head>
-<body>
-<head>
-
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-<title>MyEduMySelect</title>
-<meta content="" name="description">
-<meta content="" name="keywords">
-
-<!-- Favicons -->
-<link href="/resources/include/assets/img/favicon.png" rel="icon">
-<link href="/resources/include/assets/img/apple-touch-icon.png"
-	rel="apple-touch-icon">
-
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
-
-<!-- Vendor CSS Files -->
-<link href="/resources/include/assets/vendor/aos/aos.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link href="/resources/include/assets/vendor/remixicon/remixicon.css"
-	rel="stylesheet">
-<link
-	href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
-
-<!-- Template Main CSS File -->
-<link href="/resources/include/assets/css/style.css" rel="stylesheet">
-
-<!-- =======================================================
-  * Template Name: MyEduMySelect
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-
-
-<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-<script src="/resources/include/personal/joinForm.js"></script>
-<script src="/resources/include/js/common.js"></script>
-<script>
-$(function() {
-    $("#loginBtn").on("click", function() {      
-        if (!chkData("#id","아이디를")) return;
-        else if (!chkData("#passwd","비밀번호를")) return;
-        else {          
-            $("#loginForm").attr({
-                "method":"post", 
-                "action":"/useraccount/login"      
-            });                     
-            $("#loginForm").submit();      
-        }
-    });
-    
-    $("#logoutBtn").on("click", function() {
-        location.href = "/useraccount/logout"
-    });
-});
-
-    </script>
-
-
-<script>
-    window.onload = function() {
-        var confirmMessage = "${confirmMessage}";
-        if (confirmMessage) {
-            alert(confirmMessage);
-        }
-    };
-</script>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>MyEduMySelect </title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+	
+	<!-- Favicons -->
+	<link href="/resources/include/assets/img/favicon.png" rel="icon">
+	<link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	
+	<!-- Vendor CSS Files -->
+	<link href="/resources/include/assets/vendor/aos/aos.css"
+		rel="stylesheet">
+	<link
+		href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet">
+	<link
+		href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+		rel="stylesheet">
+	<link
+		href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css"
+		rel="stylesheet">
+	<link
+		href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css"
+		rel="stylesheet">
+	<link href="/resources/include/assets/vendor/remixicon/remixicon.css"
+		rel="stylesheet">
+	<link
+		href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
+		rel="stylesheet">
+	
+	<!-- Template Main CSS File -->
+	<link href="/resources/include/assets/css/style.css" rel="stylesheet">
+	<link href="/resources/include/assets/css/login.css" rel="stylesheet">
+	
+	<!-- =======================================================
+	  * Template Name: MyEduMySelect
+	  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+	  * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
+	  * Author: BootstrapMade.com
+	  * License: https://bootstrapmade.com/license/
+	  ======================================================== -->
+	
+	
+	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/personal/joinForm.js"></script>
+	<script src="/resources/include/js/common.js"></script>
+	
+	<script>
+	$(function() {
+	    $("#loginBtn").on("click", function() {      
+	        if (!chkData("#id","아이디를")) return;
+	        else if (!chkData("#passwd","비밀번호를")) return;
+	        else {          
+	            $("#loginForm").attr({
+	                "method":"post", 
+	                "action":"/useraccount/login"      
+	            });                     
+	            $("#loginForm").submit();      
+	        }
+	    });
+	    
+	    $("#logoutBtn").on("click", function() {
+	        location.href = "/useraccount/logout"
+	    });
+	});
+	
+	    </script>
+	
+	
+	<script>
+	    window.onload = function() {
+	        var confirmMessage = "${confirmMessage}";
+	        if (confirmMessage) {
+	            alert(confirmMessage);
+	        }
+	    };
+	</script>
 
 
 </head>
@@ -129,9 +125,9 @@ $(function() {
 					<c:choose>
                             <c:when test="${not empty commonLogin}">
                                 <li><a class="nav-link scrollto">
-                                <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                                <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
-                                ${commonLogin.name}님 환영합니다.</a></li>
+                                <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
+                                <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
+                                ${commonLogin.name} 님 환영합니다.</a></li>
                                 <li>
                                     <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
                                         <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
@@ -151,25 +147,68 @@ $(function() {
 		</div>
 	</header>
 	<!-- End Header -->
+	
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
 
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<h1>회원 로그인 페이지</h1>
-					<h2></h2>
-
-
-				</div>
-				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-					data-aos-delay="200">
-					<img src="/resources/include/assets/img/hero-img.png"
-						class="img-fluid animated" alt="">
-				</div>
+				<c:if test="${empty commonLogin}">
+					<div class="loginClass col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+						<h1>PERSONAL LOGIN</h1>
+						<h2>개인 회원이신가요?</h2>
+					</div>
+					<div class="loginZone"  data-aos="fade-up" data-aos-delay="200">
+						<form id="loginForm">
+							<input type="hidden" name="memberTypeId" id="memberTypeId" value="1">
+							<table>
+								<tr>
+									<th><label for="id">아이디</label></th>
+									<td><input type="text" name="id" id="id" placeholder="아이디를 입력해 주세요"></td>
+								</tr>
+								<tr>
+									<th><label for="passwd">비밀번호</label></th>
+									<td><input type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해 주세요"></td>
+								</tr>
+							</table>
+							<button type="button" id="loginBtn">로그인</button>
+						</form> <br>
+						
+						<div class="buttons">
+							<form action="/useraccount/join" id="joinForm">
+								<button class="join-button" type="submit">회원가입 하러 가기</button>
+							</form>
+			
+							<form action="/" class="homeForm">
+								<button class="home-button" type="submit">홈으로 가기</button>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
+						data-aos-delay="200">
+						<img src="/resources/include/assets/img/hero-img.png"
+							class="img-fluid animated" alt="">
+					</div>
+				</c:if>
+				
+				<c:if test="${not empty commonLogin}">
+					<div>
+						<h2>MyEduMySelect</h2>
+						<h1>${commonLogin.name} 님 환영합니다.</h1> <br>
+						<div class="buttons">
+							<button type="button" id="logoutBtn">로그아웃</button>
+							<form action="/" class="homeForm">
+								<button class="home-button" type="submit">홈으로 가기</button>
+							</form>
+						</div>
+					</div>
+				</c:if>
+				
+				
+				
+				
 			</div>
+			
 		</div>
 	</section>
 	<!-- End Hero -->
@@ -178,34 +217,7 @@ $(function() {
 
 
 	<main>
-		<c:if test="${empty commonLogin}">
-			<form id="loginForm">
-				<h1>회원 로그인 페이지</h1>
-				<div>
-					<input type="text" name="id" id="id"
-						placeholder="아이디를 입력해주세요"> <label for="id">아이디</label>
-				</div>
-				<div>
-					<input type="password" name="passwd" id="passwd"
-						placeholder="비밀번호를 입력해주세요"> <label for="passwd">비밀번호</label>
-				</div>
-				<input type="hidden" name="memberTypeId" id="memberTypeId" value="1">
-				<button type="button" id="loginBtn">로그인</button>
-			</form>
-		</c:if>
-
-		<c:if test="${not empty commonLogin}">
-			<h3>${commonLogin.name}님 환영합니다.</h3>
-			<button type="button" id="logoutBtn">로그아웃</button>
-		</c:if>
-
-		<form action="/useraccount/join" id="joinForm">
-			<button class="join-button" type="submit">회원가입하러가기</button>
-		</form>
-
-		<form action="/" id="homeForm">
-			<button class="home-button" type="submit">홈으로 가기</button>
-		</form>
+		
 	</main>
 
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>

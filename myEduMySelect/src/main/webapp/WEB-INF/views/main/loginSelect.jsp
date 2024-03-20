@@ -34,6 +34,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
+  <link href="/resources/include/assets/css/loginSelect.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -81,9 +82,9 @@
           <c:choose>
               <c:when test="${not empty commonLogin}">
                   <li><a class="nav-link scrollto">
-                  <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                  <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
-                  ${commonLogin.name}님 환영합니다.</a></li>
+                  <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
+                  <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
+                  ${commonLogin.name} 님 환영합니다.</a></li>
                   <li>
                       <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
                           <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
@@ -106,30 +107,30 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>회원 로그인</h1>
-          <h2>회원은 개인회원과 학원회원으로 나뉘어 집니다.</h2>
-
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+          <h1>LOG IN</h1>
+          <h2>다시 만나 반갑습니다!</h2>
+			<div>
+		        <button type="button" id="userLoginBtn" onclick="window.location.href='/useraccount/login'">개인 회원으로 로그인</button>
+		        <button type="button" id="academyLoginBtn" onclick="window.location.href='/academyaccount/login'">학원 회원으로 로그인</button>
+		        <form action="/useraccount/join" id="joinForm">
+					<button class="join-button" type="submit">회원가입</button>
+				</form>
+		    </div>
         </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="100">
           <img src="/resources/include/assets/img/hero-img.png" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
    </section><!-- End Hero -->
-
+<!-- 
   <main id="main">
-    <!-- ======= loginSelect Form ======= -->
+    ======= loginSelect Form =======
 
-    <div>
-        <a href="/useraccount/login">회원 로그인 페이지</a>
-    </div>
+    
 
-    <div>
-        <a href="/academyaccount/login">학원 로그인 페이지</a>
-    </div>
-
-  </main><!-- End #main -->
+  </main>End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">

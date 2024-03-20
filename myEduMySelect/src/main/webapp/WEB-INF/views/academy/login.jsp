@@ -34,6 +34,7 @@
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
+  <link href="/resources/include/assets/css/login.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -108,12 +109,12 @@
           <c:choose>
               <c:when test="${not empty commonLogin}">
                   <li><a class="nav-link scrollto">
-                  <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                  <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
-                  ${commonLogin.name}님 환영합니다.</a></li>
+                  <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
+                  <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
+                  ${commonLogin.name} 님 환영합니다.</a></li>
                   <li>
                       <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
-                          <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                          <button class="getstarted  btn btn-aquamarine"type="submit">로그아웃</button>
                       </form>
                   </li>
               </c:when>
@@ -133,71 +134,83 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>학원회원 로그인</h1>
-          <h2>회원은 개인회원과 학원회원으로 나뉘어 집니다.</h2>
-
-        </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="/resources/include/assets/img/hero-img.png" class="img-fluid animated" alt="">
-        </div>
+      	<c:if test="${empty commonLogin}">
+	        <div class="loginClass col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+	          <h1>ACADEMY LOGIN</h1>
+	          <h2>학원 회원이신가요?</h2>
+	        </div>
+	        <div class="loginZone"  data-aos="fade-up" data-aos-delay="200">
+	        	<form:form id="loginForm" action="/academyaccount/login" modelAttribute="loginVo" method="POST">
+		            <!-- memberTypeId -->
+	                <input type="hidden" name="memberTypeId" value="2">
+	                
+	                <!-- 글로벌 에러 출력 -->
+		            <spring:hasBindErrors name="userAccountLoginDto">
+		                <c:forEach var="error" items="${errors.globalErrors}">
+		                    <p class="error">${error.defaultMessage}</p>
+		                </c:forEach>
+		            </spring:hasBindErrors>
+	                
+	                <table>
+	                	<tr>
+	                		<th>
+	                			<label for="id">아이디</label>
+	                		</th>
+	                		<td>
+	                			<form:input path="id" type="text" name="id" id="id" placeholder="아이디를 입력해주세요"/>
+	                			<form:errors path="id" cssClass="error" />     
+	                		</td>
+	                	</tr>
+	                	<tr>
+	                		<th>
+	                			<label for="passwd">비밀번호</label>
+	                		</th>
+	                		<td>	
+	                			<form:input path="passwd" type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요"/>
+		               			<form:errors path="passwd" cssClass="error" />
+	                		</td>
+	                	</tr>
+	                </table>
+	                <button type="submit" id="loginBtn">로그인</button>	
+				</form:form> <br>
+		                
+		        <div class="buttons">
+		        	<form method="GET" action="/academyaccount/join" id="joinForm">
+						<button type="submit" class="join-button">회원가입 하러 가기</button>
+					</form>
+					<form method="GET" action="/" id="homeForm">
+						<button type="submit" class="home-button">홈으로 가기</button>
+					</form>
+		        </div>
+        	</div>
+        	
+        	<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
+				data-aos-delay="200">
+				<img src="/resources/include/assets/img/hero-img.png"
+					class="img-fluid animated" alt="">
+			</div>
+        </c:if>
+      
+      	<c:if test="${not empty commonLogin}">
+        	<div>
+        		<h2>MyEduMySelect</h2>
+        		<h1>${commonLogin.name} 님 환영합니다.</h1><br>
+        		<div class="buttons">
+        			<form method="POST" action="/useraccount/logout" id="joinForm">
+			            <button type="submit" id="logoutBtn" class="btn btn-primary btn-sm" >로그아웃</button>
+			        </form>
+			        <form action="/" class="homeForm">
+						<button class="home-button" type="submit">홈으로 가기</button>
+					</form>
+        		</div>
+        	</div>
+        </c:if>
       </div>
     </div>
    </section><!-- End Hero -->
 
   <main id="main">
 
-    <!-- ======= academySignUp Form ======= -->
-
-    <h1 style="text-align:center">로그인</h1>
-    <c:if test="${empty commonLogin}">
-        <form:form action="/academyaccount/login" modelAttribute="loginVo" method="POST">
-            <h1>학원 로그인 페이지</h1>
-            <!-- 글로벌 에러 출력 -->
-            <spring:hasBindErrors name="userAccountLoginDto">
-                <c:forEach var="error" items="${errors.globalErrors}">
-                    <p class="error">${error.defaultMessage}</p>
-                </c:forEach>
-            </spring:hasBindErrors>
-			
-			<div>
-                <!-- memberTypeId -->
-                <input type="hidden" name="memberTypeId" value="2">
-
-                <!-- id -->                
-                <form:input path="id" type="text" name="id" id="id" placeholder="아이디를 입력해주세요"/>
-                <label for="id">아이디</label>
-                <form:errors path="id" cssClass="error" />            
-            	
-            	<br />
-                <!-- passwd -->                
-                <form:input path="passwd" type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요"/>
-                <label for="passwd">비밀번호</label>
-                <form:errors path="passwd" cssClass="error" />
-                <br />
-                <button type="submit" id="loginBtn">로그인</button>	
-            </div>
-        </form:form>
-   	</c:if>
-
-   	<c:if test="${not empty commonLogin}">
-        <h3>${commonLogin.name}님 환영합니다.</h3>
-        <form method="POST" action="/useraccount/logout" id="joinForm">
-            <button type="submit" class="btn btn-primary btn-sm" >로그아웃</button>
-        </form>
-    </c:if>
-	
-	<c:if test="${empty commonLogin}">
-	   	<form method="GET" action="/academyaccount/join" id="joinForm">
-			<button type="submit" class="btn btn-primary btn-sm">회원가입하러가기</button>
-		</form>
-	</c:if>
-	
-	<form method="GET" action="/" id="homeForm">
-		<button type="submit" class="btn btn-primary btn-sm">홈으로 가기</button>
-	</form>
-
-    <!-- ======= Contact Section ======= -->
 
   </main><!-- End #main -->
 

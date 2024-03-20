@@ -1,0 +1,71 @@
+.loginClass {
+	margin-top: -100px !important;	 
+}
+
+.loginZone {
+	order: 3;
+	margin-top: -200px;
+}
+
+table {
+	width : 500px;
+}
+
+table tr {
+	font-size: 18px;	
+	color: white;
+}
+
+table th {
+  width: 110px; 
+  font-size: 20px;
+}
+
+input {
+    border: 1px solid #ddd; /* 테두리 두께와 색상 설정 */
+    border-radius: 5px; /* 테두리의 모서리를 둥글게 만듭니다 */
+    padding: 5px; /* 입력 텍스트와 테두리 사이의 여백 설정 */
+    margin-bottom : 3px;
+}
+
+#loginForm {
+	display: flex; 
+}
+
+#loginBtn {
+	color: white;
+	background-color : #37517e;
+	border: none;
+	border-radius: 5px;
+	width:100px;
+	margin-left : -150px;
+	height:85px;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+#loginBtn:hover, .home-button:hover, .join-button:hover, #logoutBtn:hover {
+	background-color : white;
+	color : #47b2e4;
+}
+
+.buttons {
+	display:flex;
+}
+
+.join-button, .home-button, #logoutBtn {
+	border: none;
+	border-radius: 5px;
+	width:220px;
+	height: 40px;
+	font-size: 16px;
+	font-weight: 600;
+	background-color:#47b2e4;
+	color:white;
+}
+
+.join-button, #logoutBtn {
+	margin-right: 10px;
+}
+
+

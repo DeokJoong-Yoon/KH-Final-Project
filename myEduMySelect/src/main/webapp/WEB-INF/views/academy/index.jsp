@@ -36,6 +36,7 @@
 
 <!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
+<link href="/resources/include/assets/css/login.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
