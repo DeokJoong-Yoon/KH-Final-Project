@@ -39,4 +39,10 @@ public interface AdvertiseDAO {
 	
 	//기존에 존재하는 첨부파일 모두 가져오기
 	public List<FileVO> advertiseNowFile(int commonNo);
+	
+	//이전 게시글 번호 추출
+	public int prevCommonNo(AdvertiseVO aVO);
+	
+	//다음 게시글 번호 추출
+	public int nextCommonNo(AdvertiseVO aVO);
 }

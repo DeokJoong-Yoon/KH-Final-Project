@@ -35,9 +35,11 @@ $(function(){
 	})
 	
 	$("#prevPost").click(function(){
+		window.location.href = "/matching/prev/" + matchingNo;
 	})
 	
 	$("#nextPost").click(function(){
+		window.location.href = "/matching/next/" + matchingNo;
 	})
 	
 	$("#gotoList").click(function(){

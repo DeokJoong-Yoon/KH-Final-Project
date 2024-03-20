@@ -1,7 +1,6 @@
 package com.myedumyselect.commonboard.advertise.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +39,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
 	//홍보게시판 글 입력 (+파일)
 	@Override
-	public void advertiseInsertWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception {
+	public int advertiseInsertWithFiles(AdvertiseVO aVO, List<MultipartFile> files) throws Exception {
+		
+		int result = 0;
 		
 		//게시글 제목, 내용 등록
-		aDAO.advertiseInsert(aVO);	
+		result = aDAO.advertiseInsert(aVO);	
 		
 		//게시글 id로 각 파일을 file 테이블에 추가
 		for (MultipartFile file : files) {
@@ -54,13 +55,20 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	            fileVO.setCommonNo(aVO.getCommonNo());
 	            fileVO.setFileName(fileName);
 	            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName); // 파일이 첨부되지 않은 경우 이 부분 수정
-	            aDAO.advertiseInsertFile(fileVO);
+	           
+	            int fileResult = aDAO.advertiseInsertFile(fileVO);
+	            
+	            if(fileResult == 0) {
+	            	result = 0;
+	            }
 	        }
 	    }   
+		
 		
 		//썸네일 등록
 		aDAO.advertiseThumbnail(aVO);
 		
+		return result;
 	}
 
 	
@@ -156,5 +164,21 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		} 
 		
 		return result;
+	}
+
+
+	//이전 게시글 번호 추출
+	@Override
+	public int prevCommonNo(AdvertiseVO aVO) {
+		int prev = aDAO.prevCommonNo(aVO);
+		return prev;
+	}
+
+
+	//다음 게시글 번호 추출
+	@Override
+	public int nextCommonNo(AdvertiseVO aVO) {
+		int next = aDAO.nextCommonNo(aVO);
+		return next;
 	}
 }

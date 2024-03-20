@@ -107,11 +107,16 @@
 	</insert>
 	
 	<!-- 비공개매칭 자동 등록 -->
-	<insert id="privateUpload" parameterType="matchingBoard" >
+	<insert id="privateUpload" parameterType="matchingBoard" useGeneratedKeys="true" keyProperty="matchingNo">
+		<![CDATA[
 		INSERT into tb_matching_board
 		VALUES (matching_board_seq.nextval, #{personalId}, 'Y', #{matchingPasswd}, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
 					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
 					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
+		]]>
+		<selectKey keyProperty="matchingNo" resultType="int" order="AFTER">
+			SELECT matching_board_seq.currval AS matchingNo FROM DUAL
+		</selectKey>
 	</insert>
 	
 	<!-- 비공개매칭 시 이메일 검색 -->
@@ -121,15 +126,6 @@
 		<foreach collection="privateChecked" item="name" open="(" separator="," close=")">
 			#{name}
 		</foreach>
-	</select>
-	
-	
-	<!-- 작업 중 -->
-	<!-- 비공개매칭 시 이메일로 전송할 게시글 번호 검색 -->
-	<select id="getMatchingNo" parameterType="matchingBoard" resultType="matchingBoard">
-		SELECT	matching_no
-		FROM	tb_matching_board
-		WHERE	matching_no = #{matchingNo}
 	</select>
 	
 	
@@ -220,6 +216,26 @@
 		DELETE FROM tb_matching_board
 	    WHERE matching_no = #{matchingNo}
 	</delete>
+	
+	
+	<!-- 이전 게시글 번호 추출 -->
+	<select id="prevMatchingNo" parameterType="matchingBoard" resultType="int">
+		<![CDATA[
+			SELECT	MAX (matching_no)
+			FROM 	tb_matching_board
+			WHERE	matching_no < #{matchingNo}
+		]]>
+	</select>
+	
+	
+	<!-- 다음 게시글 번호 추출 -->
+	<select id="nextMatchingNo" parameterType="matchingBoard" resultType="int">
+		<![CDATA[
+			SELECT	MIN (matching_no)
+			FROM 	tb_matching_board
+			WHERE	matching_no > #{matchingNo}
+		]]>
+	</select>
 	
 	
 </mapper>

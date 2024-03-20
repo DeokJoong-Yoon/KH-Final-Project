@@ -76,5 +76,17 @@ public class MatchingBoardTest {
 //		log.info("수정된 행의 수 : " + count);
 //	}
 	
+	
+	@Test
+	public void testPrevNext() {
+		MatchingBoardVO mbVO = new MatchingBoardVO();
+		mbVO.setMatchingNo(68);
+		
+		int prev = mbDAO.prevMatchingNo(mbVO);
+		int next = mbDAO.nextMatchingNo(mbVO);
+		
+		log.info("prev : " + prev);
+		log.info("next : " + next);
+	}
 
 }

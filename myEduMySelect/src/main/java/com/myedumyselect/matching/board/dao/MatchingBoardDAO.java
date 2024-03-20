@@ -25,10 +25,6 @@ public interface MatchingBoardDAO {
 	//비공개매칭 시 이메일 검색
 	public List<AcademyLoginVo> searchEmail(MatchingBoardVO mbVO);
 	
-	//
-	//비공개매칭 시 이메일로 전송할 게시글 번호 검색 
-	public MatchingBoardVO getMatchingNo(MatchingBoardVO mbVO);
-	
 	//매칭게시판 전체 보기
 	public List<MatchingBoardVO> mBoardList(MatchingBoardVO mbVO);
 	
@@ -44,11 +40,11 @@ public interface MatchingBoardDAO {
 	//매칭게시판 게시글 삭제하기
 	public int mBoardDelete(MatchingBoardVO mbVO);
 	
-	//매칭게시판 다음글 이동하기
-	
 	//매칭게시판 이전글 이동하기
-	//public 
+	public int prevMatchingNo(MatchingBoardVO mbVO);
 	
+	//매칭게시판 다음글 이동하기
+	public int nextMatchingNo(MatchingBoardVO mbVO);
 
 	
 }

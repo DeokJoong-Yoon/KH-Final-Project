@@ -130,21 +130,21 @@
 					"X-HTTP-Method-Override" : "PUT" 
 				},
 				data: JSON.stringify({
-					matchingCommentContent: $("#updateForm").val(),
+					matchingCommentContent: $("#updateCommentForm").val(),
 				}), 
 				dataType: 'text',
 				error: function(xhr, textStatus, errorThrown) {
 					alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
-					console.log($("#updateForm").val())
+					console.log($("#updateCommentForm").val())
 				},
 				beforeSend : function(){
-					if(!chkData("#updateForm", "댓글 내용을")) return false;
+					if(!chkData("#updateCommentForm", "댓글 내용을")) return false;
 				}, 
 				success: function(result) {
 					console.log("result : " + result);
 					if(result == "SUCCESS") {
 						alert("댓글 수정이 완료되었습니다.");
-						console.log($("#updateForm").val())
+						console.log($("#updateCommentForm").val())
 						dataReset();
 						listAll(matchingNo);
 					}
@@ -221,7 +221,7 @@
 				//댓글 부분을 폼으로 바꾸기
 				let paragraph = list.find(".mcContent");			// <p> 요소 가져오기
 				original = paragraph.text();
-                let textarea = $("<textarea id='updateForm'>");		// <textarea> 요소 생성
+                let textarea = $("<textarea id='updateCommentForm'>");		// <textarea> 요소 생성
                 textarea.val(paragraph.text());						// <p> 요소의 텍스트 내용을 <textarea>의 값으로 설정
                 paragraph.replaceWith(textarea);					// <p> 요소를 <textarea>로 교체
 				
@@ -251,7 +251,7 @@
 			$(document).on("click", "#commentResetBtn", function(){
 				console.log("수정 취소 버튼 클릭");
 				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
-				$("#updateForm").val(original);
+				$("#updateCommentForm").val(original);
 			}) 
 
 			

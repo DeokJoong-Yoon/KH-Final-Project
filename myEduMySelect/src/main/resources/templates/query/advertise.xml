@@ -101,8 +101,9 @@
 	</select>
 	
 	
-	<!-- 홍보게시판 글 등록 (only 글) -->
-	<insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="commonNo">
+	<!-- 홍보게시판 글 등록 (only 글) : 글을 삽입하고, 자동 생성된 키를 반환 -->
+	<insert id="advertiseInsert" parameterType="advertiseBoard" useGeneratedKeys="true" keyProperty="commonNo">	
+													<!-- 자동 생성된 키를 사용한다 + 자동 생성된 키를 어느 속성에 매핑할 것인지 설정 -->
 	    <![CDATA[
 	    INSERT INTO tb_common_board (
 	        common_no
@@ -124,6 +125,7 @@
 	    )
 	    ]]>
 	    <selectKey keyProperty="commonNo" resultType="int" order="AFTER">
+	    			<!-- 자동 생성된 키 commonNo를 사용한다. insert문 이후에 select문을 실행한다. -->
 	        SELECT advertise_board_seq.currval AS commonNo FROM DUAL
 	    </selectKey>
 	</insert>
@@ -232,6 +234,26 @@
 		SELECT	*
 		FROM	tb_file
 		WHERE	common_no = #{commonNo}
+	</select>
+	
+	
+	<!-- 이전 게시글 번호 추출 -->
+	<select id="prevCommonNo" parameterType="advertiseBoard" resultType="int">
+		<![CDATA[
+			SELECT	MAX (common_no)
+			FROM 	tb_common_board
+			WHERE	common_no < #{commonNo}
+		]]>
+	</select>
+	
+	
+	<!-- 다음 게시글 번호 추출 -->
+	<select id="nextCommonNo" parameterType="advertiseBoard" resultType="int">
+		<![CDATA[
+			SELECT	MIN (common_no)
+			FROM 	tb_common_board
+			WHERE	common_no > #{commonNo}
+		]]>
 	</select>
 
 	

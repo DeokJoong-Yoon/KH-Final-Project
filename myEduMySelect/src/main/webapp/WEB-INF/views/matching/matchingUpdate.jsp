@@ -101,62 +101,61 @@
      
       <div class="container">
       <p><b>매칭 게시글 수정은 '덧붙이는 말' 수정만 가능합니다.</b></p>
-		<div class="mcBoardDetail">
 		
 			<form id="updateForm">
 				<input type="hidden" id="matchingNo" name="matchingNo" value="${updateData.matchingNo }"/>
 		
-				<table>
-					<tr>
-						<th>글 번호</th>
-							<td>${updateData.matchingNo }</td>
-						</tr>
-					<tr>
-						<th>등록 일시</th>
-						<td>${updateData.matchingRegisterDate }</td>
-					</tr>
-				</table>
-				<br>
-				<table>
-					<tbody>
+				<div class="mcBoardDetail">
+					<table>
 						<tr>
-							<th>지역</th>
-							<td>${updateData.matchingGuAddress }&nbsp ${updateData.matchingDongAddress}</td>
-						</tr>
+							<th>글 번호</th>
+								<td>${updateData.matchingNo }</td>
+							</tr>
 						<tr>
-							<th>과목</th>
-							<td>${updateData.matchingTargetSubject }</td>
+							<th>등록 일시</th>
+							<td>${updateData.matchingRegisterDate }</td>
 						</tr>
-						<tr>
-							<th>학년</th>
-							<td>${updateData.matchingTargetGrade }</td>
-						</tr>
-						<tr>
-							<th>희망 수강료</th>
-							<td>${updateData.matchingFee }</td>
-						</tr>
-						<tr>
-							<th>키워드</th>
-							<td>
-								${updateData.matchingKeyword1 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword2 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword3 }
-							</td>
-						</tr>
-						<tr>
-							<th>덧붙이는 말</th>
-							<td>
-								<textarea name="matchingComment" id="matchingComment" rows="6">${updateData.matchingComment }</textarea>
-							</td>
-						</tr>
-					</tbody>	
-				</table>
+					</table>
+					<br>
+					<table>
+						<tbody>
+							<tr>
+								<th>지역</th>
+								<td>${updateData.matchingGuAddress }&nbsp ${updateData.matchingDongAddress}</td>
+							</tr>
+							<tr>
+								<th>과목</th>
+								<td>${updateData.matchingTargetSubject }</td>
+							</tr>
+							<tr>
+								<th>학년</th>
+								<td>${updateData.matchingTargetGrade }</td>
+							</tr>
+							<tr>
+								<th>희망 수강료</th>
+								<td>${updateData.matchingFee }</td>
+							</tr>
+							<tr>
+								<th>키워드</th>
+								<td>
+									${updateData.matchingKeyword1 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword2 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword3 }
+								</td>
+							</tr>
+							<tr>
+								<th>덧붙이는 말</th>
+								<td>
+									<textarea name="matchingComment" id="matchingComment" rows="10">${updateData.matchingComment }</textarea>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
 			</form>
-		</div>
-
-		
-		<div class="detailButtons">
-      		<button type="button" id="cancel">취소</button>
-      		<button type="button" id="editFinish">수정 완료</button>
-      	</div>
+			
+			<div class="detailButtons">
+	      		<button type="button" id="cancel">수정 취소</button>
+	      		<button type="button" id="editFinish">수정 완료</button>
+	      	</div>
       </div>
     </section><!-- 매칭게시판 수정 폼 끝 -->
 
@@ -251,6 +250,11 @@
   <script src="/resources/include/js/common.js"></script>
   <script src="/resources/include/matching/js/matchingUpdate.js"></script>
   
+  <script>
+	$("#cancel").on("click", function(){
+		location.href="/matching/boardDetail?matchingNo=" + ${updateData.matchingNo};
+	});
+  </script>
  
 
 </body>

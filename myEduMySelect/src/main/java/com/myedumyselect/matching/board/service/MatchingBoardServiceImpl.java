@@ -55,11 +55,7 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	public int privateUpload(MatchingBoardVO mbVO) {
 		int result = 0;
 		result = mbDAO.privateUpload(mbVO);
-		/*
-		 * int number = mbDAO.getMatchingNo(mbVO).getMatchingNo();
-		 * log.info("게시글 등록 시 글 번호 추출 : " + number);
-		 */
-		
+
 		return result;
 	}
 	
@@ -69,15 +65,7 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	public void sendEmail(MatchingBoardVO mbVO) {
 		
 		log.info(mbVO.getPrivateChecked().toString());
-		
-		/*
-		 * // MatchingBoardVO registeredBoard = mbDAO.getMatchingNo(mbVO); int
-		 * matchingNo = registeredBoard.getMatchingNo();
-		 * 
-		 * // MatchingBoardVO 객체에 matchingNo 설정 mbVO.setMatchingNo(matchingNo);
-		 */
-
-
+	
 		List<AcademyLoginVo> totalList = mbDAO.searchEmail(mbVO);
 		
 		//전송할 이메일의 List 생성
@@ -87,12 +75,15 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		    emailList.add(email);
 		}
 		
+		//비공개 매칭 게시글 글 번호 추출
+		int number = mbVO.getMatchingNo();
+		
 		SimpleMailMessage mail = new SimpleMailMessage();									//이메일 객체
 		mail.setTo(emailList.toArray(new String[emailList.size()]));						//이메일 수신자
 		mail.setSubject("[MyEduMySelect] 등록된 비공개매칭을 확인하세요!");							//이메일 제목
 		mail.setText(mbVO.getPersonalId() + "님이 비공개매칭을 시작하였습니다. 지금 바로 확인하세요! \n"	//이메일 내용
 				+ "덧붙이는 말 : " + mbVO.getMatchingComment()	
-				+ "\n매칭 상세페이지 링크 : http://localhost:8081/matching/boardDetail?matchingNo=" 
+				+ "\n매칭 상세페이지 링크 : http://localhost:8081/matching/boardDetail?matchingNo=" + number
 				+ "\n비공개 매칭 게시글 비밀번호 : " + mbVO.getMatchingPasswd());
 		
 		javaMailSender.send(mail);			//이메일 전송
@@ -152,6 +143,22 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		int result = 0;
 		result = mbDAO.mBoardDelete(mbVO);
 		return result;
+	}
+
+
+	//매칭게시판 이전글 이동하기
+	@Override
+	public int prevMatchingNo(MatchingBoardVO mbVO) {
+		int prev = mbDAO.prevMatchingNo(mbVO);
+		return prev;
+	}
+
+
+	//매칭게시판 다음글 이동하기
+	@Override
+	public int nextMatchingNo(MatchingBoardVO mbVO) {
+		int next = mbDAO.nextMatchingNo(mbVO);
+		return next;
 	}
 
 }

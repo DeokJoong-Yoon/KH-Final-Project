@@ -202,7 +202,15 @@ hr {
 	clear: both;
 }
 
-#updateForm {
+#matchingComment {
+	resize: none;
+	width : 100%;
+	height: 80px;
+	border-color : #dddddd;
+	padding: 10px;
+}
+
+#updateCommentForm {
 	margin-top: -10px;
 	resize: none;
 	width : 100%;

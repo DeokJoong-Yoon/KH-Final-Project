@@ -1,5 +1,7 @@
 $(function() {
 	
+	let commonNo = $("#commonNo").val();
+	
 	//게시물 수정
 	$("#editPost").on("click", function(){
 		$("#formData").attr({
@@ -25,9 +27,11 @@ $(function() {
 	})
 	
 	$("#prevPost").click(function(){
+		window.location.href = "/advertise/prev/" + commonNo;
 	})
 	
 	$("#nextPost").click(function(){
+		window.location.href = "/advertise/next/" + commonNo;
 	})
 	
 	$("#gotoList").click(function(){

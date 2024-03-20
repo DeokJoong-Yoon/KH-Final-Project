@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -146,7 +147,7 @@ public class MatchingBoardController {
 
 	// 매칭게시글 수정
 	@PostMapping("/boardUpdate")
-	public String mBoardUpdate(MatchingBoardVO mbVO) {
+	public String mBoardUpdate(MatchingBoardVO mbVO, RedirectAttributes ras) {
 
 		log.info("boardUpdate 호출 성공");
 
@@ -156,8 +157,10 @@ public class MatchingBoardController {
 		result = mbService.mBoardUpdate(mbVO);
 
 		if (result == 1) {
+			ras.addFlashAttribute("popUp", "수정 완료되었습니다.");
 			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
 		} else {
+			ras.addFlashAttribute("popUp", "수정에 실패하였습니다. 다시 시도해 주세요.");
 			url = "/matching/boardUpdate?matchingNo=" + mbVO.getMatchingNo();
 		}
 
@@ -175,13 +178,37 @@ public class MatchingBoardController {
 		String url = "";
 
 		if (result == 1) {
+			ras.addFlashAttribute("popUp", "삭제 완료되었습니다.");
 			url = "/matching/boardList";
 		} else {
-			ras.addFlashAttribute("errorMsg", "삭제에 실패하였습니다. 다시 시도해 주세요.");
+			ras.addFlashAttribute("popUp", "삭제에 실패하였습니다. 다시 시도해 주세요.");
 			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
 		}
 
 		return "redirect:" + url;
+	}
+	
+	
+	//이전 게시글 이동
+	@GetMapping("/prev/{matchingNo}")
+	public String prevPost(MatchingBoardVO mbVO) {
+		
+		//이전 게시글의 번호
+		int prevNo = mbService.prevMatchingNo(mbVO);
+		
+		return "redirect:/matching/boardDetail?matchingNo=" + prevNo;
+	}
+	
+	
+	//다음 게시글 이동
+	@GetMapping("/next/{matchingNo}")
+	public String nextPost(MatchingBoardVO mbVO) {
+		
+		//다음 게시글의 번호
+		int nextNo = mbService.nextMatchingNo(mbVO);
+		
+		
+		return "redirect:/matching/boardDetail?matchingNo=" + nextNo;
 	}
 
 }

@@ -22,11 +22,6 @@ $(function(){
 		$("#formData").submit();
 
 		
-		$("#cancel").on("click", function(){
-			$("#formData").each(function(){
-				this.reset();
-			});
-		});
 		
 	})
 })

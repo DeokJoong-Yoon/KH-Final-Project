@@ -19,6 +19,7 @@ import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.commonboard.like.vo.LikeVO;
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -74,10 +75,26 @@ public class AdvertiseController {
 								            @RequestParam("file2") MultipartFile file2,
 								            @RequestParam("file3") MultipartFile file3,
 								            @RequestParam("file4") MultipartFile file4,
-								            @RequestParam("file5") MultipartFile file5) throws Exception {
+								            @RequestParam("file5") MultipartFile file5,
+								            RedirectAttributes ras ) throws Exception {
+		
+		int result = 0;
+		String url = "";
+		
+		result = aService.advertiseInsertWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
+		
+		if(result == 1) {
+			ras.addFlashAttribute("popUp", "등록 완료되었습니다.");
+			url = "redirect:/advertise/advertiseBoardList";
+			log.info("result : 1");
+		} else {
+			ras.addFlashAttribute("popUp", "등록 실패하였습니다. 다시 시도해 주세요.");
+			url = "/advertise/advertiseInsertForm";
+			log.info("result : 0");
+		}
         
-        aService.advertiseInsertWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
-        return "redirect:/advertise/advertiseBoardList"; 
+        
+        return url; 
 	}
 	
 	
@@ -169,7 +186,27 @@ public class AdvertiseController {
 	}
 	
 	
+	//이전 게시글 이동
+	@GetMapping("/prev/{commonNo}")
+	public String prevPost(AdvertiseVO avo) {
+		
+		//이전 게시글의 번호
+		int prevNo = aService.prevCommonNo(avo);
+		
+		return "redirect:/advertise/advertiseDetail?commonNo=" + prevNo;
+	}
 	
+	
+	//다음 게시글 이동
+	@GetMapping("/next/{commonNo}")
+	public String nextPost(AdvertiseVO avo) {
+		
+		//다음 게시글의 번호
+		int nextNo = aService.nextCommonNo(avo);
+		
+		
+		return "redirect:/advertise/advertiseDetail?commonNo=" + nextNo;
+	}
 	
 	
 	

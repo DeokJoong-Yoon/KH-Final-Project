@@ -160,7 +160,7 @@
 
 		
 		<div class="detailButtons">
-      		<button type="button" id="cancel">초기화</button>
+      		<button type="button" id="cancel">수정 취소</button>
       		<button type="button" id="editFinish">수정 완료</button>
       	</div>
       </div>
@@ -359,24 +359,11 @@
                 }
             });
         });
-
-        /* function toggleLike() {
-            $.ajax({
-                type: "POST",
-                url: "/like/toggle",
-                data: JSON.stringify({"commonNo": commonNo}),
-                contentType: "application/json; charset=utf-8",
-                dataType: "text",
-                success: function(data) {
-                    // toggle 결과값에 따라 이미지 변경
-                    if (data === "좋아요 등록") {
-                        $('#likeImage').attr('src', "/uploadStorage/like/likeYes.png");
-                    } else if (data === "좋아요 취소") {
-                        $('#likeImage').attr('src', "/uploadStorage/like/likeNo.png");
-                    }
-                }
-            });
-        } */
+        
+        
+        $("#cancel").on("click", function(){
+			location.href="/advertise/advertiseDetail?commonNo=" + ${updateData.commonNo};
+		});
     </script>
 	
 </body>
