@@ -43,4 +43,5 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 		result = freereplyDAO.freereplyDelete(frvo);
 		return result;
 	}
+	
 }

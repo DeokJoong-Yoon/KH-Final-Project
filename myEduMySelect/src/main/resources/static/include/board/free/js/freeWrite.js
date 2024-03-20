@@ -4,27 +4,22 @@ $(function(){
         // 입력값 체크
         if (!chkData("#commonTitle", "글제목을")) return;
         else if (!chkData("#commonContent", "글내용을")) return;
-        else if (!chkFile($("#file","업로드 할 이미지 파일을."))) return;
+        else if (!chkFile($("#file"),"업로드 할 이미지 파일을.")) return;
         else {
-			if($("#file").val()!=""){
-				if (!chkFile($("#file"))) return;
-			}
-			$("#f_writeForm").attr({
-				"method":"post",
-				"enctype":"multipart/form-data",
-				"action":"/free/freeInsert"
-			});
-			$("#f_writeForm").submit();
+            $("#f_writeForm").attr({
+                "method":"post",
+                "enctype":"multipart/form-data",
+                "action":"/free/freeInsert"
+            });
+            $("#f_writeForm").submit();
         }
     });
     
     $("#freeCancelBtn").on("click", function(){
-        $("#f_writeForm").each(function(){
-			this.reset();
-		});
+        $("#f_writeForm")[0].reset(); // 폼 초기화
     });
     
-    $("#freeListBtn").on("click", function(){ // 클릭 이벤트 바인딩 수정
-        location.href = "/free/freeList";
+    $("#freeListBtn").on("click", function(){
+        location.href = "/free/freeList"; // 목록 페이지로 이동
     });    
 });

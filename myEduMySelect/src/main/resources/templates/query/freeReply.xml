@@ -38,8 +38,11 @@
 	</delete>
 
 	
-	<select id="freereplyCount" parameterType="int" resultType="int">
-		/* Reply - replyCount*/
+	<select id="freeReplyCnt" parameterType="int" resultType="int">
 		select count(common_comment_no) from tb_common_comment where common_no = #{commonNo}
 	</select>
+	
+	<delete id="freereplyChoiceDelete" parameterType="freeReply">
+		delete from tb_common_comment where common_no = #{commonNo}
+	</delete>
 </mapper>

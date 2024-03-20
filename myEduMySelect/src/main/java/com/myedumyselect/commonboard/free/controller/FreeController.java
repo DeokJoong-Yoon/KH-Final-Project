@@ -73,6 +73,15 @@ public class FreeController {
 		freeService.freeInsert(fvo);
 		return "redirect:/free/freeList";
 	}*/
+	
+	@PostMapping("/freeInsert")
+	public String freeInsert(FreeVO fvo) throws Exception {
+		log.info("freeInsert 호출 성공");
+		freeService.freeInsert(fvo);
+
+		log.info(fvo.toString());
+		return "redirect:/free/freeList";
+	}
 
 	
 	
@@ -127,7 +136,7 @@ public class FreeController {
 	 //글 삭제
 	
 	/*@PostMapping("/freeDelete")
-	public String freeDelete(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
+	public String freeDelete(@ModelAttribute FreeVO fvo){
 		log.info("freeDelete 호출 성공");
 		
 		int result = 0;
@@ -137,7 +146,6 @@ public class FreeController {
 		if(result == 1) {
 			url="/free/freeList";
 		} else {
-			ras.addFlashAttribute("errorMsg", "삭제에 문제가 있어 다시 진행해 주세요.");
 			url="/free/freeDetail?commonNo="+fvo.getCommonNo();
 		}
 		return "redirect:"+url;
@@ -156,16 +164,17 @@ public class FreeController {
 		freeService.freeDelete(fvo);
 		return "redirect:/free/freeList";
 	}
+
 	
 	
 	
 	@ResponseBody
-	@PostMapping(value="/freereplyCount", produces=MediaType.TEXT_PLAIN_VALUE)
-	public String freereplyCount(@RequestParam("commonNo") int commonNo) {
-		log.info("freereplyCount 호출 성공");
+	@PostMapping(value="/freeReplyCnt", produces=MediaType.TEXT_PLAIN_VALUE)
+	public String freeReplyCnt(@RequestParam("commonNo") int commonNo) {
+		log.info("freeReplyCnt 호출 성공");
 		
 		int result = 0;
-		result = freeService.freereplyCount(commonNo);
+		result = freeService.freeReplyCnt(commonNo);
 		
 		return String.valueOf(result);
 	}

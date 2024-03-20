@@ -11,10 +11,9 @@ import com.myedumyselect.commonboard.free.vo.FreeVO;
 public interface FreeDAO {
 	public List<FreeVO> freeList(FreeVO fvo);
 	public int freeInsert(FreeVO fvo);
-	public int readCntUpdate(FreeVO fvo);
 	public FreeVO freeDetail(FreeVO fvo);
+	public int readCntUpdate(FreeVO fvo);
 	public int freeUpdate(FreeVO fvo);
 	public int freeDelete(FreeVO fvo);
 	public int freeListCnt(FreeVO fvo);
-	public List<FreeVO> freeListExcel(FreeVO fvo);	
 }

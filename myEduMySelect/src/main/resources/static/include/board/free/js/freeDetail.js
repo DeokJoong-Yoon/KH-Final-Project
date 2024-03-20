@@ -8,28 +8,30 @@ $(function(){
 	    $("#f_data").submit();
 	});
 
-	
-	$("#freeDeleteBtn").on("click", () => {
+	$("#freeDeleteBtn").on("click", ()=>{
 		$.ajax({
-			 	url: "/free/freereplyCount",
-                type: "POST",
-                data: "commonNo="+$("#commonNo").val(),
-                dataype : "text",
-                error: function(xhr, status, error) {
-                    alert("삭제 과정에서 오류가 발생했습니다: " + error);
-                },
-                 success: function(resultData) {
-                   if(resultData==="0"){
-					   btnInit();
-					   buttonCheck = "deleteButton";
-				   }else{
-					   alert("댓글 존재 시 게시글을 삭제할 수 없습니다.\n댓글이 전부 삭제되어야 삭제 가능합니다.");
-					   return;
-				   }
-                },
-            });
-       	});
+			url : "/free/freeReplyCnt",
+			type : "post",
+			data : "commonNo=" + $("#commonNo").val(),
+			dataType : "text",
+			error : function() {
+				alert('시스템에 문제가 있어 잠시 후 다시 진행해 주세요.');
+			},
+			success : function(resultData) {
+				if(resultData==="0") { //댓글이 존재하지 않을 경우
+					btnInit();
+					buttonCheck = "deleteButton";
+				} else {
+					alert("댓글 존재시 게시글을 삭제할 수 없습니다.\n 댓글이 전부 삭제되어야 삭제 가능합니다.");
+					return;
+				}
+			}
+		});
+	});
 	
+	
+	
+
 	$("#freeWriterBtn").on("click", () => {
 		location.href="/free/freeWriterForm";
 	});
@@ -37,10 +39,8 @@ $(function(){
 	$("#freeListBtn").click(function(){
 		location.href="/free/freeList";
 	});
-	
-	$("#")
-});
 
+});
 function actionProcess(method, goUrl){
 		$("#f_data").attr({
 			"method":method,

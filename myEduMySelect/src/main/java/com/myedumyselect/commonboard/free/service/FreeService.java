@@ -11,8 +11,7 @@ public interface FreeService {
 	public FreeVO freeDetail(FreeVO fvo);
 	public FreeVO freeUpdateForm(FreeVO fvo);
 	
-	
-	public int freereplyCount(int commonNo);
+	public int freeReplyCnt(int commonNo);
 	
 	public int freeInsert(FreeVO fvo) throws Exception;
 	public int freeUpdate(FreeVO fvo) throws Exception;

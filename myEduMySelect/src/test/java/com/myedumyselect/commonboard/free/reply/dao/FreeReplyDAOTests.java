@@ -30,4 +30,11 @@ public class FreeReplyDAOTests {
 		}
 		
 	}*/
+	
+	/*@Test
+	public void testReplyCount() {
+		int commonNo = 10017;
+		int result = freereplyDAO.freeReplyCnt(commonNo);
+		log.info(commonNo + "번 게시물 댓글 수 : " + result);
+	}*/
 }

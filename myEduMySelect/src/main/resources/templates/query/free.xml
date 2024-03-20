@@ -13,6 +13,7 @@
     <result column="common_edit" property="commonEdit" />
     <result column="common_readcnt" property="commonReadcnt" /> 
     <result column="common_file" property="commonFile" />
+    <result column="freeReplyCnt" property="freeReplyCnt" />
 </resultMap>
 
 
@@ -102,29 +103,3 @@
 	</delete>
 
 </mapper>
-
-<!-- <select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
-	    SELECT common_no, personal_id, member_type_id, common_title, common_content, to_char(common_register_date,'YYYY-MM-DD') as common_register_date, to_char(common_edit, 'YYYY-MM-DD') as common_edit, common_readcnt 
-	    FROM tb_common_board
-	    <where>
-	        <if test="search=='commonTitle'">
-				<![CDATA[ common_title LIKE '%' || #{keyword} ||'%' ]]>
-			</if>
-			<if test="search=='commonContent'">
-					<![CDATA[ common_content LIKE '%' || #{keyword} ||'%' ]]>
-			</if>
-			<if test="search=='personalId'">
-					<![CDATA[ personal_id LIKE '%' || #{keyword} ||'%' ]]>
-			</if>
-	    </where>
-	    ORDER BY common_no desc
-	</select> -->
-	
-	
-<!-- <selectKey keyProperty="commonNo" resultType="int" order="BEFORE">
-			select free_board_seq.nextval from dual
-		</selectKey> -->
-
-	<!-- <insert id="freeInsert" parameterType="freeBoard"> INSERT INTO tb_common_board(commonNo, 
-		personalId, memberTypeId, commonTitle, commonContent) VALUES (free_board_seq.nextval, 
-		#{personalId}, #{memberTypeId}, #{commonTitle}, #{commonContent}) </insert> -->

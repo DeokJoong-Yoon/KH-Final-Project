@@ -158,36 +158,36 @@
 							</tr>
 						</thead>
 						<tbody id="list" class="table-group-divider">
-								<c:choose>
-									<c:when test="${not empty freeList}">
-										<c:forEach var="free" items="${freeList}" varStatus="status">
-											<tr class="text-center" data-num="${free.commonNo}">
-												<td>${free.commonNo}</td>
-												<td class="goDetail text-start">${free.commonTitle}
-												<c:if test="${free.freereplyCnt > 0}">
-													<span class="freereply_count">[${free.freereplyCnt}]</span>
+						    <c:choose>
+						        <c:when test="${not empty freeList}">
+						            <c:forEach var="free" items="${freeList}" varStatus="status">
+						                <tr class="text-center" data-num="${free.commonNo}">
+						                    <td>${free.commonNo}</td>
+						                    <td class="goDetail text-start">${free.commonTitle}
+						                        <c:if test="${free.freeReplyCnt > 0}">
+													<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
 												</c:if>
-												</td>
-												<td class="name">${free.personalId}</td>
-												<td class="text-start">${free.commonRegisterDate}</td>
-												<td class="text-center">${free.commonReadcnt}</td>
-												<td>
-												<c:if test="${not empty free.commonFile}">
-												    <img src="/uploadStorage/free/${free.commonFile}" class="rounded w-20 h-20" />
-												</c:if>
-												<c:if test="${empty free.commonFile}">
-												    <img src="/resources/include/board/images/no-image-icon.png" class="rounded w-20 h-20" />
-												</c:if>
-											</tr>
-										</c:forEach>
-									</c:when>
-									<c:otherwise>
-										<tr>
-											<td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
-										</tr>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
+						                    </td>
+						                    <td class="name">${free.personalId}</td>
+						                    <td class="text-start">${free.commonRegisterDate}</td>
+						                    <td class="text-center">${free.commonReadcnt}</td>
+						                    <td>
+						                    <c:if test="${not empty free.commonFile}">
+						                        <img src="/uploadStorage/free/${free.commonFile}" class="rounded w-50 h-50" />
+						                    </c:if>
+						                    <c:if test="${empty free.commonFile}">
+						                        <img src="/resources/include/board/images/no-image-icon.png" class="rounded w-50 h-50" />
+						                    </c:if>
+						                </tr>
+						            </c:forEach>
+						        </c:when>
+						        <c:otherwise>
+						            <tr>
+						                <td colspan="5">등록된 게시물이 존재하지 않습니다.</td>
+						            </tr>
+						        </c:otherwise>
+						    </c:choose>
+						</tbody>
 					</table>
 				</div>
 				<%------------------------ 페이징 출력 --------------------------%>
@@ -349,7 +349,32 @@
 		}
 	});
 	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    // 각 게시물의 댓글 수를 가져와서 표시하는 함수
+		    function updateReplyCount(commonNo) {
+		        $.ajax({
+		            type: 'POST',
+		            url: '/freeReplyCnt',
+		            data: { commonNo: commonNo },
+		            success: function(data) {
+		                // 성공적으로 댓글 수를 가져온 경우, 해당 게시물의 댓글 수를 업데이트
+		                $('#freeReplyCnt' + commonNo).html('<b>[' + data + ']</b>');
+		            },
+		            error: function(xhr, status, error) {
+		                console.error('댓글 갯수를 가져오는데 실패하였습니다: ' + error);
+		            }
+		        });
+		    }
+	
+		    // 페이지 로드 시 각 게시물 별로 댓글 수를 업데이트
+		    $('[id^=freeReplyCnt]').each(function() {
+		        let commonNo = $(this).attr('id').replace('freeReplyCnt', '');
+		        updatefreeReplyCnt(commonNo);
+		    });
+		});
 
+	</script>
 </body>
 
 </html>

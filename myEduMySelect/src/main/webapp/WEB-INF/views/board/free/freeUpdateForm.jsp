@@ -118,6 +118,7 @@
 						</div>
 						<form id="updateForm" name="updateForm">
 							<input type="hidden" id="commonNo_hidden" name="commonNo" value="${freeUpdateData.commonNo}" />
+							<input type="hidden" id="commonFile" name="commonFile" value="${freeUpdateData.commonFile}" />"
 							<table>
 								<tr>
 									<td colspan="12" class="text-start"><input type="text" id="commonTitle" name="commonTitle" value="${freeUpdateData.commonTitle}"	placeholder="제목을 입력해 주세요" /></td>
@@ -132,7 +133,7 @@
 								</tr>
 								<tr>
 									<td>이미지파일첨부</td>
-									<td class="text-start"><input type="file" name="commonFile" id="commonFile" class="form-control" /></td>
+									<td class="text-start"><input type="file" name="file" id="file" class="form-control" /></td>
 								</tr>
 							</table>
 						</form>

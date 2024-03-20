@@ -144,7 +144,7 @@
 									<tr>
 										<td class="align-middle">이미지</td>
 										<td class="text-start">
-											<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="width:20px; height:200px;" />
+											<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="max-width:200px; max-height:200px;" />
 										</td>
 									</tr>
 								</c:if>

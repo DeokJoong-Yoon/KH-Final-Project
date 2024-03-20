@@ -20,7 +20,7 @@ public class FreeVO extends CommonVO {
 	private String commonRegisterDate;
 	private String commonEdit;
 	private int commonReadcnt	=0;
-	private int freereplyCnt	=0;
+	private int freeReplyCnt	=0;
 	
 	
 	private MultipartFile file;

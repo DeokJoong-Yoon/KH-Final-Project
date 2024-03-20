@@ -126,7 +126,7 @@
 											<td><textarea name="commonContent" id="commonContent" class="form-control custom-textarea"  placeholder="내용을 입력해주세요."></textarea></td>
 										</tr>
 										<tr>
-											<td><input type="file" id="commonFile" name="commonFile" class="form-control" placeholder="첨부파일을 입력해주세요." maxlength="50" /></td>
+											<td><input type="file" id="file" name="file" class="form-control" placeholder="첨부파일을 입력해주세요." maxlength="50" /></td>
 										</tr>
 									</table>
 								</form>

@@ -4,15 +4,15 @@ $(function() {
     if(!chkData("#commonTitle", "글제목을")) return;
     else if(!chkData("#commonContent", "글내용을")) return;
     else {
-        if($("#commonFile").val()!=""){
-			if(!chkFile($("#commonFile"))) return;
+        if($("#file").val()!=""){
+			if(!chkFile($("#file"))) return;
    	 	}
    	 	$("#updateForm").attr({
 				"method":"post",
 				"enctype":"multipart/form-data",
 				"action":"/free/freeUpdate"
 			});
-			$("updateForm").submit();
+			$("#updateForm").submit();
 		}   		 
    	 });
    	 

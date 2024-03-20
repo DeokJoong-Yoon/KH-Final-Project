@@ -9,4 +9,5 @@ public class FreeReplyVO {
 	private String personalId						="";	// 개인회원ID
 	private String commonCommentContent			="";	// 댓글 내용
 	private String commonCommentDate				="";	// 댓글 작성일
+	private int freereplyTotal						=0;
 }
