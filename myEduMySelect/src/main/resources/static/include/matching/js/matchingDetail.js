@@ -26,7 +26,7 @@ $(function(){
 		
 		if(isConfirmed) {
 			$("#formData").attr({
-				"method":"get",
+				"method":"post",
 				"action":"/matching/boardDelete"
 			});
 			$("#formData").submit();
@@ -46,3 +46,5 @@ $(function(){
 		location.href="/matching/boardList"
 	})
 })
+
+

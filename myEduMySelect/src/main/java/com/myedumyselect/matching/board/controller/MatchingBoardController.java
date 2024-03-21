@@ -43,10 +43,10 @@ public class MatchingBoardController {
 	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, Model model, HttpSession session) {
 		log.info("mBoardListPreview() 호출 성공");
 		String alertMsg = "경고";
-		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
-		if (checkedSessionResult == "FALSE") {
-			return "redirect:/";
-		}
+//		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
+//		if (checkedSessionResult == "FALSE") {
+//			return "redirect:/";
+//		}
 
 		List<MatchingBoardVO> list = mbService.mBoardListPreview(mbVO);
 		model.addAttribute("mBoardList", list);
@@ -59,11 +59,11 @@ public class MatchingBoardController {
 	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
 		log.info("mBoardList() 호출 성공");
 		
-		String alertMsg = "경고";
-		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
-		if (checkedSessionResult == "FALSE") {
-			return "redirect:/";
-		}
+//		String alertMsg = "경고";
+//		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
+//		if (checkedSessionResult == "FALSE") {
+//			return "redirect:/";
+//		}
 		// 전체 레코드 조회
 		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
 		model.addAttribute("mBoardList", list);

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -50,41 +52,58 @@
 
 <body>
 	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-		<div class="container d-flex align-items-center">
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <h1 class="logo me-auto">
+      	<a href="/">MyEdu<br />MySelect</a>
+      </h1>
 
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
-					<li class="dropdown"><a href="#"><span>메뉴</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
-						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/">홈</a></li>
+          <li><a class="nav-link scrollto" href="/">About</a></li>
+          <li><a class="nav-link scrollto" href="/">Team</a></li>
+          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              	<li><a href="/notice/boardList">공지사항</a></li>
+				<li><a href="/matching/">맞춤형 검색</a></li>
+				<li><a href="/matching/boardList">매칭 게시판</a></li>
+				<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
+				<li><a href="/free/freeList">자유 게시판</a></li>
+				<c:if test="${commonLogin.memberTypeId == 1}">
+				    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">마이페이지</a></li>
+				</c:if>
+                         <c:if test="${commonLogin.memberTypeId == 2}">
+                             <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+                         </c:if>
+			</ul>
+		  </li>
+			<li><a class="nav-link scrollto" href="/">Pricing</a></li>
+			<c:choose>
+                     <c:when test="${not empty commonLogin}">
+                         <li><a class="nav-link scrollto">
+                            <c:if test="${commonLogin.memberTypeId == 1}">[개인] </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">[학원] </c:if>
+                            ${commonLogin.name}님 환영합니다.</a></li>
+                         <li>
+                             <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                                 <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                             </form>
+                         </li>
+                     </c:when>
+                     <c:otherwise>
+                         <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+                     </c:otherwise>
+                 </c:choose>               		
+			</ul>
+			<i class="bi bi-list mobile-nav-toggle"></i>
+		</nav>
+		<!-- .navbar -->
 
-		</div>
-	</header>
-	<!-- End Header -->
-
+    </div>
+  </header><!-- End Header -->
+  
 	<!-- ======= 설명 영역 ======= -->
 	<section id="hero" class="d-flex align-items-center  justify-content-center">
 		<div class="container" >
@@ -96,8 +115,8 @@
 				<div class="col-12 text-center banner">
 		            자유 게시판<br/>
 		            <div class="descBox">
-		            	자유롭게 글을 작성할 수 있는 자유게시판입니다.<br>
-		            	질문, 후기, 정보 등 다양한 글을 남겨주세요!
+		            	자유롭게 글을 작성할 수 있는 <b>자유게시판</b>입니다.<br>
+		            	질문, 후기, 정보 등 도움이 될 만한 다양한 글을 남겨주세요!
 		            </div>
 		       </div> 
 		    </div>
@@ -117,32 +136,35 @@
 					<input type="hidden" name="commonFile" id="commonFile" value="${detail.commonFile}"/>
 		      	</form>
 					<div class="boardDetail">
-						<table class="table text-center" id="table">
+						<table id="table">
 							<thead>
 								<tr>
-									<td colspan="12" class="text-center">제목 :
-										${detail.commonTitle}</td>
+									<th>글 번호</th>
+									<td>${detail.commonNo} (조회수 : ${detail.commonReadcnt})</td>
 								</tr>
 								<tr>
-									<td colspan="3" class="text-start">글번호 :
-										${detail.commonNo} (조회수 : ${detail.commonReadcnt})</td>
-									<td colspan="3" class="text-start">작성자 :
-										${detail.personalId}</td>
-									<td colspan="3" class="text-start">작성일 :
-										${detail.commonRegisterDate}</td>
+									<th>제목</th>
+									<td>${detail.commonTitle}</td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td>${detail.personalId}</td>
+								</tr>
+								<tr>
+									<th>작성일</th>
+									<td>${detail.commonRegisterDate}</td>
 								</tr>
 							</thead>
 	
 							<tbody>
 								<tr>
-									<th colspan="2" class="text-center">내용</th>
-									<td colspan="10" rowspan="10"
-										class="text-start content-size">${detail.commonContent}</td>
+									<th>내용</th>
+									<td>${detail.commonContent}</td>
 								</tr>
 								<c:if test="${not empty detail.commonFile}">
 									<tr>
-										<td class="align-middle">이미지</td>
-										<td class="text-start">
+										<th>이미지</th>
+										<td>
 											<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="max-width:200px; max-height:200px;" />
 										</td>
 									</tr>
@@ -165,7 +187,7 @@
 	</main>
 
 	
-	<section >
+	<section  class="commentSection">
 			<jsp:include page="freereply.jsp" />
 	</section>
 

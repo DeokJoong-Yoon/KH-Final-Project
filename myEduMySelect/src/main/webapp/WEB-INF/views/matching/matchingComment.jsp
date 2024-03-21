@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>		
-<%@ include file="/WEB-INF/views/common/common.jspf" %>						
+<%@ include file="/WEB-INF/views/common/common.jspf" %>			
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>			
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -18,7 +21,7 @@
 		<%-- 댓글 입력 화면 --%>
 		<form id="mcForm" name="mcForm">
 			<div class="mcComment">
-				<input type="text" name="matchingCommentNickname" id="matchingCommentNickname" value=${userName } disabled/>
+				<input type="text" name="matchingCommentNickname" id="matchingCommentNickname" value=${userName } disabled />
 				<br>
 				<textarea name="matchingCommentContent" id="matchingCommentContent" placeholder="댓글을 입력하세요"></textarea>
 				<button type="button" id="mcBtn">등록</button>

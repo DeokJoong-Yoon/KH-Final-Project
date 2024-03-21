@@ -25,7 +25,7 @@
     border: none;
     cursor: pointer;
     border-radius: 7px !important;
-    font-size: 25px !important;
+    font-size: 22px !important;
     font-weight: 600 !important;
     margin-bottom: 12px;
     display: block;
@@ -34,4 +34,8 @@
 
 #mainSearchBtn:hover {
 	background-color : #47b2e4 !important;
+}
+
+h4 {
+	font-weight: 500 !important;
 }
