@@ -100,7 +100,7 @@ public class FreeController {
 		return "redirect:/free/freeList";
 	}
 	
-	@PostMapping("/freeDelete")
+	@GetMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo) throws Exception{
 		log.info("freeDelete 호출 성공");
 		freeService.freeDelete(fvo);
