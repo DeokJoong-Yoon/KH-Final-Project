@@ -215,43 +215,43 @@ public class MatchingBoardController {
 	}
 	
 	
-	//이전 게시글 이동
-	@GetMapping("/prev/{matchingNo}")
-	public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
-		
-		//이전 게시글의 번호
-		int prevNo = mbService.prevMatchingNo(mbVO);
-		
-		//주소 담을 변수
-		String url = "";
-		
-		if(prevNo == -1) {
-			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
-		} else {
-			url =  "redirect:/matching/boardDetail?matchingNo=" + prevNo;
-		}
-		
-		return url;
-	}
-	
-	
-	//다음 게시글 이동
-	@GetMapping("/next/{matchingNo}")
-	public String nextPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
-		
-		//다음 게시글의 번호
-		int nextNo = mbService.nextMatchingNo(mbVO);
-		
-		//주소 담을 변수
-		String url = "";
-		
-		if(nextNo == -1) {
-			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
-		} else {
-			url =  "redirect:/matching/boardDetail?matchingNo=" + nextNo;
-		}
-		
-		return url;
-	}
+//	//이전 게시글 이동
+//	@GetMapping("/prev/{matchingNo}")
+//	public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
+//		
+//		//이전 게시글의 번호
+//		int prevNo = mbService.prevMatchingNo(mbVO);
+//		
+//		//주소 담을 변수
+//		String url = "";
+//		
+//		if(prevNo == -1) {
+//			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
+//		} else {
+//			url =  "redirect:/matching/boardDetail?matchingNo=" + prevNo;
+//		}
+//		
+//		return url;
+//	}
+//	
+//	
+//	//다음 게시글 이동
+//	@GetMapping("/next/{matchingNo}")
+//	public String nextPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
+//		
+//		//다음 게시글의 번호
+//		int nextNo = mbService.nextMatchingNo(mbVO);
+//		
+//		//주소 담을 변수
+//		String url = "";
+//		
+//		if(nextNo == -1) {
+//			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
+//		} else {
+//			url =  "redirect:/matching/boardDetail?matchingNo=" + nextNo;
+//		}
+//		
+//		return url;
+//	}
 
 }
