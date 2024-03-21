@@ -45,4 +45,7 @@
 	<delete id="freereplyChoiceDelete" parameterType="freeReply">
 		delete from tb_common_comment where common_no = #{commonNo}
 	</delete>
+	
+	
+	
 </mapper>

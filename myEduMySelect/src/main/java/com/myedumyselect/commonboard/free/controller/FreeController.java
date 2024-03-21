@@ -111,46 +111,6 @@ public class FreeController {
 	    return "board/free/freeUpdateForm";
 	}
 
-	
-
-	/*@PostMapping("/freeUpdate")
-	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
-	    log.info("freeUpdate 호출 성공");
-	    
-	    int result = 0;
-	    String url = "";
-	    
-	    result = freeService.freeUpdate(fvo);
-	    ras.addFlashAttribute("freeVO", fvo);
-		/* model.addAttribute("freeUpdateData", fvo);
-	    
-	    if(result == 1) {
-	        url = "/free/freeDetail?commonNo=" + fvo.getCommonNo();
-	    } else {
-	        url = "/free/freeUpdateForm?commonNo=" + fvo.getCommonNo();
-	    }
-	    return "redirect:" + url;
-	}*/
-	
-	
-	 //글 삭제
-	
-	/*@PostMapping("/freeDelete")
-	public String freeDelete(@ModelAttribute FreeVO fvo){
-		log.info("freeDelete 호출 성공");
-		
-		int result = 0;
-		String url="";
-		result = freeService.freeDelete(fvo);
-		
-		if(result == 1) {
-			url="/free/freeList";
-		} else {
-			url="/free/freeDetail?commonNo="+fvo.getCommonNo();
-		}
-		return "redirect:"+url;
-	}*/
-	
 	@PostMapping("/freeUpdate")
 	public String freeUpdate(@ModelAttribute FreeVO fvo) throws Exception{
 		log.info("freeUpdate 호출 성공");

@@ -54,4 +54,6 @@ function goPage(){
         "method":"get",
         "action":"/free/freeList"
     }).submit();
+    
+    
 }

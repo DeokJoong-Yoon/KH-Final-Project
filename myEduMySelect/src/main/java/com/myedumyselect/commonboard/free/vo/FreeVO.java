@@ -21,8 +21,6 @@ public class FreeVO extends CommonVO {
 	private String commonEdit;
 	private int commonReadcnt	=0;
 	private int freeReplyCnt	=0;
-	
-	
 	private MultipartFile file;
 	private String commonFile	="";
 }

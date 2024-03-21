@@ -101,4 +101,7 @@ public class FreeServiceImpl implements FreeService {
 	    result = freereplyDAO.freeReplyCnt(commonNo);
 	    return result;
 	}
+	
+	
+	
 }

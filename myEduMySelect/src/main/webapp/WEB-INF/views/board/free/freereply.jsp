@@ -153,7 +153,7 @@
                 commonCommentContent = commonCommentContent.replace(/(\r\n|\r|\n)/g, "<br />");
 
                 template(commonCommentNo, personalId, commonCommentContent, commonCommentDate);
-                /*$('#freereplyList').append(commonCommentNo + personalId + commonCommentContent + commonCommentDate + "<br />");*/
+               
             });
         }).fail(function() {
             alert("댓글 목록을 불러오는데 실패하였습니다. 잠시 후에 다시 시도해 주세요.");

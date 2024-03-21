@@ -95,8 +95,6 @@
         WHERE common_no = #{commonNo}
     </update>
 
-
-
 	<delete id="freeDelete" parameterType="freeBoard">
 		DELETE FROM tb_common_board where common_no = #{commonNo}
 	</delete>
