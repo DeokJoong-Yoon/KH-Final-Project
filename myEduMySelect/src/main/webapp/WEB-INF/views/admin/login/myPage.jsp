@@ -603,7 +603,8 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form id="f_writeForm">
+                  
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
@@ -614,7 +615,7 @@
                     <div class="row mb-3">
                       <label for="adminName" class="col-md-4 col-lg-3 col-form-label">name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="${adminLogin.adminName}">
+                        <input name="adminName" type="text" class="form-control" id="adminName" value="${adminLogin.adminName}">
                       </div>
                     </div>
 
@@ -642,17 +643,17 @@
                     <div class="row mb-3">
                       <label for="adminAssignedDate" class="col-md-4 col-lg-3 col-form-label">Assigned Date</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="adminAssignedDate" type="text" class="form-control" id="adminAssignedDate" value="${adminLogin.adminAssignedDate}">
+                        <input name="adminAssignedDate" type="date" class="form-control" id="adminAssignedDate" value="${adminLogin.adminAssignedDate}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="adminPasswordChangeDate" class="col-md-4 col-lg-3 col-form-label">adminPasswordChangeDate</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="adminPasswordChangeDate" type="text" class="form-control" id="adminPasswordChangeDate" value="${adminLogin.adminPasswordChangeDate}">
+                        <input name="adminPasswordChangeDate" type="text" class="form-control" id="adminPasswordChangeDate" readonly="readonly" value="${adminLogin.adminPasswordChangeDate}">
                       </div>
                     </div>
-
+					<input type="hidden" id="adminId" name="adminId" value="${adminLogin.adminId}" readonly/>		
                     <div class="text-center">
                       <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary">Save Changes</button>
                     </div>
@@ -662,29 +663,29 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
+                  <form id="changePasswdForm">
 
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="currentPassword" type="password" class="form-control" id="currentPassword">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="newPassword" type="password" class="form-control" id="newPassword">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="renewPassword" type="password" class="form-control" id="renewPassword">
                       </div>
                     </div>
-
+					<input type="hidden" id="academyId" name="academyId" value="${adminLogin.adminId}"/>
                     <div class="text-center">
                       <button type="button" id="changePasswdBtn" name="changePasswdBtn" class="btn btn-primary">Change Password</button>
                     </div>
@@ -698,7 +699,6 @@
     </section>
 
   </main><!-- End #main -->
-
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
@@ -728,6 +728,7 @@
 
   <!-- Template Main JS File -->
   <script src="/resources/include/admin/login/js/myPage.js"></script>
+
 
 </body>
 

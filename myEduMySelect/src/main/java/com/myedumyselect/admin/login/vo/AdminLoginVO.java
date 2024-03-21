@@ -1,5 +1,7 @@
 package com.myedumyselect.admin.login.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,16 +17,6 @@ public class AdminLoginVO {
 	private String adminName;
 	private String adminEmail;
 	private String adminPhone;
-	private String adminAssignedDate;
-	private String adminPasswordChangeDate;
+	private Date adminAssignedDate;
+	private Date adminPasswordChangeDate;
 }
-
-//ADMIN_ID                   NOT NULL VARCHAR2(12) 
-//MEMBER_TYPE_ID             NOT NULL NUMBER(1)    
-//ADMIN_PASSWORD             NOT NULL VARCHAR2(20) 
-//ADMIN_TEAM                          VARCHAR2(30) 
-//ADMIN_NAME                 NOT NULL VARCHAR2(50) 
-//ADMIN_EMAIL                NOT NULL VARCHAR2(50) 
-//ADMIN_PHONE                NOT NULL CHAR(11)     
-//ADMIN_ASSIGNED_DATE        NOT NULL DATE         
-//ADMIN_PASSWORD_CHANGE_DATE          DATE  

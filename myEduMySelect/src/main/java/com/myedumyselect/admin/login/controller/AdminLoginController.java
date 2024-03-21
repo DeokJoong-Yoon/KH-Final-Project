@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -26,7 +28,6 @@ import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -134,5 +135,45 @@ public class AdminLoginController {
 		}
 
 		return "/admin/login/myPage";
+	}
+
+	@PostMapping(value = "/updateAdminInfo")
+	public String updateAdminInfo(AdminLoginVO newAdminInfo, Model model) {
+
+		adminLoginService.updateAdminInfo(newAdminInfo);
+		model.addAttribute("adminLogin", newAdminInfo);
+		return "/admin/login/myPage";
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/updateAdminPasswd")
+	public String updateAdminPasswd(@RequestParam("currentPassword") String currentPassword,
+			@RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO, RedirectAttributes ras, Model model) {
+		AdminLoginVO curAdminLogin = new AdminLoginVO();
+		curAdminLogin.setAdminId(adminLoginVO.getAdminId());
+		curAdminLogin.setAdminPasswd(currentPassword);
+		AdminLoginVO checkPassword = adminLoginService.loginProcess(curAdminLogin);
+		// 현재 계정의 패스워드 재확인
+		if (checkPassword != null) {
+			if (!renewPassword.equals(newPassword)) {
+				ras.addFlashAttribute("errorMsg", "New Password 와 Re-enter New Password 가 일치하지 않습니다.");
+				return "FALSE";
+			}
+			int result = 0;
+			checkPassword.setAdminPasswd(renewPassword);
+			result = adminLoginService.updateAdminPasswd(checkPassword);
+			if (result == 1) {
+				model.addAttribute("adminLogin", adminLoginService.loginProcess(checkPassword));
+				ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
+				return "TRUE";
+			}
+		} else {
+			ras.addFlashAttribute("errorMsg", "패스워드가 맞지 않습니다.");
+			return "FALSE";
+		}
+
+		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
+		return "FALSE";
 	}
 }

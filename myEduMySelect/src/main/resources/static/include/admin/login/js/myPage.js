@@ -1,10 +1,110 @@
-/**
-* Template Name: NiceAdmin
-* Updated: Jan 29 2024 with Bootstrap v5.3.2
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+$(function() {
+	$("#saveBtn").on("click", function() {
+		// 입력값 체크
+		if (validateName("#adminName")) return;
+		else if (!chkData("#adminTeam", "팀을 ")) return;
+		else if (validatePhone("#adminPhone")) return;
+		else if (validateEmail("#adminEmail")) return;
+		else if (!chkData("#adminAssignedDate", "담당날짜를")) return;
+		else {
+			$("#f_writeForm").attr({
+				"method" : "post",
+				"action" : "/admin/updateAdminInfo"
+			});
+			$("#f_writeForm").submit();
+		}
+	});
+	
+	
+	/** 목록 버튼 클릭 시 처리 이벤트 */
+	$("#changePasswdBtn").on("click", function() {
+		if (validatePassword("#currentPassword", "#newPassword", "#renewPassword")) return;
+		var formData = $("#changePasswdForm").serialize();
+		$.ajax({
+		type:'POST',
+		url : '/admin/updateAdminPasswd',
+		data: formData, // 폼 데이터 전송
+		dataType : "text",
+		success: function(data) {
+			console.log(data);
+	        if(data.trim() ==  "TRUE") {
+				alert("패스워드 변경 완료");
+				location.reload();
+				} else {
+					alert("패스워드를 정확히 입력해 주세요.");
+					$("#newPassword").val("");
+		            $("#renewPassword").val("");
+		            $("#currentPassword").val("");
+		            $("#currentPassword").focus();
+				}
+			},
+			error:function(xhr, textStatus, errorThrown) {
+				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
+			}
+		});
+
+	});
+	
+});
+
+
+function validateEmail(adminEmail) {
+	var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	let email = $(adminEmail).val();
+	if(!chkData(adminEmail, "이메일을")) return true;
+	else if(!emailRegex.test(email))  {
+		alert("이메일 주소 형식이 맞지 않습니다.");
+		return true;		
+	}
+	return false;
+}
+
+function validatePhone(adminPhone) {
+	let phone = $(adminPhone).val();
+    var phoneRegex = /^\d{11}$/;
+    if(!chkData(adminPhone, "전화번호를")) return true;
+	else if(!phoneRegex.test(phone))  {
+		alert("전화번호 형식이 맞지 않습니다.");
+		return true;		
+	}
+	return false;
+}
+
+function validateName(adminName) {
+	let name = $(adminName).val();
+    var nameRegex = /^[가-힣a-zA-Z]{2,20}$/;
+	if(!chkData(adminName, "이름을 ")) return true;
+	else if(!nameRegex.test(name)) {
+		alert("이름 형식이 맞지 않습니다.");
+		return true;		
+	}
+	return false;
+}
+
+function validatePassword(currentPassword, newPassword, renewPassword) {
+	let curPasswd = $(currentPassword).val();
+	let newPasswd = $(newPassword).val();
+	let renewPasswd = $(renewPassword).val();
+	var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    
+    if(!chkData(currentPassword, "현재 비밀번호를 ")) return true;
+   	else if (!chkData(newPassword, "변경할 비밀번호를 ")) return true;
+   	else if (!chkData(renewPassword, "비밀번호 확인을 ")) return true;
+   	else if (curPasswd == newPasswd) {
+		   alert("현재 비밀번호와 동일한 비밀번호를 사용할 수 없습니다.");
+		   return true;
+	} else if (newPasswd != renewPasswd) {
+		alert("새로운 비밀번호와 비밀번호확인 번호가 일치하지 않습니다.");
+		return true;
+	} else if (!passwordRegex.test(newPasswd)) {
+		alert("패스워드 형식이 맞지 않습니다.");
+		return true;
+	} else {
+		return false;
+	}
+};
+
+
 (function() {
   "use strict";
 
