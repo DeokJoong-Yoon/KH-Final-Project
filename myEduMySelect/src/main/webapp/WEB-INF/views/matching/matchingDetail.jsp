@@ -160,8 +160,6 @@
       		<button type="button" id="editPost">수정</button>
       		<button type="button" id="deletePost">삭제</button>
 			<button type="button" id="gotoList">목록</button>
-      		<button type="button" id="nextPost">다음글</button>
-      		<button type="button" id="prevPost">이전글</button>
       	</div>
       </div>
     </section><!-- 매칭게시판 상세보기 끝 -->

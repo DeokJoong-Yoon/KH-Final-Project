@@ -23,3 +23,7 @@ $(function(){
         location.href = "/free/freeList"; // 목록 페이지로 이동
     });    
 });
+
+
+
+

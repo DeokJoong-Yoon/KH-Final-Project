@@ -10,7 +10,6 @@ import com.myedumyselect.commonboard.free.reply.vo.FreeReplyVO;
 public interface FreeReplyDAO {
 	public List<FreeReplyVO> freereplyList(FreeReplyVO frvo);
 	public int freereplyInsert(FreeReplyVO frvo);
-	
 	public int freereplyUpdate(FreeReplyVO frvo);
 	public int freereplyDelete(FreeReplyVO frvo);
 	public int freereplyChoiceDelete(int commonNo);
