@@ -23,6 +23,12 @@
 		<typeAlias
 			type="com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO"
 			alias="free" />
+		<typeAlias
+			type="com.myedumyselect.admin.board.free.reply.vo.FreeReplyAdminVO"
+			alias="freeReplyAdmin" />
+		<typeAlias
+			type="com.myedumyselect.admin.board.matching.reply.vo.MatchingReplyAdminVO"
+			alias="matchingReplyAdmin" />
 
 
 		<!-- ========================maching 영역======================== -->
