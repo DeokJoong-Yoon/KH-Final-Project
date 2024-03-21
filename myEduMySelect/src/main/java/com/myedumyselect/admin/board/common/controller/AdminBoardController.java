@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.admin.board.academy.service.AcademySourceAdminService;
+import com.myedumyselect.admin.board.free.reply.service.FreeReplyAdminService;
+import com.myedumyselect.admin.board.free.reply.vo.FreeReplyAdminVO;
 import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
+import com.myedumyselect.admin.board.matching.reply.service.MatchingReplyAdminService;
+import com.myedumyselect.admin.board.matching.reply.vo.MatchingReplyAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
 import com.myedumyselect.admin.login.vo.AdminLoginVO;
 import com.myedumyselect.admin.member.service.AcademyAdminService;
@@ -31,7 +35,6 @@ import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 import com.myedumyselect.payment.service.PaymentService;
 import com.myedumyselect.payment.vo.PaymentVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -67,16 +70,23 @@ public class AdminBoardController {
 	@Setter(onMethod_ = @Autowired)
 	private AcademySourceAdminService academySourceAdminService;
 
+	@Setter(onMethod_ = @Autowired)
+	private FreeReplyAdminService freeReplyAdminService;
+
+	@Setter(onMethod_ = @Autowired)
+	private MatchingReplyAdminService matchingReplyAdminService;
+
 	/*************************************************************
 	 * Admin notice
 	 *************************************************************/
-	
+
 	@GetMapping("/notice")
-	public String adminNoticeBoardView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, @SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+	public String adminNoticeBoardView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
-		
+
 		// 전체 레코드 조회
 		List<NoticeBoardVO> boardList = noticeBoardServcie.boardList(noticeBoardVO);
 		model.addAttribute("boardList", boardList);
@@ -85,35 +95,12 @@ public class AdminBoardController {
 		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(noticeBoardVO, total));
-		
+
 		return "admin/board/adminNoticeBoardView";
 	}
-//	/*************************************************************
-//	 * Admin notice
-//	 *************************************************************/
-//
-//	@GetMapping("/notice")
-//	public String adminNoticeBoardView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, HttpSession session) {
-//		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-//		if (adminLoginVO == null) {
-//			return "redirect:/admin/login";
-//		}
-//
-//		// 전체 레코드 조회
-//		List<NoticeBoardVO> boardList = noticeBoardServcie.boardList(noticeBoardVO);
-//		model.addAttribute("boardList", boardList);
-//		log.info(noticeBoardVO.getKeyword());
-//		// 전체 레코드수 반환.
-//		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
-//		// 페이징 처리
-//		model.addAttribute("pageMaker", new PageDTO(noticeBoardVO, total));
-//
-//		return "admin/board/adminNoticeBoardView";
-//	}
 
 	@GetMapping(value = "/writeForm")
-	public String writeForm(HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String writeForm(@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -128,8 +115,8 @@ public class AdminBoardController {
 	}
 
 	@GetMapping("/boardDetail")
-	public String boardDetail(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String boardDetail(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -145,9 +132,8 @@ public class AdminBoardController {
 	}
 
 	@GetMapping("/updateForm")
-	public String updateForm(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model, HttpSession session)
-			throws Exception {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String updateForm(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) throws Exception {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -176,8 +162,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/matching")
 	public String matchingBoardAdminView(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -195,8 +180,7 @@ public class AdminBoardController {
 
 	@GetMapping("/matchingBoardDetail")
 	public String matchingBoardAdminDetail(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -216,8 +200,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/free")
 	public String freeBoardAdminView(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -235,8 +218,7 @@ public class AdminBoardController {
 
 	@GetMapping("/freeBoardDetail")
 	public String freeBoardAdminDetail(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -246,8 +228,8 @@ public class AdminBoardController {
 	}
 
 	@PostMapping("/freeBoardDelete")
-	public String freegBoardAdminDelete(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model,
-			HttpSession session) throws Exception {
+	public String freegBoardAdminDelete(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model)
+			throws Exception {
 		freeBoardAdminService.boardDelete(freeBoardAdminVO);
 		return "redirect:/adminBoard/free";
 	}
@@ -256,8 +238,8 @@ public class AdminBoardController {
 	 * Admin advertise
 	 *************************************************************/
 	@GetMapping("/advertise")
-	public String advertiseBoardAdminView(@ModelAttribute AdvertiseVO advertiseVO, Model model, HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String advertiseBoardAdminView(@ModelAttribute AdvertiseVO advertiseVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -273,12 +255,84 @@ public class AdminBoardController {
 		return "admin/board/advertiseBoardAdminView";
 	}
 
+	@PostMapping("/advertiseBoardDelete")
+	public String freegBoardAdminDelete(@ModelAttribute AdvertiseVO advertiseVO, Model model) throws Exception {
+		advertiseService.advertiseDelete(advertiseVO);
+		return "redirect:/adminBoard/advertise";
+	}
+
+	@GetMapping("/advertiseBoardDetail")
+	public String freeBoardAdminDetail(@ModelAttribute AdvertiseVO advertiseVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+		AdvertiseVO detail = advertiseService.advertiseDetail(advertiseVO);
+		model.addAttribute("detail", detail);
+		return "admin/board/advertiseBoardAdminDetail";
+	}
+
+	/*************************************************************
+	 * Admin freeComment
+	 *************************************************************/
+	@GetMapping("/freeComment")
+	public String freeCommentAdminView(@ModelAttribute FreeReplyAdminVO freeReplyAdminVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+
+		List<FreeReplyAdminVO> commentList = freeReplyAdminService.commentList(freeReplyAdminVO);
+		model.addAttribute("commentList", commentList);
+
+		// 전체 레코드수 반환.
+		int total = freeReplyAdminService.commentListCnt(freeReplyAdminVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(freeReplyAdminVO, total));
+
+		return "admin/board/freeCommentAdminView";
+	}
+
+	@PostMapping("/freeCommentDelete")
+	public String freeCommentDelete(@ModelAttribute FreeReplyAdminVO freeReplyAdminVO, Model model) throws Exception {
+		freeReplyAdminService.commentDelete(freeReplyAdminVO);
+		return "redirect:/adminBoard/freeComment";
+	}
+
+	/*************************************************************
+	 * Admin matchingComment
+	 *************************************************************/
+	@GetMapping("/matchingComment")
+	public String matchingCommentAdminView(@ModelAttribute MatchingReplyAdminVO matchingReplyAdminVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
+
+		List<MatchingReplyAdminVO> commentList = matchingReplyAdminService.commentList(matchingReplyAdminVO);
+		model.addAttribute("commentList", commentList);
+
+		// 전체 레코드수 반환.
+		int total = matchingReplyAdminService.commentListCnt(matchingReplyAdminVO);
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(matchingReplyAdminVO, total));
+
+		return "admin/board/matchingCommentAdminView";
+	}
+
+	@PostMapping("/matchingCommentDelete")
+	public String freeCommentDelete(@ModelAttribute MatchingReplyAdminVO matchingReplyAdminVO, Model model)
+			throws Exception {
+		matchingReplyAdminService.commentDelete(matchingReplyAdminVO);
+		return "redirect:/adminBoard/matchingComment";
+	}
+
 	/*************************************************************
 	 * Admin payment
 	 *************************************************************/
 	@GetMapping("/payment")
-	public String paymentBoardAdminView(@ModelAttribute PaymentVO paymentVO, Model model, HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String paymentBoardAdminView(@ModelAttribute PaymentVO paymentVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -294,8 +348,8 @@ public class AdminBoardController {
 	}
 
 	@GetMapping("/paymentBoardDetail")
-	public String paymentBoardDetail(@ModelAttribute PaymentVO paymentVO, Model model, HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String paymentBoardDetail(@ModelAttribute PaymentVO paymentVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -316,8 +370,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/personal")
 	public String personalBoardAdminView(@ModelAttribute PersonalAdminVO personalAdminVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -334,8 +387,7 @@ public class AdminBoardController {
 
 	@GetMapping("/personalListDetail")
 	public String personalListDetail(@ModelAttribute PersonalAdminVO personalAdminVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -356,8 +408,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/academy")
 	public String academyBoardAdminView(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -373,8 +424,8 @@ public class AdminBoardController {
 	}
 
 	@GetMapping("/acadmeyListDetail")
-	public String academyListDetail(@ModelAttribute AcademyAdminVO academyAdminVO, Model model, HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+	public String academyListDetail(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -390,32 +441,13 @@ public class AdminBoardController {
 		return "redirect:/adminBoard/academy";
 
 	}
-//	@PostMapping("/academyDelete")
-//	public String academyDelete(Model model, HttpSession session, SessionStatus sessionStatus) throws Exception {
-//		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-//		String academyId = loginVo.getId();
-//		AcademyAdminVO academyAdminVO = new AcademyAdminVO();
-//		academyAdminVO.setAcademyId(academyId);
-//		AcademyAdminVO selectedAcademyAdminVO = academyAdminService.memberDetail(academyAdminVO);
-//		log.info("delete 결과 : " + academyAdminService.memberDelete(selectedAcademyAdminVO));
-//		log.info(selectedAcademyAdminVO.toString());
-//		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-//		if (adminLoginVO != null) {
-//			return "redirect:/adminBoard/academy";
-//		}
-//
-//		sessionStatus.setComplete();
-//		session.invalidate();
-//		return "redirect:/";
-//	}
 
 	/*************************************************************
 	 * Admin academySource
 	 *************************************************************/
 	@GetMapping("/academySource")
 	public String academySourceBoardAdminView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -432,8 +464,7 @@ public class AdminBoardController {
 
 	@GetMapping("/acadmeySourceListDetail")
 	public String academySourceListDetail(@ModelAttribute AcademySourceVO academyAdminVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -448,8 +479,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/adminBoard/academySourceLoad")
 	public String academySourceLoadView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
-			HttpSession session) {
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}

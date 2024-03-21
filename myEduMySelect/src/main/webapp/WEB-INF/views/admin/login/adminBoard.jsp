@@ -12,9 +12,7 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<!-- Favicons -->
-<link href="/resources/include/admin/image/admin.png" rel="icon">
-<link href="/resources/include/admin/image/admin.png" rel="apple-touch-icon">
+
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -31,7 +29,9 @@
 
 <!-- Template Main CSS File -->
 <link href="/resources/include/admin/admin/assets/css/style.css" rel="stylesheet">
-
+<!-- Favicons -->
+<link href="/resources/include/admin/image/admin.png" rel="icon">
+<link href="/resources/include/admin/image/admin.png" rel="apple-touch-icon">
 <style>
 .table {
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -121,6 +121,11 @@
 					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertise"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
 					</a></li>
 					<!-- End Tables Nav -->
+					<hr>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/freeComment"> <i class="bi bi-layout-text-window-reverse"></i><span>free comment board</span><i class="ms-auto"></i>
+					</a></li>
+					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matchingComment"> <i class="bi bi-layout-text-window-reverse"></i><span>matching comment board</span><i class="ms-auto"></i>
+					</a></li>
 					<hr>
 					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/payment"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
 					</a></li>
