@@ -13,7 +13,6 @@
     <result column="common_edit" property="commonEdit" />
     <result column="common_readcnt" property="commonReadcnt" /> 
     <result column="common_file" property="commonFile" />
-    <result column="freeReplyCnt" property="freeReplyCnt" />
 </resultMap>
 
 
@@ -39,6 +38,7 @@
 	</select>
 	
 	
+
 	<select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
 	    <![CDATA[
 	    SELECT
@@ -62,9 +62,11 @@
 
 
 	<insert id="freeInsert" parameterType="freeBoard">
+		
 		INSERT INTO tb_common_board(common_no, personal_id, member_type_id,
 		common_title, common_content, common_file)
 		VALUES (free_board_seq.nextval, #{personalId},	#{memberTypeId}, #{commonTitle}, #{commonContent}, #{commonFile})
+		
 	</insert>
 
 	<update id="readCntUpdate" parameterType="freeBoard">
@@ -95,8 +97,11 @@
         WHERE common_no = #{commonNo}
     </update>
 
+
+
 	<delete id="freeDelete" parameterType="freeBoard">
-		DELETE FROM tb_common_board where common_no = #{commonNo}
+		DELETE FROM
+		tb_common_board where common_no = #{commonNo}
 	</delete>
 
 </mapper>
