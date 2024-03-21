@@ -44,10 +44,10 @@ public class AdvertiseController {
 		log.info("advertiseBoardList() 호출 성공");
 		
 		//개인회원 로그인 세션 받기
-//		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, "로그인 후 열람 가능합니다.");
-//		if (checkedSessionResult == "FALSE") {
-//			return "redirect:/";
-//		}
+		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, "로그인 후 열람 가능합니다.");
+		if (checkedSessionResult == "FALSE") {
+			return "redirect:/";
+		}
 		//전체 레코드 조회
 		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
 		model.addAttribute("advertiseList", advertiseList);
@@ -120,7 +120,7 @@ public class AdvertiseController {
 	
 	
 	//홍보 게시판 글 삭제
-	@GetMapping("/advertiseDelete")
+	@PostMapping("/advertiseDelete")
 	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras, HttpSession session) throws Exception {
 		log.info("delete 호출 성공");
 		
