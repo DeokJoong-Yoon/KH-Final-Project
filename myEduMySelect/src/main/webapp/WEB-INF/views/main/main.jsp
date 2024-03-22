@@ -71,27 +71,28 @@
 	
 	      <nav id="navbar" class="navbar">
 	        <ul>
-	          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
+	          <li><a class="nav-link scrollto active" href="/">홈</a></li>
 	          <li><a class="nav-link scrollto" href="#about">About</a></li>
 	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
 	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
 	            <ul>
-	              <li><a href="/free/freeList">자유게시판</a></li>
-	            <li><a href="#">홍보게시판</a></li>
-	            <li><a href="/matching/">매칭게시판</a></li>
-	            <li><a href="/notice/boardList">공지게시판</a></li>
-	            <c:if test="${personalLogin.memberTypeId == 1}">
-	               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
-	            </c:if>
-	            <c:if test="${academyLogin.memberTypeId == 2}">
-	               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
-	            </c:if>
+	              	<li><a href="/notice/boardList">공지사항</a></li>
+					<li><a href="/matching/">맞춤형 검색</a></li>
+					<li><a href="/matching/boardList">매칭 게시판</a></li>
+					<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
+					<li><a href="/free/freeList">자유 게시판</a></li>
+		            <c:if test="${personalLogin.memberTypeId == 1}">
+		               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
+		            </c:if>
+		            <c:if test="${academyLogin.memberTypeId == 2}">
+		               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
+		            </c:if>
 	            </ul>
 	          </li>
-	          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+	          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
 	          <c:choose>
 	          <c:when test="${not empty personalLogin}">
-	              <li><a class="nav-link scrollto">[개인]&nbsp&nbsp${personalLogin.personalName}님 환영합니다.</a></li>
+	              <li><a class="nav-link scrollto">[개인]&nbsp;&nbsp;${personalLogin.personalName}님 환영합니다.</a></li>
 	              <li>
 	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
 	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
@@ -99,7 +100,7 @@
 	              </li>
 	          </c:when>
 	          <c:when test="${not empty academyLogin}">
-	              <li><a class="nav-link scrollto">[학원]&nbsp&nbsp${academyLogin.academyName}님 환영합니다.</a></li>
+	              <li><a class="nav-link scrollto">[학원]&nbsp;&nbsp;${academyLogin.academyName}님 환영합니다.</a></li>
 	              <li>
 	                  <form action="${pageContext.request.contextPath}/academy/logout" method="POST">
 	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
@@ -198,7 +199,7 @@
 									<i class="bx bxl-dribbble"></i>
 								</div>
 								<h4>
-									<a href="">자유게시판</a>
+									<a href="/free/freeList">자유게시판</a>
 								</h4>
 								<p>자유롭게 좋은 의견을 말해주세요.</p>
 							</div>
@@ -212,7 +213,7 @@
 									<i class="bx bx-file"></i>
 								</div>
 								<h4>
-									<a href="">홍보게시판</a>
+									<a href="/advertise/advertiseBoardList">홍보게시판</a>
 								</h4>
 								<p>멋진 교육 장소를 마음껏 뽐내주세요</p>
 							</div>
@@ -225,13 +226,14 @@
 									<i class="bx bx-tachometer"></i>
 								</div>
 								<h4>
-									<a href="">맞춤형검색/매칭게시판</a>
+									<a href="/matching/">맞춤형검색/매칭게시판</a>
 								</h4>
-								<p>내가 선택한 교육을 여기서 확인하세요.</p>
+								<p>나에게 꼭 맞는 교육을 여기서 확인하세요.</p>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 		<!-- End Cliens Section -->
 
@@ -245,8 +247,8 @@
 
 				<div class="row content">
 					<div class="col-lg-6">
-						<p>모든 학부모와 학생이 쉽고 효과적으로 오프라인 학원을 선택할 수 있도록 하는 교육 정보 중개 서비스를
-							제공하여, 교육의 질적 향상과 부담을 덜어드립니다</p>
+						<p>모든 학부모와 학생이 보다 쉽고 효과적으로 오프라인 학원을 선택할 수 있도록 하는 교육 정보 중개 서비스를
+							제공하여, 교육의 질적 향상을 돕고 개인의 부담을 덜어드립니다.</p>
 						<ul>
 							<li><i class="ri-check-double-line"></i> 투명하고 객관적인 정보 제공</li>
 							<li><i class="ri-check-double-line"></i> 맞춤형 추천 시스템</li>
