@@ -42,23 +42,31 @@
 	<select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
 	    <![CDATA[
 	    SELECT
-	        common_no, personal_id, common_title, to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date, 
-	        common_readcnt, common_file
+	        common_no, personal_id, common_title, to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date, common_readcnt, common_file,
+	        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_readcnt
 	    FROM (
-	        SELECT 
-	            rownum AS rnum, common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
-	        FROM (
-	            SELECT 
-	                common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
-	            FROM tb_common_board
-	            WHERE common_no >= 10000 AND common_no < 20000
-	            ORDER BY common_no DESC
+	            select /*+index_desc(tb_common_board tb_common_board_pk)*/
+	                rownum AS rnum, common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
+	            from (
+	                select common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
+	                from tb_common_board
+	                ]]>
+	        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	            <include refid="freeSearch"></include>
+	        </trim>
+	        <![CDATA[
+	                ORDER BY common_no DESC
+	            )
+	        where rownum <= #{pageNum} * #{amount}
 	        )
-	        WHERE rownum <= #{pageNum} * #{amount}
-	    )
-	    WHERE rnum > (#{pageNum} - 1) * #{amount}
+	    freeList         
+	    where rnum > (#{pageNum} - 1) * #{amount}
+	    and common_no >= 10000 and common_no <20000
+	    ORDER BY common_no desc
 	    ]]>
 	</select>
+
+
 
 
 	<insert id="freeInsert" parameterType="freeBoard">

@@ -18,7 +18,7 @@ $(function() {
 		
 		if(isConfirmed) {
 			$("#formData").attr({
-				"method":"get",
+				"method":"post",
 				"action":"/advertise/advertiseDelete"
 			});
 			$("#formData").submit();

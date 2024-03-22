@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.admin.board.free.reply.dao.MatchingReplyAdminDAO">
+	<resultMap type="matchingReplyAdmin" id="matchingReplyAdminMap">
+		<id column="matching_comment_no" property="matchingCommentNo" />
+		<result column="academy_id" property="academyId" />
+		<result column="matching_comment_nickname" property="matchingCommentNickname" />
+		<result column="matching_comment_content" property="matchingCommentContent" />
+		<result column="matching_comment_date" property="matchingCommentDate" />
+	</resultMap>
+
+	<sql id="commentSearch">
+		<if test="search == 'academy_id'">
+		<![CDATA[ academy_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'matching_comment_content'"> 
+		<![CDATA[ matching_comment_content LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+	<!-- 전체 레코드 수 조회 -->
+	<select id="commentListCnt" parameterType="matchingReplyAdmin"
+		resultType="int">
+		SELECT count(*) FROM
+		tb_matching_comment
+		<trim prefix=" where (" suffix=")">
+			<include refid="commentSearch"></include>
+		</trim>
+	</select>
+
+	<select id="commentList" parameterType="matchingReplyAdmin"
+		resultMap="matchingReplyAdminMap"> 
+		<![CDATA[
+		SELECT matching_comment_no, academy_id, matching_comment_nickname, matching_comment_content, 
+		matching_comment_date
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_matching_comment pk_tb_matching_comment) */
+			rownum as rnum, matching_comment_no, academy_id, matching_comment_nickname, matching_comment_content, 
+			matching_comment_date
+			FROM (
+					select * from tb_matching_comment
+					order by matching_comment_date desc
+				 ) sortedBoardList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="commentSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+
+
+	<delete id="commentDelete" parameterType="matchingReplyAdmin">
+		DELETE FROM
+		tb_matching_comment
+		WHERE
+		matching_comment_no = #{matchingCommentNo}
+	</delete>
+
+</mapper>

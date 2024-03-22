@@ -7,4 +7,8 @@ import com.myedumyselect.admin.login.vo.AdminLoginVO;
 @Mapper
 public interface AdminLoginDao {
 	public AdminLoginVO loginProcess(AdminLoginVO login);
+
+	public int updateAdminInfo(AdminLoginVO newAdminInfo);
+
+	public int updateAdminPasswd(AdminLoginVO checkPassword);
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +24,7 @@ import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.matching.board.service.MatchingBoardService;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -40,13 +42,19 @@ public class MatchingBoardController {
 
 	// 매칭 메인 페이지에 글 목록 미리보기 구현
 	@GetMapping("/")
-	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, Model model, HttpSession session) {
-		log.info("mBoardListPreview() 호출 성공");
+	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, Model model, HttpSession session) {
 		String alertMsg = "경고";
-		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
+<<<<<<< HEAD
+		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, alertMsg);
 		if (checkedSessionResult == "FALSE") {
 			return "redirect:/";
 		}
+=======
+//		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
+//		if (checkedSessionResult == "FALSE") {
+//			return "redirect:/";
+//		}
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 
 		List<MatchingBoardVO> list = mbService.mBoardListPreview(mbVO);
 		model.addAttribute("mBoardList", list);
@@ -57,13 +65,18 @@ public class MatchingBoardController {
 	// 매칭게시판 전체보기 구현
 	@GetMapping("/boardList")
 	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
+<<<<<<< HEAD
+//		log.info("mBoardList() 호출 성공");
+//		
+=======
 		log.info("mBoardList() 호출 성공");
 		
-		String alertMsg = "경고";
-		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
-		if (checkedSessionResult == "FALSE") {
-			return "redirect:/";
-		}
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
+//		String alertMsg = "경고";
+//		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
+//		if (checkedSessionResult == "FALSE") {
+//			return "redirect:/";
+//		}
 		// 전체 레코드 조회
 		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
 		model.addAttribute("mBoardList", list);

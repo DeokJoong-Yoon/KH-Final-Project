@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<!DOCTYPE html>
-<html lang="kr">
+    pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>					
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>		
 
 <head>
 <meta charset="utf-8">
@@ -59,36 +59,54 @@
 
 <body>
 	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-		<div class="container d-flex align-items-center">
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <h1 class="logo me-auto">
+      	<a href="/">MyEdu<br />MySelect</a>
+      </h1>
 
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
-					<li class="dropdown"><a href="#"><span>메뉴</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
-						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/">홈</a></li>
+          <li><a class="nav-link scrollto" href="/">About</a></li>
+          <li><a class="nav-link scrollto" href="/">Team</a></li>
+          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              	<li><a href="/notice/boardList">공지사항</a></li>
+				<li><a href="/matching/">맞춤형 검색</a></li>
+				<li><a href="/matching/boardList">매칭 게시판</a></li>
+				<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
+				<li><a href="/free/freeList">자유 게시판</a></li>
+				<c:if test="${commonLogin.memberTypeId == 1}">
+				    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">마이페이지</a></li>
+				</c:if>
+                         <c:if test="${commonLogin.memberTypeId == 2}">
+                             <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+                         </c:if>
+			</ul>
+		  </li>
+			<li><a class="nav-link scrollto" href="/">Pricing</a></li>
+			<c:choose>
+                     <c:when test="${not empty commonLogin}">
+                         <li><a class="nav-link scrollto">
+                            <c:if test="${commonLogin.memberTypeId == 1}">[개인] </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">[학원] </c:if>
+                            ${commonLogin.name}님 환영합니다.</a></li>
+                         <li>
+                             <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                                 <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                             </form>
+                         </li>
+                     </c:when>
+                     <c:otherwise>
+                         <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+                     </c:otherwise>
+                 </c:choose>               		
+			</ul>
+			<i class="bi bi-list mobile-nav-toggle"></i>
+		</nav>
+		<!-- .navbar -->
 
 		</div>
 	</header>
@@ -105,8 +123,8 @@
 				<div class="col-12 text-center banner">
 		            자유 게시판<br/>
 		            <div class="descBox">
-		            	자유롭게 글을 작성할 수 있는 자유게시판입니다.<br>
-		            	질문, 후기, 정보 등 다양한 글을 남겨주세요!
+		            	자유롭게 글을 작성할 수 있는 <b>자유게시판</b>입니다.<br>
+		            	질문, 후기, 정보 등 도움이 될 만한 다양한 글을 남겨주세요!
 		            </div>
 		       </div> 
 		    </div>
@@ -119,14 +137,12 @@
 		
 			<div class="container">
 			
+				<!-- ======= 검색 영역 ======= -->
 				<div id="freeSearch" class="text-right" style="width:300%;">
 					<form id="f_search" name="f_search">
 					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 						<div class="row g-2 alian-items-center">
-							<div class="col-auto">
-								<label for="search">검색조건</label>
-							</div>
 							<div class="col-auto">
 								<select id="search" name="search" class="form-select form-select-sm">
 									<option value="all">전체 목록 조회</option>
@@ -143,26 +159,27 @@
 							</div>
 						</div>
 					</form>
-				</div>
+				</div>  <!-- 검색 영역 끝 -->
 			
 				<div class="list">
-					<table cellpadding="0" cellspacing="0" border="0">
-						<thead class="text-center">
+					<table >
+						<thead>
 							<tr>
-								<th class="col-md-1">글번호</th>
-								<th class="col-md-4">제목</th>
-								<th class="col-md-2">작성자</th>
-								<th class="col-md-2">작성시간</th>
-								<th class="col-md-1">조회수</th>
+								<th>글번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성시간</th>
+								<th>조회수</th>
+								<th></th>
 							</tr>
 						</thead>
-						<tbody id="list" class="table-group-divider">
+						<tbody id="list" >
 						    <c:choose>
 						        <c:when test="${not empty freeList}">
 						            <c:forEach var="free" items="${freeList}" varStatus="status">
-						                <tr class="text-center" data-num="${free.commonNo}">
+						                <tr data-num="${free.commonNo}">
 						                    <td>${free.commonNo}</td>
-						                    <td class="goDetail text-start">${free.commonTitle}
+						                    <td class="goDetail">${free.commonTitle}
 						                        <c:if test="${free.freeReplyCnt > 0}">
 													<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
 												</c:if>
@@ -194,7 +211,7 @@
 					<ul class="pagination justify-content-center">
 						<c:if test="${pageMaker.prev}">
 							<li class="page-item">
-								<a href="${pageMaker.startPage - 1}" class="page-link">Prev</a>
+								<a href="${pageMaker.startPage - 1}" class="page-link">이전</a>
 							</li>
 						</c:if>
 						
@@ -206,7 +223,7 @@
 						
 						<c:if test="${pageMaker.next}">
 							<li class="page-item">
-								<a href="${pageMaker.endPage + 1 }" class="page-link">Next</a>
+								<a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
 							</li>
 						</c:if>
 					</ul>

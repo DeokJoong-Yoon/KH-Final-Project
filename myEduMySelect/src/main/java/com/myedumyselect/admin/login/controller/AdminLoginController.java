@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,21 +28,9 @@ import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @SessionAttribute : 모델(Model) 정보를 HTTP 세션에 저장해주는 어노테이션 HttpSession을 직접 사용할
- *                   수도있지만 이 어노테이션에 설정한 이름에 해당하는 모델 정보를 자동으로 세선에 넣어준다.
- */
-
-@Controller
-/**
- * @SessionAttributes 파라미터로 지정된 이름과 같은 이름이
- * @ModelAttribute에 지정 있을 겨웅 메소드가 반환되는 값은 세션에 저장된다.
- */
-//@SessionAttributes({"adminLogin", "boardList"})
 @SessionAttributes("adminLogin")
 @RequestMapping("/admin/*")
 @Slf4j
@@ -127,14 +118,51 @@ public class AdminLoginController {
 	}
 
 	@GetMapping(value = "/myPage")
-	public String myPageView(HttpSession session) {
-
-		AdminLoginVO adminLoginVO = (AdminLoginVO) session.getAttribute("adminLogin");
-
+	public String myPageView(@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
 
 		return "/admin/login/myPage";
+	}
+
+	@PostMapping(value = "/updateAdminInfo")
+	public String updateAdminInfo(AdminLoginVO newAdminInfo, Model model) {
+
+		adminLoginService.updateAdminInfo(newAdminInfo);
+		model.addAttribute("adminLogin", newAdminInfo);
+		return "/admin/login/myPage";
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/updateAdminPasswd")
+	public String updateAdminPasswd(@RequestParam("currentPassword") String currentPassword,
+			@RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
+			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO, RedirectAttributes ras, Model model) {
+		AdminLoginVO curAdminLogin = new AdminLoginVO();
+		curAdminLogin.setAdminId(adminLoginVO.getAdminId());
+		curAdminLogin.setAdminPasswd(currentPassword);
+		AdminLoginVO checkPassword = adminLoginService.loginProcess(curAdminLogin);
+		// 현재 계정의 패스워드 재확인
+		if (checkPassword != null) {
+			if (!renewPassword.equals(newPassword)) {
+				ras.addFlashAttribute("errorMsg", "New Password 와 Re-enter New Password 가 일치하지 않습니다.");
+				return "FALSE";
+			}
+			int result = 0;
+			checkPassword.setAdminPasswd(renewPassword);
+			result = adminLoginService.updateAdminPasswd(checkPassword);
+			if (result == 1) {
+				model.addAttribute("adminLogin", adminLoginService.loginProcess(checkPassword));
+				ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
+				return "TRUE";
+			}
+		} else {
+			ras.addFlashAttribute("errorMsg", "패스워드가 맞지 않습니다.");
+			return "FALSE";
+		}
+
+		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
+		return "FALSE";
 	}
 }

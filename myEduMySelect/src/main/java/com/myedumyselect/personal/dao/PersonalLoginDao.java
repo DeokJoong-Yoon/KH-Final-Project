@@ -3,13 +3,13 @@ package com.myedumyselect.personal.dao;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 @Mapper
 public interface PersonalLoginDao {
-   
+
 	// 로그인
 	public PersonalLoginVO loginProcess(PersonalLoginVO login);
 
@@ -33,10 +33,7 @@ public interface PersonalLoginDao {
 
 	/// 회원정보 수정
 	public int personalUpdate(PersonalLoginVO login);
-
-	PersonalLoginVO findId(String personalId);
-
-	// 비밀번호 수정 일자
-	public int updatePasswdChangeDate(LoginVo login);
-
+	
+	//비밀번호 변경 업데이트 날짜
+	public int updatePasswdChangeDate(PersonalLoginVO login);
 }
