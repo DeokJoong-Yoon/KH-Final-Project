@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/matching/*")
 @SessionAttributes(SessionInfo.COMMON)
 public class MatchingBoardController {
-	
+
 	@Autowired
 	private MatchingBoardService mbService;
 	@Autowired
@@ -42,19 +42,13 @@ public class MatchingBoardController {
 
 	// 매칭 메인 페이지에 글 목록 미리보기 구현
 	@GetMapping("/")
-	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, Model model, HttpSession session) {
+	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO,
+			@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, Model model, HttpSession session) {
 		String alertMsg = "경고";
-<<<<<<< HEAD
 		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, alertMsg);
 		if (checkedSessionResult == "FALSE") {
 			return "redirect:/";
 		}
-=======
-//		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
-//		if (checkedSessionResult == "FALSE") {
-//			return "redirect:/";
-//		}
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 
 		List<MatchingBoardVO> list = mbService.mBoardListPreview(mbVO);
 		model.addAttribute("mBoardList", list);
@@ -65,31 +59,19 @@ public class MatchingBoardController {
 	// 매칭게시판 전체보기 구현
 	@GetMapping("/boardList")
 	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
-<<<<<<< HEAD
-//		log.info("mBoardList() 호출 성공");
-//		
-=======
-		log.info("mBoardList() 호출 성공");
-		
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
-//		String alertMsg = "경고";
-//		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
-//		if (checkedSessionResult == "FALSE") {
-//			return "redirect:/";
-//		}
 		// 전체 레코드 조회
 		List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
 		model.addAttribute("mBoardList", list);
-		
+
 		// 전체 레코드 수 반환
 		int total = mbService.mBoardListCnt(mbVO);
-		
+
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(mbVO, total));
 		model.addAttribute("kwd", mbVO.getKeyword());
-		
+
 		log.info(mbVO.getKeyword());
-		
+
 		return "matching/matchingBoardList";
 	}
 //	// 매칭게시판 전체보기 구현
@@ -226,8 +208,7 @@ public class MatchingBoardController {
 
 		return "redirect:" + url;
 	}
-	
-	
+
 //	//이전 게시글 이동
 //	@GetMapping("/prev/{matchingNo}")
 //	public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {

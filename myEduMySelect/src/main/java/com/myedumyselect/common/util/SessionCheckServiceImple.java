@@ -1,6 +1,5 @@
 package com.myedumyselect.common.util;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -29,8 +28,9 @@ public class SessionCheckServiceImple implements SessionCheckService {
 	private PersonalLoginService personalLoginService;
 
 	@Override
-	public String isAcademySessionCheck(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, Model model, String alertMsg) {
-		
+	public String isAcademySessionCheck(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, Model model,
+			String alertMsg) {
+
 		// 로그인 세션여부 체크
 		if (academyLoginVO == null) {
 			model.addAttribute("alertMsg", alertMsg);
@@ -65,9 +65,10 @@ public class SessionCheckServiceImple implements SessionCheckService {
 			}
 		}
 	}
+
 	@Override
 	public String isAcademySessionCheck(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, Model model) {
-		
+
 		// 로그인 세션여부 체크
 		if (academyLoginVO == null) {
 			model.addAttribute("alertMsg", "로그인이 필요합니다.");
@@ -79,7 +80,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				return "FALSE";
 			} else {
 				String academyId = academyLoginVO.getAcademyId(); // 로그인 아이디 가져오기
-				
+
 				// academyId를 이용하여 학원 정보 조회
 				AcademyLoginVO selectedAcademyLoginVO = academyLoginDao.findById(academyId);
 				// 학원 정보가 존재하면
@@ -102,10 +103,9 @@ public class SessionCheckServiceImple implements SessionCheckService {
 		}
 	}
 
-	
 	@Override
-	public String isPersonalSessionCheck(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, Model model, String alertMsg) {
-		
+	public String isPersonalSessionCheck(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO,
+			Model model, String alertMsg) {
 
 		if (personalLoginVO == null) {
 			model.addAttribute("alertMsg", alertMsg);
@@ -122,10 +122,11 @@ public class SessionCheckServiceImple implements SessionCheckService {
 			}
 		}
 	}
+
 	@Override
-	public String isPersonalSessionCheck(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, Model model) {
-		
-		
+	public String isPersonalSessionCheck(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO,
+			Model model) {
+
 		if (personalLoginVO == null) {
 			model.addAttribute("alertMsg", "로그인이 필요합니다.");
 			return "FALSE";
