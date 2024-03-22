@@ -70,6 +70,8 @@
 		</div>
 	</section>
 
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
+
   <!-- Vendor JS Files -->
   
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>

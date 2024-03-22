@@ -68,6 +68,8 @@
 			</div>
 		</div>
 	</section>
+	
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
 
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/js/common.js"></script>
