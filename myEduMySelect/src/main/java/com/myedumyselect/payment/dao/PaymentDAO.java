@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.payment.vo.PaymentVO;
 
 @Mapper
@@ -21,5 +21,5 @@ public interface PaymentDAO {
 
 	public int boardDelete(PaymentVO paymentVO);
 
-	public int paymentCheck(AcademyLoginVo academyLoginVo);
+	public int paymentCheck(AcademyLoginVO academyLoginVo);
 }

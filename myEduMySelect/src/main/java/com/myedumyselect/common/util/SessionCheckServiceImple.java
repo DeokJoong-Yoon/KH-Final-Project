@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.myedumyselect.academy.dao.AcademyLoginDao;
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.payment.service.PaymentService;
@@ -45,7 +45,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				String academyId = loginVo.getId(); // 로그인 아이디 가져오기
 
 				// academyId를 이용하여 학원 정보 조회
-				AcademyLoginVo academyLoginVo = academyLoginDao.findById(academyId);
+				AcademyLoginVO academyLoginVo = academyLoginDao.findById(academyId);
 				model.addAttribute("alertMsg", alertMsg);
 				// 학원 정보가 존재하면
 				if (academyLoginVo != null) {

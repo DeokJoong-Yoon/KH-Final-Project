@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.common.util.SessionCheckService;
@@ -111,9 +111,9 @@ public class MatchingBoardController {
 	// 맞춤형 검색 결과 구현
 	@PostMapping(value = "/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<AcademyLoginVo> mResult(@RequestBody MatchingBoardVO mbVO) {
+	public List<AcademyLoginVO> mResult(@RequestBody MatchingBoardVO mbVO) {
 		log.info("맞춤형 검색 결과 호출");
-		List<AcademyLoginVo> list = mbService.mResult(mbVO);
+		List<AcademyLoginVO> list = mbService.mResult(mbVO);
 		return list;
 	}
 

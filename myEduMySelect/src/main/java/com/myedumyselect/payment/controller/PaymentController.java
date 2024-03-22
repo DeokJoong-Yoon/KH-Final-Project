@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.payment.service.PaymentService;
@@ -34,7 +34,7 @@ public class PaymentController {
 	public String paymentBoardView(HttpSession session, Model model) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		String academyId = loginVo.getId();
-		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
 		
 		if (academyLoginVo == null) {
 			return "redirect:/academyaccount/login";
@@ -51,7 +51,7 @@ public class PaymentController {
 	public String paySuccessView(@ModelAttribute PaymentVO pvo, Model model, HttpSession session) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		String academyId = loginVo.getId();
-		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
 		if (academyLoginVo == null) {
 			return "redirect:/academyaccount/login";
 		}
@@ -66,7 +66,7 @@ public class PaymentController {
 	public String paymentFailView(HttpSession session) {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		String academyId = loginVo.getId();
-		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
 		if (academyLoginVo == null) {
 			return "redirect:/academyaccount/login";
 		}

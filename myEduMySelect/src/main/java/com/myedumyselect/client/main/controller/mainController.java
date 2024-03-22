@@ -36,15 +36,26 @@ public class mainController {
 	@GetMapping("/")
 	public String mainIndex(Model model,  HttpSession session) {
 		
-		//개인+학원 공통 로그인 세션(통합)
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		String userId = "";
-		if(loginVo != null) {
+String userId = "";
+		
+		//개인 로그인 세션
+		PersonalLoginVO personalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");		
+		if(personalLogin != null) {
 			log.info("로그인 세션 있음");
-			userId = loginVo.getId();
+			userId = personalLogin.getPersonalId();
 		} else {
 			log.info("로그인 세션 없음");
 		}
+		
+		//개인 로그인 세션
+		AcademyLoginVO academyLogin = (AcademyLoginVO) session.getAttribute("academyLogin");		
+		if(academyLogin != null) {
+			log.info("로그인 세션 있음");
+			userId = academyLogin.getAcademyId();
+		} else {
+			log.info("로그인 세션 없음");
+		}
+		
 		model.addAttribute("userId", userId);
 		
 		return "main/main";
