@@ -69,9 +69,9 @@
 				<c:if test="${commonLogin.memberTypeId == 1}">
 				    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">마이페이지</a></li>
 				</c:if>
-                         <c:if test="${commonLogin.memberTypeId == 2}">
-                             <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
-                         </c:if>
+                <c:if test="${commonLogin.memberTypeId == 2}">
+                    <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+                </c:if>
 			</ul>
 		  </li>
 			<li><a class="nav-link scrollto" href="/">Pricing</a></li>
@@ -127,8 +127,10 @@
       
       	<form name="formData" id="formData">
       		<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo }"/>
-      		<%-- <input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' /> --%>
+      		<input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' />
       	</form>
+      	
+      	<p>${detail.fileVO[0].getFilePath()}dd</p>
       
       	<div class="userId">${userId }</div>
       	

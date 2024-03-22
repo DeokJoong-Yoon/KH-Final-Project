@@ -1,13 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="kr">
 
-<head> 
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>MyEduMySelect</title>
+
+<!-- 모바일 웹 페이지 설정 -->
+<link rel="shortcut icon" href="/resources/images/common/icon.png" />
+<link rel="apple-touch-icon" href="/resources/images/common/icon.png" />
+<!-- 모바일 웹 페이지 설정 끝 -->
+
+<link rel="stylesheet" type="text/css"
+	href="/resources/include/css/default.css" />
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
+<script src="/resources/include/js/common.js"></script>
+
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -45,22 +69,10 @@
 <link
 	href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
 	rel="stylesheet">
-
-<!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/assets/css/main.css" rel="stylesheet">
-
-<!-- =======================================================
-  * Template Name: MyEduMySelect
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
-
 <body>
-
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top ">
 	    <div class="container d-flex align-items-center">
@@ -71,27 +83,28 @@
 	
 	      <nav id="navbar" class="navbar">
 	        <ul>
-	          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
+	          <li><a class="nav-link scrollto active" href="/">홈</a></li>
 	          <li><a class="nav-link scrollto" href="#about">About</a></li>
 	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+	          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
 	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
 	            <ul>
-	              <li><a href="/free/freeList">자유게시판</a></li>
-	            <li><a href="#">홍보게시판</a></li>
-	            <li><a href="/matching/">매칭게시판</a></li>
-	            <li><a href="/notice/boardList">공지게시판</a></li>
-	            <c:if test="${personalLogin.memberTypeId == 1}">
-	               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
-	            </c:if>
-	            <c:if test="${academyLogin.memberTypeId == 2}">
-	               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
-	            </c:if>
+	              	<li><a href="/notice/boardList">공지사항</a></li>
+					<li><a href="/matching/">맞춤형 검색</a></li>
+					<li><a href="/matching/boardList">매칭 게시판</a></li>
+					<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
+					<li><a href="/free/freeList">자유 게시판</a></li>
+		            <c:if test="${personalLogin.memberTypeId == 1}">
+		               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
+		            </c:if>
+		            <c:if test="${academyLogin.memberTypeId == 2}">
+		               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
+		            </c:if>
 	            </ul>
 	          </li>
-	          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 	          <c:choose>
 	          <c:when test="${not empty personalLogin}">
-	              <li><a class="nav-link scrollto">[개인]&nbsp&nbsp${personalLogin.personalName}님 환영합니다.</a></li>
+	              <li><a class="nav-link scrollto">[개인]&nbsp;&nbsp;${personalLogin.personalName}님 환영합니다.</a></li>
 	              <li>
 	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
 	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
@@ -99,7 +112,7 @@
 	              </li>
 	          </c:when>
 	          <c:when test="${not empty academyLogin}">
-	              <li><a class="nav-link scrollto">[학원]&nbsp&nbsp${academyLogin.academyName}님 환영합니다.</a></li>
+	              <li><a class="nav-link scrollto">[학원]&nbsp;&nbsp;${academyLogin.academyName}님 환영합니다.</a></li>
 	              <li>
 	                  <form action="${pageContext.request.contextPath}/academy/logout" method="POST">
 	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
@@ -198,7 +211,7 @@
 									<i class="bx bxl-dribbble"></i>
 								</div>
 								<h4>
-									<a href="">자유게시판</a>
+									<a href="/free/freeList">자유게시판</a>
 								</h4>
 								<p>자유롭게 좋은 의견을 말해주세요.</p>
 							</div>
@@ -212,7 +225,7 @@
 									<i class="bx bx-file"></i>
 								</div>
 								<h4>
-									<a href="">홍보게시판</a>
+									<a href="/advertise/advertiseBoardList">홍보게시판</a>
 								</h4>
 								<p>멋진 교육 장소를 마음껏 뽐내주세요</p>
 							</div>
@@ -225,13 +238,14 @@
 									<i class="bx bx-tachometer"></i>
 								</div>
 								<h4>
-									<a href="">맞춤형검색/매칭게시판</a>
+									<a href="/matching/">맞춤형검색/매칭게시판</a>
 								</h4>
-								<p>내가 선택한 교육을 여기서 확인하세요.</p>
+								<p>나에게 꼭 맞는 교육을 여기서 확인하세요.</p>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 		<!-- End Cliens Section -->
 
@@ -245,8 +259,8 @@
 
 				<div class="row content">
 					<div class="col-lg-6">
-						<p>모든 학부모와 학생이 쉽고 효과적으로 오프라인 학원을 선택할 수 있도록 하는 교육 정보 중개 서비스를
-							제공하여, 교육의 질적 향상과 부담을 덜어드립니다</p>
+						<p>모든 학부모와 학생이 보다 쉽고 효과적으로 오프라인 학원을 선택할 수 있도록 하는 교육 정보 중개 서비스를
+							제공하여, 교육의 질적 향상을 돕고 개인의 부담을 덜어드립니다.</p>
 						<ul>
 							<li><i class="ri-check-double-line"></i> 투명하고 객관적인 정보 제공</li>
 							<li><i class="ri-check-double-line"></i> 맞춤형 추천 시스템</li>
