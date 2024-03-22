@@ -34,4 +34,5 @@ public interface AdvertiseService {
 	
 	//다음 게시글 번호 추출
 	public int nextCommonNo(AdvertiseVO aVO);
+	
 }

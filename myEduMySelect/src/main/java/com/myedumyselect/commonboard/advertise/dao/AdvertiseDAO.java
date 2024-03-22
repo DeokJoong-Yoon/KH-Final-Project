@@ -45,4 +45,7 @@ public interface AdvertiseDAO {
 	
 	//다음 게시글 번호 추출
 	public int nextCommonNo(AdvertiseVO aVO);
+	
+	//조회수
+	public int readCntUpdate(AdvertiseVO aVO);
 }

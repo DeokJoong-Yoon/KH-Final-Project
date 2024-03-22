@@ -75,7 +75,10 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	//홍보게시판 글 상세 보기
 	@Override
 	public AdvertiseVO advertiseDetail(AdvertiseVO aVO) {
+		
 		AdvertiseVO detail = aDAO.advertiseDetail(aVO);
+		aDAO.readCntUpdate(aVO);
+		log.info("조회수 : " + aVO.getCommonReadcnt());
 		return detail;
 	}
 	
@@ -182,4 +185,6 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		int next = aDAO.nextCommonNo(aVO);
 		return next;
 	}
+
+
 }
