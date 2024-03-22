@@ -1,13 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="kr">
 
-<head> 
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<title>MyEduMySelect</title>
+
+<!-- 모바일 웹 페이지 설정 -->
+<link rel="shortcut icon" href="/resources/images/common/icon.png" />
+<link rel="apple-touch-icon" href="/resources/images/common/icon.png" />
+<!-- 모바일 웹 페이지 설정 끝 -->
+
+<link rel="stylesheet" type="text/css"
+	href="/resources/include/css/default.css" />
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
+<script src="/resources/include/js/common.js"></script>
+
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -45,22 +69,10 @@
 <link
 	href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css"
 	rel="stylesheet">
-
-<!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/assets/css/main.css" rel="stylesheet">
-
-<!-- =======================================================
-  * Template Name: MyEduMySelect
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
-
 <body>
-
 	<!-- ======= Header ======= -->
 	<header id="header" class="fixed-top ">
 	    <div class="container d-flex align-items-center">
@@ -74,6 +86,7 @@
 	          <li><a class="nav-link scrollto active" href="/">홈</a></li>
 	          <li><a class="nav-link scrollto" href="#about">About</a></li>
 	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+	          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
 	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
 	            <ul>
 	              	<li><a href="/notice/boardList">공지사항</a></li>
@@ -89,7 +102,6 @@
 		            </c:if>
 	            </ul>
 	          </li>
-	          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
 	          <c:choose>
 	          <c:when test="${not empty personalLogin}">
 	              <li><a class="nav-link scrollto">[개인]&nbsp;&nbsp;${personalLogin.personalName}님 환영합니다.</a></li>
