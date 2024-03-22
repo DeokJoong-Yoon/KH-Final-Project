@@ -2,7 +2,7 @@ package com.myedumyselect.payment.service;
 
 import java.util.List;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.payment.vo.PaymentVO;
 
 public interface PaymentService {
@@ -19,6 +19,6 @@ public interface PaymentService {
 
 	public int boardDelete(PaymentVO paymentVO);
 
-	public int paymentCheck(AcademyLoginVo academyLoginVo);
+	public int paymentCheck(AcademyLoginVO academyLoginVo);
 
 }

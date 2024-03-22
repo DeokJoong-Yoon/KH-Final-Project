@@ -1,12 +1,13 @@
 package com.myedumyselect.common.util;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myedumyselect.academy.dao.AcademyLoginDao;
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.payment.service.PaymentService;
 import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
@@ -43,7 +44,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				String academyId = academyLoginVO.getAcademyId(); // 로그인 아이디 가져오기
 
 				// academyId를 이용하여 학원 정보 조회
-				AcademyLoginVo selectedAcademyLoginVO = academyLoginDao.findById(academyId);
+				AcademyLoginVO selectedAcademyLoginVO = academyLoginDao.findById(academyId);
 				model.addAttribute("alertMsg", alertMsg);
 				// 학원 정보가 존재하면
 				if (selectedAcademyLoginVO != null) {
@@ -139,4 +140,5 @@ public class SessionCheckServiceImple implements SessionCheckService {
 			}
 		}
 	}
+
 }

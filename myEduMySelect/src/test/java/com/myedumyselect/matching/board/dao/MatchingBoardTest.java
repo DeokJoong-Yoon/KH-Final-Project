@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 

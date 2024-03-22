@@ -3,7 +3,7 @@ package com.myedumyselect.common.withdrawal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.common.withdrawal.dao.WithdrawalDAO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
@@ -20,7 +20,7 @@ public class WithdrawalServiceImpl implements WithdrawalService {
 	}
 
 	@Override
-	public int academyDelete(AcademyLoginVo academyLoginVo) {
+	public int academyDelete(AcademyLoginVO academyLoginVo) {
 		return withdrawalDAO.academyDelete(academyLoginVo);
 	}
 

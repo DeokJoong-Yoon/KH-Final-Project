@@ -8,7 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.matching.board.dao.MatchingBoardDAO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
@@ -35,7 +35,7 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	
 	//맞춤형 검색 결과 보기
 	@Override
-	public List<AcademyLoginVo> mResult(MatchingBoardVO mbVO) {
+	public List<AcademyLoginVO> mResult(MatchingBoardVO mbVO) {
 		return mbDAO.mResult(mbVO);
 	}
 
@@ -66,11 +66,11 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		
 		log.info(mbVO.getPrivateChecked().toString());
 	
-		List<AcademyLoginVo> totalList = mbDAO.searchEmail(mbVO);
+		List<AcademyLoginVO> totalList = mbDAO.searchEmail(mbVO);
 		
 		//전송할 이메일의 List 생성
 		List<String> emailList = new ArrayList<>();
-		for(AcademyLoginVo vo : totalList) {
+		for(AcademyLoginVO vo : totalList) {
 			String email = vo.getAcademyManagerEmail();
 		    emailList.add(email);
 		}

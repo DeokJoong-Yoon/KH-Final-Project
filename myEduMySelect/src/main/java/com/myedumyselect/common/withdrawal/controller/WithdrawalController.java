@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.common.withdrawal.service.WithdrawalService;
@@ -52,7 +52,7 @@ public class WithdrawalController {
 		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
 		
 		String academyId = loginVo.getId();
-		AcademyLoginVo academyLoginVo = academyLoginService.findById(academyId);
+		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
 		withdrawalService.academyDelete(academyLoginVo);
 		sessionStatus.setComplete();
 		return "redirect:/";
