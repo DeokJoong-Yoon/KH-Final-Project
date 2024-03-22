@@ -220,7 +220,7 @@ public class AcademyLoginController {
             
       
 //      AcademyLoginVO sessionAcademyLogin = (AcademyLoginVO) session.getAttribute("academyLogin");        
-      
+       
       System.out.println(sessionAcademyLogin.toString());
       sessionAcademyLogin.setAcademyManagerName(academyLogin.getAcademyManagerName());
       sessionAcademyLogin.setAcademyManagerEmail(academyLogin.getAcademyManagerEmail());

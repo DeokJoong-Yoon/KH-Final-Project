@@ -206,7 +206,7 @@ $(function() {
     	var academyKeyword5 = $("#academyKeyword5").val();
     	 */
     	
-    	
+    	 
         /* 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.*/ 
         if (confirm("회원 정보를 수정하시겠습니까?")) {
             // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
