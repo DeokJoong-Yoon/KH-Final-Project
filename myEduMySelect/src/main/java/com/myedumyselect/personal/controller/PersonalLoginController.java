@@ -172,7 +172,7 @@ public class PersonalLoginController {
 	@GetMapping("/loginselect")
 	public String loginSelect() {
 		// 로그인 선택창으로 이동
-		return "/main/loginelect";
+		return "/main/loginSelect";
 	}
 
 	// PRG 패턴 (Post-Redirect-Get)

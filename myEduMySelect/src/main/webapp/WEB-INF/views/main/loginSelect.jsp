@@ -54,53 +54,59 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
-
-      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">자유게시판</a></li>
-              <li><a href="#">홍보게시판</a></li>
-              <li><a href="#">매칭게시판</a></li>
-              <li><a href="/notice/boardList">공지게시판</a></li>
-			  <c:if test="${commonLogin.memberTypeId == 1}">
-				  <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">회원마이페이지</a></li>
-			  </c:if>
-			  <c:if test="${commonLogin.memberTypeId == 2}">
-                  <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
-              </c:if>
-			  </ul></li>
-		  <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <c:choose>
-              <c:when test="${not empty commonLogin}">
-                  <li><a class="nav-link scrollto">
-                  <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
-                  <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
-                  ${commonLogin.name} 님 환영합니다.</a></li>
-                  <li>
-                      <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
-                          <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
-                      </form>
-                  </li>
-              </c:when>
-              <c:otherwise>
-                  <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
-              </c:otherwise>
-          </c:choose>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
+	    <div class="container d-flex align-items-center">
+	
+	      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
+	      <!-- Uncomment below if you prefer to use an image logo -->
+	      <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+	
+	      <nav id="navbar" class="navbar">
+	        <ul>
+	          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
+	          <li><a class="nav-link scrollto" href="#about">About</a></li>
+	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
+	            <ul>
+	              <li><a href="/free/freeList">자유게시판</a></li>
+	            <li><a href="#">홍보게시판</a></li>
+	            <li><a href="/matching/">매칭게시판</a></li>
+	            <li><a href="/notice/boardList">공지게시판</a></li>
+	            <c:if test="${personalLogin.memberTypeId == 1}">
+	               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
+	            </c:if>
+	            <c:if test="${academyLogin.memberTypeId == 2}">
+	               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
+	            </c:if>
+	            </ul>
+	          </li>
+	          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+	          <c:choose>
+	          <c:when test="${not empty personalLogin}">
+	              <li><a class="nav-link scrollto">[개인]&nbsp&nbsp${personalLogin.personalName}님 환영합니다.</a></li>
+	              <li>
+	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
+	                  </form>
+	              </li>
+	          </c:when>
+	          <c:when test="${not empty academyLogin}">
+	              <li><a class="nav-link scrollto">[학원]&nbsp&nbsp${academyLogin.academyName}님 환영합니다.</a></li>
+	              <li>
+	                  <form action="${pageContext.request.contextPath}/academy/logout" method="POST">
+	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
+	                  </form>
+	              </li>
+	          </c:when>
+	          <c:otherwise>
+	              <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+	          </c:otherwise>
+	        </c:choose>
+	        </ul>
+	        <i class="bi bi-list mobile-nav-toggle"></i>
+	      </nav><!-- .navbar -->
+	
+	    </div>
+  	</header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
@@ -111,8 +117,8 @@
           <h1>LOG IN</h1>
           <h2>다시 만나 반갑습니다!</h2>
 			<div>
-		        <button type="button" id="userLoginBtn" onclick="window.location.href='/useraccount/login'">개인 회원으로 로그인</button>
-		        <button type="button" id="academyLoginBtn" onclick="window.location.href='/academyaccount/login'">학원 회원으로 로그인</button>
+		        <button type="button" id="userLoginBtn" onclick="window.location.href='/personal/login'">개인 회원으로 로그인</button>
+		        <button type="button" id="academyLoginBtn" onclick="window.location.href='/academy/login'">학원 회원으로 로그인</button>
 		        <form action="/useraccount/join" id="joinForm">
 					<button class="join-button" type="submit">회원가입</button>
 				</form>
