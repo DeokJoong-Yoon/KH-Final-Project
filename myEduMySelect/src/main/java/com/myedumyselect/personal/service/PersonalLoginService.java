@@ -2,14 +2,15 @@ package com.myedumyselect.personal.service;
 
 import java.util.Date;
 
-import com.myedumyselect.auth.vo.LoginVo;
+import org.apache.ibatis.annotations.Param;
+
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 public interface PersonalLoginService {
 
 	// 로그인
 	public PersonalLoginVO loginProcess(PersonalLoginVO login);
-   
+
 	// 로그인 실패 횟수
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);
 
@@ -26,13 +27,11 @@ public interface PersonalLoginService {
 	public int emailCheck(String email);
 
 	// 마이페이지
-	public PersonalLoginVO personalMyPage(PersonalLoginVO sessionPersonalLogin);
+	public PersonalLoginVO personalMyPage(PersonalLoginVO login);
 
 	/// 회원정보 수정
 	public int personalUpdate(PersonalLoginVO login);
-
-	PersonalLoginVO findId(String personalId);
-
-	// 비밀번호 수정 일자
-	public int updatePasswdChangeDate(LoginVo login);
+	
+	//비밀번호 변경 업데이트 날짜
+	public int updatePasswdChangeDate(PersonalLoginVO login);
 }

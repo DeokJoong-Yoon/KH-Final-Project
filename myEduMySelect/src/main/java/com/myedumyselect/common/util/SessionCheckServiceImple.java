@@ -79,7 +79,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				return "FALSE";
 			} else {
 				log.info("회원 ID : " + loginVo.getId());
-				PersonalLoginVO personalLoginVO = personalLoginService.findId(loginVo.getId());
+				PersonalLoginVO personalLoginVO = personalLoginService.personalMyPage(loginVo.getId());
 				model.addAttribute("personalLoginVO", personalLoginVO);
 				return "TRUE";
 			}

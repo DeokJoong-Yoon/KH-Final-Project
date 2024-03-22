@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -67,7 +65,7 @@
 
 
 <script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
-
+<script src="/resources/include/personal/myPage.js"></script>
 </head>
 <body>
 
@@ -95,30 +93,10 @@
 							<li><a href="#">홍보게시판</a></li>
 							<li><a href="#">매칭게시판</a></li>
 							<li><a href="#">문의게시판</a></li>
-							<li><a href="/myPage">마이페이지</a></li>
+							<li><a href="#">마이페이지</a></li>
 						</ul></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<c:choose>
-						<c:when test="${not empty commonLogin}">
-							<li><a class="nav-link scrollto"> <c:if
-										test="${commonLogin.memberTypeId == 1}">회원 </c:if> <c:if
-										test="${commonLogin.memberTypeId == 2}">학원 </c:if>
-									${commonLogin.name}님 환영합니다.
-							</a></li>
-							<li>
-								<form
-									action="${pageContext.request.contextPath}/useraccount/logout"
-									method="POST">
-									<button class="getstarted scrollto btn btn-aquamarine"
-										type="submit">로그아웃</button>
-								</form>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li><a class="getstarted scrollto"
-								href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
-						</c:otherwise>
-					</c:choose>
+					<li><a class="getstarted scrollto" href="/signUp">로그인/회원가입</a></li>
 
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
@@ -153,117 +131,136 @@
 
 
 	<!-- 여기서부터 마이페이지 -->
-	<form:form id="updateForm" action="/personalUpdate" modelAttribute="personalLoginVO" method="POST" name="personalMyPage">
-    <br></br>
-    <h1 class="title">나의 정보</h1>
-    <div class="sign-form">
-        <!-- 아이디 -->
-        <div class="form-group">
-            <label for="personalId">아이디</label>
-            <form:input path="personalId" type="text" value="${personalLoginVO.personalId}" id="personalId" name="personalId" class="form-control" style="width: 250px;" disabled="true" />
-        </div>
-        <br />
-        <!-- 이름 -->
-        <div class="form-group">
-            <label for="personalName">이름</label>
-            <form:input path="personalName" type="text" value="${personalLoginVO.personalName}" id="personalName" name="personalName" class="form-control" style="width: 250px;" disabled="true" />
-        </div>
-        <!-- 이메일 -->
-        <div class="form-group">
-            <label for="personalEmail">이메일</label>
-            <form:input path="personalEmail" type="email" value="${personalLoginVO.personalEmail}" id="personalEmail" name="personalEmail" class="form-control" style="width: 250px;" />
-        </div>
-        <br />
-        <!-- 생년월일 -->
-        <div class="form-group">
-            <label for="personalBirth">생년월일</label>
-            <form:input path="personalBirth" type="text" value="${personalLoginVO.personalBirth}" id="personalBirth" name="personalBirth" class="form-control" style="width: 250px" disabled="true" />
-        </div>
-        <br />
-        
-        <!-- 주소 -->
-        <div class="md-3 row">
-        <label for="personalAddress" class="col-sm-2 col-form-label">주소</label>
-        <div class="col-sm-10">
-            <input id="personal_post" name="personalAddress" type="text" class="form-control" placeholder="우편번호" readonly required />
-            <input id="personal_addr" name="personalAddress" type="text" class="form-control" placeholder="주소" readonly required />
-            <button type="button" name="" onclick="findAddr()">주소찾기</button>
-        </div>
-    </div>
-    <div class="md-3 row">
-        <div class="col-sm-8">
-            <label>현재 주소</label>
-            <input type="text" class="form-control" value="${personalLoginVO.personalAddress}" placeholder="상세주소입력" readonly />
-        </div>
-    </div>
+	<form id="updateForm" action="/personalUpdate" method="POST"
+		style="max-width: 600px; margin: auto;">
+		<h1 class="title" style="text-align: center;">나의 정보</h1>
+		<div class="sign-form">
+			<!-- 아이디 -->
+			<div class="form-group row">
+				<label for="personalId" class="col-sm-3 col-form-label">아이디</label>
+				<div class="col-sm-9">
+					<input type="text" value="${personalLogin.personalId}"
+						id="personalId" name="personalId" class="form-control" disabled>
+				</div>
+			</div>
+			<br />
 
-    <div class="md-3 row">
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="personalAddress" name="personalAddress" placeholder="상세주소입력" />
-        </div>
-    </div>
-        <br />
-        
-        
-        <!-- 전화번호 -->   
-        <div class="form-group">
-            <label for="personalPhone">전화번호</label>
-            <form:input path="personalPhone" type="text" value="${personalLoginVO.personalPhone}" id="personalPhone" name="personalPhone" class="form-control" style="width: 250px" />
-        </div>
-        <br /> <br /> <br /> <br /> <br />
-        <!-- 수정 버튼 -->
-        <button type="submit" id="personalUpdateBtn" class="btn btn-success btn-sm">수정하기</button>
-        <!-- 메시지 표시 영역 -->
-        <div id="message"></div>
-        <!-- 매칭 게시판에서 내가 쓴 글 목록 보기 -->
-        <a href="/personalMatchingList" class="btn btn-primary">매칭 게시판 내가 쓴 글 목록</a>
-        
-    </div>
-</form:form>
-<form id="deleteForm" action="/withdrawal/personal" method="post">
-    <button type="submit" onclick="return confirm('정말 회원 탈퇴 하시겠습니까?')">회원탈퇴</button>
-</form>
+			<!-- 이름 -->
+			<div class="form-group row">
+				<label for="personalName" class="col-sm-3 col-form-label">이름</label>
+				<div class="col-sm-9">
+					<input type="text" value="${personalLogin.personalName}"
+						id="personalName" name="personalName" class="form-control"
+						disabled>
+				</div>
+			</div>
+			<br />
+
+			<!-- 비밀번호 -->
+			<!--	<div class="form-group row">
+				<label for="personalPasswd" class="col-sm-3 col-form-label">비밀번호</label>
+				<div class="col-sm-9">
+					<input type="password" id="personalPasswd" name="personalPasswd"
+						class="form-control" required> <small
+						class="form-text text-muted">정보를 수정하려면 반드시 비밀번호를 입력하세요.</small> <a
+						href="/newPasswd" class="btn btn-primary">비밀번호 변경페이지로 이동</a>
+				</div>
+			</div>
+			<br /> -->
 
 
-<button id="changePasswdBtn" class="btn btn-primary">비밀번호 수정</button>
+			<!-- 이메일 -->
+			<div class="form-group row">
+				<label for="personalEmail" class="col-sm-3 col-form-label">이메일</label>
+				<div class="col-sm-7">
+					<input type="email" value="${personalLogin.personalEmail}"
+						id="personalEmail" name="personalEmail" class="form-control"
+						readonly>
+					<button type="button" class="btn btn-primary"
+						onclick="showChangeEmail()">이메일 변경</button>
+					<button type="button" class="btn btn-primary"
+						id="duplicateCheckBtn" style="display: none;"
+						onclick="checkEmail()">중복확인</button>
+				</div>
 
-<script>
-    $(function() {
-        $("#updateForm").on("submit", function(event) {
-            event.preventDefault(); // 기본 제출 동작 방지
-            // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
-            if (confirm("개인 정보를 수정하시겠습니까?")) {
-                // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
-                $.ajax({
-                    url: "/personalUpdate",
-                    type: "POST",
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
-                        alert("개인 정보가 성공적으로 업데이트되었습니다.");
-                        // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        alert("개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
-                        console.error(xhr.responseText);
-                    }
-                });
-            } else {
-                return false;
-            }
-        });
+			</div>
+			<br />
 
-        $("#changePasswdBtn").on("click", function() {
-            // 사용자에게 비밀번호를 수정할 것인지 묻는 알림
-            if (confirm("비밀번호를 수정하시겠습니까?")) {
-                window.location.href = "/newPasswd";
-            } else {
-                // 사용자가 취소를 누른 경우 아무 동작 없음
-            }
-        });
-    });
-</script>
+
+			<!-- 생년월일 -->
+			<div class="form-group row">
+				<label for="personalBirth" class="col-sm-3 col-form-label">생년월일</label>
+				<div class="col-sm-9">
+					<input type="text" value="${personalLogin.personalBirth}"
+						id="personalBirth" name="personalBirth" class="form-control"
+						disabled>
+				</div>
+			</div>
+			<br />
+
+			<!-- 현재주소 -->
+			<div class="form-group row">
+				<label for="personalAddress" class="col-sm-3 col-form-label">현재
+					주소</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control"
+						value="${personalLogin.personalAddress}" readonly />
+				</div>
+				<br /> <br /> <br />
+
+			<!-- 주소 변경하기 -->
+				<div class="form-group row">
+					<label for="personalAddress" class="col-sm-3 col-form-label">주소변경하기</label>
+					<div class="col-sm-9">
+						<input id="personal_post" name="personalAddress" type="text"
+							class="form-control" placeholder="우편번호" readonly /> <input
+							id="personal_addr" name="personalAddress" type="text"
+							class="form-control" placeholder="주소" readonly  /> <input
+							type="text" class="form-control" id="personalAddress"
+							name="personalAddress" placeholder="상세주소입력" onclick="findAddr()" />
+						<button type="button" class="btn btn-primary" name="" onclick="findAddr()">주소찾기</button>
+					</div>
+				</div>
+			</div>
+				<br /><br />
+
+
+
+				<!-- 전화번호 -->
+				<div class="form-group row">
+					<label for="personalPhone" class="col-sm-3 col-form-label">전화번호</label>
+					<div class="col-sm-9">
+						<input type="text" value="${personalLogin.personalPhone}"
+							onKeyup="this.value=this.value.replace(/[^0-9]/g,'')"
+							id="personalPhone" name="personalPhone" class="form-control"
+							maxlength="11">
+					</div>
+				</div>
+				<br />
+
+
+				<!-- 수정 버튼 -->
+				<div class="form-group row">
+					<div class="col-sm-9 offset-sm-3">
+						<button type="submit" id="personalUpdateBtn"
+							class="btn btn-success btn-sm">수정하기</button>
+					</div>
+				</div>
+
+				<br />
+
+				<!-- 메시지 표시 영역 -->
+				<div id="message" style="text-align: center;"></div>
+
+				<!-- 매칭게시판에서 내가 쓴 글 목록 보기 -->
+				<div class="form-group row">
+					<div class="col-sm-9 offset-sm-3">
+						<a href="/personalMatchingList" class="btn btn-primary">매칭게시판에서
+							내가 쓴 글 목록 보기</a>
+					</div>
+				</div>
+			</div>
+	</form>
 	<script>
 		function findAddr() {
 			new daum.Postcode(
@@ -290,21 +287,6 @@
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<script>
-	window.onload = function() {
-		var confirmMessage = "${confirmMessage}"};
-		if(confirmMessage) {
-			var result = confirm(confirmMessage);
-			if(result) {
-				window.location.href = "/main/loginSelect";
-			} else {
-				window.location.href = "/";
-			}
-		}
-	}
-</script>
-
 
 
 
