@@ -30,30 +30,40 @@
     </resultMap>
 
     <!-- 로그인 select -->
-    <select id="findByIdAndPasswd" parameterType="Map" resultMap="academyLoginMap">
-        SELECT DISTINCT
-	        academy_id,
-	        academy_passwd,
-	        academy_number,
-	        academy_name,
-	        academy_manager_email,
-	        academy_gu_address,
-	        academy_road_address,
-	        academy_dong_address
+    <select id="loginProcess" parameterType="academyLogin" resultMap="academyLoginMap">
+        SELECT 
+        	*	        
         FROM
         	tb_academy
         WHERE
         	academy_id = #{academyId} AND academy_passwd = #{academyPasswd}
     </select>
 
-
+	<!-- 로그인 실패 횟수 업데이트 -->
+	<update id="updateAcademyLoginFailCount" parameterType="academyLogin">
+		UPDATE 
+			tb_academy
+		SET 
+			academy_login_fail_count = #{academyLoginFailCount}
+		WHERE 
+			academy_id = #{academyId}
+	</update>	
+	
+	<!-- 로그인 제한 상태 업데이트 쿼리 -->
+	<update id="academyAccountBannedDate" parameterType="academyLogin">
+		UPDATE 
+			tb_academy
+		SET 
+			academy_account_banned_date = #{bannedDate}
+		WHERE 
+			academy_id = #{academyId}
+	</update>
+	
     <!-- 회원가입 insert -->
 	<insert id="academyInsert" parameterType="academyLogin">
 	    INSERT INTO tb_academy (	    
-	        academy_id,
-	        member_type_id,
-	        academy_number,
-	        academy_join_date,
+	        academy_id,	        
+	        academy_number,	        
 	        academy_passwd,
 	        academy_name,
 	        academy_gu_address,
@@ -70,15 +80,10 @@
 	        academy_keyword3,
 	        academy_keyword4,
 	        academy_keyword5,
-	        academy_fee,
-	        academy_passwd_change_date,
-	        academy_login_fail_count,
-	        academy_account_banned_date
+	        academy_fee	        
 	    ) VALUES (
-	        #{academyId},
-	        #{memberTypeId},
-	        #{academyNumber},
-	        #{academyJoinDate},
+	        #{academyId},	        
+	        #{academyNumber},	        
 	        #{academyPasswd},
 	        #{academyName},
 	        #{academyGuAddress},
@@ -121,18 +126,14 @@
 	            </when>
 	            <otherwise>null,</otherwise>
 	        </choose>
-	        #{academyFee},
-	        #{academyPasswdChangeDate},
-	        #{academyLoginFailCount},
-	        #{academyAccountBannedDate}
+	        #{academyFee}	        	        
 	    )
 	</insert>
 
-
     <!-- 아이디 중복 체크 쿼리 -->
-    <select id="checkId" resultType="int">
+    <select id="checkId" parameterType="academyLogin" resultType="int">
         select
-        	count(*)
+        	count(academy_id)
         from
         	tb_academy
         where
@@ -149,13 +150,12 @@
         	academy_manager_email = #{academyManagerEmail}
     </select>
 	
-	
+	<!-- 마이페이지 정보 조회  -->
     <select id="findById" parameterType="String" resultMap="academyLoginMap">
         select
 	        academy_id,
-	        member_type_id,
-	        academy_number,
-	        academy_join_date,
+	        member_type_id,	        
+	        academy_number,	        
 	        academy_passwd,
 	        academy_name,
 	        academy_gu_address,
@@ -172,10 +172,7 @@
 	        academy_keyword3,
 	        academy_keyword4,
 	        academy_keyword5,
-	        academy_fee,
-	        academy_passwd_change_date,
-	        academy_login_fail_count,
-	        academy_account_banned_date
+	        academy_fee	        
         from
         	TB_ACADEMY
         where
@@ -194,8 +191,7 @@
         	tb_academy_source
         where
         	academy_number = #{academyNumber}
-    </select>
-        
+    </select>        
 
     <!-- 비밀번호 변경 페이지 비밀번호 수정 </update>-->
     <update id="passwdChange" parameterType="academyLogin">
@@ -213,8 +209,7 @@
         UPDATE 
         	tb_academy
         SET             
-            academy_number = #{academyNumber}, 
-            academy_join_date = #{academyJoinDate}, 
+            academy_number = #{academyNumber},
             academy_passwd = #{academyPasswd},
             academy_name = #{academyName}, 
             academy_gu_address = #{academyGuAddress}, 
@@ -237,18 +232,24 @@
     </update>
 	
 	<!-- 비밀번호 변경 "일자" -->
-	<update id="updatePasswdChangeDate" parameterType="personalLogin">
+	<update id="updatePasswdChangeDate" parameterType="academyLogin">
 	    UPDATE 
 	    	tb_academy
 	    SET 
 	    	academy_Passwd = #{academyPasswd},  <!-- 비밀번호 업데이트 -->
 	        academy_passwd_change_date = SYSDATE
-	    WHERE academy_id = #{academyId}
+	    WHERE 
+	    	academy_id = #{academyId}
 	</update>
 	
 	<!-- 현재 비밀번호 일치확인 -->
-	<select id="personalPasswdCheck" parameterType="String" resultMap="academyLoginMap">
-	  SELECT academy_Passwd FROM tb_academy WHERE academy_id = #{academyId}
+	<select id="academyPasswdCheck" parameterType="String" resultMap="academyLoginMap">
+	  SELECT 
+	  		academy_Passwd 
+	  FROM 
+	  		tb_academy 
+	  WHERE 
+	  		academy_id = #{academyId}
 	</select>
 	
     <!-- DELETE 기능 구현 

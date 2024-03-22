@@ -49,35 +49,7 @@
         .error { display: block; padding: 10px 0px; font-size: 18px; color: #dc3545; }
     </style>
 
-	<script>
-		$(function() {
-		    $("#loginBtn").on("click", function() {      
-		        if (!chkData("#id","아이디를")) return;
-		        else if (!chkData("#passwd","비밀번호를")) return;
-		        else {          
-		            $("#loginForm").attr({
-		                "method":"post", 
-		                "action":"/useraccount/login"      
-		            });                     
-		            $("#loginForm").submit();      
-		        }
-		    });
-		    
-		    $("#logoutBtn").on("click", function() {
-		        location.href = "/useraccount/logout"
-		    });
-		});
-    </script>
-
-
-	<script>
-	    window.onload = function() {
-	        var confirmMessage = "${confirmMessage}";
-	        if (confirmMessage) {
-	            alert(confirmMessage);
-	        }
-	    };
-	</script>
+   
 
 </head>
 
@@ -85,151 +57,116 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
-
-      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">자유게시판</a></li>
-              <li><a href="#">홍보게시판</a></li>
-              <li><a href="/matching/">매칭게시판</a></li>
-              <li><a href="#">문의게시판</a></li>
-              <li><a href="/academyaccount/mypage">마이페이지</a></li>
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <c:choose>
-              <c:when test="${not empty commonLogin}">
-                  <li><a class="nav-link scrollto">
-                  <c:if test="${commonLogin.memberTypeId == 1}">[개인]&nbsp&nbsp</c:if>
-                  <c:if test="${commonLogin.memberTypeId == 2}">[학원]&nbsp&nbsp</c:if>
-                  ${commonLogin.name} 님 환영합니다.</a></li>
-                  <li>
-                      <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
-                          <button class="getstarted  btn btn-aquamarine"type="submit">로그아웃</button>
-                      </form>
-                  </li>
-              </c:when>
-              <c:otherwise>
-                  <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
-              </c:otherwise>
-          </c:choose>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
+	    <div class="container d-flex align-items-center">
+	
+	      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
+	      <!-- Uncomment below if you prefer to use an image logo -->
+	      <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+	
+	      <nav id="navbar" class="navbar">
+	        <ul>
+	          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
+	          <li><a class="nav-link scrollto" href="#about">About</a></li>
+	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
+	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
+	            <ul>
+	              <li><a href="/free/freeList">자유게시판</a></li>
+	            <li><a href="#">홍보게시판</a></li>
+	            <li><a href="/matching/">매칭게시판</a></li>
+	            <li><a href="/notice/boardList">공지게시판</a></li>
+	            <c:if test="${personalLogin.memberTypeId == 1}">
+	               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
+	            </c:if>
+	            <c:if test="${academyLogin.memberTypeId == 2}">
+	               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
+	            </c:if>
+	            </ul>
+	          </li>
+	          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+	          <c:choose>
+	          <c:when test="${not empty personalLogin}">
+	              <li><a class="nav-link scrollto">[개인]&nbsp&nbsp${personalLogin.personalName}님 환영합니다.</a></li>
+	              <li>
+	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
+	                  </form>
+	              </li>
+	          </c:when>
+	          <c:when test="${not empty academyLogin}">
+	              <li><a class="nav-link scrollto">[학원]&nbsp&nbsp${academyLogin.academyName}님 환영합니다.</a></li>
+	              <li>
+	                  <form action="${pageContext.request.contextPath}/academy/logout" method="POST">
+	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
+	                  </form>
+	              </li>
+	          </c:when>
+	          <c:otherwise>
+	              <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+	          </c:otherwise>
+	        </c:choose>
+	        </ul>
+	        <i class="bi bi-list mobile-nav-toggle"></i>
+	      </nav><!-- .navbar -->
+	
+	    </div>
+  	</header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
+   
+   <div class="container">
+         <div class="row">
+            <div
+               class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+               data-aos="fade-up" data-aos-delay="200">
+               <h1>학원회원<br/>로그인 페이지</h1>
+               <h2></h2>
 
-    <div class="container">
-      <div class="row">
-      	<c:if test="${empty commonLogin}">
-	        <div class="loginClass col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-	          <h1>ACADEMY LOGIN</h1>
-	          <h2>학원 회원이신가요?</h2>
-	        </div>
-	        <div class="loginZone"  data-aos="fade-up" data-aos-delay="200">
-	        	<form:form id="loginForm" action="/academyaccount/login" modelAttribute="loginVo" method="POST">
-		            <!-- memberTypeId -->
-	                <input type="hidden" name="memberTypeId" value="2">
-	                
-	                <!-- 글로벌 에러 출력 -->
-		            <spring:hasBindErrors name="userAccountLoginDto">
-		                <c:forEach var="error" items="${errors.globalErrors}">
-		                    <p class="error">${error.defaultMessage}</p>
-		                </c:forEach>
-		            </spring:hasBindErrors>
-	                
-	                <table>
-	                	<tr>
-	                		<th>
-	                			<label for="id">아이디</label>
-	                		</th>
-	                		<td>
-	                			<form:input path="id" type="text" name="id" id="id" placeholder="아이디를 입력해주세요"/>
-	                			<form:errors path="id" cssClass="error" />     
-	                		</td>
-	                	</tr>
-	                	<tr>
-	                		<th>
-	                			<label for="passwd">비밀번호</label>
-	                		</th>
-	                		<td>	
-	                			<form:input path="passwd" type="password" name="passwd" id="passwd" placeholder="비밀번호를 입력해주세요"/>
-		               			<form:errors path="passwd" cssClass="error" />
-	                		</td>
-	                	</tr>
-	                </table>
-	                <button type="submit" id="loginBtn">로그인</button>	
-				</form:form> <br>
-		                
-		        <div class="buttons">
-		        	<form method="GET" action="/academyaccount/join" id="joinForm">
-						<button type="submit" class="join-button">회원가입 하러 가기</button>
-					</form>
-					<form method="GET" action="/" id="homeForm">
-						<button type="submit" class="home-button">홈으로 가기</button>
-					</form>
-		        </div>
-        	</div>
-        	
-        	<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-				data-aos-delay="200">
-				<img src="/resources/include/assets/img/hero-img.png"
-					class="img-fluid animated" alt="">
-			</div>
-        </c:if>
-      
-      	<c:if test="${not empty commonLogin}">
-        	<div>
-        		<h2>MyEduMySelect</h2>
-        		<h1>${commonLogin.name} 님 환영합니다.</h1><br>
-        		<div class="buttons">
-        			<form method="POST" action="/useraccount/logout" id="joinForm">
-			            <button type="submit" id="logoutBtn" class="btn btn-primary btn-sm" >로그아웃</button>
-			        </form>
-			        <form action="/" class="homeForm">
-						<button class="home-button" type="submit">홈으로 가기</button>
-					</form>
-        		</div>
-        	</div>
-        </c:if>
+
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
+               data-aos-delay="200">
+               <img src="/resources/include/assets/img/hero-img.png"
+                  class="img-fluid animated" alt="">
+            </div>
+         </div>
       </div>
-    </div>
-   </section><!-- End Hero -->
+   </section>
+    <!-- End Hero -->
 
-  <main id="main">
+   <main>
+		<c:if test="${empty academyLogin}">
+			<form id="loginForm">
+				<h1>로그인 페이지</h1>
+				<div>
+					<input type="text" name="academyId" id="academyId"
+						placeholder="아이디를 입력해주세요"> <label for="academyId">아이디</label>
+				</div>
+				<div>
+					<input type="password" name="academyPasswd" id="academyPasswd"
+						placeholder="비밀번호를 입력해주세요"> <label for="academyPasswd">비밀번호</label>
+				</div>
+				<button type="button" id="loginBtn">로그인</button>
+			</form>
+		</c:if>
 
+		<c:if test="${not empty academyLogin}">
+			<h3>${academyLogin.academyName}님 환영합니다.</h3>
+			<button type="button" id="logoutBtn">로그아웃</button>
+		</c:if>
 
+		<form action="/useraccount/join" id="joinForm">
+			<button class="join-button" type="submit">회원가입하러가기</button>
+		</form>
+
+		<form action="/" id="homeForm">
+			<button class="home-button" type="submit">홈으로 가기</button>
+		</form>
   </main><!-- End #main -->
 
-	<!-- <script>
-	  $(document).ready(function() {
-	    let errorMsg = "${errorMsg}";
-	    if (errorMsg) {
-	        alert(errorMsg);
-	        errorMsg = "";
-	    }
-	    
-	    if (${not empty personalLogin}) {
-	        let personalName = "${commonLogin.name}"; 
-	        alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
-	    }
-	  });
-	</script> -->
-	
-	<!-- ======= Footer ======= -->
+   
+   
+   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -311,25 +248,61 @@
 
   <!-- Template Main JS File -->  
   <script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+  <script src="/resources/include/academy/common.js"></script>
   <script src="/resources/include/academy/academyLogin.js"></script>  
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/academy/academyLogin.js"></script>
-	
+  <!-- <script src="/resources/include/academy/academyLogin.js"></script> -->
+
 	<script>
-  	window.onload = function() {
-  		var confirmMessage = "${confirmMessage}";
-  		if (confirmMessage) {
-  			var result = confirm(confirmMessage);
-  			if(result) {
-  				window.location.href = "/"; // 확인 눌렀을 경우 로그인 페이지로 이동
-  			} else {
-  				window.location.href = "/";
-  			}
-  		}
-  	};
+      $(function() {
+          $("#loginBtn").on("click", function() {      
+              if (!chkData("#academyId","아이디를")) return;
+              else if (!chkData("#academyPasswd","비밀번호를")) return;
+              else {          
+                  $("#loginForm").attr({
+                      "method":"post", 
+                      "action":"/academy/login"      
+                  });  // 로그아웃 처리
+                  @PostMapping("/academy/logout")
+                  public String logout(SessionStatus sessionStatus) {
+               	   log.info("로그아웃 처리");
+               	   sessionStatus.setComplete();
+               	   return "redirect:/academy/login";
+                  }                   
+                  $("#loginForm").submit();      
+              }
+          });
+          
+          $("#logoutBtn").on("click", function() {
+              location.href = "/academy/logout"
+          });
+      });
+    </script>
+
+	<script>
+       window.onload = function() {
+           var confirmMessage = "${confirmMessage}";
+           if (confirmMessage) {
+               alert(confirmMessage);
+           }
+       };
+    </script>
+
+	<script>
+     window.onload = function() {
+        var confirmMessage = "${confirmMessage}";
+        if (confirmMessage) {
+           var result = confirm(confirmMessage);
+           if(result) {
+              window.location.href = "/"; // 확인 눌렀을 경우 로그인 페이지로 이동
+           } else {
+              window.location.href = "/";
+           }
+        }
+     };
   </script>
-  
-  <script>
+
+	<script>
     $(function() {
         let errorMsg = "${errorMsg}";
         if(errorMsg) {
@@ -340,13 +313,13 @@
     
     $(function() {
         if (${not empty academyLogin}) {           
-            let academyManagerName = "${commonLogin.name}";
-            alert("환영합니다! ${commonLogin.name}님 MyEduMySelect 입니다");
+            let academyManagerName = "${academyLogin.academyManagerName}";
+            alert("환영합니다! ${academyLogin.academyName}님 MyEduMySelect 입니다");
         }
     });
 
 </script>
-	
+   
 </body>
 
 </html>

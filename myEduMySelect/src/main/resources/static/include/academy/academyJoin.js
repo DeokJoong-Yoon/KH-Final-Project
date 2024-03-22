@@ -6,8 +6,7 @@ $(document).ready(function() {
             if (!chkData("#academyPasswd", "비밀번호를")) return;
             if (!chkData("#academyNumber", "사업자등록번호를")) return;
             if (!chkData("#academyManagerName", "담당자이름을")) return;
-            if (!chkData("#academyManagerEmail1", "담당자이메일을")) return;
-            if (!chkData("#academyManagerEmail2", "담당자이메일을")) return;
+            if (!chkData("#academyManagerEmail", "담당자이메일을")) return;            
             if (!chkData("#academyManagerPhone", "담당자전화번호를")) return;
             if (!chkData("#academyName", "학원명을")) return;
             if (!chkData("#academyGuAddress", "행정구역명을")) return;
@@ -16,20 +15,40 @@ $(document).ready(function() {
             if (!chkData("#academyPhone", "학원전화번호를")) return;
             if (!chkData("#academyTargetSubject", "교습과목을")) return;
             if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료를")) return;
-         if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
-         if (!chkRadioData("#keyword1", "#keyword2", "#keyword3", "#keyword4", "#keyword5", "#keyword6", "#keyword7", "#keyword8", "#keyword9", "키워드를")) return;
+	        if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
+	        if (!chkRadioData("#keyword1", "#keyword2", "#keyword3", "#keyword4", "#keyword5", "#keyword6", "#keyword7", "#keyword8", "#keyword9", "키워드를")) return;
 
             // 유효성 검사 모두 성공한 경우 회원가입 처리
-            $("#join").attr({
+            $("#a_joinForm").attr({
                 "method": "post",
                 "action": "/academyInsert"
             });
-            $("#join").submit();
+            $("#a_joinForm").submit();
         } else {
             // 아이디 중복 체크가 되지 않은 경우 메시지 출력
             alert("아이디 중복 체크를 해주세요.");
         }
     });
+});
+
+// 키워드 체크박스 클릭 이벤트 핸들러
+$(".keyword-checkbox").on("click", function() {
+    // 체크 여부에 따라 selectedKeywords 배열 업데이트
+    if (this.checked) {
+        // 최대 5개까지 선택 가능하도록 제어
+        if (selectedKeywords.length < 5) {
+            selectedKeywords.push(this.value);
+        } else {
+            this.checked = false; // 선택 취소
+            alert('키워드는 최대 5개의 항목만 선택할 수 있습니다.');
+        }
+    } else {
+        // 체크 해제 시 배열에서 해당 키워드 제거
+        var index = selectedKeywords.indexOf(this.value);
+        if (index !== -1) {
+            selectedKeywords.splice(index, 1);
+        }
+    }
 });
 
 (function() {

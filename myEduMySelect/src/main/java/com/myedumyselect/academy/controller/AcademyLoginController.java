@@ -138,7 +138,7 @@ public class AcademyLoginController {
 
 
    // 학원회원 회원가입 완료 페이지로 이동
-   @GetMapping("/userAccount/join/complete")
+   @GetMapping("/academy/join/complete")
    public String completeSignUp(@ModelAttribute AcademyLoginVO academyLoginVO) {
       // 회원가입 완료 페이지로 이동
       return "/academy/completeJoin";

@@ -52,9 +52,8 @@ $(document).ready(function() {
 	    event.preventDefault(); // 기본 동작 방지
 	
 	    // 입력된 이메일 유효성 검사
-	    const emailPrefix = $('#academyManagerEmail1').val();
-	    const emailSuffix = $('#academyManagerEmail2').val();
-	    const emailAddress = emailPrefix + '@' + emailSuffix;
+	    
+	    const emailAddress = $('#academyManagerEmail').val();
 	    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	    if (!emailRegex.test(emailAddress)) {
 	        alert("이메일을 올바른 형식으로 입력 후 다시 중복체크 버튼을 눌러주세요");
@@ -63,19 +62,8 @@ $(document).ready(function() {
 	
 	    // 이메일 중복 체크 함수 호출
 	    checkEmailDuplication(emailAddress);
-	});
+	});	
 	
-	/* 이메일 선택 */
-	$(document).on('change', '#domain-list', function() {
-	    const selectedDomain = $(this).val(); // 선택된 도메인 값 가져오기
-	    if (selectedDomain === 'custom') {
-	        // "직접입력" 옵션이 선택된 경우 입력 필드를 초기화하고 readonly 속성 해제
-	        $('#academyManagerEmail2').val('').prop('readonly', false);
-	    } else {
-	        // 선택된 도메인을 이메일 주소 뒤에 추가하여 입력 필드에 설정하고 readonly 속성 적용
-	        $('#academyManagerEmail2').val(selectedDomain).prop('readonly', true);
-	    }
-	});
 	
 	/* 이메일 중복 체크 함수 */
 	function checkEmailDuplication(emailAddress) {
@@ -223,6 +211,8 @@ $(document).ready(function() {
 		 passwdChange = $("#academyPasswdChangeDate").val();
 		 loginFail = $("#academyLoginFailCount").val();
 		 accountDate= $("#academyAccountBannedDate").val();		 
+		
+		var selectedKeywords = [];
 				
 		// 회원가입 정보들 value에 저장
  		let value = {
@@ -243,11 +233,11 @@ $(document).ready(function() {
 			 academyPasswdChangeDate : passwdChange,
 			 academyLoginFailCount : loginFail,
 			 academyAccountBannedDate : accountDate,
-			 academyKeyword1 : selectedKeywords[0],
-			 academyKeyword2 : selectedKeywords[1],
-			 academyKeyword3 : selectedKeywords[2],
-			 academyKeyword4 : selectedKeywords[3],
-			 academyKeyword5 : selectedKeywords[4]
+			 academyKeyword1: selectedKeywords[0] ? selectedKeywords[0] : null,
+		     academyKeyword2: selectedKeywords[1] ? selectedKeywords[1] : null,
+		     academyKeyword3: selectedKeywords[2] ? selectedKeywords[2] : null,
+		     academyKeyword4: selectedKeywords[3] ? selectedKeywords[3] : null,
+		     academyKeyword5: selectedKeywords[4] ? selectedKeywords[4] : null
 	    }            
 		
 	    // 유효성 검사 후 회원가입 프로세스 진행
@@ -269,7 +259,7 @@ $(document).ready(function() {
 	                alert('회원가입이 완료되었습니다.');
 	                // 저장 후 필요한 작업 수행
 	                // 회원가입 폼 제출
-	                document.getElementById('join').submit();
+	                document.getElementById('a_joinForm').submit();
 	            },
 	            error: function(xhr, status, error) {
 	                console.error("서버 에러 발생: " + error);
@@ -473,16 +463,17 @@ document.getElementById('academyPasswd').addEventListener('input', function() {
     checkPassword();
 });
 
-/* 마이페이지 버튼 클릭 시 세션값 확인 후 결과에 따라 제어 */
+/* 마이페이지 버튼 클릭 시 세션값 확인 후 결과에 따라 제어 
 document.getElementById("mypageBtn").addEventListener("click", function(event) {
     if (!commonLogin) {
 		event.preventDefault();
         alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "/academyaccount/login";
+        window.location.href = "/academy/login";
 	} else {
-        window.location.href = "/academyaccount/mypage"; // 세션값이 있을 경우 마이페이지로 이동
+        window.location.href = "/academy/mypage"; // 세션값이 있을 경우 마이페이지로 이동
     }
 });
+*/
 
 /* 아래부터 main.js 파일 */				
     

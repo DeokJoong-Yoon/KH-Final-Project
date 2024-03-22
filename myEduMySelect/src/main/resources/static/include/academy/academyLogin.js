@@ -5,14 +5,14 @@ $(function() {
         else {          
             $("#loginForm").attr({
                 "method":"post", 
-                "action":"/academyaccount/login"
+                "action":"/academy/login"
             });                     
             $("#loginForm").submit();      
         }
     });
     
     $("#logoutBtn").on("click", function() {
-        location.href = "/academyaccount/logout"
+        location.href = "/academy/logout"
     });
 });
 
