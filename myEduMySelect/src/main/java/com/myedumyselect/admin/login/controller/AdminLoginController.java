@@ -29,17 +29,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @SessionAttribute : 모델(Model) 정보를 HTTP 세션에 저장해주는 어노테이션 HttpSession을 직접 사용할
- *                   수도있지만 이 어노테이션에 설정한 이름에 해당하는 모델 정보를 자동으로 세선에 넣어준다.
- */
-
-@Controller
-/**
- * @SessionAttributes 파라미터로 지정된 이름과 같은 이름이
- * @ModelAttribute에 지정 있을 겨웅 메소드가 반환되는 값은 세션에 저장된다.
- */
-//@SessionAttributes({"adminLogin", "boardList"})
 @SessionAttributes("adminLogin")
 @RequestMapping("/admin/*")
 @Slf4j
