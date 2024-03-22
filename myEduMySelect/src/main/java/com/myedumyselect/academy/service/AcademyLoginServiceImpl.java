@@ -61,15 +61,14 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
    // 마이페이지에 Id값을 기준으로 정보 불러올 떄
    @Override
    public AcademyLoginVO findById(String academyId) {
-      return academyLoginDao.findById(academyId);
+	  AcademyLoginVO academyLogin = academyLoginDao.findById(academyId); 
+      return academyLogin;
    }
    
    // 마이페이지 정보 수정
    @Override
-   public int academyUpdate(AcademyLoginVO login) {
-      int result = 0;
-      result = academyLoginDao.academyUpdate(login);
-      return result;
+   public int academyUpdate(AcademyLoginVO newAcademyInfo) {      
+	   return academyLoginDao.academyUpdate(newAcademyInfo);      
    }
    
    // 아이디 중복체크

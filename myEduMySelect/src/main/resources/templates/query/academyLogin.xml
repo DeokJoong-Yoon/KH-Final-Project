@@ -176,7 +176,7 @@
         from
         	TB_ACADEMY
         where
-        	TB_ACADEMY.ACADEMY_ID = #{academyId}
+        	ACADEMY_ID = #{academyId}
     </select>
 
     <!-- 학원정보소스테이블 정보 조회 -->
@@ -193,7 +193,7 @@
         	academy_number = #{academyNumber}
     </select>        
 
-    <!-- 비밀번호 변경 페이지 비밀번호 수정 </update>-->
+    <!-- 비밀번호 변경 페이지 비밀번호 수정 -->
     <update id="passwdChange" parameterType="academyLogin">
         UPDATE 
         	tb_academy
@@ -204,7 +204,7 @@
         	academy_passwd = #{academyPasswd}
     </update>
 	
-	<!-- 마이페이지 정보 수정 </update>-->
+	<!-- 마이페이지 정보 수정 -->
     <update id="academyUpdate" parameterType="academyLogin">
         UPDATE 
         	tb_academy

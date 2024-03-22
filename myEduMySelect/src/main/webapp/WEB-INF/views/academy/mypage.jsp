@@ -125,28 +125,37 @@
 	
 	<main id="main">		
 		
-	<form id="academyUpdateForm" action="/academyUpdate"  method="POST" name="academyMyPage">
+	<form id="academyUpdateForm" action="/academyUpdate"  method="POST" style="max-width: 600px; margin: auto;"> <!--   --> 
 		
 		<div class="input_group">
 			<label for="academyId">아이디</label>
-			<input type="text" value="${academyLogin.academyId}" class="form-control" style="width: 400;" name="academyId" id="academyId" maxlength="12" readonly />
+			<div class="col-md-8 col-lg-9">
+				<input type="text" value="${academyLogin.academyId}" class="form-control" style="width: 400;" name="academyId" id="academyId" readonly />
+			</div>
+			
 		</div>		
 		
 		<div class="input_group">
 			<label for="academyPasswd" style="display: inline-block;" >비밀번호</label>
-			<input type="password" class="form-control" style="width: 400;" name="academyPasswd" id="academyPasswd" readonly/>
+			<div>
+				<input type="password" class="form-control" style="width: 400;" name="academyPasswd" id="academyPasswd"/>
+			</div>			
 			<small class="form-text text-muted">정보를 수정하려면 반드시 비밀번호를 입력하세요.</small>
 			<button type="button" id="changePasswdBtn">비밀번호 변경페이지로 이동</button>
 		</div>		
 		
 		<div class="input_group">
 			<label for="academyNumber">사업자 등록번호</label>
-			<input type="text" value="${academyLogin.academyNumber}" class="form-control" style="width: 400;" name="academyNumber" id="academyNumber" readonly/>
+			<div>
+				<input type="text" value="${academyLogin.academyNumber}" class="form-control" style="width: 400;" name="academyNumber" id="academyNumber" readonly/>
+			</div>			
 		</div>		
 		
 		<div class="input_group">
 			<label for="academyManagerName">담당자 이름</label>
-			<input type="text" value="${academyLogin.academyManagerName}" class="form-control" style="width: 400;" name="academyManagerName" id="academyManagerName" />
+			<div>
+				<input type="text" value="${academyLogin.academyManagerName}" class="form-control" style="width: 400;" name="academyManagerName" id="academyManagerName" />
+			</div>			
 		</div>	
 		
 		<div class="form-group row">
@@ -160,29 +169,39 @@
 		
 		<div class="input_group">
 			<label for="academyManagerPhone">담당자 전화번호</label>
-			<input type="text" value="${academyLogin.academyManagerPhone}" maxlength="11" class="form-control" name="academyManagerPhone" id="academyManagerPhone" style="width: 400;"/>
+			<div>
+				<input type="text" value="${academyLogin.academyManagerPhone}" maxlength="11" class="form-control" name="academyManagerPhone" id="academyManagerPhone" style="width: 400;"/>
+			</div>
 		</div>		
 
 		<div class="input_group">
 			<label for="academyName">학원명</label>
-			<input type="text" value="${academyLogin.academyName}" class="form-control" style="width: 400;" readonly />
+			<div>
+				<input type="text" value="${academyLogin.academyName}" name="academyName" id="academyName" class="form-control" style="width: 400;" readonly />
+			</div>			
 		</div>		
 
 		<div class="input_group">
 			<label for="academyGuAddress">학원주소</label>
-			<input type="text" value="${academyLogin.academyGuAddress}" class="form-control" style="width: 400;" readonly/>
-			<input type="text" value="${academyLogin.academyRoadAddress}" class="form-control" style="width: 400;" readonly/>
-			<input type="text" value="${academyLogin.academyDongAddress}" class="form-control" style="width: 400;" readonly/>
+			<div>
+				<input type="text" value="${academyLogin.academyGuAddress}" name="academyGuAddress" id="academyGuAddress" class="form-control" style="width: 400;" readonly/>
+				<input type="text" value="${academyLogin.academyRoadAddress}" name="academyRoadAddress" id="academyRoadAddress" class="form-control" style="width: 400;" readonly/>
+				<input type="text" value="${academyLogin.academyDongAddress}" name="academyDongAddress" id="academyDongAddress" class="form-control" style="width: 400;" readonly/>
+			</div>			
 		</div>		
 
 		<div class="input_group">
 			<label for="academyPhone">학원 전화번호</label>
-			<input type="text" value="${academyLogin.academyPhone}" maxlength="11" class="form-control" style="width: 400;" readonly/>
+			<div>
+				<input type="text" value="${academyLogin.academyPhone}" name="academyPhone" id="academyPhone" maxlength="11" class="form-control" style="width: 400;" readonly/>
+			</div>			
 		</div>		
 			
 		<div class="input_group">
 			<label for="academyTargetSubject">교습과목</label>
-			<input type="text" value="${academyLogin.academyTargetGrade}" class="form-control" style="width: 400;" />
+			<div>
+				<input type="text" value="${academyLogin.academyTargetSubject}" name="academyTargetSubject" id="academyTargetSubject" class="form-control" style="width: 400;" />
+			</div>
 		</div>		
 		<br />
 		
@@ -302,20 +321,20 @@
 		<div class="input_group">
 			<span>
 				<button type="button" name="updateBtn" id="updateBtn" class="btn btn-primary btn-sm">회원정보 수정하기</button> 
-				<a href="/payment/payMain" class="btn btn-primary btn-sm">결제하기</a>
-								
+				<a href="/payment/payMain" class="btn btn-primary btn-sm">결제하기</a>								
 			</span>
 			<!-- 홍보 게시판에서 내가 쓴 글 목록 보기 -->  
         	<a href="/advertise/advertiseBoardList" class="btn btn-primary">홍보 게시판 내가 쓴 글 목록</a>
-        	<a href="/academyMatchingList" class="btn btn-primary">매칭 게시판 내가 쓴 글 목록</a>
-			
+        	<a href="/academyMatchingList" class="btn btn-primary">매칭 게시판 내가 쓴 글 목록</a>			
 		</div>	
 		<br />
-			  
 	</form>
 	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
 	<!-- 키워드 선택 제어 -->
 	<script>
+	
+	
+	
 	    window.onload = function() {
 	        var maxKeywords = 5;
 	        var checkboxes = document.querySelectorAll('.keyword-checkbox');
@@ -350,18 +369,18 @@
 	</main>
 	<!-- End #main -->
 	
-	<script>
+	<!-- <script>
 	    $(function() {
 	        $("#updateBtn").on("click", function(event) {
 	        	//event.preventDefault(); // 기본 제출 동작 방지
 	        	console.log("폼 제출 버튼 클릭!");	        	
 	        	
 	        	
-	        	/* var academyManagerName = $("#academyManagerName").val();
+	        	var academyManagerName = $("#academyManagerName").val();
 	        	var academyManagerEmail = $("#academyManagerEmail").val();
-	        	var academyManagerPhone = $("#academyManagerPhone").val(); */	        	
-	        	/* var academyTargetSubject = $("#academyTargetSubject").val();
-	        	var academyFee = $("#academyFee").val();
+	        	var academyManagerPhone = $("#academyManagerPhone").val();	        	
+	        	var academyTargetSubject = $("#academyTargetSubject").val();
+	        	/* var academyFee = $("#academyFee").val();
 	        	var academyTargetGrade = $("#academyTargetGrade").val();
 	        	var academyKeyword1 = $("#academyKeyword1").val();
 	        	var academyKeyword2 = $("#academyKeyword2").val();
@@ -403,7 +422,7 @@
 	            }
 	        });
 	    });
-	</script>
+	</script> -->
 	
 
 	<!-- ======= Footer ======= -->
@@ -519,19 +538,19 @@
 		});
 	</script>
 
-	<!-- <script>
+	<script>
 		window.onload = function() {
 			var confirmMessage = "${confirmMessage}";
 			if (confirmMessage) {
 				var result = confirm(confirmMessage);
 				if (result) {
-					window.location.href = "/academyaccount/login"; // 확인 눌렀을 경우 로그인 페이지로 이동
+					window.location.href = "/academy/login"; // 확인 눌렀을 경우 로그인 페이지로 이동
 				} else {
 					window.location.href = "/";
 				}
 			}
 		};
-	</script> -->
+	</script>
 
 	
 </body>

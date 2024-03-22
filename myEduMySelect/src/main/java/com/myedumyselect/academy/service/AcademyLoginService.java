@@ -19,21 +19,21 @@ public interface AcademyLoginService {
 	public int academyInsert(AcademyLoginVO login);
 
 	// Id값을 기준으로 마이페이지에 정보 불러올 때
-	AcademyLoginVO findById(String academyId);
+	public AcademyLoginVO findById(String academyId);
 
 	// 사업자등록번호 중복 체크
-	AcademyLoginVO findByNumber(String academyNumber);
+	public AcademyLoginVO findByNumber(String academyNumber);
 
 	// 아이디 중복체크
-	int checkId(String academyId);
+	public int checkId(String academyId);
 
 	// 이메일 중복체크
-	int checkEmail(String academyManagerEmail);
+	public int checkEmail(String academyManagerEmail);
 
 	// 회원정보 수정
-	int academyUpdate(AcademyLoginVO login);
+	public int academyUpdate(AcademyLoginVO newAcademyInfo);
 
 	// 비밀번호 변경
-	int updatePasswdChangeDate(AcademyLoginVO login);
+	public int updatePasswdChangeDate(AcademyLoginVO login);
 
 }

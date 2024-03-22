@@ -254,30 +254,25 @@
   <!-- <script src="/resources/include/academy/academyLogin.js"></script> -->
 
 	<script>
-      $(function() {
-          $("#loginBtn").on("click", function() {      
-              if (!chkData("#academyId","아이디를")) return;
-              else if (!chkData("#academyPasswd","비밀번호를")) return;
-              else {          
-                  $("#loginForm").attr({
-                      "method":"post", 
-                      "action":"/academy/login"      
-                  });  // 로그아웃 처리
-                  @PostMapping("/academy/logout")
-                  public String logout(SessionStatus sessionStatus) {
-               	   log.info("로그아웃 처리");
-               	   sessionStatus.setComplete();
-               	   return "redirect:/academy/login";
-                  }                   
-                  $("#loginForm").submit();      
-              }
-          });
-          
-          $("#logoutBtn").on("click", function() {
-              location.href = "/academy/logout"
-          });
-      });
-    </script>
+	    $(function() {
+	        $("#loginBtn").on("click", function() {      
+	            if (!chkData("#academyId","아이디를")) return;
+	            else if (!chkData("#academyPasswd","비밀번호를")) return;
+	            else {          
+	                $("#loginForm").attr({
+	                    "method":"post", 
+	                    "action":"/academy/login"      
+	                });
+	                $("#loginForm").submit();      
+	            }
+	        });
+	        
+	        $("#logoutBtn").on("click", function() {
+	            location.href = "/academy/logout"
+	        });
+	    });
+	</script>
+
 
 	<script>
        window.onload = function() {

@@ -23,21 +23,21 @@ public interface AcademyLoginDao {
     public int academyInsert(AcademyLoginVO login);
 
 	// 아이디 찾기
-	AcademyLoginVO findById(String academyId);
+	public AcademyLoginVO findById(String academyId);
 
 	// 사업자 등록번호 찾기
-	AcademyLoginVO findByNumber(String academyNumber);
+	public AcademyLoginVO findByNumber(String academyNumber);
 
 	// 아이디 중복검사
-	int checkId(String academyId);
+	public int checkId(String academyId);
 
 	// 이메일 중복검사
-	int checkEmail(String academyManagerEmail);
+	public int checkEmail(String academyManagerEmail);
 
 	// 마이페이지 회원정보 수정
-	int academyUpdate(AcademyLoginVO academyLogin);
+	public int academyUpdate(AcademyLoginVO newAcademyInfo);
 
 	// 비밀번호 변경
-	int updatePasswdChangeDate(AcademyLoginVO login);
+	public int updatePasswdChangeDate(AcademyLoginVO login);
 
 }
