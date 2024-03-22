@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myedumyselect.common.SessionUtil;
 import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
-import com.myedumyselect.commonboard.like.vo.LikeVO;
-import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -40,11 +39,11 @@ public class AdvertiseController {
 	
 	// 홍보게시판 목록 전체보기 구현
 	@GetMapping("/advertiseBoardList")
-	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model, HttpSession session) {
+	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model, @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO) {
 		log.info("advertiseBoardList() 호출 성공");
 		
 		//개인회원 로그인 세션 받기
-		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, "로그인 후 열람 가능합니다.");
+		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.");
 		if (checkedSessionResult == "FALSE") {
 			return "redirect:/";
 		}
