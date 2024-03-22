@@ -12,9 +12,7 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<!-- Favicons -->
-<link href="/resources/include/admin/image/admin.png" rel="icon">
-<link href="/resources/include/admin/image/admin.png" rel="apple-touch-icon">
+
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -31,7 +29,9 @@
 
 <!-- Template Main CSS File -->
 <link href="/resources/include/admin/admin/assets/css/style.css" rel="stylesheet">
-
+<!-- Favicons -->
+<link href="/resources/include/admin/image/admin.png" rel="icon">
+<link href="/resources/include/admin/image/admin.png" rel="apple-touch-icon">
 <style>
 .table {
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -44,113 +44,13 @@
 
 	<!-- ======= Header ======= -->
 	<header id="header" class="header fixed-top d-flex align-items-center">
-
-		<div class="d-flex align-items-center justify-content-between">
-			<a href="/admin/login" class="logo d-flex align-items-center"> <img src="/resources/include/admin/image/admin.png" alt=""> <span class="d-none d-lg-block">Admin - ${adminLogin.adminName}</span>
-			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
-		</div>
-		<!-- End Logo -->
-
-		<div class="search-bar">
-			<form class="search-form d-flex align-items-center" method="POST" action="/admin/search">
-				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
-				<button type="submit" title="Search">
-					<i class="bi bi-search"></i>
-				</button>
-			</form>
-		</div>
-		<!-- End Search Bar -->
-
-		<nav class="header-nav ms-auto">
-			<ul class="d-flex align-items-center">
-
-				<li class="nav-item d-block d-lg-none"><a class="nav-link nav-icon search-bar-toggle " href="#"> <i class="bi bi-search"></i>
-				</a></li>
-				<!-- End Search Icon-->
-				<li class="nav-item dropdown pe-3"><a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> <img src="/resources/include/admin/image/admin.png" alt="Profile" class="rounded-circle"> <span class="d-none d-md-block dropdown-toggle ps-2">${adminLogin.adminName}</span>
-				</a> <!-- End Profile Iamge Icon -->
-
-				<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-					<li class="dropdown-header">
-						<h6>${adminLogin.adminName}</h6> <span>Administrator</span>
-					</li>
-					<li>
-						<hr class="dropdown-divider" />
-					</li>
-					<li>
-						<a class="myPage dropdown-item d-flex align-items-center" href="/admin/myPage">
-							<i class="bi bi-person"></i>
-							<span>My Profile</span>
-						</a>
-					</li>
-					<li>
-						<hr class="dropdown-divider" />
-						<a class="dropdown-item d-flex align-items-center" href="/admin/logout">
-							<i class="bi bi-box-arrow-right"></i>
-							<span>Sign Out</span>
-						</a>
-					</li>
-				</ul>
-			</ul>
-		</nav>
-		<!-- End Icons Navigation -->
-
+	<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
 	</header>
 	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
 	<section>
-		<div class="container">
-			<aside id="sidebar" class="sidebar">
-
-				<ul class="sidebar-nav" id="sidebar-nav">
-
-					<li class="nav-item"><a class="nav-link " href="/admin/login"> <i class="bi bi-grid"></i> <span>Dashboard main</span>
-					</a></li>
-					<!-- End Dashboard Nav -->
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/notice"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/free"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matching"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertise"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Tables Nav -->
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/payment"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
-					</a></li>
-					<!-- End Icons Nav -->
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/personal"> <i class="bi bi-person"></i> <span>personal member</span>
-					</a></li>
-					<!-- End Profile Page Nav -->
-
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academy"> <i class="bi bi-person"></i> <span>academy member</span>
-					</a></li>
-					<!-- End Profile Page Nav -->
-
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySource"> <i class="bi bi-card-list"></i> <span>all academy member</span>
-					</a></li>
-					<!-- End Register Page Nav -->
-
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySourceLoad"> <i class="bi bi-menu-button-wide"></i> <span>academy source load</span>
-					</a></li>
-					
-					<hr>
-					<li class="nav-item"><a class="nav-link collapsed" href="/admin/accountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span>admin account create</span>
-					</a></li>
-					<!-- End Login Page Nav -->
-				</ul>
-			</aside>
-			<!-- End Sidebar-->
-		</div>
+	<jsp:include page="/WEB-INF/views/admin/common/section.jsp" />
 	</section>
 
 	<main id="main" class="main">
@@ -365,16 +265,8 @@
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
-		<div class="copyright">
-			&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-		</div>
-		<div class="credits">
-			<!-- All the links in the footer should remain intact. -->
-			<!-- You can delete the links only if you purchased the pro version. -->
-			<!-- Licensing information: https://bootstrapmade.com/license/ -->
-			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-		</div>
+	<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
+
 	</footer>
 	<!-- End Footer -->
 

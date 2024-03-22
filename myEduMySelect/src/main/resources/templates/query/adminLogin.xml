@@ -22,5 +22,24 @@
 		FROM tb_admin
 		WHERE admin_id = #{adminId} and admin_password = #{adminPasswd}
 	</select>
+	
+	<update id="updateAdminInfo" parameterType="adminLogin">
+		UPDATE tb_admin SET
+		admin_name = #{adminName},
+		admin_team = #{adminTeam},
+		admin_phone = #{adminPhone},
+		admin_email = #{adminEmail},
+		admin_assigned_date = sysdate
+		WHERE admin_id = #{adminId}
+	</update>
+	
+	<update id="updateAdminPasswd" parameterType="adminLogin">
+		UPDATE tb_admin SET
+		admin_password = #{adminPasswd},
+		admin_password_change_date = sysdate
+		WHERE admin_id = #{adminId}
+	</update>
+	
+	
 
 </mapper>

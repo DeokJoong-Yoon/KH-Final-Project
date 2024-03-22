@@ -14,7 +14,9 @@ $(function(){
 		if(userId == '' && acaId == '') {
 			alert("로그인 후 열람 가능합니다.");
 			$(this).attr("href", "/matching/boardList")
-		} else if(matchingPrivate == 'N' || userId == writerId) {
+		} else 
+		
+		if(matchingPrivate == 'N' || userId == writerId) {
 			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 		} else {
 			let pwd = prompt("비밀번호를 입력하세요", '');

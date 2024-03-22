@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.myedumyselect.common.file.FileUploadUtil;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.free.service.FreeService;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
@@ -46,19 +43,6 @@ public class FreeController {
 	}
 	
 	
-	/* 글 쓰기 구현
-	@PostMapping("/freeInsert")
-	public String freeInsert(FreeVO fvo) throws Exception{
-		int result = 0;
-		if(fvo.getFile().getSize() > 0) {
-			String fileName = FileUploadUtil.fileUpload(fvo.getFile(), "free");
-			fvo.setcommonFile(fileName);
-		}
-		result = freeDAO.freeInsert(fvo);
-		return result;
-	}*/
-	
-	
 	/* 글쓰기 폼 구현*/
 	@GetMapping(value = "/freeWriterForm")
 	public String freeWriterForm() {
@@ -67,21 +51,17 @@ public class FreeController {
 		return "board/free/freeWriterForm";
 	}
 	
-	/*@PostMapping("/freeInsert")
-	public String freeInsert(FreeVO fvo) throws Exception{
-		log.info("freeInsert 호출 성공");
-		freeService.freeInsert(fvo);
-		return "redirect:/free/freeList";
-	}*/
 	
 	@PostMapping("/freeInsert")
 	public String freeInsert(FreeVO fvo) throws Exception {
 		log.info("freeInsert 호출 성공");
+		log.info(fvo.toString());
 		freeService.freeInsert(fvo);
 
 		log.info(fvo.toString());
 		return "redirect:/free/freeList";
 	}
+	
 
 	
 	
@@ -113,44 +93,6 @@ public class FreeController {
 
 	
 
-	/*@PostMapping("/freeUpdate")
-	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras) {
-	    log.info("freeUpdate 호출 성공");
-	    
-	    int result = 0;
-	    String url = "";
-	    
-	    result = freeService.freeUpdate(fvo);
-	    ras.addFlashAttribute("freeVO", fvo);
-		/* model.addAttribute("freeUpdateData", fvo);
-	    
-	    if(result == 1) {
-	        url = "/free/freeDetail?commonNo=" + fvo.getCommonNo();
-	    } else {
-	        url = "/free/freeUpdateForm?commonNo=" + fvo.getCommonNo();
-	    }
-	    return "redirect:" + url;
-	}*/
-	
-	
-	 //글 삭제
-	
-	/*@PostMapping("/freeDelete")
-	public String freeDelete(@ModelAttribute FreeVO fvo){
-		log.info("freeDelete 호출 성공");
-		
-		int result = 0;
-		String url="";
-		result = freeService.freeDelete(fvo);
-		
-		if(result == 1) {
-			url="/free/freeList";
-		} else {
-			url="/free/freeDetail?commonNo="+fvo.getCommonNo();
-		}
-		return "redirect:"+url;
-	}*/
-	
 	@PostMapping("/freeUpdate")
 	public String freeUpdate(@ModelAttribute FreeVO fvo) throws Exception{
 		log.info("freeUpdate 호출 성공");
@@ -164,20 +106,18 @@ public class FreeController {
 		freeService.freeDelete(fvo);
 		return "redirect:/free/freeList";
 	}
-
 	
 	
 	
 	@ResponseBody
-	@PostMapping(value="/freeReplyCnt", produces=MediaType.TEXT_PLAIN_VALUE)
-	public String freeReplyCnt(@RequestParam("commonNo") int commonNo) {
-	    log.info("freeReplyCnt 호출 성공");
-	    
-	    int result = 0;
-	    result = freeService.freeReplyCnt(commonNo);
-	    
-	    return String.valueOf(result);
+	@PostMapping(value="/freereplyCount", produces=MediaType.TEXT_PLAIN_VALUE)
+	public String freereplyCount(@RequestParam("commonNo") int commonNo) {
+		log.info("freereplyCount 호출 성공");
+		
+		int result = 0;
+		result = freeService.freeReplyCnt(commonNo);
+		
+		return String.valueOf(result);
 	}
-
 
 }

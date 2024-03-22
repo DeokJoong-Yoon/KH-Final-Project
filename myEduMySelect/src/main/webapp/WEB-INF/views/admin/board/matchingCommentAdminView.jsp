@@ -267,18 +267,18 @@
 
 	<main id="main" class="main">
 		<form id="detailForm">
-			<input type="hidden" id="commonNo" name="commonNo" />
+			<input type="hidden" id="matchingCommentNo" name="matchingCommentNo" />
 		</form>
-		<form id="noticeForm" name="noticeForm">
+		<form id="commentForm" name="commentForm">
 			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
 			<div class="pagetitle">
-				<h1>Notice board</h1>
+				<h1>Matching Comment Board</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">notice board</li>
+						<li class="breadcrumb-item active">matching comment board</li>
 					</ol>
 				</nav>
 			</div>
@@ -298,8 +298,8 @@
 									<div class="col-auto">
 										<select id="search" name="search" class="form-select form-select-sm">
 											<option value="all">All</option>
-											<option value="common_title">Title</option>
-											<option value="common_content">Content</option>
+											<option value="matching_comment_content">Content</option>
+											<option value="academy_id">Academy Id</option>
 										</select>
 									</div>
 									<div class="col-auto">
@@ -312,24 +312,23 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th scope="col">No</th>
-											<th scope="col">Title</th>
-											<th scope="col">AdminName</th>
-											<th scope="col">RegisterDate</th>
-											<th scope="col">ReadCount</th>
+											<th scope="col">Comment No</th>
+											<th scope="col">Academy Id</th>
+											<th scope="col">Name</th>
+											<th scope="col">Content</th>
+											<th scope="col">RegDate</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:choose>
-											<c:when test="${not empty boardList}">
-												<c:forEach var="notice" items="${boardList}" varStatus="statusNumber">
-													<%-- <c:if test="${statusNumber.index < 20}"></c:if> --%>
-														<tr data-num="${notice.commonNo}">
-															<th scope="row">${notice.commonNo}</th>
-															<th class="goDetail text-start">${notice.commonTitle}</th>
-															<td class="goDetail text-start">${notice.commonNickname}</td>
-															<td class="goDetail text-start">${notice.commonRegisterDate}</td>
-															<td class="goDetail text-start">${notice.commonReadcnt}</td>
+											<c:when test="${not empty commentList}">
+												<c:forEach var="comment" items="${commentList}" varStatus="statusNumber">
+														<tr data-num="${comment.matchingCommentNo}">
+															<th scope="row">${comment.matchingCommentNo}</th>
+															<th class="goDelete text-start">${comment.academyId}</th>
+															<td class="goDelete text-start">${comment.matchingCommentNickname}</td>
+															<td class="goDelete text-start">${comment.matchingCommentContent}</td>
+															<td class="goDelete text-start">${comment.matchingCommentDate}</td>
 														</tr>
 												</c:forEach>
 											</c:when>
@@ -341,9 +340,6 @@
 										</c:choose>
 									</tbody>
 								</table>
-								<div class="text-end">
-									<button type="button" id="insertFormBtn" class="btn btn-primary btn-sm">글쓰기</button>
-								</div>
 							</div>
 							<%-- ======================== 페이징 출력 시작 ========================--%>
 							<nav aria-label="Page navigation example">
@@ -385,15 +381,15 @@
 	<script>
       	$(function() {
       		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${noticeBoardVO.keyword}' />";
+      		let word="<c:out value='${matchingReplyAdminVO.keyword}' />";
       		let value ="";
       		if (word != "") {
-      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
-      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
+      			$("#keyword").val("<c:out value='${matchingReplyAdminVO.keyword}' />");
+      			$("#search").val("<c:out value='${matchingReplyAdminVO.search}' />");
       			
-      			if ($("#search").val() != 'common_content') {
+      			if ($("#search").val() != 'matching_comment_content') {
       				//:contains() 는 특정 텍스트를 포함한 요소 반환
-      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+      				if($("#search").val() == 'academy_id') value = "#list tr td.goDetail";
       				console.log($(value + ":contains('" + word + "')").html());
       				// $("#list tr td.goDetail:contains('노력')").html();
       				// => <span class='required'>노력</span>에 대한 명언
@@ -420,6 +416,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<!-- Template Main JS File -->
 	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
-	<script src="/resources/include/admin/js/adminNoticeBoardView.js"></script>
+	<script src="/resources/include/admin/js/matchingCommentListView.js"></script>
 </body>
 </html>

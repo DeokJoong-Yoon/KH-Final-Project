@@ -11,6 +11,8 @@
 
 <body class="commentSection">
 	<div class="container"> 
+		<h4>댓글</h4><hr/><br/>
+		
 		<%-- 댓글 입력 화면 --%>
 		<div>
 			<form id="freereplyForm" name="freereplyForm">
@@ -38,12 +40,13 @@
 			<div class="card-header">
 				<h5 class="personalId"></h5>
 				<p class="commonCommentDate"></p>
-				
-				<button type="button" id="frUpdateBtn">수정</button>
-				<button type="button" id="frDeleteBtn">삭제</button>
 			</div>				
 			<div class="card-body">
 				<p class="card-text"></p>
+				<div class="btnArea">
+					<button type="button" id="frDeleteBtn">삭제</button>
+					<button type="button" id="frUpdateBtn">수정</button>
+				</div>
 			</div>
 			</div>
 		</div>
@@ -153,7 +156,7 @@
                 commonCommentContent = commonCommentContent.replace(/(\r\n|\r|\n)/g, "<br />");
 
                 template(commonCommentNo, personalId, commonCommentContent, commonCommentDate);
-                /*$('#freereplyList').append(commonCommentNo + personalId + commonCommentContent + commonCommentDate + "<br />");*/
+               
             });
         }).fail(function() {
             alert("댓글 목록을 불러오는데 실패하였습니다. 잠시 후에 다시 시도해 주세요.");

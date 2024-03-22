@@ -40,7 +40,7 @@ public class AdvertiseController {
 	
 	// 홍보게시판 목록 전체보기 구현
 	@GetMapping("/advertiseBoardList")
-	public String advertiseList(@ModelAttribute AdvertiseVO aVO, Model model, HttpSession session) {
+	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model, HttpSession session) {
 		log.info("advertiseBoardList() 호출 성공");
 		
 		//개인회원 로그인 세션 받기
@@ -120,7 +120,7 @@ public class AdvertiseController {
 	
 	
 	//홍보 게시판 글 삭제
-	@GetMapping("/advertiseDelete")
+	@PostMapping("/advertiseDelete")
 	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras, HttpSession session) throws Exception {
 		log.info("delete 호출 성공");
 		

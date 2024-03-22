@@ -1,0 +1,41 @@
+#h2-desc {
+	margin-bottom : 20px !important;
+}
+
+#academyGuAddress, #academyDongAddress, #academyCurriculumName {
+	border: 1px solid #ccc;
+	width: 150px;
+	margin-right: 7px;
+	height : 40px;
+	border-radius: 5px;
+	padding-left : 10px;
+	margin-top : 50px;
+}
+
+#academyCurriculumName {
+	width: 250px;
+}
+
+
+#mainSearchBtn {
+	background-color : #37517e !important; 
+	height:55px;
+	width:565px;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px !important;
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    margin-bottom: 12px;
+    display: block;
+    font-size: 20px;
+}
+
+#mainSearchBtn:hover {
+	background-color : #47b2e4 !important;
+}
+
+h4 {
+	font-weight: 500 !important;
+}

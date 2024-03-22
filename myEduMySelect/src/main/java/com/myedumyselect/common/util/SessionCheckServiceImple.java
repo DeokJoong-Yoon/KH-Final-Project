@@ -7,13 +7,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.vo.AcademyLoginVo;
-import com.myedumyselect.auth.SessionInfo;
-import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.payment.service.PaymentService;
 import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -118,8 +115,8 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				return "FALSE";
 			} else {
 				log.info("회원 ID : " + personalLoginVO.getPersonalId());
-				PersonalLoginVO personalLoginVO = personalLoginService.personalMypage(personalLoginVO.getPersonalId());
-				model.addAttribute("personalLoginVO", personalLoginVO);
+				PersonalLoginVO selectedPersonalLoginVO = personalLoginService.personalMyPage(personalLoginVO);
+				model.addAttribute("personalLoginVO", selectedPersonalLoginVO);
 				return "TRUE";
 			}
 		}
@@ -136,8 +133,8 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				model.addAttribute("alertMsg", "학원회원은 접속할 수 없습니다.");
 				return "FALSE";
 			} else {
-				PersonalLoginVO personalLoginVO = personalLoginService.personalMypage(personalLoginVO.getPersonalId());
-				model.addAttribute("personalLoginVO", personalLoginVO);
+				PersonalLoginVO selectedPersonalLoginVO = personalLoginService.personalMyPage(personalLoginVO);
+				model.addAttribute("personalLoginVO", selectedPersonalLoginVO);
 				return "TRUE";
 			}
 		}

@@ -48,6 +48,7 @@
 
 <!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
+<link href="/resources/include/assets/css/main.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: MyEduMySelect
@@ -73,29 +74,30 @@
 
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
+					<li><a class="nav-link scrollto active" href="/">홈</a></li>
+					<li><a class="nav-link scrollto" href="main.jsp#about">About</a></li>
+					<li><a class="nav-link scrollto" href="main.jsp#team">Team</a></li>
 					<li class="dropdown"><a href="#"><span>메뉴</span> <i
 							class="bi bi-chevron-down"></i></a>
 						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="/notice/boardList">공지게시판</a></li>
+							<li><a href="/notice/boardList">공지사항</a></li>
+							<li><a href="/matching/">맞춤형 검색</a></li>
+							<li><a href="/matching/boardList">매칭 게시판</a></li>
+							<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
+							<li><a href="/free/freeList">자유 게시판</a></li>
 							<c:if test="${commonLogin.memberTypeId == 1}">
-							    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">회원마이페이지</a></li>
+							    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">마이페이지</a></li>
 							</c:if>
                             <c:if test="${commonLogin.memberTypeId == 2}">
                                 <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
                             </c:if>
 						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+					<li><a class="nav-link scrollto" href="main.jsp#pricing">Pricing</a></li>
 					<c:choose>
                         <c:when test="${not empty commonLogin}">
                             <li><a class="nav-link scrollto">
-                            <c:if test="${commonLogin.memberTypeId == 1}">회원 </c:if>
-                            <c:if test="${commonLogin.memberTypeId == 2}">학원 </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 1}">[개인] </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">[학원] </c:if>
                             ${commonLogin.name}님 환영합니다.</a></li>
                             <li>
                                 <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
@@ -124,55 +126,57 @@
 				<div
 					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
 					data-aos="fade-up" data-aos-delay="200">
-					<h1>전체 조회 / 빠른검색</h1>
-					<h2>여러분의 교육은 여러분이 선택합니다.</h2>
-					<p>${userId}님 환영합니다.</p>
-					<form id="mainSearchForm">
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<select id="academyGuAddress" name="academyGuAddress" class="form-control form-control-lg">
-	        				<option value="">-- 구 선택 --</option>
-	        				<option value="강남구">강남구</option>
-	        				<option value="강동구">강동구</option>
-	       					<option value="강북구">강북구</option>
-	      					<option value="강서구">강서구</option>
-	      					<option value="관악구">관악구</option>
-	      					<option value="광진구">광진구</option>
-	        				<option value="구로구">구로구</option>
-	        				<option value="금천구">금천구</option>
-	        				<option value="노원구">노원구</option>
-	        				<option value="도봉구">도봉구</option>
-	        				<option value="동대문구">동대문구</option>
-	        				<option value="동작구">동작구</option>
-	        				<option value="마포구">마포구</option>
-	        				<option value="서대문구">서대문구</option>
-	        				<option value="서초구">서초구</option>
-	        				<option value="성동구">성동구</option>
-	        				<option value="성북구">성북구</option>
-	        				<option value="송파구">송파구</option>
-	        				<option value="양천구">양천구</option>
-	        				<option value="영등포구">영등포구</option>
-	        				<option value="용산구">용산구</option>
-	        				<option value="은평구">은평구</option>
-	        				<option value="종로구">종로구</option>
-	        				<option value="중구">중구</option>
-	        				<option value="중랑구">중랑구</option>
-	        			</select>
-						<select id="academyDongAddress" name="academyDongAddress" class="form-control form-control-lg">
-							<option value="">-- 동 선택 --</option>
-	        			</select>
-	        			<input id="academyCurriculumName" name="academyCurriculumName" type="text" class="form-control form-control-lg" placeholder="과목을 입력하세요." maxlength=20/>
-	        			</form>
-					</div>
-					<button type="button" id="mainSearchBtn" name="mainSearchBtn" class="btn-get-started scrollto">검색</button>
+					<h2 id="h2-desc">내 교육은 내가 선택한다!</h2>
+					<h1>반갑습니다 MYEDUMYSELECT 입니다</h1>
 					
+					<form id="mainSearchForm">
+						<div class="d-flex justify-content-center justify-content-lg-start">
+							<select id="academyGuAddress" name="academyGuAddress" class="form-control form-control-lg">
+		        				<option value="">-- 구 선택 --</option>
+		        				<option value="강남구">강남구</option>
+		        				<option value="강동구">강동구</option>
+		       					<option value="강북구">강북구</option>
+		      					<option value="강서구">강서구</option>
+		      					<option value="관악구">관악구</option>
+		      					<option value="광진구">광진구</option>
+		        				<option value="구로구">구로구</option>
+		        				<option value="금천구">금천구</option>
+		        				<option value="노원구">노원구</option>
+		        				<option value="도봉구">도봉구</option>
+		        				<option value="동대문구">동대문구</option>
+		        				<option value="동작구">동작구</option>
+		        				<option value="마포구">마포구</option>
+		        				<option value="서대문구">서대문구</option>
+		        				<option value="서초구">서초구</option>
+		        				<option value="성동구">성동구</option>
+		        				<option value="성북구">성북구</option>
+		        				<option value="송파구">송파구</option>
+		        				<option value="양천구">양천구</option>
+		        				<option value="영등포구">영등포구</option>
+		        				<option value="용산구">용산구</option>
+		        				<option value="은평구">은평구</option>
+		        				<option value="종로구">종로구</option>
+		        				<option value="중구">중구</option>
+		        				<option value="중랑구">중랑구</option>
+		        			</select>
+							<select id="academyDongAddress" name="academyDongAddress" class="form-control form-control-lg">
+								<option value="">-- 동 선택 --</option>
+		        			</select>
+		        			<input id="academyCurriculumName" name="academyCurriculumName" type="text" class="form-control form-control-lg" placeholder="과목을 입력하세요." maxlength=20/>
+	        			</div>
+        			</form>
+				<button type="button" id="mainSearchBtn" name="mainSearchBtn" class="btn-get-started scrollto">지역 내 전체 학원 조회하기</button>
 				</div>
+				
 				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
 					data-aos-delay="200">
 					<img src="/resources/include/assets/img/hero-img.png"
 						class="img-fluid animated" alt="">
 				</div>
-				
+					
 			</div>
+			
+			
 		</div>
 		
 	</section>
@@ -194,7 +198,7 @@
 									<i class="bx bxl-dribbble"></i>
 								</div>
 								<h4>
-									<a href="">자유게시판</a>
+									<a href="/free/freeList">자유게시판</a>
 								</h4>
 								<p>자유롭게 좋은 의견을 말해주세요.</p>
 							</div>
@@ -208,7 +212,7 @@
 									<i class="bx bx-file"></i>
 								</div>
 								<h4>
-									<a href="">홍보게시판</a>
+									<a href="/advertise/advertiseBoardList">홍보게시판</a>
 								</h4>
 								<p>멋진 교육 장소를 마음껏 뽐내주세요</p>
 							</div>
@@ -221,13 +225,14 @@
 									<i class="bx bx-tachometer"></i>
 								</div>
 								<h4>
-									<a href="">맞춤형검색/매칭게시판</a>
+									<a href="/matching/">맞춤형검색/매칭게시판</a>
 								</h4>
-								<p>내가 선택한 교육을 여기서 확인하세요.</p>
+								<p>나에게 꼭 맞는 교육을 여기서 확인하세요.</p>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 		<!-- End Cliens Section -->
 
@@ -241,8 +246,8 @@
 
 				<div class="row content">
 					<div class="col-lg-6">
-						<p>모든 학부모와 학생이 쉽고 효과적으로 오프라인 학원을 선택할 수 있도록 하는 교육 정보 중개 서비스를
-							제공하여, 교육의 질적 향상과 부담을 덜어드립니다</p>
+						<p>모든 학부모와 학생이 보다 쉽고 효과적으로 오프라인 학원을 선택할 수 있도록 하는 교육 정보 중개 서비스를
+							제공하여, 교육의 질적 향상을 돕고 개인의 부담을 덜어드립니다.</p>
 						<ul>
 							<li><i class="ri-check-double-line"></i> 투명하고 객관적인 정보 제공</li>
 							<li><i class="ri-check-double-line"></i> 맞춤형 추천 시스템</li>

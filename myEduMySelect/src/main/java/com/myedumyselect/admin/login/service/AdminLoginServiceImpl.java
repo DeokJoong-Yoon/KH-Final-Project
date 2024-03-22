@@ -19,4 +19,18 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 		return adminLogin;
 	}
 
+	@Override
+	public int updateAdminInfo(AdminLoginVO newAdminInfo) {
+		int result = 0;
+		adminLoginDao.updateAdminInfo(newAdminInfo);
+		return result;
+	}
+
+	@Override
+	public int updateAdminPasswd(AdminLoginVO checkPassword) {
+		int result = 0;
+		result = adminLoginDao.updateAdminPasswd(checkPassword);
+		return result;
+	}
+
 }

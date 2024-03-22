@@ -44,10 +44,17 @@ public class MatchingBoardController {
 	@GetMapping("/")
 	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, Model model, HttpSession session) {
 		String alertMsg = "경고";
+<<<<<<< HEAD
 		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, alertMsg);
 		if (checkedSessionResult == "FALSE") {
 			return "redirect:/";
 		}
+=======
+//		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(session, model, alertMsg);
+//		if (checkedSessionResult == "FALSE") {
+//			return "redirect:/";
+//		}
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 
 		List<MatchingBoardVO> list = mbService.mBoardListPreview(mbVO);
 		model.addAttribute("mBoardList", list);
@@ -58,8 +65,13 @@ public class MatchingBoardController {
 	// 매칭게시판 전체보기 구현
 	@GetMapping("/boardList")
 	public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
+<<<<<<< HEAD
 //		log.info("mBoardList() 호출 성공");
 //		
+=======
+		log.info("mBoardList() 호출 성공");
+		
+>>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
 //		String alertMsg = "경고";
 //		String checkedSessionResult = sessionCheckService.isAcademySessionCheck(session, model, alertMsg);
 //		if (checkedSessionResult == "FALSE") {
@@ -216,43 +228,43 @@ public class MatchingBoardController {
 	}
 	
 	
-	//이전 게시글 이동
-	@GetMapping("/prev/{matchingNo}")
-	public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
-		
-		//이전 게시글의 번호
-		int prevNo = mbService.prevMatchingNo(mbVO);
-		
-		//주소 담을 변수
-		String url = "";
-		
-		if(prevNo == -1) {
-			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
-		} else {
-			url =  "redirect:/matching/boardDetail?matchingNo=" + prevNo;
-		}
-		
-		return url;
-	}
-	
-	
-	//다음 게시글 이동
-	@GetMapping("/next/{matchingNo}")
-	public String nextPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
-		
-		//다음 게시글의 번호
-		int nextNo = mbService.nextMatchingNo(mbVO);
-		
-		//주소 담을 변수
-		String url = "";
-		
-		if(nextNo == -1) {
-			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
-		} else {
-			url =  "redirect:/matching/boardDetail?matchingNo=" + nextNo;
-		}
-		
-		return url;
-	}
+//	//이전 게시글 이동
+//	@GetMapping("/prev/{matchingNo}")
+//	public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
+//		
+//		//이전 게시글의 번호
+//		int prevNo = mbService.prevMatchingNo(mbVO);
+//		
+//		//주소 담을 변수
+//		String url = "";
+//		
+//		if(prevNo == -1) {
+//			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
+//		} else {
+//			url =  "redirect:/matching/boardDetail?matchingNo=" + prevNo;
+//		}
+//		
+//		return url;
+//	}
+//	
+//	
+//	//다음 게시글 이동
+//	@GetMapping("/next/{matchingNo}")
+//	public String nextPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
+//		
+//		//다음 게시글의 번호
+//		int nextNo = mbService.nextMatchingNo(mbVO);
+//		
+//		//주소 담을 변수
+//		String url = "";
+//		
+//		if(nextNo == -1) {
+//			url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
+//		} else {
+//			url =  "redirect:/matching/boardDetail?matchingNo=" + nextNo;
+//		}
+//		
+//		return url;
+//	}
 
 }

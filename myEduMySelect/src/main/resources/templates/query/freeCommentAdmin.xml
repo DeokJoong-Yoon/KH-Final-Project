@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.admin.board.free.reply.dao.FreeReplyAdminDAO">
+	<resultMap type="freeReplyAdmin" id="freeReplyMap">
+		<id column="common_comment_no" property="commonCommentNo" />
+		<result column="common_no" property="commonNo" />
+		<result column="personal_id" property="personalId" />
+		<result column="common_comment_content"
+			property="commonCommentContent" />
+		<result column="common_comment_date"
+			property="commonCommentDate" />
+	</resultMap>
+
+	<sql id="commentSearch">
+		<if test="search == 'personal_id'">
+		<![CDATA[ personal_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'common_comment_content'"> 
+		<![CDATA[ common_comment_content LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+
+	<!-- 전체 레코드 수 조회 -->
+	<select id="commentListCnt" parameterType="freeReplyAdmin"
+		resultType="int">
+		SELECT count(*) FROM
+		tb_common_comment
+		<trim prefix=" where (" suffix=")">
+			<include refid="commentSearch"></include>
+		</trim>
+	</select>
+
+	<select id="commentList" parameterType="freeReplyAdmin"
+		resultMap="freeReplyMap"> 
+		<![CDATA[
+		SELECT common_comment_no, common_no, personal_id, common_comment_content, 
+		common_comment_date
+		FROM (
+			SELECT /*+ INDEX_DESC(tb_common_comment pk_tb_common_comment) */
+			rownum as rnum, common_comment_no, common_no, personal_id, common_comment_content, common_comment_date
+			FROM (
+					select * from tb_common_comment
+					order by common_comment_date desc
+				 ) sortedBoardList
+			WHERE ]]>
+		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+			<include refid="commentSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardList
+		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+
+
+	<delete id="commentDelete" parameterType="freeReplyAdmin">
+		DELETE FROM
+		tb_common_comment
+		WHERE
+		common_comment_no = #{commonCommentNo}
+	</delete>
+
+</mapper>

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+    pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>					
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>		
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -45,6 +47,7 @@
 	rel="stylesheet">
 
 <!-- Template Main CSS File -->
+<link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/board/free/css/freeUpdate.css"
 	rel="stylesheet">
 
@@ -59,100 +62,134 @@
 
 <body>
 
-	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-		<div class="container d-flex align-items-center">
+    <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <h1 class="logo me-auto">
+      	<a href="/">MyEdu<br />MySelect</a>
+      </h1>
 
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
-					<li class="dropdown"><a href="#"><span>메뉴</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
-						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/">홈</a></li>
+          <li><a class="nav-link scrollto" href="/">About</a></li>
+          <li><a class="nav-link scrollto" href="/">Team</a></li>
+          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              	<li><a href="/notice/boardList">공지사항</a></li>
+				<li><a href="/matching/">맞춤형 검색</a></li>
+				<li><a href="/matching/boardList">매칭 게시판</a></li>
+				<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
+				<li><a href="/free/freeList">자유 게시판</a></li>
+				<c:if test="${commonLogin.memberTypeId == 1}">
+				    <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">마이페이지</a></li>
+				</c:if>
+                         <c:if test="${commonLogin.memberTypeId == 2}">
+                             <li><a href="${pageContext.request.contextPath}/academyaccount/mypage" id="mypageBtn">학원마이페이지</a></li>
+                         </c:if>
+			</ul>
+		  </li>
+			<li><a class="nav-link scrollto" href="/">Pricing</a></li>
+			<c:choose>
+                     <c:when test="${not empty commonLogin}">
+                         <li><a class="nav-link scrollto">
+                            <c:if test="${commonLogin.memberTypeId == 1}">[개인] </c:if>
+                            <c:if test="${commonLogin.memberTypeId == 2}">[학원] </c:if>
+                            ${commonLogin.name}님 환영합니다.</a></li>
+                         <li>
+                             <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+                                 <button class="getstarted scrollto btn btn-aquamarine"type="submit">로그아웃</button>
+                             </form>
+                         </li>
+                     </c:when>
+                     <c:otherwise>
+                         <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
+                     </c:otherwise>
+                 </c:choose>               		
+			</ul>
+			<i class="bi bi-list mobile-nav-toggle"></i>
+		</nav>
+		<!-- .navbar -->
 
-		</div>
-	</header>
-	<!-- End Header -->
-
-	<!-- ======= 게시판 상세페이지 영역 ======= -->
-	<section id="hero"
-		class="d-flex align-items-center justify-content-center">
-		<div class="container">
+    </div>
+  </header><!-- End Header -->
+  
+  <!-- ======= 설명 영역 ======= -->
+	<section id="hero" class="d-flex align-items-center  justify-content-center">
+		<div class="container" >
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<div class="text-center">
-						<h1>게시판 수정화면</h1>
-					</div>
-					<div class="d-flex justify-content-center justify-content-lg-start">
-						<div class="container">
-							<div class="col-3 list-group">
-								<a href="/free/freeList"
-									class="list-group-item list-group-item-action">자유게시판</a> <a
-									href="/advertise/advertiseList"
-									class="list-group-item list-group-item-action">홍보게시판</a> <a
-									href="#" class="list-group-item list-group-item-action">공지게시판</a>
-							</div>
-						</div>
-						<form id="updateForm" name="updateForm">
-							<input type="hidden" id="commonNo_hidden" name="commonNo" value="${freeUpdateData.commonNo}" />
-							<input type="hidden" id="commonFile" name="commonFile" value="${freeUpdateData.commonFile}" />"
-							<table>
-								<tr>
-									<td colspan="12" class="text-start"><input type="text" id="commonTitle" name="commonTitle" value="${freeUpdateData.commonTitle}"	placeholder="제목을 입력해 주세요" /></td>
-								</tr>
-								<tr>
-									<td colspan="3" class="text-start">글번호 : ${freeUpdateData.commonNo} (조회수 : ${freeUpdateData.commonReadcnt})</td>
-									<td colspan="3" class="text-start">작성자 : ${freeUpdateData.personalId}</td>
-									<td colspan="3" class="text-start">작성일 : ${freeUpdateData.commonRegisterDate}</td>
-								</tr>
-								<tr>
-									<td><textarea name="commonContent" id="commonContent" class="form-control custom-textarea" placeholder="내용을 입력해주세요.">${freeUpdateData.commonContent}</textarea></td>
-								</tr>
-								<tr>
-									<td>이미지파일첨부</td>
-									<td class="text-start"><input type="file" name="file" id="file" class="form-control" /></td>
-								</tr>
-							</table>
-						</form>
-						<div class="col-md-5 text-end ms-auto" id=btnGroup>
-							<button type="submit" id="freeUpdateBtn" class="btn btn-primary btn-sm" >수정</button>
-							<button type="button" id="freeCancelBtn" class="btn btn-primary btn-sm">취소</button>
-							<button type="button" id="freeListBtn" class="btn btn-primary btn-sm">목록</button>
-						</div>
+				<form id="detailForm">
+					<input type="hidden" id="commonNo" name="commonNo" />
+				</form>
 
+				<div class="col-12 text-center banner">
+		            자유 게시판<br/>
+		            <div class="descBox">
+		            	자유롭게 글을 작성할 수 있는 <b>자유게시판</b>입니다.<br>
+		            	질문, 후기, 정보 등 도움이 될 만한 다양한 글을 남겨주세요!
+		            </div>
+		       </div> 
+		    </div>
+		</div>
+	</section> <!-- ======= 설명 영역 끝 ======= -->
+
+
+	
+	<!-- ======= 게시판 수정 영역 ======= -->
+	<main id="main">
+	
+		<section id="form">
+			<div class="container">
+
+				<form id="updateForm" name="updateForm">
+					<input type="hidden" id="commonNo_hidden" name="commonNo" value="${freeUpdateData.commonNo}" />
+					<input type="hidden" id="commonFile" name="commonFile" value="${freeUpdateData.commonFile}" />"
+							
+					<div class="boardDetail">		
+						<table>
+							<tr>
+								<th>글 번호</th>
+								<td>${freeUpdateData.commonNo} (조회수 : ${freeUpdateData.commonReadcnt})</td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td>${freeUpdateData.personalId}</td>
+							</tr>
+							<tr>
+								<th>작성일</th>
+								<td>${freeUpdateData.commonRegisterDate}</td>
+							</tr>
+							<tr>
+								<th>제목</th>
+								<td>
+									<input type="text" id="commonTitle" name="commonTitle" value="${freeUpdateData.commonTitle}" placeholder="제목을 입력해 주세요" />
+								</td>
+							</tr>
+							<tr>
+								<th>내용</th>
+								<td><textarea name="commonContent" id="commonContent" placeholder="내용을 입력해주세요." rows="20">${freeUpdateData.commonContent}</textarea></td>
+							</tr>
+							<tr>
+								<th>이미지 파일</th>
+								<td>
+									<input type="file" name="file" id="file" class="form-control" />
+								</td>
+							</tr>
+						</table>
 					</div>
+				</form>
+				
+				<div class="detailButtons">
+					<button type="submit" id="freeUpdateBtn" class="btn btn-primary btn-sm" >수정</button>
+					<button type="button" id="freeCancelBtn" class="btn btn-primary btn-sm">취소</button>
+					<button type="button" id="freeListBtn" class="btn btn-primary btn-sm">목록</button>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-			data-aos-delay="200"></div>
-	</section>
+		</section>
 
 
-	<main id="main"></main>
+	</main>
 	<!-- End #main -->
 
 	<!-- ======= Footer ======= -->
@@ -266,7 +303,6 @@
 		});
 
 	</script>
-
 </body>
 
 </html>
