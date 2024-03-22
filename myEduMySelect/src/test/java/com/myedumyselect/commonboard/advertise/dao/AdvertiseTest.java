@@ -73,12 +73,23 @@ public class AdvertiseTest {
 		log.info("상세페이지 조회");
 		
 		AdvertiseVO aVO = new AdvertiseVO();
-		aVO.setCommonNo(20013);
+		aVO.setCommonNo(20031);
 		
 		AdvertiseVO vo = aDAO.advertiseDetail(aVO);
 		
 		log.info(vo.toString());
 	}
 	
+//	@Test
+//	public void readcnt() {
+//		log.info("조회수");
+//		AdvertiseVO aVO = new AdvertiseVO();
+//		aVO.setCommonNo(20031);
+//		
+//		int result = aDAO.readCntUpdate(aVO);
+//		
+//		log.info("조회수 : " + result);
+//	}
+//	
 
 }
