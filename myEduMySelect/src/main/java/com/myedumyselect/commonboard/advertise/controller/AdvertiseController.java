@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+											
 import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
+														   
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;

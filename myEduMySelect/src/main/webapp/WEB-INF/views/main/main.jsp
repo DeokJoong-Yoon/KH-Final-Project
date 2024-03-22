@@ -8,6 +8,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <!DOCTYPE html>
+<html lang="kr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport"
@@ -126,6 +127,7 @@
 	        </ul>
 	        <i class="bi bi-list mobile-nav-toggle"></i>
 	      </nav><!-- .navbar -->
+	
 	    </div>
   	</header>
 	<!-- End Header -->

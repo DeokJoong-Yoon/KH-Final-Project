@@ -37,7 +37,7 @@
 	    <result column="common_title" property="commonTitle" />
 	    <result column="common_content" property="commonContent" />
 	    <result column="common_register_date" property="commonRegisterDate" />
-	    <result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_readcnt" property="commonReadcnt" />														
 	    
 	    <!-- FileVO에 대한 매핑 -->
 	    <collection property="fileVO" ofType="file">
@@ -195,7 +195,7 @@
 		           	b.common_nickname,
 		           	b.common_title,
 		           	b.common_content,
-		           	b.common_readcnt,
+					b.common_readcnt,		   
 		           	to_char(b.common_register_date, 'YYYY-MM-DD HH24:MI') as common_register_date,
 		           	f.file_no,
 		           	f.file_path,
@@ -257,6 +257,7 @@
 			WHERE	common_no > #{commonNo}
 		]]>
 	</select>
+ 
 	
 	
 	<!-- 조회수 -->
@@ -265,6 +266,13 @@
 		SET 	common_readcnt = common_readcnt + 1
 		WHERE 	common_no = #{commonNo}
 	</update>
+ 
+				   
+														   
+						
+										  
+								
+		  
 
 	
 	

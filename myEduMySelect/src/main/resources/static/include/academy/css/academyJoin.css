@@ -72,7 +72,7 @@ table button {
    	margin-left : 10px;
 }
 
-#personalInsertBtn {
+#submit-btn, #reset-btn{
 	padding: 10px 20px;
     background-color: #48d1cc;
     color: white;
@@ -84,16 +84,34 @@ table button {
     margin-top:20px;
     margin-left:5px;
     float: right;
-}
-
-#personalInsertBtn:hover{
-	background-color: #37517e;
+    padding-bottom : 35px;
 }
 
 button:hover {
 	background-color: #37517e;
 }
+#reset-btn:hover, #submit-btn:hover{
+	background-color: #37517e;
+}
 
-#personalAddress {
-	width : 400px;
+#academyNumber, #academyManagerPhone, #academyName, #academyGuAddress, 
+#academyRoadAddress, #academyDongAddress, #academyPhone, #academyManagerEmail {
+	width : 500px;
+}
+
+#academyTargetSubject {
+	width : 300px;
+}
+
+#academyDongAddress, #academyGuAddress {
+	margin-top: 0px;
+}
+
+#feeGroup input, #ageGroup input, #keywordGroup input {
+	margin-right: 5px;
+	height: 15px;
+}
+
+#feeGroup label, #ageGroup label, #keywordGroup label {
+	margin-right : 30px;
 }
