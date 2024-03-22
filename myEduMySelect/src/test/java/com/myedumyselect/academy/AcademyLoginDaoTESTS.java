@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.myedumyselect.academy.dao.AcademyLoginDao;
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class AcademyLoginDaoTESTS {
 	
 	@Test
 	public void findById() {
-		AcademyLoginVo avo = new AcademyLoginVo();
+		AcademyLoginVO avo = new AcademyLoginVO();
 		
 		avo = academyLoginDao.findById("yemac3432");
 		

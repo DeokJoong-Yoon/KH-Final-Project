@@ -46,8 +46,8 @@ public class AcademySignUpVo {
     @NotBlank(message = "1개 항목 필수 선택")
     private String academyFee;
 
-    public AcademyLoginVo toAcademyLoginVo() {
-        return AcademyLoginVo.builder()
+    public AcademyLoginVO toAcademyLoginVo() {
+        return AcademyLoginVO.builder()
                 .academyId(academyId)
                 .memberTypeId(2)
                 .academyNumber(academyNumber)

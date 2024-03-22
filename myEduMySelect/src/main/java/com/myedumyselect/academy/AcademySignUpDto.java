@@ -2,7 +2,7 @@ package com.myedumyselect.academy;
 
 import java.time.LocalDateTime;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -46,8 +46,8 @@ public class AcademySignUpDto {
     @NotBlank(message = "1개 항목 필수 선택")
     private String academyFee;
 
-    public AcademyLoginVo toVo() {
-        return AcademyLoginVo.builder()
+    public AcademyLoginVO toVo() {
+        return AcademyLoginVO.builder()
                 .academyId(academyId)
                 .memberTypeId(2)
                 .academyNumber(academyNumber)

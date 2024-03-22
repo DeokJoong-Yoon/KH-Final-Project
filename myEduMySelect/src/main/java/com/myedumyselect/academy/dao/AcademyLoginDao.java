@@ -1,37 +1,43 @@
 package com.myedumyselect.academy.dao;
 
-//import java.util.Optional;
+import java.sql.Date;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-import com.myedumyselect.academy.vo.AcademyLoginVo;
+
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 
 @Mapper
 public interface AcademyLoginDao {
-	AcademyLoginVo findByIdAndPasswd(@Param("academyId") String academyId,
-									 @Param("academyPasswd")String academyPasswd);
-	// 회원가입
-	int academyInsert(AcademyLoginVo academyLoginVo);
-	
+
+//로그인
+	public AcademyLoginVO loginProcess(AcademyLoginVO login);
+
+	// 로그인 실패 횟수
+	public int updateAcademyLoginFailCount(AcademyLoginVO login);
+
+	// 로그인 제한 상태
+	public int updateAccountBannedDate(String academyId, Date bannedDate);
+
+    // 회원가입
+    public int academyInsert(AcademyLoginVO login);
+
 	// 아이디 찾기
-	AcademyLoginVo findById(String academyId);
-	
+	AcademyLoginVO findById(String academyId);
+
 	// 사업자 등록번호 찾기
-	AcademyLoginVo findByNumber(String academyNumber);
-	
+	AcademyLoginVO findByNumber(String academyNumber);
+
 	// 아이디 중복검사
 	int checkId(String academyId);
-	
+
 	// 이메일 중복검사
 	int checkEmail(String academyManagerEmail);
-	
+
 	// 마이페이지 회원정보 수정
-	int academyUpdate(AcademyLoginVo login);
-	
+	int academyUpdate(AcademyLoginVO academyLogin);
+
 	// 비밀번호 변경
-	int updatePasswdChangeDate(AcademyLoginVo login);
-	
-	
-	// TODO: int academyUpdate(AcademyLoginVo login);
+	int updatePasswdChangeDate(AcademyLoginVO login);
+
 }
