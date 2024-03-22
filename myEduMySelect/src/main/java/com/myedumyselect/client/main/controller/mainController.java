@@ -60,13 +60,13 @@ public class mainController {
 
 		return "main/main";
 	}
-
+	/*
 	// 개인/학원 로그인 선택화면
 	@GetMapping("/loginselect")
 	public String loginSelect() {
 		return "main/loginSelect";
 	}
-
+	*/
 	/*
 	 * @GetMapping("/") public String mainIndex( Model model, HttpSession session) {
 	 * 

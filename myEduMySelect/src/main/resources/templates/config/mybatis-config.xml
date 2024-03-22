@@ -42,7 +42,7 @@
 
 
 		<!-- ========================academy 영역======================== -->
-		<typeAlias type="com.myedumyselect.academy.vo.AcademyLoginVo"
+		<typeAlias type="com.myedumyselect.academy.vo.AcademyLoginVO"
 			alias="academyLogin" />
 
 
