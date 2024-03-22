@@ -32,11 +32,20 @@ window.onload = function(){
 		    } else {
 				var msg = '결제에 실패하였습니다.';
         		msg += '에러내용 : ' + rsp.error_msg;
-        		console.log(msg);
-				//location.href="/payment/payFail";
+        		//console.log(msg);
+				location.href="/payment/payFail";
 		    }
 		});
     });
+    
+    document.getElementById('resetBtn').addEventListener('click', function(){
+		if(confirm("결제를 취소하시겠습니까?")) {
+			location.href="/";	
+		}
+		return;
+	});
+    
+    printCurrentAndThirtyDaysAfterDate();
 }
 
 
@@ -126,4 +135,40 @@ function pay_info(rsp, academy_id, academy_number, academy_name, academyStatus, 
       form.setAttribute('action', "/payment/paySuccess");
       document.body.appendChild(form);
       form.submit();
+}
+
+// 현재 날짜와 시간을 가져오는 함수
+function getDateTime() {
+    var currentDate = new Date();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+
+    //한 자리 수일 경우 앞에 0을 추가하여 두 자리로 표시
+    day = (day < 10) ? "0" + day : day;
+    month = (month < 10) ? "0" + month : month;
+
+    // HTML 요소에 현재 날짜와 시간을 삽입
+    document.getElementById('currentDate').innerHTML = year + "-" + month + "-" + day;
+    document.getElementById('endDate').innerHTML = year + "-" + month + "-" + day;
+}
+
+// 현재 날짜와 30일 후 날짜를 계산하고 출력하는 함수
+function printCurrentAndThirtyDaysAfterDate() {
+    var currentDate = new Date();
+    var endDate = new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+    
+    var currentDateString = formatDate(currentDate);
+    var endDateString = formatDate(endDate);
+    
+    document.getElementById('currentDate').innerHTML = currentDateString;
+    document.getElementById('endDate').innerHTML = endDateString;
+}
+
+// 날짜를 YYYY-MM-DD 형식의 문자열로 변환하는 함수
+function formatDate(date) {
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    var day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }

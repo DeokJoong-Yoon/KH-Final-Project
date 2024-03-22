@@ -82,7 +82,7 @@ public class AdminBoardController {
 
 	@GetMapping("/notice")
 	public String adminNoticeBoardView(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}

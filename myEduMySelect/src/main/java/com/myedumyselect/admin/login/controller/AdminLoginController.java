@@ -34,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("adminLogin")
 @RequestMapping("/admin/*")
 @Slf4j
+@Controller
 public class AdminLoginController {
 	@Setter(onMethod_ = @Autowired)
 	private AdminLoginService adminLoginService;
@@ -55,6 +56,8 @@ public class AdminLoginController {
 
 	@GetMapping("/login")
 	public String loginProcess(Model model) {
+		
+		System.out.println("로그인");
 
 		if (model.containsAttribute("adminLogin")) {
 

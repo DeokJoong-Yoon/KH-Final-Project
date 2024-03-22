@@ -1789,25 +1789,6 @@ section {
   text-decoration: none;
 }
 
-#footer .footer-bottom {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  color: #fff;
-}
-
-#footer .copyright {
-  float: left;
-}
-
-#footer .credits {
-  float: right;
-  font-size: 13px;
-}
-
-#footer .credits a {
-  transition: 0.3s;
-}
-
 @media (max-width: 768px) {
   #footer .footer-bottom {
     padding-top: 20px;
@@ -1823,4 +1804,20 @@ section {
   #footer .credits {
     padding-top: 4px;
   }
+}
+
+
+.getstarted.scrollto  {
+	background-color: white;
+	border: none;
+}
+
+a.getstarted.scrollto
+{
+	color: #47b2e4;
+}
+
+.getstarted.scrollto
+{
+	color: #47b2e4;
 }

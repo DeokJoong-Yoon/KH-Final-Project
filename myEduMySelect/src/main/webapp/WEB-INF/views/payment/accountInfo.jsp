@@ -25,33 +25,15 @@
 					<section id="pricing" class="pricing">
 						<div class="container" data-aos="fade-up">
 							<div class="row" data-aos="fade-up" data-aos-delay="100">
-								<h1>결제 완료</h1>
+								<h1>계좌이체 안내</h1>
 								<div class="box">
 									<h3>결제 내역</h3>
 									<ul>
-										<li class="bx bx-check">pay id : ${paymentVO.paymentId}</li>
-										<li class="bx bx-check">pg : ${paymentVO.pg}</li>
-										<li class="bx bx-check">pay method :
-											${paymentVO.payMethod}</li>
-										<li class="bx bx-check">merchant id :
-											${paymentVO.merchantUid}</li>
-										<li class="bx bx-check">pay name : ${paymentVO.name}</li>
-										<li class="bx bx-check">pay amount :
-											${paymentVO.payAmount}</li>
-										<li class="bx bx-check">academy id :
-											${paymentVO.academyId}</li>
-										<li class="bx bx-check">academy number :
-											${paymentVO.academyNumber}</li>
-										<li class="bx bx-check">academy name :
-											${paymentVO.academyName}</li>
-										<li class="bx bx-check">academy manager
-											name${paymentVO.academyManagerName}</li>
-										<li class="bx bx-check">academy manager
-											email${paymentVO.academyManagerEmail}</li>
-										<li class="bx bx-check">academy
-											managerphone${paymentVO.academyManagerPhone}</li>
-										<li class="bx bx-check">payment
-											date${paymentVO.paymentDate}</li>
+										<li class="bx bx-check">account bank name: KH Bank</li>
+										<li class="bx bx-check">account manager name : Yoon DJ</li>
+										<li class="bx bx-check">account number : 9391-1939-4847-5390</li>
+										<li class="bx bx-check">account amount : ￦989,000 per month</li>
+										<li class="bx bx-check">24시간 이내로 처리 예정</li>
 									</ul>
 								<a href="/">Home</a>
 								</div>

@@ -12,22 +12,17 @@
 	    	background: #00416A;  /* fallback for old browsers */
 			background: -webkit-linear-gradient(to right, #E4E5E6, #00416A);  /* Chrome 10-25, Safari 5.1-6 */
 			background: linear-gradient(to right, #E4E5E6, #00416A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-		
     	}
 		.btn-color{
 		  background-color: #0e1c36;
 		  color: #fff;
 		  
 		}
-		
 		.profile-image-pic{
 		  height: 200px;
 		  width: 200px;
 		  object-fit: cover;
 		}
-		
-		
-		
 		.cardbody-color{
 		  background-color: #ebf2fa;
 		}
@@ -35,7 +30,6 @@
 		a{
 		  text-decoration: none;
 		}
-
     </style>
 	<link rel="shortcut icon" href="/resources/include/admin/image/admin.png" />
 	<link rel="apple-touch-icon" href="/resources/include/admin/image/admin.png" />

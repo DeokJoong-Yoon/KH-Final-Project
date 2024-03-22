@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
@@ -31,28 +32,17 @@ public class PaymentController {
 	private AcademyLoginService academyLoginService;
 
 	@GetMapping("/payMain")
-	public String paymentBoardView(HttpSession session, Model model) {
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		String academyId = loginVo.getId();
-		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
-		
-		if (academyLoginVo == null) {
-			return "redirect:/academyaccount/login";
+	public String paymentBoardView(@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model) {
+		if (academyLoginVO == null) {
+			return "redirect:/academy/login";
 		}
-
-		model.addAttribute("academyLoginVo", academyLoginVo);
-		
-		log.info("로그인 학원 정보 : " + academyLoginVo.toString());
-		
+		model.addAttribute("academyLoginVO", academyLoginVO);
 		return "payment/payMain";
 	}
 
 	@PostMapping("/paySuccess")
-	public String paySuccessView(@ModelAttribute PaymentVO pvo, Model model, HttpSession session) {
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		String academyId = loginVo.getId();
-		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
-		if (academyLoginVo == null) {
+	public String paySuccessView(@ModelAttribute PaymentVO pvo, Model model, @SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
+		if (academyLoginVO == null) {
 			return "redirect:/academyaccount/login";
 		}
 
@@ -63,13 +53,18 @@ public class PaymentController {
 	}
 
 	@GetMapping("/payFail")
-	public String paymentFailView(HttpSession session) {
-		LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-		String academyId = loginVo.getId();
-		AcademyLoginVO academyLoginVo = academyLoginService.findById(academyId);
-		if (academyLoginVo == null) {
+	public String paymentFailView(@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
+		if (academyLoginVO == null) {
 			return "redirect:/academyaccount/login";
 		}
-		return "redirect:/userAccount/login";
+		return "payment/payFail";
+	}
+	
+	@GetMapping("/accountInfo")
+	public String accountInfo(@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
+		if (academyLoginVO == null) {
+			return "redirect:/academyaccount/login";
+		}
+		return "payment/accountInfo";
 	}
 }
