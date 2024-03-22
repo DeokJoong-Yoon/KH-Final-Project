@@ -80,7 +80,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				String academyId = academyLoginVO.getAcademyId(); // 로그인 아이디 가져오기
 				
 				// academyId를 이용하여 학원 정보 조회
-				AcademyLoginVo selectedAcademyLoginVO = academyLoginDao.findById(academyId);
+				AcademyLoginVO selectedAcademyLoginVO = academyLoginDao.findById(academyId);
 				// 학원 정보가 존재하면
 				if (selectedAcademyLoginVO != null) {
 					log.info(selectedAcademyLoginVO.toString());
