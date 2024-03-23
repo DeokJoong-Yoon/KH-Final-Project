@@ -31,7 +31,9 @@
 	
 	
 	<select id="freeListCnt" parameterType="freeBoard" resultType="int">
-		SELECT count(*) FROM tb_common_board
+		SELECT count(*) FROM
+		(select * from tb_common_board where member_type_id = 1) 
+		
 		<trim prefix=" where (" suffix=")">
 			<include refid="freeSearch"></include>
 		</trim>
@@ -50,7 +52,7 @@
 	            from (
 	                select common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
 	                from tb_common_board
-	            
+	            	where member_type_id = 1
 	               	ORDER BY common_no desc
 	               ) freeBoardList
 	            where]]>

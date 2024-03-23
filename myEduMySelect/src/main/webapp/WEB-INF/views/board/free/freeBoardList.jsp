@@ -5,6 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>		
 
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -132,16 +134,18 @@
 	</section>
 	
 	<main id="main">
-	
+	<form id="f_search" name="f_search">
 		<section class="board">
 		
 			<div class="container">
 			
 				<!-- ======= 검색 영역 ======= -->
 				<div id="freeSearch" class="text-right" style="width:300%;">
-					<form id="f_search" name="f_search">
+					
 					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+				
+					
 						<div class="row g-2 alian-items-center">
 							<div class="col-auto">
 								<select id="search" name="search" class="form-select form-select-sm">
@@ -152,13 +156,13 @@
 								</select>
 							</div>
 							<div class="col-auto">
-								<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" />
+								<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" value="${kwd }"/>
 							</div>
 							<div class="col-auto">
 								<button type="button" id="searchData" class="btn btn-success btn-sm">검색</button>
 							</div>
 						</div>
-					</form>
+					
 				</div>  <!-- 검색 영역 끝 -->
 			
 				<div class="list">
@@ -207,27 +211,27 @@
 					</table>
 				</div>
 				<%------------------------ 페이징 출력 --------------------------%>
-				<nav aria-label = "Page navigation example">
-					<ul class="pagination justify-content-center">
-						<c:if test="${pageMaker.prev}">
-							<li class="page-item">
-								<a href="${pageMaker.startPage - 1}" class="page-link">이전</a>
-							</li>
-						</c:if>
-						
-						<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-							<li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}">
-								<a href="${num}" class="page-link">${num}</a>
-							</li> 
-						</c:forEach>
-						
-						<c:if test="${pageMaker.next}">
-							<li class="page-item">
-								<a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
-							</li>
-						</c:if>
-					</ul>
-				</nav>
+            <nav aria-label = "Page navigation example">
+               <ul class="pagination justify-content-center">
+                  <c:if test="${pageMaker.prev}">
+                     <li class="page-item">
+                        <a href="${pageMaker.startPage - 1}" class="page-link">이전</a>
+                     </li>
+                  </c:if>
+                  
+                  <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                     <li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}">
+                        <a href="${num}" class="page-link">${num}</a>
+                     </li> 
+                  </c:forEach>
+                  
+                  <c:if test="${pageMaker.next}">
+                     <li class="page-item">
+                        <a href="${pageMaker.endPage + 1 }" class="page-link">다음</a>
+                     </li>
+                  </c:if>
+               </ul>
+            </nav>
 				<div class="text-end">
 					<button type="submit" id="freeWriterBtn" class="btn btn-primary">글쓰기</button>
 				</div>
@@ -235,7 +239,7 @@
 			</div>
 		
 		</section>
-	
+		</form>
 	</main>
 
 
@@ -346,7 +350,7 @@
 	<script>
 	$(function() {
 		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word = "<c:out value='${FreeVO.keyword}' />";
+		 let word = "<c:out value='${FreeVO.keyword}' />";
 		let value = "";
 		if (word != "") {
 			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");

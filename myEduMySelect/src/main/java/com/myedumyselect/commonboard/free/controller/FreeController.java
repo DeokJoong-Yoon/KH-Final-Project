@@ -30,16 +30,21 @@ public class FreeController {
 	/* 글 목록 구현*/
 	@GetMapping("/freeList")
 	public String freeList(@ModelAttribute FreeVO fvo, Model model) {
-		log.info("freeList 호출 성공") ;
-		
+		log.info("freeList 호출 성공");
+			
 		List<FreeVO> freeList = freeService.freeList(fvo);
 		model.addAttribute("freeList", freeList);
 		
 		int total = freeService.freeListCnt(fvo);
 		
-		model.addAttribute("pageMaker", new PageDTO(fvo, total));
-		return "board/free/freeBoardList";
 		
+		model.addAttribute("pageMaker", new PageDTO(fvo, total));
+		model.addAttribute("kwd", fvo.getKeyword());
+		
+		log.info(fvo.getKeyword());
+		
+		return "board/free/freeBoardList";
+		 
 	}
 	
 	
