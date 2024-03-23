@@ -131,16 +131,14 @@
 			<label for="academyId">아이디</label>
 			<div class="col-md-8 col-lg-9">
 				<input type="text" value="${academyLogin.academyId}" class="form-control" style="width: 400;" name="academyId" id="academyId" readonly />
-			</div>
-			
+			</div>			
 		</div>		
 		
 		<div class="input_group">
 			<label for="academyPasswd" style="display: inline-block;" >비밀번호</label>
 			<div>
-				<input type="password" class="form-control" style="width: 400;" name="academyPasswd" id="academyPasswd"/>
-			</div>			
-			<small class="form-text text-muted">정보를 수정하려면 반드시 비밀번호를 입력하세요.</small>
+				<input type="hidden" class="form-control" style="width: 400;" name="academyPasswd" id="academyPasswd"/>
+			</div>	
 			<button type="button" id="changePasswdBtn">비밀번호 변경페이지로 이동</button>
 		</div>		
 		
@@ -205,34 +203,40 @@
 		</div>		
 		<br />
 		
-		<%-- <div class="input_group">
+		<div class="input_group">
 			<label for=academyFee style="font-weight: bold;">수강료</label>			
 			<div class="row">
 				<div class="col-md-4">
-					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee1"  />
-					<label for="fee1" style="font-weight: 300;">10만원 미만</label>
+					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee1" />
+					<label for="fee1" style="font-weight: 300;">20만원 미만</label>
 				</div>
 				<div class="col-md-4">
 					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee2" />
-					<label for="fee2" style="font-weight: 300;">10만원 이상 20만원 미만</label>
+					<label for="fee2" style="font-weight: 300;">20만원 이상 30만원 미만</label>
 				</div>
 				<div class="col-md-4">
 					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee3" />
-					<label for="fee3" style="font-weight: 300;">20만원 이상 30만원 미만</label>
+					<label for="fee3" style="font-weight: 300;">30만원 이상 40만원 미만</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee4" />
-					<label for="fee4" style="font-weight: 300;">30만원 이상 40만원 미만</label>
+					<label for="fee4" style="font-weight: 300;">40만원 이상 50만원 미만</label>
 				</div>
 				<div class="col-md-4">
 					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee5" />
-					<label for="fee5" style="font-weight: 300;">40만원 이상 50만원 미만</label>
+					<label for="fee5" style="font-weight: 300;">50만원 이상 60만원 미만</label>
 				</div>
 				<div class="col-md-4">
 					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee6" />
-					<label for="fee6" style="font-weight: 300;">50만원 이상</label>
+					<label for="fee6" style="font-weight: 300;">60만원 이상 70만원 미만</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<input type="radio" value="${academyLogin.academyFee}" name="academyFee" id="fee7" />
+					<label for="fee7" style="font-weight: 300;">70만원 이상</label>
 				</div>
 			</div>
 		</div>		
@@ -315,7 +319,7 @@
 		            <label for="keyword9" style="font-weight: 300;">재밌는 수업</label>
 		        </div>
 		    </div>
-		</div> --%>
+		</div>
 		<br />
 
 		<div class="input_group">

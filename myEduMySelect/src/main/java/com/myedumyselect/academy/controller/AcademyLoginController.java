@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
+import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 
 //import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +33,10 @@ public class AcademyLoginController {
    @Setter(onMethod_ = @Autowired)
    private AcademyLoginService academyLoginService;
 
+   @Autowired
+   private AdvertiseService aService;
+   	
+   
    // 학원회원 로그인으로 이동
    @GetMapping("/academy/login")
    public String loginform() {
@@ -137,7 +141,18 @@ public class AcademyLoginController {
        academyLoginService.academyInsert(login);            
        return "redirect:/academy/join/complete";
    }
-
+   
+   // 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동
+	@GetMapping("/academyAdvertiseList")
+	public String getAdvertiseList(Model model, HttpSession session) {
+		AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
+		if (academyLoginVO == null) {
+			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+			return "redirect:/useraccount/login";
+		}
+		
+		return "academy/academyAdvertiseList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
+	} 
 
    // 학원회원 회원가입 완료 페이지로 이동
    @GetMapping("/academy/join/complete")
@@ -271,45 +286,46 @@ public class AcademyLoginController {
 
    /* 비밀번호 변경 */
    @GetMapping("/passwdChangePage")
-   public String passwdChangePage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-
-      AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");           
+   public String passwdChangePage(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO) {
+	              
       if (academyLoginVO == null) {
-    	  return "redirect:/useraccount/login";
+    	  return "redirect:/academy/login";
       }
-      model.addAttribute("academyLogin", academyLoginVO);
+      
       return "academy/passWd";
    }
 
    /* 비밀번호 변경 POST */
-   @PostMapping("/passwdChange")
-   public String updatePasswdChangeDate(@ModelAttribute AcademyLoginVO academyLogin, HttpSession session, Model model,
-           RedirectAttributes redirectAttributes) {
-      
-      
-       // 세션에서 academyLogin 객체 가져오기
-       AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
-       log.info("세션에서 가져온 academyLoginVO 객체 정보 {} : ", academyLoginVO);             
-       // 새로운 비밀번호 설정
-       academyLoginVO.setAcademyPasswd(academyLogin.getAcademyPasswd());            
+   @ResponseBody
+   @PostMapping("/updatePasswdChangeDate")
+   public String updatePasswdChangeDate(@RequestParam("currentPassword") String currentPassword,
+		   @RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
+			@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras, Model model) {
+	   AcademyLoginVO curAcademyLogin = new AcademyLoginVO();
+	   curAcademyLogin.setAcademyId(academyLoginVO.getAcademyId());
+	   curAcademyLogin.setAcademyPasswd(currentPassword);
+	   AcademyLoginVO checkPassword = academyLoginService.loginProcess(curAcademyLogin);
+		// 현재 계정의 패스워드 재확인
+		if (checkPassword != null) {
+			if (!renewPassword.equals(newPassword)) {
+				ras.addFlashAttribute("errorMsg", "새 비밀번호가 일치하지 않습니다.");
+				return "FALSE";
+			}
+			int result = 0;
+			checkPassword.setAcademyPasswd(renewPassword);
+			result = academyLoginService.updatePasswdChangeDate(checkPassword);
+			if (result == 1) {
+				model.addAttribute("academyLogin", academyLoginService.loginProcess(checkPassword));
+				ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
+				return "TRUE";
+			}
+		} else {
+			ras.addFlashAttribute("errorMsg", "패스워드가 맞지 않습니다.");
+			return "FALSE";
+		}
 
-       // 변경된 비밀번호 업데이트
-       int result = academyLoginService.updatePasswdChangeDate(academyLoginVO);
-
-       if (result == 0) {
-           redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
-           return "redirect:/academy/login";
-       }
-
-       // 세션에 academyLoginVO 객체를 다시 설정
-       session.setAttribute("academyLoginVO", academyLoginVO);               
-       log.info("비밀번호 변경 완료 {} : ", academyLoginVO);              
-       redirectAttributes.addFlashAttribute("errorMsg", "비밀번호 변경 완료");
-
-       // 로그아웃 후 리다이렉트
-       session.invalidate(); // 세션 무효화
-       log.info("비밀번호 변경완료, 다시 로그인");
-       return "redirect:/academy/login";
+		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
+		return "FALSE";
    }
 
 

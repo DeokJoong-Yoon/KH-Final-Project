@@ -199,7 +199,7 @@
         	tb_academy
         SET            
             academy_passwd = #{academyPasswd},
-            academy_passwd_change_date = #{academyPasswdChangeDate}
+            academy_passwd_change_date = sysdate
         WHERE 
         	academy_passwd = #{academyPasswd}
     </update>
@@ -236,8 +236,8 @@
 	    UPDATE 
 	    	tb_academy
 	    SET 
-	    	academy_Passwd = #{academyPasswd},  <!-- 비밀번호 업데이트 -->
-	        academy_passwd_change_date = SYSDATE
+	    	academy_passwd = #{academyPasswd},  <!-- 비밀번호 업데이트 -->
+	        academy_passwd_change_date = sysdate
 	    WHERE 
 	    	academy_id = #{academyId}
 	</update>

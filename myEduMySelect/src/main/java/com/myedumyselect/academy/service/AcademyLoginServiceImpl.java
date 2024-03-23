@@ -105,9 +105,9 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
    
    // 비밀번호 변경
    @Override
-   public int updatePasswdChangeDate(AcademyLoginVO login) {
+   public int updatePasswdChangeDate(AcademyLoginVO checkPassword) {
       int result = 0;
-      result = academyLoginDao.updatePasswdChangeDate(login);
+      result = academyLoginDao.updatePasswdChangeDate(checkPassword);
       return result;
    }
    

@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/views/common/common.jspf" %>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -45,7 +43,8 @@
   ======================================================== -->
 	
   <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/join.css">
-
+	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/academy/newPasswd.js"></script>
   
   
 </head>
@@ -127,29 +126,31 @@
 
     <!-- ======= academyPassWd Update Form ======= -->   
     
-    <form action="/passwdChange" id="changePasswdForm" name="changePasswdForm" method="POST">
-      <div class="input_group">
-	    <label for="academyPasswd">기존 비밀번호</label>
-	    <input type="password" name="academyPasswd" id="academyPasswd" maxlength="20" placeholder="기존 비밀번호 입력">	    
-	    <span id="password-check-message"></span>
-	  </div>
-	  <br />
-	  	      
-	  <div class="input_group">
-	    <label for="newPasswd">새 비밀번호</label>
-	    <input type="password" name="newPasswd" id="newPasswd" maxlength="20" placeholder="새 비밀번호 입력"/>
-	    <label class="require">(최소 하나의 대문자/소문자/숫자/특수문자 포함  8~20자 이내로 입력) </label>
-	    <span id="new_password-check-message"></span>
-	  </div>
-	  <br />
-	  
-	  <div class="input_group">
-	    <label for="newPasswd2">새 비밀번호 확인</label>
-	    <input type="password" name="newPasswd2" id="newPasswd2" maxlength="20" onkeyup="checkPassword()"/>
-	    <span id="new_passwd-check-message"></span>
-	  </div>
-	  <br />
-	  <button type="button" id="changePasswdBtn" class="btn btn-primary">비밀번호 변경</button>
+    <form id="changePasswdForm" action="passwdChange" method="POST">
+		<div class="row mb-3">
+			<label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">기존 비밀번호</label>
+			<div class="col-md-8 col-lg-9">
+				<input name="currentPassword" type="password" class="form-control" id="currentPassword">
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<label for="newPassword" class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
+			<div class="col-md-8 col-lg-9">
+				<input name="newPassword" type="password" class="form-control" id="newPassword">
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">새 비밀번호 확인</label>
+			<div class="col-md-8 col-lg-9">
+				<input name="renewPassword" type="password" class="form-control" id="renewPassword">
+			</div>
+		</div>
+		<input type="hidden" id="academyId" name="academyId" value="${academyLogin.academyId}" />
+		<div class="text-center">
+			<button type="button" id="changeBtn" name="changeBtn" class="btn btn-primary">Change Password</button>
+		</div>
 	</form>
 	
 	<!-- <script>
@@ -288,8 +289,7 @@
 	<script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/academy/newPasswd.js"></script>
+	
   	<!-- <script src="/resources/include/assets/js/academy.js"></script>
   	<script src="/resources/include/academy/academyJoin.js"></script>
 	<script src="/resources/include/academy/common.js"></script> -->

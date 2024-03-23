@@ -195,7 +195,7 @@ $(function() {
     	/*
     	var academyManagerName = $("#academyManagerName").val();    	
     	var academyManagerEmail = $("#academyManagerEmail").val();
-    	var academyManagerPhone = $("#academyManagerPhone").val();	        	
+    	var academyManagerPhone = $("#academyManagerPhone").val();*/	        	
     	var academyTargetSubject = $("#academyTargetSubject").val();
     	var academyFee = $("#academyFee").val();
     	var academyTargetGrade = $("#academyTargetGrade").val();
@@ -204,8 +204,6 @@ $(function() {
     	var academyKeyword3 = $("#academyKeyword3").val();
     	var academyKeyword4 = $("#academyKeyword4").val();
     	var academyKeyword5 = $("#academyKeyword5").val();
-    	 */
-    	
     	 
         /* 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.*/ 
         if (confirm("회원 정보를 수정하시겠습니까?")) {
@@ -232,7 +230,7 @@ $(function() {
 
     $("#changePasswdBtn").on("click", function() {
         // 사용자에게 비밀번호를 수정할 것인지 묻는 알림
-        if (confirm("비밀번호를 수정하시겠습니까?")) {
+        if (confirm("비밀번호 변경 페이지로 이동하시겠습니까?")) {
             window.location.href = "/passwdChangePage";
         } else {
             // 사용자가 취소를 누른 경우 아무 동작 없음
