@@ -3,7 +3,7 @@ package com.myedumyselect.academy.service;
 import java.sql.Date;
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
-
+ 
 public interface AcademyLoginService {
 
 	// 로그인

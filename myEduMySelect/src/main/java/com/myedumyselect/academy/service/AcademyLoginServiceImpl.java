@@ -9,7 +9,7 @@ import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 
 import lombok.Setter;
-
+ 
 @Service
 public class AcademyLoginServiceImpl implements AcademyLoginService {
 

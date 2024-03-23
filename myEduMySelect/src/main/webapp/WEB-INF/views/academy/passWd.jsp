@@ -114,7 +114,7 @@
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <h1>비밀번호 변경페이지</h1>
-        </div>
+        </div> 
         <div class="col-lg-6 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
           <img src="/resources/include/assets/img/hero-img.png" class="img-fluid animated" alt="" style="max-height:300px;">
         </div>

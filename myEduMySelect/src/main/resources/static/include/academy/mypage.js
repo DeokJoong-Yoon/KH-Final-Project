@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const managerNameInput = document.getElementById('academyManagerName');
     const regex = /^[a-zA-Z가-힣]+$/; // 한글과 영문 대소문자만 허용하는 정규표현식
-     
+      
     managerNameInput.addEventListener('input', function(event) {
         const inputValue = event.target.value;
         if (!regex.test(inputValue)) {

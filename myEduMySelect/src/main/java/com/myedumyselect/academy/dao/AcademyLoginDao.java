@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 
-@Mapper
+@Mapper 
 public interface AcademyLoginDao {
 
 //로그인

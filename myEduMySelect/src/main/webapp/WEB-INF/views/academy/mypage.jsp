@@ -123,7 +123,7 @@
     </div>
    </section><!-- End Hero -->
 	
-	<main id="main">		
+	<main id="main">		 
 		
 	<form id="academyUpdateForm" action="/academyUpdate"  method="POST" style="max-width: 600px; margin: auto;"> <!--   --> 
 		

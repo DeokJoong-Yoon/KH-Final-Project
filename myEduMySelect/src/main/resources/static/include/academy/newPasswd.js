@@ -21,7 +21,7 @@ function validatePassword(currentPassword, newPassword, renewPassword) {
 	}
 };
 
-$(function() {
+$(function() { 
 	// 비밀번호 변경 버튼 클릭 시
 	$("#changeBtn").on("click", function() {
 		if (validatePassword("#currentPassword", "#newPassword", "#renewPassword")) return;
