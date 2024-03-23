@@ -125,6 +125,9 @@ public class AdvertiseController {
 		} else {
 			return "redirect:/";
 		}
+		AdvertiseVO detail = aService.advertiseDetail(aVO);
+		model.addAttribute("detail", detail);
+
 		return "board/advertise/advertiseBoardDetail";
 	}
 
