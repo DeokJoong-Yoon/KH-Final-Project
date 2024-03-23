@@ -228,7 +228,7 @@ public class AdminBoardController {
 	}
 
 	@PostMapping("/freeBoardDelete")
-	public String freegBoardAdminDelete(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model)
+	public String freeBoardAdminDelete(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model)
 			throws Exception {
 		freeBoardAdminService.boardDelete(freeBoardAdminVO);
 		return "redirect:/adminBoard/free";
@@ -256,13 +256,13 @@ public class AdminBoardController {
 	}
 
 	@PostMapping("/advertiseBoardDelete")
-	public String freegBoardAdminDelete(@ModelAttribute AdvertiseVO advertiseVO, Model model) throws Exception {
+	public String advertiseBoardDelete(@ModelAttribute AdvertiseVO advertiseVO, Model model) throws Exception {
 		advertiseService.advertiseDelete(advertiseVO);
 		return "redirect:/adminBoard/advertise";
 	}
 
 	@GetMapping("/advertiseBoardDetail")
-	public String freeBoardAdminDetail(@ModelAttribute AdvertiseVO advertiseVO, Model model,
+	public String advertiseBoardDetail(@ModelAttribute AdvertiseVO advertiseVO, Model model,
 			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";

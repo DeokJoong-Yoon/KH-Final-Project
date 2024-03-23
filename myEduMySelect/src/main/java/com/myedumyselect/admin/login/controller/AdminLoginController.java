@@ -56,7 +56,7 @@ public class AdminLoginController {
 
 	@GetMapping("/login")
 	public String loginProcess(Model model) {
-		
+
 		System.out.println("로그인");
 
 		if (model.containsAttribute("adminLogin")) {
@@ -85,18 +85,6 @@ public class AdminLoginController {
 		return "admin/login/adminMain";
 	}
 
-	/***********************************************************************************
-	 * 로그인 처리 메서드 참고 : 자바단에서 세션의 값을 사용할 경우 로그인을 처리하는 컨트롤러 클래스
-	 * 위에 @SessionAttributes("adminLogin") 명시해 준 이름을 로그인 정보가 필요한 Controller 내 메서드에서
-	 * 다음과 같이 매개변수를 명시해 주면 된다. public 반환형 메서드명(@SessionAttribute("adminLogin")
-	 * VO클래스명 참조변수)로 정의하고 사용하면 된다.
-	 * 
-	 * RedirectAttributes 객체는 리다이렉트 시점(return "redirect:/경로")에 한번만 사용되는 데이터를 전송할 수
-	 * 있는 addFlashAttribute()라는 기능을 지원한다. addFlashAttribute() 메서드는 브라우저까지 전송되기는 하지만,
-	 * URI에는 보이지 않는 숨겨진 데이터의 형태로 전달된다. redirect:/admin/login?errorMsg=error이라고 전송을
-	 * 하여야 하는데 이때 ras.addFlashAttribute("errorMsg", "error");
-	 * redirect:/admin/login으로 명시하면 된다.
-	 ***********************************************************************************/
 	@PostMapping("/login")
 	public String loginProcess(AdminLoginVO login, Model model, RedirectAttributes ras) {
 		AdminLoginVO adminLogin = adminLoginService.loginProcess(login);
@@ -121,7 +109,7 @@ public class AdminLoginController {
 	}
 
 	@GetMapping(value = "/myPage")
-	public String myPageView(@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+	public String myPageView(@SessionAttribute(value = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -141,7 +129,11 @@ public class AdminLoginController {
 	@PostMapping(value = "/updateAdminPasswd")
 	public String updateAdminPasswd(@RequestParam("currentPassword") String currentPassword,
 			@RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO, RedirectAttributes ras, Model model) {
+			@SessionAttribute(value = "adminLogin", required = false) AdminLoginVO adminLoginVO, RedirectAttributes ras,
+			Model model) {
+		if (adminLoginVO == null) {
+			return "redirect:/admin/login";
+		}
 		AdminLoginVO curAdminLogin = new AdminLoginVO();
 		curAdminLogin.setAdminId(adminLoginVO.getAdminId());
 		curAdminLogin.setAdminPasswd(currentPassword);

@@ -2,7 +2,6 @@ package com.myedumyselect.academy.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -152,14 +151,15 @@ public class AcademyLoginController {
    }
    
    // 학원회원 회원가입 POST
-   @PostMapping("/academyInsert")
-   public String academyInsert(@ModelAttribute AcademyLoginVO login ) {
+   @PostMapping(value = "/academyInsert")
+   @ResponseBody
+   public String academyInsert(@RequestBody AcademyLoginVO login) {
 	   
 	   System.out.println(login.toString());
 	 
        log.info("academyInsert 호출 성공");               
-       academyLoginService.academyInsert(login);            
-       return "redirect:/academy/join/complete";
+       academyLoginService.academyInsert(login);         
+       return "TRUE";
    }   
 
    // 학원회원 회원가입 완료 페이지로 이동

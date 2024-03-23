@@ -214,7 +214,7 @@
 			</table>
 	    </form>
 	     <div class="text-end">
-			<input type="submit" value="회원가입" id="submit-btn">
+			<input type="button" value="회원가입" id="submit-btn">
 			<input type="reset" value="다시작성" id="reset-btn" onclick="resetForm()">
 		 </div> 
    	</div>
