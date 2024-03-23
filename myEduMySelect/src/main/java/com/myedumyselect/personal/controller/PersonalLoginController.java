@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -263,38 +264,47 @@ public class PersonalLoginController {
 	}
 
 	// 비밀번호 변경 페이지
-	@GetMapping("/newPasswd")
-	public String passwordChangePage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
-		if (personalLoginVO == null) {
-			return "redirect:/useraccount/login";
-		}
-		model.addAttribute("personalLogin", personalLoginVO); // 수정: personalLoginVO를 personalLogin으로 변경
-		return "personal/newPasswd";
-	}
+		@GetMapping("/newPasswd")
+		public String passwordChangePage(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO) {
 
-	@PostMapping("/changePasswd")
-	public String updatePasswdChangeDate(@ModelAttribute PersonalLoginVO personalLogin, HttpSession session,
-			RedirectAttributes redirectAttributes) {
-		// 세션에서 LoginVo 객체 가져오기
-		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
+			if (personalLoginVO == null) {
+				return "redirect:/personal/login";
+			}
 
-		// 새로운 비밀번호 설정
-		personalLoginVO.setPersonalPasswd(personalLogin.getPersonalPasswd());
-
-		// 변경된 비밀번호 업데이트
-		int result = personalLoginService.updatePasswdChangeDate(personalLoginVO);
-
-		if (result == 0) {
-			redirectAttributes.addFlashAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
-			return "redirect:/useraccount/login";
+			return "personal/newPasswd";
 		}
 
-		session.setAttribute("personalLogin", personalLoginVO); // 수정: personalLoginVO를 "personalLogin"으로 변경
+		@ResponseBody
+		@PostMapping(value = "/updatePersonalPasswd")
+		public String updatePersonalPasswd(@RequestParam("currentPassword") String currentPassword,
+				@RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
+				@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, RedirectAttributes ras, Model model) {
+			PersonalLoginVO curPersonalLogin = new PersonalLoginVO();
+			curPersonalLogin.setPersonalId(personalLoginVO.getPersonalId());
+			curPersonalLogin.setPersonalPasswd(currentPassword);
+			PersonalLoginVO checkPassword = personalLoginService.loginProcess(curPersonalLogin);
+			// 현재 계정의 패스워드 재확인
+			if (checkPassword != null) {
+				if (!renewPassword.equals(newPassword)) {
+					ras.addFlashAttribute("errorMsg", "New Password 와 Re-enter New Password 가 일치하지 않습니다.");
+					return "FALSE";
+				}
+				int result = 0;
+				checkPassword.setPersonalPasswd(renewPassword);
+				result = personalLoginService.updatePersonalPasswd(checkPassword);
+				if (result == 1) {
+					
+					model.addAttribute("personalLogin", personalLoginService.loginProcess(checkPassword));
+					ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
+					return "TRUE";
+				}
+			} else {
+				ras.addFlashAttribute("errorMsg", "패스워드가 맞지 않습니다.");
+				return "FALSE";
+			}
 
-		// 로그아웃 후 리다이렉트
-		session.invalidate(); // 세션 무효화
-		return "redirect:/useraccount/login";
+			ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
+			return "FALSE";
+		}
+		
 	}
-
-}

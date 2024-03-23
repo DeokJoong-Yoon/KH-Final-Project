@@ -3,7 +3,6 @@ package com.myedumyselect.personal.dao;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
@@ -25,6 +24,9 @@ public interface PersonalLoginDao {
 	// 개인회원 이메일 중복확인
 	public int emailCheck(String personalEmail);
 
+	// 비밀번호 변경
+	public int updatePersonalPasswd(PersonalLoginVO checkPassword);
+
 	// 회원가입
 	public int personalInsert(PersonalLoginVO login);
 
@@ -33,7 +35,5 @@ public interface PersonalLoginDao {
 
 	/// 회원정보 수정
 	public int personalUpdate(PersonalLoginVO login);
-	
-	//비밀번호 변경 업데이트 날짜
-	public int updatePasswdChangeDate(PersonalLoginVO login);
+
 }

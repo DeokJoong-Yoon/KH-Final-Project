@@ -2,8 +2,6 @@ package com.myedumyselect.personal.service;
 
 import java.util.Date;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 public interface PersonalLoginService {
@@ -31,7 +29,11 @@ public interface PersonalLoginService {
 
 	/// 회원정보 수정
 	public int personalUpdate(PersonalLoginVO login);
-	
-	//비밀번호 변경 업데이트 날짜
-	public int updatePasswdChangeDate(PersonalLoginVO login);
+
+	// 비밀번호 변경
+	public int updatePersonalPasswd(PersonalLoginVO checkPassword);
+
+	// 비밀번호 변경 업데이트 날짜
+	// public int updatePasswdChangeDate(PersonalLoginVO login);
+
 }

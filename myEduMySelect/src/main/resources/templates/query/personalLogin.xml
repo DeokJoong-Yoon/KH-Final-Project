@@ -99,11 +99,12 @@
 </update>
 
 
-   <!-- 비밀번호 변경 시 PERSONAL_PASSWD_CHANGE_DATE 열 업데이트 -->
-    <update id="updatePasswordChangeDate" parameterType="personalLogin">
-        UPDATE personal_login
-        SET PERSONAL_PASSWD_CHANGE_DATE = #{personalPasswdChangeDate}
-        WHERE PERSONAL_ID = #{personalId}
+  <!-- 비밀번호 변경 -->
+    <update id="updatePersonalPasswd" parameterType="personalLogin">
+    	UPDATE tb_personal SET
+    	personal_passwd = #{personalPasswd},
+    	personal_passwd_change_date = sysdate
+    	WHERE personal_id = #{personalId}
     </update>
 
 

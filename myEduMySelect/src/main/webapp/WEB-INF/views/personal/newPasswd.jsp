@@ -52,11 +52,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/assets/css/personalJoin.css">
+
 
 <script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
-
+<script src="/resources/include/personal/newPasswd.js"></script>
 
 
 </head>
@@ -122,63 +121,35 @@
 	</section>
 	<!-- End Hero -->
 
+                  <!-- Change Password Form -->
+                  <form id="changePasswdForm">
 
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="currentPassword" type="password" class="form-control" id="currentPassword">
+                      </div>
+                    </div>
 
-<!-- 비밀번호 변경 폼 -->
-<form id="changePasswordForm" action="/changePasswd" method="post">
-    <div class="form-group">
-        <label for="newPasswd">새로운 비밀번호</label>
-        <input type="password" id="newPasswd" name="personalPasswd" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="confirmPasswd">새로운 비밀번호 확인</label>
-        <input type="password" id="confirmPasswd" name="confirmPasswd" class="form-control" required>
-    </div>
-  
-    <button type="button" id="changePasswordBtn" class="btn btn-primary">비밀번호 변경</button>
-</form>
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">새로운 비밀번호</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="newPassword" type="password" class="form-control" id="newPassword">
+                      </div>
+                    </div>
 
-<!-- JavaScript 코드 -->
-<script>
-$(function() {
-    $("#changePasswordBtn").on("click", function() {
-        var newPassword = $("#newPasswd").val();
-        var confirmPassword = $("#confirmPasswd").val();
-
-        if (newPassword === "" || confirmPassword === "") {
-            alert("새로운 비밀번호를 입력해주세요.");
-            return;
-        }
-        if (newPassword !== confirmPassword) {
-            alert("새로운 비밀번호가 일치하지 않습니다.");
-            return;
-        }
-
-        if (confirm("비밀번호를 변경하시겠습니까?")) {
-            $.ajax({
-                url: "/changePasswd",
-                type: "POST",
-                data: $("#changePasswordForm").serialize(),
-                success: function(response) {
-                    alert("비밀번호가 성공적으로 변경되었습니다.");
-                    // 변경 후 마이 페이지로 이동
-                    window.location.href = "/useraccount/login";
-                },
-                error: function(xhr, status, error) {
-                    alert("비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
-                    console.error('Error:', error);
-                }
-            });
-        }
-    });
-});
-</script>
-
-
-
-
-
-
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">새로운 비밀번호 확인</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="renewPassword" type="password" class="form-control" id="renewPassword">
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="button" id="changePasswdBtn" name="changePasswdBtn" class="btn btn-primary">비밀번호 변경</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
+             
+	
 
 	<!-- ======= Footer ======= -->
 
@@ -296,7 +267,8 @@ $(function() {
 		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
-	<script src="/resources/include/assets/js/main.js"></script>
+	<script src="/resources/include/personal/main.js"></script>
+
 
 </body>
 </html>

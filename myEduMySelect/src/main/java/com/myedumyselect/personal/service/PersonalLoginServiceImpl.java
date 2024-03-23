@@ -47,6 +47,7 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		return cnt;
 	}
 
+	// 개인회원 이메일 중복체크
 	@Override
 	public int emailCheck(String personalEmail) {
 		int cnt = 0;
@@ -57,6 +58,14 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		}
 		System.out.println("cnt: " + cnt);
 		return cnt;
+	}
+
+	// 비밀번호 변경
+	@Override
+	public int updatePersonalPasswd(PersonalLoginVO checkPassword) {
+		int result = 0;
+		result = personalLoginDao.updatePersonalPasswd(checkPassword);
+		return result;
 	}
 
 	// 회원가입
@@ -82,13 +91,5 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		result = personalLoginDao.personalUpdate(login);
 		return result;
 	}
-	
-	// 비밀번호 변경 일자
-		@Override
-		public int updatePasswdChangeDate(PersonalLoginVO login) {
-			int result = 0;
-			result = personalLoginDao.updatePasswdChangeDate(login);
-			return result;
-		}
 
 }
