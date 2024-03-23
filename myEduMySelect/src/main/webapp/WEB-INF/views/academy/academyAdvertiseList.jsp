@@ -46,8 +46,6 @@
 	
   <!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css"> -->
 
-  
-  
 </head>
 
 <body>
