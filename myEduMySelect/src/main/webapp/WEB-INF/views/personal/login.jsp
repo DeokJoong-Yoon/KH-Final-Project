@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>	
-
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -9,17 +8,18 @@
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/assets/css/login.css" rel="stylesheet">
 
+
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
 
 		<div class="container">
 			<div class="row">
-		
 				<c:if test="${empty personalLogin}">
 					<div class="loginClass col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
 								<h1>PERSONAL LOGIN</h1>
 								<h2>개인 회원이신가요?</h2>
 					</div>
+					
 					<div class="loginZone"  data-aos="fade-up" data-aos-delay="200">
 						<form id="loginForm">
 							<input type="hidden" name="memberTypeId" id="memberTypeId" value="1">
@@ -71,10 +71,21 @@
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
 
-	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/js/common.js"></script>
-	<script src="/resources/include/js/personalLogin.js"></script>
+	  <!-- Vendor JS Files -->
+  
+  <script src="/resources/include/assets/vendor/aos/aos.js"></script>
+  <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+
+	<script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
+	<script src="/resources/include/personal/common.js"></script>
+	<script src="/resources/include/personal/personalLogin.js"></script>
 	<script src="/resources/include/personal/joinForm.js"></script>
+	<script src="/resources/include/assets/js/main.js"></script>
 	
 	<script>
 		$(function() {
@@ -115,26 +126,6 @@
 	    });
 	    
 	</script>
-
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
-	<!-- Vendor JS Files -->
-	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
-	<script
-		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	<script
-		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
-
-	<!-- Template Main JS File -->
-	<script src="/resources/include/assets/js/main.js"></script>
 
 </body>
 </html>
