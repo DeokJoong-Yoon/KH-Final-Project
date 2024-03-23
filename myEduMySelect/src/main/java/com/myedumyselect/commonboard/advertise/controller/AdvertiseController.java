@@ -35,8 +35,8 @@ public class AdvertiseController {
 	@Setter(onMethod_ = @Autowired)
 	private AdvertiseService aService;
 	
-	@Autowired
-	private SessionCheckService sessionCheckService;
+//	@Autowired
+//	private SessionCheckService sessionCheckService;
 	
 	// 홍보게시판 목록 전체보기 구현
 	@GetMapping("/advertiseBoardList")
