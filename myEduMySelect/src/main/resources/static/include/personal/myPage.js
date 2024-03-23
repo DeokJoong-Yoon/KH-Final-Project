@@ -32,9 +32,9 @@ function checkEmail() {
         }
     });
 };
-function showChangeEmail() {
-    $('#duplicateCheckBtn').show(); 
-}
+
+
+
 
 
 function validateForm() {
@@ -79,16 +79,61 @@ function validateForm() {
     return true;
 }
 
+$("#changeEmail").on("click", function(){
+	$('#duplicateCheckBtn').show(); 
+    $('#personalEmail').prop('disabled', false);
+}) 
+
+
+let address;
+
  $(function() {
-        $("#updateForm").on("submit", function(event) {
+	 
+	address = $("#nowAddress").val();
+
+	
+	 
+        $("#personalUpdateBtn").on("click", function(event) {
             event.preventDefault(); // 기본 제출 동작 방지
+            
+            if($("#personalEmail").val() == "" || $("#personalPhone").val() == "") {
+				alert("빈 칸 없이 입력해 주세요.");
+				return;
+			} 
+			
+			if($("#nowAddress").val() == "") {
+				address = $("#personal_post").val() + ", " + $("#personal_addr").val() + " " + $("#personalAddressDetail").val();
+				if($("#personal_post").val() == "" || $("#personal_addr").val() == "" || $("#personalAddressDetail").val() == "") {
+					alert("빈 칸 없이 입력해 주세요.");
+					return;
+				}
+			} 
+			
+            
+            alert($("#personalName").val() + "이름");
+            alert($("#personalEmail").val() + "이메일");
+            alert($("#personalBirth").val() + "생년월일");
+            alert($("#nowAddress").val() + "현주소");
+            alert($("#personal_post").val() + "바꾼 우편");
+            alert($("#personal_addr").val() + "바꾼 주소");
+            alert($("#personalAddressDetail").val() + "바꾼 상세 주소");
+            
+            
+				
+            
             // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
             if (confirm("개인 정보를 수정하시겠습니까?")) {
+				
+				alert(address);
                 // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
                 $.ajax({
                     url: "/personalUpdate",
                     type: "POST",
-                    data: $(this).serialize(),
+                    data: {
+						personalEmail : $("#personalEmail").val(),
+						PersonalAddress : address,
+						personalPhone : $("#personalPhone").val(),
+					},
                     success: function(response) {
                         // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
                         alert("개인 정보가 성공적으로 업데이트되었습니다.");
@@ -104,6 +149,18 @@ function validateForm() {
                 return false;
             }
         });
+        
+        $("#movePwdChange").on("click", function() {
+			window.location.href = "/newPasswd";
+		})
+        
+        $("#matchingBtn").on("click", function () {
+			window.location.href = "/personalMatchingList";
+		})
+		
+		$("#freeBtn").on("click", function () {
+			window.location.href = "";
+		})
 
 });
  
