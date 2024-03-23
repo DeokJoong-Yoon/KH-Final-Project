@@ -56,7 +56,7 @@
 				<c:if test="${not empty personalLogin}">
 					<div>
 						<h2>MyEduMySelect</h2>
-						<h1>${personalLogin.name} 님 환영합니다.</h1> <br>
+						<h1>${personalLogin.personalName} 님 환영합니다.</h1> <br>
 						<div class="buttons">
 							<button type="button" id="logoutBtn">로그아웃</button>
 							<form action="/" class="homeForm">
