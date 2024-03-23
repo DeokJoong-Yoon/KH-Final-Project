@@ -17,12 +17,17 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.client.main.vo.PageDTO;
+import com.myedumyselect.common.util.SessionCheckService;
+import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
+import com.myedumyselect.commonboard.like.vo.LikeVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 import com.myedumyselect.personal.service.PersonalFreeBoardService;
+import com.myedumyselect.personal.service.PersonalLikeService;
 import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.service.PersonalMatchingBoardService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
+
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -43,6 +48,12 @@ public class PersonalLoginController {
 	@Autowired
 	private PersonalFreeBoardService personalFreeBoardService;
 
+	@Autowired
+	private PersonalLikeService personalLikeService;
+	
+	@Autowired
+	private SessionCheckService sessionCheckService;
+	 
 	@GetMapping("/personal/login")
 	public String loginForm() {
 		log.info("personalLogin 페이지 호출");
@@ -190,15 +201,15 @@ public class PersonalLoginController {
 
 	// 마이페이지
 	@GetMapping("/myPage")
-	public String personalMyPage(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
-		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
-		// 세션에서 personalLogin 속성을 가져옴 (세션에서 로그인 정보를 가져와서 personalLoginVO 객체로 캐스팅)
-
-		log.info("myPage 호출성공");
-
-		if (personalLoginVO == null) {
-			redirectAttributes.addFlashAttribute("errorMsg", "로그인 후 이용해주세요.");
-			return "redirect:/useraccount/login";
+	public String personalMyPage(Model model,
+			@SessionAttribute(required = false, value = "personalLogin")PersonalLoginVO personalLoginVO) {
+		if(personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if(personalResult != "TRUE") {
+				return personalResult;
+			}
+		}else {
+			return "/redirect:/";
 		}
 
 		model.addAttribute("personalLoginVO", personalLoginVO); // model personalLoginVO라는 이름으로 personalLoginVO 객체 추가
@@ -291,6 +302,23 @@ public class PersonalLoginController {
 		return "personal/personalFreeView";
 		
 	}
+	//사용자가 찜한 자유 게시판 목록 보기 페이지로 이동
+	@GetMapping("/personalLikeView")
+		public String getLikeView(PersonalLoginVO personalLoginVO, Model model, HttpSession session){
+		if (personalLoginVO == null) {
+			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+			return "redirect:/personal/login";
+		}
+		
+		List<AdvertiseVO> advertiseVO = personalLikeService.getLikedCommon(personalLoginVO);
+		model.addAttribute("advertiseVO", advertiseVO);
+		
+		return "personal/personalLikeView";
+	}
+	
+	
+
+	
 		
 
 	// 비밀번호 변경 페이지

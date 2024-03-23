@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.myedumyselect.personal.dao.PersonalFreeBoardDAO">
+	namespace="com.myedumyselect.academy.dao.AcademyFreeBoardDAO">
 
 	<resultMap type="freeBoard" id="freeMap">
 		   <id column="common_no" property="commonNo" />
-    <result column="personal_id" property="personalId" />
+    <result column="academy_id" property="academyId" />
     <result column="member_type_id" property="memberTypeId" />
     <result column="common_title" property="commonTitle" />
     <result column="common_content" property="commonContent" />
@@ -39,18 +39,18 @@
 
 	<select id="boardList" parameterType="freeBoard" resultMap="freeMap"> 
 		<![CDATA[
-		SELECT common_no, personal_id, member_type_id, common_nickname, common_title, 
+		SELECT common_no, academy_id, member_type_id, common_nickname, common_title, 
 		common_content, common_register_date, 
 		common_edit, common_readcnt, common_block_confirm, 
 		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
 		FROM (
 			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
-			rownum as rnum, common_no, personal_id, member_type_id, common_nickname, common_title, 
+			rownum as rnum, common_no, academy_id, member_type_id, common_nickname, common_title, 
 			common_content, common_register_date, common_edit, common_readcnt, common_block_confirm, 
 			common_block_date, common_file 
 			FROM (
 					select * from tb_common_board
-					where personal_id = #{personalId}
+					where academy_id = #{academyId}
 					order by common_register_date desc
 				 ) sortedBoardList
 			WHERE ]]>
@@ -62,23 +62,5 @@
 		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
 		]]>
 	</select>
-
-	<select id="boardDetail" parameterType="freeBoard"
-		resultMap="freeMap">
-		SELECT
-		*
-		FROM tb_common_board
-		WHERE
-		common_no = #{commonNo}
-	</select>
-
-	<delete id="boardDelete" parameterType="freeBoard">
-		DELETE FROM
-		tb_common_board
-		WHERE
-		common_no = #{commonNo}
-	</delete>
 	
-	
-
 </mapper>

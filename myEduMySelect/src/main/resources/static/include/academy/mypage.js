@@ -111,7 +111,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+
 $(document).ready(function() {
+	
+	//홍보게시판 내가 쓴 글 목록 이동
+	$("#advertiseBtn").on("click", function(){
+		window.location.href = "/advertise/advertiseBoardList";
+	})
+	
+	
+	//결제하기 이동
+	$("#payBtn").on("click", function(){
+		window.location.href = "/payment/payMain";
+	})
+	
+	
     // 이메일 중복체크 버튼에 클릭 이벤트 핸들러 등록
     /*$('#emailCheckBtn').on('click', function(event) {
         event.preventDefault(); // 기본 동작 방지
@@ -180,30 +195,124 @@ $(document).ready(function() {
             }
         });
     }
-});
+    
+    //수강료 변경 버튼 클릭 시
+    $("#feeChange").on("click", function(){
+		$("#feeGroup").css("display", "block");
+		$("#prevFee").val("");
+	});
+	
+	//학년 변경 버튼 클릭 시
+    $("#ageChange").on("click", function(){
+		$("#ageGroup").css("display", "block");
+		$("#prevAge").val("");
+	});
+	
+	//키워드 변경 버튼 클릭 시
+    $("#keywordChange").on("click", function(){
+		$("#keywordGroup").css("display", "block");
+		$("#prevKeyword1").val("");
+		$("#prevKeyword2").val("");
+		$("#prevKeyword3").val("");
+		$("#prevKeyword4").val("");
+		$("#prevKeyword5").val("");
+	});
+	
+	
+	
+	//수정하기 버튼 클릭 시
+	$("#updateBtn").on("click", function(event) {
+		
+    	event.preventDefault(); // 기본 제출 동작 방지
+    	
+    
+    	//기존 값
+		var academyManagerName = $("#academyManagerName").val();    	
+		var academyManagerEmail = $("#academyManagerEmail").val();
+		var academyPhone = $("#academyPhone").val();
+		var academyManagerPhone = $("#academyManagerPhone").val();	        	
+		var academyTargetSubject = $("#academyTargetSubject").val();
+		var academyFee = $("#prevFee").val();
+		var academyTargetGrade = $("#prevAge").val();
+		
+		var keyword = [];
+		keyword[0] = $("#prevKeyword1").val();
+		keyword[1] = $("#prevKeyword2").val();
+		keyword[2] = $("#prevKeyword3").val();
+		keyword[3] = $("#prevKeyword4").val();
+		keyword[4] = $("#prevKeyword5").val();
+		
+		//새롭게 설정한 값
+    	var selectedFee = $("input[name='academyFee']:checked").val();
+    	var selectedAge = $("input[name='academyTargetGrade']:checked").val();
+    	var checkedCount = $("input[name='academyKeyword']:checked").length;
+    	var selectedKeyword = [];
+    	
+		//빈 칸 확인
+    	if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="" || academyTargetSubject=="") {
+			alert("빈 칸 없이 입력해 주세요.");
+			return;
+		} else if(academyFee=="" && selectedFee===undefined) {
+			alert("빈 칸 없이 입력해 주세요.");
+			return;
+		} else if(academyTargetGrade=="" && selectedAge===undefined) {
+			alert("빈 칸 없이 입력해 주세요.");
+			return;
+		} else if(keyword[0]=="" && checkedCount==0) {
+			alert("빈 칸 없이 입력해 주세요.");
+			return;
+		}
 
-// 회원정보 수정하기 버튼 눌렀을 때
-$(function() {
-    $("#updateBtn").on("click", function() {
-    	//event.preventDefault(); // 기본 제출 동작 방지
-    	console.log("폼 제출 버튼 클릭!");	        	
-    	/*$("#academyUpdateForm").attr({
-			"method" : "POST",
-			"action" : "/academy/mypage"
-		});
-		$("#academyUpdateForm").submit();*/
-    	/*
-    	var academyManagerName = $("#academyManagerName").val();    	
-    	var academyManagerEmail = $("#academyManagerEmail").val();
-    	var academyManagerPhone = $("#academyManagerPhone").val();*/	        	
-    	var academyTargetSubject = $("#academyTargetSubject").val();
-    	var academyFee = $("#academyFee").val();
-    	var academyTargetGrade = $("#academyTargetGrade").val();
-    	var academyKeyword1 = $("#academyKeyword1").val();
-    	var academyKeyword2 = $("#academyKeyword2").val();
-    	var academyKeyword3 = $("#academyKeyword3").val();
-    	var academyKeyword4 = $("#academyKeyword4").val();
-    	var academyKeyword5 = $("#academyKeyword5").val();
+		
+		//정보 수정 시 변경
+		if(academyFee=="") {		//만약 수강료를 새롭게 선택했다면 
+			academyFee = selectedFee;
+		} 
+		
+		if(academyTargetGrade=="") {		//만약 대상 학년을 새롭게 선택했다면 
+			academyTargetGrade = selectedAge;
+		}
+		
+		//새롭게 선택한 키워드를 우선 배열에 담기
+		var selectedKeyword = [];
+		$("input[name='academyKeyword']:checked").each(function() {
+			selectedKeyword.push($(this).val());
+		})
+		
+		//만약 키워드를 새로 선택했다면
+		if(selectedKeyword.length!=0) {		//만약 대상 키워드를 새롭게 선택했다면 
+			console.log("0 아님");
+			for(let i=0; i<keyword.length; i++) {
+				keyword[i] = selectedKeyword[i];
+			}
+		}
+		
+		console.log(selectedKeyword.length);
+		console.log(keyword.length);
+		
+		console.log(selectedKeyword[0]);
+		console.log(selectedKeyword[1]);
+		
+		
+		//수정한 정보를 담은 객체
+		let value = {
+			academyManagerName : academyManagerName,
+			academyManagerEmail : academyManagerEmail,
+			academyManagerPhone : academyManagerPhone,
+			academyPhone : academyPhone,
+			academyTargetSubject : academyTargetSubject,
+			academyFee : academyFee,
+			academyTargetGrade : academyTargetGrade,
+			academyKeyword1 : keyword[0],
+			academyKeyword2 : keyword[1],
+			academyKeyword3 : keyword[2],
+			academyKeyword4 : keyword[3],
+			academyKeyword5 : keyword[4]
+		}
+		
+    	
+    	console.log("폼 제출 버튼 클릭!");	 
+    	console.log(value);       	
     	 
         /* 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.*/ 
         if (confirm("회원 정보를 수정하시겠습니까?")) {
@@ -211,12 +320,12 @@ $(function() {
             $.ajax({
                 url: "/academyUpdate",
                 type: "POST",
-                data: $("#academyUpdateForm").serialize(),
+                data: value,
                 success: function(response) {
                     // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
                     alert("회원 정보가 성공적으로 업데이트되었습니다.");
                     // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.
-                    window.location.href = "/academy/mypage";
+                    location.reload();
                 },
                 error: function(xhr, status, error) {
                     alert("회원 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
@@ -236,260 +345,10 @@ $(function() {
             // 사용자가 취소를 누른 경우 아무 동작 없음
         }
     });
+    
 });
+
+
 	
 
 
-
-/* 아래 부터는 main.js 내용 */
-(function() {
-	"use strict";
-
-	/**
-	 * Easy selector helper function
-	 */
-	const select = (el, all = false) => {
-		el = el.trim()
-		if (all) {
-			return [...document.querySelectorAll(el)]
-		} else {
-			return document.querySelector(el)
-		}
-	}
-
-	/**
-	 * Easy event listener function
-	 */
-	const on = (type, el, listener, all = false) => {
-		let selectEl = select(el, all)
-		if (selectEl) {
-			if (all) {
-				selectEl.forEach(e => e.addEventListener(type, listener))
-			} else {
-				selectEl.addEventListener(type, listener)
-			}
-		}
-	}
-
-	/**
-	 * Easy on scroll event listener 
-	 */
-	const onscroll = (el, listener) => {
-		el.addEventListener('scroll', listener)
-	}
-
-	/**
-	 * Navbar links active state on scroll
-	 */
-	let navbarlinks = select('#navbar .scrollto', true)
-	const navbarlinksActive = () => {
-		let position = window.scrollY + 200
-		navbarlinks.forEach(navbarlink => {
-			if (!navbarlink.hash) return
-			let section = select(navbarlink.hash)
-			if (!section) return
-			if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-				navbarlink.classList.add('active')
-			} else {
-				navbarlink.classList.remove('active')
-			}
-		})
-	}
-	window.addEventListener('load', navbarlinksActive)
-	onscroll(document, navbarlinksActive)
-
-	/**
-	 * Scrolls to an element with header offset
-	 */
-	const scrollto = (el) => {
-		let header = select('#header')
-		let offset = header.offsetHeight
-
-		let elementPos = select(el).offsetTop
-		window.scrollTo({
-			top: elementPos - offset,
-			behavior: 'smooth'
-		})
-	}
-
-	/**
-	 * Toggle .header-scrolled class to #header when page is scrolled
-	 */
-	let selectHeader = select('#header')
-	if (selectHeader) {
-		const headerScrolled = () => {
-			if (window.scrollY > 100) {
-				selectHeader.classList.add('header-scrolled')
-			} else {
-				selectHeader.classList.remove('header-scrolled')
-			}
-		}
-		window.addEventListener('load', headerScrolled)
-		onscroll(document, headerScrolled)
-	}
-
-	/**
-	 * Back to top button
-	 */
-	let backtotop = select('.back-to-top')
-	if (backtotop) {
-		const toggleBacktotop = () => {
-			if (window.scrollY > 100) {
-				backtotop.classList.add('active')
-			} else {
-				backtotop.classList.remove('active')
-			}
-		}
-		window.addEventListener('load', toggleBacktotop)
-		onscroll(document, toggleBacktotop)
-	}
-
-	/**
-	 * Mobile nav toggle
-	 */
-	on('click', '.mobile-nav-toggle', function(e) {
-		select('#navbar').classList.toggle('navbar-mobile')
-		this.classList.toggle('bi-list')
-		this.classList.toggle('bi-x')
-	})
-
-	/**
-	 * Mobile nav dropdowns activate
-	 */
-	on('click', '.navbar .dropdown > a', function(e) {
-		if (select('#navbar').classList.contains('navbar-mobile')) {
-			e.preventDefault()
-			this.nextElementSibling.classList.toggle('dropdown-active')
-		}
-	}, true)
-
-	/**
-	 * Scrool with ofset on links with a class name .scrollto
-	 */
-	on('click', '.scrollto', function(e) {
-		if (select(this.hash)) {
-			e.preventDefault()
-
-			let navbar = select('#navbar')
-			if (navbar.classList.contains('navbar-mobile')) {
-				navbar.classList.remove('navbar-mobile')
-				let navbarToggle = select('.mobile-nav-toggle')
-				navbarToggle.classList.toggle('bi-list')
-				navbarToggle.classList.toggle('bi-x')
-			}
-			scrollto(this.hash)
-		}
-	}, true)
-
-	/**
-	 * Scroll with ofset on page load with hash links in the url
-	 */
-	window.addEventListener('load', () => {
-		if (window.location.hash) {
-			if (select(window.location.hash)) {
-				scrollto(window.location.hash)
-			}
-		}
-	});
-
-	/**
-	 * Preloader
-	 */
-	let preloader = select('#preloader');
-	if (preloader) {
-		window.addEventListener('load', () => {
-			preloader.remove()
-		});
-	}
-
-	/**
-	 * Initiate  glightbox 
-	 */
-	const glightbox = GLightbox({
-		selector: '.glightbox'
-	});
-
-	/**
-	 * Skills animation
-	 */
-	let skilsContent = select('.skills-content');
-	if (skilsContent) {
-		new Waypoint({
-			element: skilsContent,
-			offset: '80%',
-			handler: function(direction) {
-				let progress = select('.progress .progress-bar', true);
-				progress.forEach((el) => {
-					el.style.width = el.getAttribute('aria-valuenow') + '%'
-				});
-			}
-		})
-	}
-
-	/**
-	 * Porfolio isotope and filter
-	 */
-	window.addEventListener('load', () => {
-		let portfolioContainer = select('.portfolio-container');
-		if (portfolioContainer) {
-			let portfolioIsotope = new Isotope(portfolioContainer, {
-				itemSelector: '.portfolio-item'
-			});
-
-			let portfolioFilters = select('#portfolio-flters li', true);
-
-			on('click', '#portfolio-flters li', function(e) {
-				e.preventDefault();
-				portfolioFilters.forEach(function(el) {
-					el.classList.remove('filter-active');
-				});
-				this.classList.add('filter-active');
-
-				portfolioIsotope.arrange({
-					filter: this.getAttribute('data-filter')
-				});
-				portfolioIsotope.on('arrangeComplete', function() {
-					AOS.refresh()
-				});
-			}, true);
-		}
-
-	});
-
-	/**
-	 * Initiate portfolio lightbox 
-	 */
-	const portfolioLightbox = GLightbox({
-		selector: '.portfolio-lightbox'
-	});
-
-	/**
-	 * Portfolio details slider
-	 */
-	new Swiper('.portfolio-details-slider', {
-		speed: 400,
-		loop: true,
-		autoplay: {
-			delay: 5000,
-			disableOnInteraction: false
-		},
-		pagination: {
-			el: '.swiper-pagination',
-			type: 'bullets',
-			clickable: true
-		}
-	});
-
-	/**
-	 * Animation on scroll
-	 */
-	window.addEventListener('load', () => {
-		AOS.init({
-			duration: 1000,
-			easing: "ease-in-out",
-			once: true,
-			mirror: false
-		});
-	});
-
-})()

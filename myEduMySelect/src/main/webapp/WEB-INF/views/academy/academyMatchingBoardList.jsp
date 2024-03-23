@@ -145,6 +145,7 @@
                 <%-- 페이징 처리를 위한 파라미터 --%>
                 <input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
                 <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+                <input type="hidden" name="academyId" id="academyId" value="${academyLogin.academyId}">
                 
                 <button type="button" id="mcBoardAll">전체 보기</button>
 
@@ -153,9 +154,9 @@
             </form>
         </div><br><br>
         
-        <div class="userId">${userId }</div>
-        <div class="acaId">${acaId }</div>
-        <div class="acaName">${acaName }</div>
+        <div class="userId">${personalLogin.personalId}</div>
+        <div class="acaId">${academyLogin.academyId}</div>
+        <div class="acaName">${academyLogin.academyName}</div>
         
         <div class="mcBoardList">
             <table>

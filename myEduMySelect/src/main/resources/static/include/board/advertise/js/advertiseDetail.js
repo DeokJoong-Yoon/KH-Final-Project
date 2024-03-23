@@ -12,7 +12,7 @@ $(function() {
 	})
 	
 	//게시물 삭제
-	$("#deletePost").click(function(){
+	$("#deletePost").click(function(){	
 		
 		var isConfirmed = confirm("게시물을 삭제하시겠습니까?");
 		
