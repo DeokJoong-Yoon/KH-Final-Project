@@ -42,11 +42,13 @@
 		WHERE personal_id = #{personalId}
 	</update>
 
-	
+
 	<!-- 로그인 제한 상태 업데이트 쿼리 -->
-	<update id="updateAccountBannedDate" parameterType="personalLogin">
+	<update id="updateAccountBannedDate"
+		parameterType="personalLogin">
 		UPDATE tb_personal
-		SET personal_account_banned_date = #{bannedDate}
+		SET personal_account_banned_date =
+		#{bannedDate}
 		WHERE personal_id = #{personalId}
 	</update>
 
@@ -76,7 +78,7 @@
 	</insert>
 
 
-	<!-- 마이페이지  -->
+	<!-- 마이페이지 -->
 	<select id="personalMyPage" parameterType="personalLogin">
 		SELECT personal_id,
 		personal_name, personal_email,
@@ -87,38 +89,43 @@
 		WHERE
 		personal_id = #{personalId}
 	</select>
- <!-- 마이페이지 수정 -->
-<update id="personalUpdate" parameterType="personalLogin">
-    UPDATE tb_personal
-    SET
-    personal_email = #{personalEmail},
-    personal_address = #{personalAddress}, 
-    personal_phone = #{personalPhone}
-    WHERE
-    personal_id = #{personalId}
-</update>
+	<!-- 마이페이지 수정 -->
+	<update id="personalUpdate" parameterType="personalLogin">
+		UPDATE tb_personal
+		SET
+		personal_email = #{personalEmail},
+		personal_address = #{personalAddress},
+		personal_phone = #{personalPhone}
+		WHERE
+		personal_id = #{personalId}
+	</update>
 
 
-  <!-- 비밀번호 변경 -->
-    <update id="updatePersonalPasswd" parameterType="personalLogin">
-    	UPDATE tb_personal SET
-    	personal_passwd = #{personalPasswd},
-    	personal_passwd_change_date = sysdate
-    	WHERE personal_id = #{personalId}
-    </update>
+	<!-- 비밀번호 변경 -->
+	<update id="updatePersonalPasswd" parameterType="personalLogin">
+		UPDATE tb_personal SET
+		personal_passwd = #{personalPasswd},
+		personal_passwd_change_date = sysdate
+		WHERE personal_id = #{personalId}
+	</update>
 
 
-		<resultMap type="matchingBoard" id="matchingBoardMap">
+	<resultMap type="matchingBoard" id="matchingBoardMap">
 		<id column="matching_no" property="matchingNo" />
 		<result column="personal_id" property="personalId" />
 		<result column="matching_private" property="matchingPrivate" />
 		<result column="matching_passwd" property="matchingPasswd" />
-		<result column="matching_register_date" property="matchingRegisterDate" />
+		<result column="matching_register_date"
+			property="matchingRegisterDate" />
 		<result column="matching_edit_date" property="matchingEditDate" />
-		<result column="matching_gu_address" property="matchingGuAddress" />
-		<result column="matching_dong_address" property="matchingDongAddress" />
-		<result column="matching_target_grade" property="matchingTargetGrade" />
-		<result column="matching_target_subject" property="matchingTargetSubject" />
+		<result column="matching_gu_address"
+			property="matchingGuAddress" />
+		<result column="matching_dong_address"
+			property="matchingDongAddress" />
+		<result column="matching_target_grade"
+			property="matchingTargetGrade" />
+		<result column="matching_target_subject"
+			property="matchingTargetSubject" />
 		<result column="matching_fee" property="matchingFee" />
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
@@ -132,7 +139,8 @@
 	<select id="boardListCnt" parameterType="matchingBoard"
 		resultType="int">
 		SELECT count(*) FROM tb_matching_board
-		WHERE personal_id = ${personalId}
+		WHERE personal_id =
+		#{personalId}
 	</select>
 
 	<!-- 매칭게시판 글 목록 전체 보기 -->
@@ -160,7 +168,7 @@
 	    					, personal_id
 					FROM   	(
 							SELECT * FROM tb_matching_board
-							WHERE personal_id = ${personalId}
+							WHERE personal_id = #{personalId}
 							ORDER BY matching_register_date DESC) sortedList
 	    			WHERE ]]>
 					<![CDATA[rownum <= #{pageNum} * #{amount}) boardList

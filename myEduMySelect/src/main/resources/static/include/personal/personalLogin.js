@@ -5,13 +5,13 @@ $(function() {
         else {          
             $("#loginForm").attr({
                 "method":"post", 
-                "action":"/useraccount/login"      
+                "action":"/personal/login"      
             });                     
             $("#loginForm").submit();      
         }
     });
     
     $("#logoutBtn").on("click", function() {
-        location.href = "/useraccount/logout"
+        location.href = "/personal/logout"
     });
 });

@@ -96,11 +96,11 @@ function validateForm() {
                         location.reload();
                     },
                     error: function(xhr, status, error) {
-                        alert("개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+                        alert("개인 정보 업데이트에 실패했습니다. 공백이 있는지 확인 후  다시 시도해 주세요.");
                         console.error(xhr.responseText);
                     }
                 });
-            } else {
+            } else { 
                 return false;
             }
         });
