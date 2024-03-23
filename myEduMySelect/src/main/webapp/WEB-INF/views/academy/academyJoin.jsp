@@ -79,7 +79,7 @@
 						<label for="academyManagerEmail" >담당자 이메일</label>
 					</th>
 					<td>
-						<input type="text" id="academyManagerEmail" name="academyManagerEmail" readonly required>
+						<input type="text" id="academyManagerEmail" name="academyManagerEmail" required>
 						<button id="emailCheckBtn" class="emailCheck">중복체크</button>
 				        <br/>
 				        <div id="email-check-message"></div>

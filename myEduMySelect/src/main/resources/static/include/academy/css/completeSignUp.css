@@ -1,0 +1,23 @@
+#academyLoginBtn {
+	background-color : #37517e ; 
+	height:55px;
+	width:565px;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px ;
+    font-size: 22px ;
+    font-weight: 600  ;
+    margin-bottom: 12px;
+    display: block;
+    font-size: 20px;
+    color: white;
+}
+
+#academyLoginBtn:hover {
+	background-color : #47b2e4 ; 
+}
+
+h2{
+	margin-top: 10px;
+}
