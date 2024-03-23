@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
-@Mapper
+@Mapper 
 public interface PersonalMatchingBoardDAO {
 
 	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);

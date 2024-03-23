@@ -31,7 +31,7 @@
 			<button type="button" id="freeBtn">자유게시판에서 내가 쓴 글 목록 보기</button>
 		</div>
 		
-		<br/>
+		<br/> 
 		
 		<form id="updateForm" action="/personalUpdate" method="POST"
 		style="max-width: 600px; margin: auto;">

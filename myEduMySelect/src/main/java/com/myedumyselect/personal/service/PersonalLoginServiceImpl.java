@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Service
 public class PersonalLoginServiceImpl implements PersonalLoginService {
-
+ 
 	@Setter(onMethod_ = @Autowired)
 	private PersonalLoginDao personalLoginDao;
 

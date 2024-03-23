@@ -15,3 +15,4 @@ public interface PersonalFreeBoardService {
 	// 자유 게시판 상세보기
 	public FreeVO boardDetail(FreeVO freeVO);
 }
+ 

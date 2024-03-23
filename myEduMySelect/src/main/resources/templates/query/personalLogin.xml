@@ -24,7 +24,7 @@
 	<!-- 로그인 select -->
 	<select id="loginProcess" parameterType="personalLogin"
 		resultMap="personalLoginMap">
-
+  
 		SELECT DISTINCT
 		*
 		FROM tb_personal

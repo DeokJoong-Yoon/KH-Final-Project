@@ -69,7 +69,7 @@
 					WHERE rnum > (#{pageNum} - 1 ) * #{amount}
 					]]>
 	</select>
-
+ 
 
 	<!-- 매칭게시판 게시글 상세 보기 -->
 	<select id="boardDetail" parameterType="matchingBoard"

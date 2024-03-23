@@ -13,3 +13,4 @@ public interface PersonalMatchingBoardService {
 	public MatchingBoardVO boardDetail(MatchingBoardVO matchingBoardVO);
 
 }
+ 

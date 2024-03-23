@@ -9,7 +9,7 @@ $(function() {
             });                     
             $("#loginForm").submit();      
         }
-    });
+    }); 
     
     $("#logoutBtn").on("click", function() {
         location.href = "/personal/logout"

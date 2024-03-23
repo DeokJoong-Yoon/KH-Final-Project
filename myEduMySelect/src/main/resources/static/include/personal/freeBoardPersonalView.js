@@ -13,8 +13,8 @@ $(function() {
         e.preventDefault();
         $("#pagenum").val($(this).attr("href"));
         $("#freeForm").submit(); // 폼 제출
-    });
-    
+    }); 
+     
 	$(".goDetail").on("click", function() {
 		
 		/* form을 생성하여 제어 */

@@ -11,7 +11,7 @@ public interface PersonalLoginService {
 
 	// 로그인 실패 횟수
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);
-
+ 
 	// 로그인 제한 상태
 	public int updateAccountBannedDate(String personalId, Date bannedDate);
 

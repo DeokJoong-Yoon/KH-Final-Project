@@ -15,7 +15,7 @@ public class PersonalMatchingBoardServiceImpl implements PersonalMatchingBoardSe
 
 	@Setter(onMethod_ = @Autowired)
 	PersonalMatchingBoardDAO personalMatchingBoardDAO;
-
+ 
 	@Override
 	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO) {
 		return personalMatchingBoardDAO.boardList(matchingBoardVO);

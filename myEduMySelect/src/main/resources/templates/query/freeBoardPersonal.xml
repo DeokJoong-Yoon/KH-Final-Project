@@ -13,7 +13,7 @@
     <result column="common_edit" property="commonEdit" />
     <result column="common_readcnt" property="commonReadcnt" /> 
     <result column="common_file" property="commonFile" />
-		
+		 
 	</resultMap>
 
 	<sql id="boardSearch">

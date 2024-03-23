@@ -9,7 +9,7 @@ $(function() {
 		$("#pageNum").val(1);	// 페이지 초기화
 		goPage();
 	});
-	
+	  
 	/* 페이징 처리 이벤트 */
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();

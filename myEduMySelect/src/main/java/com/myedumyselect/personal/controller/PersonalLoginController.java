@@ -302,7 +302,7 @@ public class PersonalLoginController {
 			}
 
 			return "personal/newPasswd";
-		}
+		} 
 
 		@ResponseBody
 		@PostMapping(value = "/updatePersonalPasswd")

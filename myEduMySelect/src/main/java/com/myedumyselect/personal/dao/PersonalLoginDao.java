@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
-@Mapper
+@Mapper 
 public interface PersonalLoginDao {
 
 	// 로그인
