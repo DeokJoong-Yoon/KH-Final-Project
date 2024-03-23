@@ -49,7 +49,7 @@
 		          SELECT /*+ INDEX_DESC(tb_common_board PK_TB_COMMON_BOARD) */
 		                  rownum as rnum
 		                , common_no
-		                , academy_id  -- Keep this line
+		                , academy_id  
 		                , member_type_id
 		                , common_nickname
 		                , common_title
