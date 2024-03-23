@@ -35,9 +35,9 @@
 		
 		<form id="updateForm" action="/personalUpdate" method="POST"
 		style="max-width: 600px; margin: auto;">
-			
+			 
 			<h4>개인정보 조회 및 수정</h4>
-			<table>
+			<table> 
 				<tr>
 					<th>
 						<label for="personalId" >아이디</label>
