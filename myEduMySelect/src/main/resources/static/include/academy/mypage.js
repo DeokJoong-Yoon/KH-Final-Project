@@ -267,7 +267,9 @@ $(document).ready(function() {
 		//정보 수정 시 변경
 		if(academyFee=="") {		//만약 수강료를 새롭게 선택했다면 
 			academyFee = selectedFee;
-		} else if(academyTargetGrade=="") {		//만약 대상 학년을 새롭게 선택했다면 
+		} 
+		
+		if(academyTargetGrade=="") {		//만약 대상 학년을 새롭게 선택했다면 
 			academyTargetGrade = selectedAge;
 		}
 		
