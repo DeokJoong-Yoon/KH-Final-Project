@@ -37,9 +37,9 @@
       		<%-- <input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' /> --%>
       	</form>
       	
-      	<p>${detail.fileVO[0].getFilePath()}</p>
+      	<p>${detail.fileVO[0].getFilePath()}dd</p>
       
-      	<div class="userId">${academyLogin.academyId}</div>
+      	<div class="userId">${userId }</div>
       	
 		<div class="advDetail">
 			<table>
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<th>학원명</th>
-					<td>${academyLogin.academyName}</td>
+					<td>${detail.commonNickname}</td>
 				</tr>
 				<tr>
 					<th>등록 일시</th>
@@ -131,6 +131,7 @@
         $(document).ready(function() {
         	
         	let commonNo = ${detail.commonNo};
+        	let memberId= "${personalLoginVO.personalId}";
         	
             // 페이지 로딩 시 getLike 실행
             $.ajax({
@@ -138,7 +139,7 @@
                 url: "/like/get",
                 data: JSON.stringify({
                 			commonNo: commonNo,
-                			likeMemberId : 'aaa111'
+                			likeMemberId : memberId
                 		}),
              	headers : {"Content-Type" : "application/json"},
                 dataType: "text",
@@ -153,7 +154,7 @@
                     			url: "/like/insert",
                     			data: JSON.stringify({
                         			commonNo: commonNo,
-                        			likeMemberId : 'aaa111'
+                        			likeMemberId : memberId
                         		}),
                         		contentType: "application/json; charset=utf-8",
                                 dataType: "text",
@@ -177,7 +178,7 @@
                         			url: "/like/toggle",
                         			data: JSON.stringify({
                             			commonNo: commonNo,
-                            			likeMemberId : 'aaa111'
+                            			likeMemberId : memberId
                             		}),
                             		contentType: "application/json; charset=utf-8",
                                     dataType: "text",
@@ -200,7 +201,7 @@
                         			url: "/like/toggle",
                         			data: JSON.stringify({
                             			commonNo: commonNo,
-                            			likeMemberId : 'aaa111'
+                            			likeMemberId : memberId
                             		}),
                             		contentType: "application/json; charset=utf-8",
                                     dataType: "text",

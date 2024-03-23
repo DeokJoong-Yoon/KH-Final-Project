@@ -12,7 +12,7 @@
     margin-top:40px;
 }
 
-#updateForm, #myPostArea {
+#academyUpdateForm, #myPostArea {
 	background-color : #fff;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 	padding : 10px;
@@ -75,7 +75,7 @@ button:hover {
 	background-color: #37517e;
 }
 
-#personalUpdateBtn {
+#updateBtn, #payBtn, #withdrawalBtn{
 	padding: 10px 20px;
     background-color: #48d1cc;
     color: white;
@@ -89,41 +89,21 @@ button:hover {
     float: right;
 }
 
-#personalUpdateBtn:hover{
+#updateBtn:hover, #payBtn:hover, #withdrawalBtn:hover{
 	background-color: #37517e;
 }
 
-#nowAddress, #newAddress {
-	margin-right : 10px;
-	margin-top: 10px;
+#academyRoadAddress, #academyTargetSubject {
+	width: 370px;
 }
 
-#personalEmail {
-	width : 230px;
+#feeGroup input, #ageGroup input, #keywordGroup input {
+	margin-right: 5px;
+	height: 15px;
 }
 
-#nowAddress {
-	width: 350px;
+#feeGroup label, #ageGroup label, #keywordGroup label {
+	margin-right : 30px;
 }
 
-#matchingBtn, #freeBtn {
-    background-color: #48d1cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    width: 550px;
-    height : 50px;
-    margin-top: 10px;
-}
 
-#matchingBtn:hover, #freeBtn:hover {
-	background-color: #37517e;
-}
-
-h4{
-	font-weight: 600px;
-	color: #37517e;
-}
