@@ -80,7 +80,7 @@
 		 dongValue = $("#academyDongAddress").val();
 		 roadValue = $("#academyRoadAddress").val();
 		 academyPhone = $("#academyPhone").val();
-		 managerName = $("#academyManagerPhone").val();
+		 managerName = $("#academyManagerName").val();
 		 managerEmail = $("#academyManagerEmail").val();
 		 managerPhone = $("#academyManagerPhone").val();
 		 targetGrade = $("input[name='academyTargetGrade']:checked").val();
@@ -108,7 +108,7 @@
 			 academyDongAddress : dongValue,
 			 academyRoadAddress : roadValue,
 			 academyPhone : academyPhone,
-			 academyManagerPhone : managerName,
+			 academyManagerName : managerName,
 			 academyManagerEmail : managerEmail,
 			 academyManagerPhone : managerPhone,
 			 academyTargetGrade : targetGrade,
@@ -127,7 +127,10 @@
 	    // 유효성 검사 후 회원가입 프로세스 진행
 	    if (!targetInput) {
 			
-			console.log(value);
+			console.log(value.academyId);
+			console.log(value.academyNumber);
+			console.log(value.academyName);
+			console.log(value.academyManagerName);
 	 		
 	        // 모든 조건을 만족했을 경우 회원가입 프로세스 진행
 	        // 회원가입 정보 저장 AJAX 요청
@@ -137,12 +140,14 @@
 	            headers : {
 					"Content-Type" : "application/json"
 				},
-	            data: value,
-	            //dataType : "json",
+	            data: JSON.stringify(value),
 	            success: function(data) {
-					console.log(data);
+					alert('회원가입이 완료되었습니다.');
+					if(data == "TRUE") {
+						window.location.href="/academy/join/complete";
+					}
 					
-	                alert('회원가입이 완료되었습니다.');
+	                
 	                // 저장 후 필요한 작업 수행
 	                // 회원가입 폼 제출
 	                /*document.getElementById('a_joinForm').submit();*/

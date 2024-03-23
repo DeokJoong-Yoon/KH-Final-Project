@@ -15,7 +15,7 @@
          <div class="row">
             <div class="col-12 text-center mcBanner">
 		            학원 회원가입<br/>
-		        </div> 
+		        </div>  
          </div>
       </div>
    </section>
@@ -214,7 +214,7 @@
 			</table>
 	    </form>
 	     <div class="text-end">
-			<input type="submit" value="회원가입" id="submit-btn">
+			<input type="button" value="회원가입" id="submit-btn">
 			<input type="reset" value="다시작성" id="reset-btn" onclick="resetForm()">
 		 </div> 
    	</div>

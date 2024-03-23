@@ -2,7 +2,6 @@ package com.myedumyselect.academy.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myedumyselect.academy.service.AcademyAdvertiseService;
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.service.AcademyMatchingBoardService;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.client.main.vo.PageDTO;
+import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
@@ -41,7 +40,7 @@ public class AcademyLoginController {
    private AcademyLoginService academyLoginService;
 
    @Setter(onMethod_ = @Autowired)
-   private AcademyAdvertiseService academyAdvertiseService;
+   private AdvertiseService advertiseService;
    	
    @Setter(onMethod_ = @Autowired)
    private AcademyMatchingBoardService academyMatchingBoardService;
@@ -152,14 +151,15 @@ public class AcademyLoginController {
    }
    
    // 학원회원 회원가입 POST
-   @PostMapping("/academyInsert")
-   public String academyInsert(@ModelAttribute AcademyLoginVO login ) {
+   @PostMapping(value = "/academyInsert")
+   @ResponseBody
+   public String academyInsert(@RequestBody AcademyLoginVO login) {
 	   
 	   System.out.println(login.toString());
 	 
        log.info("academyInsert 호출 성공");               
-       academyLoginService.academyInsert(login);            
-       return "redirect:/academy/join/complete";
+       academyLoginService.academyInsert(login);         
+       return "TRUE";
    }   
 
    // 학원회원 회원가입 완료 페이지로 이동
@@ -302,49 +302,24 @@ public class AcademyLoginController {
   	 *************************************************************/   
    /* 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/advertiseList")
-   public String academyAdvertiseList(@ModelAttribute AdvertiseVO aVO, Model model,
+   public String academyAdvertiseList(@ModelAttribute AdvertiseVO advertiseVO, Model model,
 		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
 	   if(academyLoginVO == null) {
 		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
 		   return "redirect:/academy/login";
 	   }
 	   
-	   List<AdvertiseVO> advertiseList = academyAdvertiseService.advertiseList(aVO);
-	   model.addAttribute("advertiseList", advertiseList);
+	   List<AdvertiseVO> academyAdvertiseList = advertiseService.advertiseList(advertiseVO);
+	   model.addAttribute("advertiseList", academyAdvertiseList);
 	   
 	   
 	   // 전체 레코드수 반환.
-	   int total = academyAdvertiseService.advertiseListCnt(aVO);
+	   int total = advertiseService.advertiseListCnt(advertiseVO);
 	   // 페이징 처리
-	   model.addAttribute("pageMaker", new PageDTO(aVO, total));
-	   model.addAttribute("kwd", aVO.getKeyword());
+	   model.addAttribute("pageMaker", new PageDTO(advertiseVO, total));
+	   model.addAttribute("kwd", advertiseVO.getKeyword());
 	   return "academy/academyAdvertiseList"; // 사용자가 작성한 홍보 게시글 목록을 보여주는 페이지로 이동
    }
-   
-   /*
-	@GetMapping("/academyAdvertiseList")
-	public String getAdvertiseList(Model model, HttpSession session) {
-		AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
-		if (academyLoginVO == null) {
-			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
-			return "redirect:/useraccount/login";
-		}
-		
-		return "academy/academyAdvertiseList"; 
-	}*/ 
-   
-   /* 홍보게시판 상세 조회 */
-   @GetMapping("/academy/advertiseDetail")
-   public String academyAdvertiseDetail(@ModelAttribute AdvertiseVO aVO, Model model,       
-			@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
-		if (academyLoginVO == null) {
-			ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
-			return "redirect:/academy/login";
-		}
-		AdvertiseVO detail = academyAdvertiseService.advertiseDetail(aVO);
-		model.addAttribute("detail", detail);
-		return "/academy/advertiseDetail";
-	}
    
    /*************************************************************
   	 * Academy Matching
