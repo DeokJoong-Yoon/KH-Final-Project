@@ -32,15 +32,16 @@ function checkEmail() {
         }
     });
 };
-
-
+function showChangeEmail() {
+    $('#duplicateCheckBtn').show(); 
+}
 
 
 function validateForm() {
     var personalEmail = $("#personalEmail").val();
-    var personalAddress = $("#personalDetailAddress").val(); 
+    var personalAddress = $("#personalAddress").val(); 
     var personalPhone = $("#personalPhone").val();
-    
+
 
     function validateEmail(personalEmail) {
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,6 +56,7 @@ function validateForm() {
     function validateAddress(personalAddress) {
         return personalAddress.trim() !== "";
     }
+
 
     if (!validateEmail(personalEmail)) {
         alert("올바른 이메일 주소를 입력해주세요.");
@@ -77,5 +79,30 @@ function validateForm() {
     return true;
 }
 
+ $(function() {
+        $("#updateForm").on("submit", function(event) {
+            event.preventDefault(); // 기본 제출 동작 방지
+            // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
+            if (confirm("개인 정보를 수정하시겠습니까?")) {
+                // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
+                $.ajax({
+                    url: "/personalUpdate",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
+                        alert("개인 정보가 성공적으로 업데이트되었습니다.");
+                        // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+                        console.error(xhr.responseText);
+                    }
+                });
+            } else {
+                return false;
+            }
+        });
 
-
+});

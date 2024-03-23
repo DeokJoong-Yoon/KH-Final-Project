@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ include file="/WEB-INF/views/common/common.jspf" %>
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -162,11 +163,11 @@
 				<div class="col-sm-9">
 					<input type="password" id="personalPasswd" name="personalPasswd"
 						class="form-control" required> <small
-						class="form-text text-muted">정보를 수정하려면 반드시 비밀번호를 입력하세요.</small> <a
+						class="form-text text-muted">정보를 수정하려면 반드시 비밀번호를 입력하세요.</small>  --><a
 						href="/newPasswd" class="btn btn-primary">비밀번호 변경페이지로 이동</a>
 				</div>
-			</div>
-			<br /> -->
+			<br />
+			
 
 
 			<!-- 이메일 -->
@@ -259,7 +260,7 @@
 							내가 쓴 글 목록 보기</a>
 					</div>
 				</div>
-			</div>
+
 	</form>
 	<script>
 		function findAddr() {
@@ -287,15 +288,6 @@
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -421,13 +413,6 @@
 
 	<!-- Template Main JS File -->
 	<script src="/resources/include/assets/js/main.js"></script>
-
-
-
-
-
-
-
 
 
 
