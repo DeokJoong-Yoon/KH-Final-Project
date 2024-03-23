@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-											
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
-														   
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
@@ -41,26 +40,79 @@ public class AdvertiseController {
 	
 	// 홍보게시판 목록 전체보기 구현
 	@GetMapping("/advertiseBoardList")
-	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model, @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO) {
+	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model, 
+			@SessionAttribute(required = false, name = "personalLogin") PersonalLoginVO personalLoginVO, 
+			@SessionAttribute(required = false, name = "academyLogin") AcademyLoginVO academyLoginVO) {
 		log.info("advertiseBoardList() 호출 성공");
 		
-		//개인회원 로그인 세션 받기
-		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.");
-		if (checkedSessionResult == "FALSE") {
-			return "redirect:/loginselect";
-		}
-		//전체 레코드 조회
-		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
-		model.addAttribute("advertiseList", advertiseList);
+		if (personalLoginVO != null || academyLoginVO != null) {
+	        // 전체 레코드 조회
+	        List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
+	        model.addAttribute("advertiseList", advertiseList);
+	        
+	        // 전체 레코드 수 반환
+	        int total = aService.advertiseListCnt(aVO);
+	        
+	        // 페이징 처리
+	        model.addAttribute("pageMaker", new PageDTO(aVO, total));
+	        model.addAttribute("kwd", aVO.getKeyword());
+	        
+	        return "board/advertise/advertiseBoardList";
+	    } else {
+	        // 둘 다 없으면 로그인 페이지로 리디렉션
+	        return "redirect:/loginselect";
+	    }
+//		
+////		//개인회원 로그인 세션 받기
+////		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.");
+////		if (checkedSessionResult == "FALSE") {
+////			return "redirect:/loginselect";
+////		}
+////		
+////		//학원회원 로그인 세션 받기
+////		String checkedSessionResult2 = sessionCheckService.isAcademySessionCheck(academyLoginVO, model, "로그인 후 열람 가능합니다.");
+////		if (checkedSessionResult2 == "FALSE") {
+////			return "redirect:/loginselect";
+////		}
+//		
+//		//String checkedSessionResult = null;
+//		
+//		System.out.println(personalLoginVO.toString());
+//		System.out.println(academyLoginVO.toString());
+//		
+//		String url = "";
+//		
+//		if( sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.").equals("FALSE") && 
+//				sessionCheckService.isAcademySessionCheck(academyLoginVO, model, "로그인 후 열람 가능합니다.").equals("FALSE")) {
+//			url = "redirect:/loginselect";
+//		} else {
+//			//전체 레코드 조회
+//			List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
+//			model.addAttribute("advertiseList", advertiseList);
+//			
+//			//전체 레코드 수 반환
+//			int total = aService.advertiseListCnt(aVO);
+//			
+//			//페이징 처리
+//			model.addAttribute("pageMaker", new PageDTO(aVO, total));
+//			model.addAttribute("kwd", aVO.getKeyword());
+//			
+//			url =  "board/advertise/advertiseBoardList";
+//		}
 		
-		//전체 레코드 수 반환
-		int total = aService.advertiseListCnt(aVO);
 		
-		//페이징 처리
-		model.addAttribute("pageMaker", new PageDTO(aVO, total));
-		model.addAttribute("kwd", aVO.getKeyword());
+//		//전체 레코드 조회
+//		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
+//		model.addAttribute("advertiseList", advertiseList);
+//		
+//		//전체 레코드 수 반환
+//		int total = aService.advertiseListCnt(aVO);
+//		
+//		//페이징 처리
+//		model.addAttribute("pageMaker", new PageDTO(aVO, total));
+//		model.addAttribute("kwd", aVO.getKeyword());
 		
-		return "board/advertise/advertiseBoardList";
+		//return url;
 	}
 	
 	
