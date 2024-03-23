@@ -150,7 +150,7 @@
 									<option value="all">전체 목록 조회</option>
 									<option value="common_title">글제목</option>
 									<option value="common_content">글내용</option>
-									<!-- <option value="personal_id">작성자</option> -->
+									<option value="personal_id">작성자</option>
 								</select>
 							</div>
 								<div class="col-auto">
@@ -239,7 +239,7 @@
 		</section>
 		</form>
 	</main>
-
+<!-- 
 	<script>
       	$(function() {
       		/* 검색 후 검색 대상과 검색 단어 출력 */
@@ -261,8 +261,8 @@
       				});
       			}
       		}
-      	});
-      </script>
+      	}); 
+      </script>-->
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -360,6 +360,7 @@
   			if ($("#search").val() != 'common_content') {
   				//:contains() 는 특정 텍스트를 포함한 요소 반환
   				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+  				if($("#search").val() == 'personal_id') value = "#list tr td.goDetail";
   				console.log($(value + ":contains('" + word + "')").html());
   				// $("#list tr td.goDetail:contains('노력')").html();
   				// => <span class='required'>노력</span>에 대한 명언
