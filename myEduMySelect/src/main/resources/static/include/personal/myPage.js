@@ -155,11 +155,11 @@ let address;
 		})
         
         $("#matchingBtn").on("click", function () {
-			window.location.href = "/personalMatchingList";
+			window.location.href = "/personalMatchingView";
 		})
 		
 		$("#freeBtn").on("click", function () {
-			window.location.href = "";
+			window.location.href = "/personalFreeView";
 		})
 
 });

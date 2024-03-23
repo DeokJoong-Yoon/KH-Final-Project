@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.personal.dao.PersonalMatchingBoardDAO">
+
+
+	<resultMap type="matchingBoard" id="matchingBoardMap">
+		<id column="matching_no" property="matchingNo" />
+		<result column="personal_id" property="personalId" />
+		<result column="matching_private" property="matchingPrivate" />
+		<result column="matching_passwd" property="matchingPasswd" />
+		<result column="matching_register_date"
+			property="matchingRegisterDate" />
+		<result column="matching_edit_date" property="matchingEditDate" />
+		<result column="matching_gu_address"
+			property="matchingGuAddress" />
+		<result column="matching_dong_address"
+			property="matchingDongAddress" />
+		<result column="matching_target_grade"
+			property="matchingTargetGrade" />
+		<result column="matching_target_subject"
+			property="matchingTargetSubject" />
+		<result column="matching_fee" property="matchingFee" />
+		<result column="matching_keyword1" property="matchingKeyword1" />
+		<result column="matching_keyword2" property="matchingKeyword2" />
+		<result column="matching_keyword3" property="matchingKeyword3" />
+		<result column="matching_comment" property="matchingComment" />
+	</resultMap>
+
+
+
+	<!-- 전체 레코드 수 조회 -->
+	<select id="boardListCnt" parameterType="matchingBoard"
+		resultType="int">
+		SELECT count(*) FROM tb_matching_board
+		WHERE personal_id =
+		#{personalId}
+	</select>
+
+	<!-- 매칭게시판 글 목록 전체 보기 -->
+	<select id="boardList" parameterType="matchingBoard"
+		resultMap="matchingBoardMap">
+			<![CDATA[
+			SELECT  matching_no
+					, matching_gu_address
+					, matching_dong_address
+					, matching_target_subject
+					, matching_target_grade
+					, matching_private
+					, matching_register_date
+					, personal_id
+			FROM   (
+	    			SELECT	/*+ INDEX_DESC(tb_matching_board pk_tb_matching_board_pk) */  
+	    			rownum as rnum
+	    					, matching_no
+	    					, matching_gu_address
+	    					, matching_dong_address
+	    					, matching_target_subject
+	    					, matching_target_grade
+	    					, matching_private
+	    					, matching_register_date
+	    					, personal_id
+					FROM   	(
+							SELECT * FROM tb_matching_board
+							WHERE personal_id = #{personalId}
+							ORDER BY matching_register_date DESC) sortedList
+	    			WHERE ]]>
+					<![CDATA[rownum <= #{pageNum} * #{amount}) boardList
+					WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+					]]>
+	</select>
+
+
+	<!-- 매칭게시판 게시글 상세 보기 -->
+	<select id="boardDetail" parameterType="matchingBoard"
+		resultMap="matchingBoardMap">
+		SELECT matching_no
+		, matching_gu_address
+		,
+		matching_dong_address
+		, matching_target_subject
+		, matching_target_grade
+		, matching_fee
+		, matching_keyword1
+		, matching_keyword2
+		,
+		matching_keyword3
+		, personal_id
+		, to_char (matching_register_date,
+		'YYYY-MM-DD') as
+		matching_register_date
+		, ( SELECT
+		COUNT(matching_comment_no)
+		FROM tb_matching_comment
+		WHERE matching_no =
+		tb_matching_board.matching_no) as commentCnt
+		, matching_comment
+		FROM
+		tb_matching_board
+		WHERE matching_no = #{matchingNo}
+	</select>
+
+	<!-- 매칭게시판 게시글 삭제 -->
+	<delete id="boardDelete" parameterType="matchingBoard">
+		DELETE FROM
+		tb_matching_board
+		WHERE matching_no = #{matchingNo}
+	</delete>
+
+	
+	<!-- 매칭게시판 게시글 수정 폼 -->
+	<select id="boardUpdateForm" parameterType="matchingBoard"
+		resultType="matchingBoard">
+		SELECT * FROM tb_matching_board
+		WHERE matching_no = #{matchingNo}
+	</select>
+
+
+	<!-- 매칭게시판 게시글 수정 -->
+	<update id="boardUpdate" parameterType="matchingBoard">
+		UPDATE tb_matching_board
+		SET matching_comment = #{matchingComment},
+		matching_edit_date = sysdate
+		WHERE matching_no = #{matchingNo}
+	</update>
+
+
+</mapper>

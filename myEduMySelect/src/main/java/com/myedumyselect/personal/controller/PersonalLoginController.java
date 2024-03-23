@@ -17,8 +17,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.client.main.vo.PageDTO;
-import com.myedumyselect.matching.board.service.MatchingBoardService;
+import com.myedumyselect.commonboard.free.vo.FreeVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+import com.myedumyselect.personal.service.PersonalFreeBoardService;
 import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.service.PersonalMatchingBoardService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
@@ -38,6 +39,9 @@ public class PersonalLoginController {
 
 	@Autowired
 	private PersonalMatchingBoardService personalMatchingBoardService;
+	
+	@Autowired
+	private PersonalFreeBoardService personalFreeBoardService;
 
 	@GetMapping("/personal/login")
 	public String loginForm() {
@@ -244,14 +248,15 @@ public class PersonalLoginController {
 	}
 
 	// 사용자가 작성한 매칭 게시글 목록 보기 페이지로 이동
-	@GetMapping("/personalMatchingList")
-	public String getMatchingList(MatchingBoardVO matchingBoardVO,Model model, HttpSession session) {
+	@GetMapping("/personalMatchingView")
+	public String getMatchingView(MatchingBoardVO matchingBoardVO,Model model, HttpSession session) {
 		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
 		if (personalLoginVO == null) {
 			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
-			return "redirect:/useraccount/login";
+			return "redirect:/personal/login";
 		}
 		
+			
 		matchingBoardVO.setPersonalId(personalLoginVO.getPersonalId());
 		List<MatchingBoardVO> matchingBoardList = personalMatchingBoardService.boardList(matchingBoardVO);
 		model.addAttribute("matchingBoardList", matchingBoardList);
@@ -260,12 +265,37 @@ public class PersonalLoginController {
 		int total = personalMatchingBoardService.boardListCnt(matchingBoardVO);
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
-		return "personal/personalMatchingList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
+		return "personal/personalMatchingView"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
 	}
+	
+	
+	//사용자가 작성한 자유 게시판 목록 보기 페이지로 이동
+	@GetMapping("/personalFreeView")
+	public String getFreeView(FreeVO freeVO, Model model, HttpSession session) {
+		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
+		if (personalLoginVO == null) {
+			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+			return "redirect:/personal/login";
+		}
+		
+		freeVO.setPersonalId(personalLoginVO.getPersonalId());
+		List<FreeVO> freeBoardList = personalFreeBoardService.boardList(freeVO);
+		model.addAttribute("freeBoardList", freeBoardList);
+		
+		//전체 레코드수 반환.
+		int total = personalFreeBoardService.boardListCnt(freeVO);
+
+		
+		//페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(freeVO, total));
+		return "personal/personalFreeView";
+		
+	}
+		
 
 	// 비밀번호 변경 페이지
 		@GetMapping("/newPasswd")
-		public String passwordChangePage(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO) {
+		public String passwordChangePage(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO ) {
 
 			if (personalLoginVO == null) {
 				return "redirect:/personal/login";
