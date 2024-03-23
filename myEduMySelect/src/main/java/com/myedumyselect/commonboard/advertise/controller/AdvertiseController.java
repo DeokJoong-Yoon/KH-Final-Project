@@ -41,82 +41,34 @@ public class AdvertiseController {
 	// 홍보게시판 목록 전체보기 구현
 	@GetMapping("/advertiseBoardList")
 	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model,
-			@SessionAttribute(required = false, name = "personalLogin") PersonalLoginVO personalLoginVO,
-			@SessionAttribute(required = false, name = "academyLogin") AcademyLoginVO academyLoginVO) {
-		log.info("advertiseBoardList() 호출 성공");
-
-		String result = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-		if (result == "FALSE") {
-			return "rediect:/";
-		}
-
-		if (personalLoginVO != null || academyLoginVO != null) {
-			// 전체 레코드 조회
-			List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
-			model.addAttribute("advertiseList", advertiseList);
-
-			// 전체 레코드 수 반환
-			int total = aService.advertiseListCnt(aVO);
-
-			// 페이징 처리
-			model.addAttribute("pageMaker", new PageDTO(aVO, total));
-			model.addAttribute("kwd", aVO.getKeyword());
-
-			return "board/advertise/advertiseBoardList";
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else if (personalLoginVO != null) {
+			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (pesronalResult != "TRUE") {
+				return pesronalResult;
+			}
 		} else {
-			// 둘 다 없으면 로그인 페이지로 리디렉션
-			return "redirect:/loginselect";
+			return "redirect:/";
 		}
-//		
-////		//개인회원 로그인 세션 받기
-////		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.");
-////		if (checkedSessionResult == "FALSE") {
-////			return "redirect:/loginselect";
-////		}
-////		
-////		//학원회원 로그인 세션 받기
-////		String checkedSessionResult2 = sessionCheckService.isAcademySessionCheck(academyLoginVO, model, "로그인 후 열람 가능합니다.");
-////		if (checkedSessionResult2 == "FALSE") {
-////			return "redirect:/loginselect";
-////		}
-//		
-//		//String checkedSessionResult = null;
-//		
-//		System.out.println(personalLoginVO.toString());
-//		System.out.println(academyLoginVO.toString());
-//		
-//		String url = "";
-//		
-//		if( sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.").equals("FALSE") && 
-//				sessionCheckService.isAcademySessionCheck(academyLoginVO, model, "로그인 후 열람 가능합니다.").equals("FALSE")) {
-//			url = "redirect:/loginselect";
-//		} else {
-//			//전체 레코드 조회
-//			List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
-//			model.addAttribute("advertiseList", advertiseList);
-//			
-//			//전체 레코드 수 반환
-//			int total = aService.advertiseListCnt(aVO);
-//			
-//			//페이징 처리
-//			model.addAttribute("pageMaker", new PageDTO(aVO, total));
-//			model.addAttribute("kwd", aVO.getKeyword());
-//			
-//			url =  "board/advertise/advertiseBoardList";
-//		}
 
-//		//전체 레코드 조회
-//		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
-//		model.addAttribute("advertiseList", advertiseList);
-//		
-//		//전체 레코드 수 반환
-//		int total = aService.advertiseListCnt(aVO);
-//		
-//		//페이징 처리
-//		model.addAttribute("pageMaker", new PageDTO(aVO, total));
-//		model.addAttribute("kwd", aVO.getKeyword());
+		// 전체 레코드 조회
+		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
+		model.addAttribute("advertiseList", advertiseList);
 
-		// return url;
+		// 전체 레코드 수 반환
+		int total = aService.advertiseListCnt(aVO);
+
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(aVO, total));
+		model.addAttribute("kwd", aVO.getKeyword());
+
+		return "board/advertise/advertiseBoardList";
 	}
 
 	// 홍보게시판 글쓰기 입력 폼 출력
@@ -157,23 +109,38 @@ public class AdvertiseController {
 
 	// 홍보게시판 게시글 상세 보기
 	@GetMapping("/advertiseDetail")
-	public String advertiseDetail(AdvertiseVO aVO, Model model) {
-		log.info("advertiseDetail() 메소드 호출");
-
-		AdvertiseVO detail = aService.advertiseDetail(aVO);
-		model.addAttribute("detail", detail);
-
-		log.info(detail.toString());
-
+	public String advertiseDetail(AdvertiseVO aVO, Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else if (personalLoginVO != null) {
+			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (pesronalResult != "TRUE") {
+				return pesronalResult;
+			}
+		} else {
+			return "redirect:/";
+		}
 		return "board/advertise/advertiseBoardDetail";
 	}
 
 	// 홍보 게시판 글 삭제
 	@PostMapping("/advertiseDelete")
-	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras, HttpSession session)
+	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model)
 			throws Exception {
-		log.info("delete 호출 성공");
-
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else {
+			return "redirect:/loginselect";
+		}
 		// 게시글 상세정보 가져오기
 		AdvertiseVO avo = new AdvertiseVO();
 		avo.setCommonNo(commonNo);
@@ -203,10 +170,17 @@ public class AdvertiseController {
 
 	// 홍보게시판 글 수정 폼 출력
 	@GetMapping("/advertiseUpdate")
-	public String advertiseUpdateForm(@ModelAttribute AdvertiseVO avo, Model model) {
-		log.info("updateForm 호출 성공");
-		log.info("boardNumber = " + avo.getCommonNo());
-
+	public String advertiseUpdateForm(@ModelAttribute AdvertiseVO avo,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model)
+			throws Exception {
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else {
+			return "redirect:/loginselect";
+		}
 		AdvertiseVO updateData = aService.advertiseUpdateForm(avo);
 
 		model.addAttribute("updateData", updateData);
@@ -240,7 +214,23 @@ public class AdvertiseController {
 
 	// 이전 게시글 이동
 	@GetMapping("/prev/{commonNo}")
-	public String prevPost(AdvertiseVO avo, @PathVariable int commonNo) {
+	public String prevPost(AdvertiseVO avo, @PathVariable int commonNo,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model)
+			throws Exception {
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else if (personalLoginVO != null) {
+			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (pesronalResult != "TRUE") {
+				return pesronalResult;
+			}
+		} else {
+			return "redirect:/loginselect";
+		}
 
 		// 이전 게시글의 번호
 		int prevNo = aService.prevCommonNo(avo);
@@ -259,8 +249,23 @@ public class AdvertiseController {
 
 	// 다음 게시글 이동
 	@GetMapping("/next/{commonNo}")
-	public String nextPost(AdvertiseVO avo, @PathVariable int commonNo) {
-
+	public String nextPost(AdvertiseVO avo, @PathVariable int commonNo,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model)
+			throws Exception {
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else if (personalLoginVO != null) {
+			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (pesronalResult != "TRUE") {
+				return pesronalResult;
+			}
+		} else {
+			return "redirect:/loginselect";
+		}
 		// 다음 게시글의 번호
 		int nextNo = aService.nextCommonNo(avo);
 

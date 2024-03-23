@@ -13,8 +13,9 @@ import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.Setter;
 //import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 
-//@Slf4j
+@Slf4j
 @Service
 public class SessionCheckServiceImple implements SessionCheckService {
 
@@ -29,99 +30,39 @@ public class SessionCheckServiceImple implements SessionCheckService {
 
 	@Override
 	public String isAcademySessionCheck(
-			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model,
-			String alertMsg) {
-
-		// 로그인 세션여부 체크
-		if (academyLoginVO == null) {
-			model.addAttribute("alertMsg", alertMsg);
-			return "FALSE";
-		} else {
-			// 학원회원 체크
-			if (academyLoginVO.getMemberTypeId() == 1) {
-				model.addAttribute("alertMsg", alertMsg);
-				return "FALSE";
-			} else {
-				String academyId = academyLoginVO.getAcademyId(); // 로그인 아이디 가져오기
-
-				// academyId를 이용하여 학원 정보 조회
-				AcademyLoginVO selectedAcademyLoginVO = academyLoginDao.findById(academyId);
-				model.addAttribute("alertMsg", alertMsg);
-				// 학원 정보가 존재하면
-				if (selectedAcademyLoginVO != null) {
-//					log.info(selectedAcademyLoginVO.toString());
-					int result = paymentService.paymentCheck(selectedAcademyLoginVO);
-					if (result == 1) {
-						model.addAttribute("academyLoginVo", selectedAcademyLoginVO);
-						return "TRUE";
-					} else {
-						// not payment
-						model.addAttribute("alertMsg", alertMsg);
-						return "FALSE";
-					}
-				} else {
-					model.addAttribute("alertMsg", alertMsg);
-					return "FALSE"; // 학원 정보가 존재하지 않는 경우
-				}
-			}
-		}
-	}
-
-	@Override
-	public String isAcademySessionCheck(
 			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model) {
 
 		// 로그인 세션여부 체크
 		if (academyLoginVO == null) {
-			model.addAttribute("alertMsg", "로그인이 필요합니다.");
-			return "FALSE";
+			model.addAttribute("alertMsg", "로그인이 필요한 서비스입니다.");
+			return "redirect:/loginselect";
 		} else {
 			// 학원회원 체크
 			if (academyLoginVO.getMemberTypeId() == 1) {
-				model.addAttribute("alertMsg", "개인회원은 접속할 수 없습니다.");
-				return "FALSE";
+				model.addAttribute("alertMsg", "개인회원은 접근 불가한 서비습니다.");
+				return "redirect:/";
 			} else {
 				String academyId = academyLoginVO.getAcademyId(); // 로그인 아이디 가져오기
 
 				// academyId를 이용하여 학원 정보 조회
 				AcademyLoginVO selectedAcademyLoginVO = academyLoginDao.findById(academyId);
+//				model.addAttribute("alertMsg", alertMsg);
 				// 학원 정보가 존재하면
 				if (selectedAcademyLoginVO != null) {
-//					log.info(selectedAcademyLoginVO.toString());
-					int result = paymentService.paymentCheck(selectedAcademyLoginVO);
-					if (result == 1) {
-						model.addAttribute("academyLoginVo", selectedAcademyLoginVO);
+					Integer result = paymentService.paymentCheck(selectedAcademyLoginVO);
+					if (result != null) {
+						model.addAttribute("academyLoginVO", selectedAcademyLoginVO);
 						return "TRUE";
 					} else {
 						// not payment
+						log.info("result null");
 						model.addAttribute("alertMsg", "결제가 필요한 서비스입니다.");
-						return "FALSE";
+						return "redirect:/payment/payMain";
 					}
 				} else {
-					model.addAttribute("alertMsg", "학원 정보가 존재하지 않습니다.");
-					return "FALSE"; // 학원 정보가 존재하지 않는 경우
+					model.addAttribute("alertMsg", "회원 정보가 존재하지 않습니다.");
+					return "redirect:/"; // 학원 정보가 존재하지 않는 경우
 				}
-			}
-		}
-	}
-
-	@Override
-	public String isPersonalSessionCheck(
-			@SessionAttribute(value = "personalLogin", required = false) PersonalLoginVO personalLoginVO, Model model,
-			String alertMsg) {
-
-		if (personalLoginVO == null) {
-			model.addAttribute("alertMsg", alertMsg);
-			return "FALSE";
-		} else {
-			if (personalLoginVO.getMemberTypeId() == 2) {
-				model.addAttribute("alertMsg", alertMsg);
-				return "FALSE";
-			} else {
-//				log.info("회원 ID : " + personalLoginVO.getPersonalId());
-				PersonalLoginVO selectedPersonalLoginVO = personalLoginService.personalMyPage(personalLoginVO);
-				model.addAttribute("personalLoginVO", selectedPersonalLoginVO);
-				return "TRUE";
 			}
 		}
 	}
@@ -132,11 +73,11 @@ public class SessionCheckServiceImple implements SessionCheckService {
 
 		if (personalLoginVO == null) {
 			model.addAttribute("alertMsg", "로그인이 필요합니다.");
-			return "FALSE";
+			return "redirect:/loginselect";
 		} else {
 			if (personalLoginVO.getMemberTypeId() == 2) {
-				model.addAttribute("alertMsg", "학원회원은 접속할 수 없습니다.");
-				return "FALSE";
+				model.addAttribute("alertMsg", "학원회원은 접근 불가한 서비습니다.");
+				return "redirect:/";
 			} else {
 				PersonalLoginVO selectedPersonalLoginVO = personalLoginService.personalMyPage(personalLoginVO);
 				model.addAttribute("personalLoginVO", selectedPersonalLoginVO);

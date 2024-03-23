@@ -141,7 +141,7 @@
 	</insert>
 
 	<select id="paymentCheck" parameterType="academyLogin"
-		resultType="int">
+		resultType="Integer">
 		SELECT CASE
 		WHEN cnt >= 1 THEN
 		CASE

@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int paymentCheck(AcademyLoginVO academyLoginVo) {
+	public Integer paymentCheck(AcademyLoginVO academyLoginVo) {
 		return paymentDAO.paymentCheck(academyLoginVo);
 	}
 }

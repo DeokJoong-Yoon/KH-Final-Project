@@ -21,5 +21,5 @@ public interface PaymentDAO {
 
 	public int boardDelete(PaymentVO paymentVO);
 
-	public int paymentCheck(AcademyLoginVO academyLoginVo);
+	public Integer paymentCheck(AcademyLoginVO academyLoginVo);
 }
