@@ -13,18 +13,7 @@ function chkData(item, msg) {
 	}
 }
 
-
-/** dataCheck(유효성 체크 대상, 출력 영역, 메시지 내용) */
-function dataCheck(item, out, msg) {
-	if($(item).val().replace(/\s/g, "") == "") {
-		$(out).html(msg + " 입력해 주세요");
-		$(item).val("");
-		return false;
-	} else {
-		return true;
-	}
-}
-
+/* 라디오버튼 유효성 검사 */
 function chkRadioData(...items) {
     for(var i = 0; i < items.length - 1; i++) {
         if($(items[i]).is(':checked')) {
@@ -36,17 +25,18 @@ function chkRadioData(...items) {
     return false;
 }
 
-/** dataCheck(유효성 체크 대상, 출력 영역, 메시지 내용) */
-function dataCheck(item, out, msg) {
-	if($(item).val().replace(/\s/g, "") == "") {
-		$(out).html(msg + " 입력해 주세요");
-		$(item).val("");
-		$(item).focus();		
-		return false;
-	} else {
-		return true;
-	}
+/** 체크박스 유효성 검사 */
+function chkCheckboxData(...items) {
+    for(var i = 0; i < items.length - 1; i++) {
+        if($(items[i]).is(':checked')) {
+            return true;
+        }
+    }
+    alert(items[items.length - 1] + " 입력해 주세요.");
+    $(items[0]).focus();
+    return false;
 }
+
 
 /* main.js 내용 */
 (function() {

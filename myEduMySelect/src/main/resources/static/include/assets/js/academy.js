@@ -1,8 +1,167 @@
+// 선택된 조건의 내용을 담을 변수 선언
+    var academyId, academyNumber,  academyPasswd, academyName,
+    	guValue, dongValue, roadValue, academyPhone, managerName,
+    	managerEmail, managerPhone, targetGrade, targetSubject,
+    	keywordValue, fee, passwdChange, loginFail, accountDate;
+    	
+    /* 회원가입 버튼 클릭 이벤트 핸들러 */
+	document.getElementById('submit-btn').addEventListener('click', function(event) {
+	    event.preventDefault(); // 기본 동작 방지
+	
+	    /*// 필수 입력 사항을 체크할 요소들의 배열*/
+	    var requiredInputs = document.querySelectorAll('input[required]');
+	    // 중복 체크가 필요한 요소들의 배열
+	    var duplicateCheckInputs = document.querySelectorAll('.duplicate-check');
+	    // 모든 필드를 포함한 배열
+	    var allInputs = Array.from(requiredInputs).concat(Array.from(duplicateCheckInputs));
+	    // 포커스를 이동할 대상을 담을 변수
+	    var targetInput = null;
+	    
+	    // 미입력 필드 확인
+	    for (var i = 0; i < requiredInputs.length; i++) {
+	        if (!requiredInputs[i].value) {
+	            // 해당 필드로 스크롤 이동
+	            requiredInputs[i].scrollIntoView({ block: 'center' });
+	            // 해당 필드에 포커스 설정
+	            requiredInputs[i].focus();
+	            // targetInput에 할당하여 유효성 검사
+	            targetInput = requiredInputs[i];
+	            break; // 첫 번째로 발견된 빈 필드에 포커스 설정
+	        }
+	    }
+	    
+	    if ($("#duplicate-message").text() === '사용 가능한 아이디입니다.') {
+            // 중복체크가 해소되면 다른 필드들에 대한 빈 값 체크
+            if (!chkData("#academyPasswd", "비밀번호를")) return;
+            if (!chkData("#academyNumber", "사업자등록번호를")) return;
+            if (!chkData("#academyManagerName", "담당자이름을")) return;
+            if (!chkData("#academyManagerEmail", "담당자이메일을")) return;
+            if (!chkData("#academyManagerPhone", "담당자전화번호를")) return;
+            if (!chkData("#academyName", "학원명을")) return;
+            if (!chkData("#academyGuAddress", "행정구역명을")) return;
+            if (!chkData("#academyRoadAddress", "도로명주소를")) return;
+            if (!chkData("#academyDongAddress", "상세주소를")) return;
+            if (!chkData("#academyPhone", "학원전화번호를")) return;
+            if (!chkData("#academyTargetSubject", "교습과목을")) return;
+            if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료를")) return;
+            if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
+            if (!chkCheckboxData("#academyKeyword1", "#academyKeyword2", "#academyKeyword3", "#academyKeyword4", "#academyKeyword5", "#academyKeyword6", "#academyKeyword7", "#academyKeyword8", "#academyKeyword9", "키워드를")) return; // 변경된 부분
+
+            
+        } else {
+            // 아이디 중복 체크가 되지 않은 경우 메시지 출력
+            alert("아이디 중복 체크를 해주세요.");
+            $("#academyId").focus();
+        }
+		
+	    // 중복 체크 필드 확인
+	    if (!chkData && !chkRadioData && !chkCheckboxData) {
+	        for (var i = 0; i < duplicateCheckInputs.length; i++) {
+	            if (!duplicateCheckInputs[i].value) {
+	                // 해당 필드로 스크롤 이동
+	                duplicateCheckInputs[i].scrollIntoView({ block: 'center' });
+	                // 해당 필드에 포커스 설정
+	                duplicateCheckInputs[i].focus();
+	                // targetInput에 할당하여 유효성 검사
+	                targetInput = duplicateCheckInputs[i];
+	                break; // 첫 번째로 발견된 빈 필드에 포커스 설정
+	            }
+	        }
+	    }
+		
+		// 변수에 선택된 value 저장
+		 academyId = $("#academyId").val();
+	     memberTypeId = $("#memberTypeId").val();
+		 academyNumber = $("#academyNumber").val();
+		 joinDate = $("#academyJoinDate").val();
+		 academyPasswd = $("#academyPasswd").val();
+		 academyName = $("#academyName").val();
+		 guValue = $("#academyGuAddress").val();
+		 dongValue = $("#academyDongAddress").val();
+		 roadValue = $("#academyRoadAddress").val();
+		 academyPhone = $("#academyPhone").val();
+		 managerName = $("#academyManagerPhone").val();
+		 managerEmail = $("#academyManagerEmail").val();
+		 managerPhone = $("#academyManagerPhone").val();
+		 targetGrade = $("input[name='academyTargetGrade']:checked").val();
+		 targetSubject = $("#academyTargetSubject").val();		 
+		 fee = $("input[name='academyFee']:checked").val();
+		 passwdChange = $("#academyPasswdChangeDate").val();
+		 loginFail = $("#academyLoginFailCount").val();
+		 accountDate= $("#academyAccountBannedDate").val();		 
+		 keywordValue = [];
+		 $("input[name='keyword']:checked").each(function() {
+			 keywordValue.push($(this).val());
+		 }) 
+		
+		for(let i = 0; i < keywordValue.length; i++) {
+			$("input[name='keyword" + (i+1) + "']").val(keywordValue[i]);
+		}
+				
+		// 회원가입 정보들 value에 저장
+ 		let value = {
+			 academyId : academyId,
+			 academyNumber : academyNumber,
+			 academyPasswd : academyPasswd,
+			 academyName : academyName,
+			 academyGuAddress : guValue,
+			 academyDongAddress : dongValue,
+			 academyRoadAddress : roadValue,
+			 academyPhone : academyPhone,
+			 academyManagerPhone : managerName,
+			 academyManagerEmail : managerEmail,
+			 academyManagerPhone : managerPhone,
+			 academyTargetGrade : targetGrade,
+			 academyTargetSubject : targetSubject,
+			 academyFee : fee,
+			 academyPasswdChangeDate : passwdChange,
+			 academyLoginFailCount : loginFail,
+			 academyAccountBannedDate : accountDate,
+			 academyKeyword1: keywordValue[0],
+		     academyKeyword2: keywordValue[1],
+		     academyKeyword3: keywordValue[2],
+		     academyKeyword4: keywordValue[3],
+		     academyKeyword5: keywordValue[4]
+	    }            
+		
+	    // 유효성 검사 후 회원가입 프로세스 진행
+	    if (!targetInput) {
+			
+			console.log(value);
+	 		
+	        // 모든 조건을 만족했을 경우 회원가입 프로세스 진행
+	        // 회원가입 정보 저장 AJAX 요청
+	        $.ajax({
+	            url: "/academyInsert", // 키워드 저장을 수행하는 컨트롤러의 URL
+	            type: "POST",
+	            headers : {
+					"Content-Type" : "application/json"
+				},
+	            data: value,
+	            //dataType : "json",
+	            success: function(data) {
+					console.log(data);
+					
+	                alert('회원가입이 완료되었습니다.');
+	                // 저장 후 필요한 작업 수행
+	                // 회원가입 폼 제출
+	                /*document.getElementById('a_joinForm').submit();*/
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("서버 에러 발생: " + error);
+	            }
+	        });
+	    }
+	});
+	
+/* 유효성 검사 */	
 $(document).ready(function() {
 	
     /* 아이디 중복 체크 버튼에 클릭 이벤트 핸들러 등록 */
     $(document).on('click', '#checkDuplicateBtn', function(event) {
        event.preventDefault(); // 기본 동작 방지
+	
+	
 	
         // 입력된 아이디 가져오기
         var academyId = $('#academyId').val();
@@ -143,131 +302,6 @@ $(document).ready(function() {
 		    }
 		});
     });
-    
-    // 선택된 조건의 내용을 담을 변수 선언
-    var academyId, academyNumber,  academyPasswd, academyName,
-    	guValue, dongValue, roadValue, academyPhone, managerName,
-    	managerEmail, managerPhone, targetGrade, targetSubject,
-    	selectedKeywords, fee, passwdChange, loginFail, accountDate;
-    	
-    /* 회원가입 버튼 클릭 이벤트 핸들러 */
-	document.getElementById('submit-btn').addEventListener('click', function(event) {
-	    event.preventDefault(); // 기본 동작 방지
-	
-	    // 필수 입력 사항을 체크할 요소들의 배열
-	    var requiredInputs = document.querySelectorAll('input[required]');
-	    // 중복 체크가 필요한 요소들의 배열
-	    var duplicateCheckInputs = document.querySelectorAll('.duplicate-check');
-	    // 모든 필드를 포함한 배열
-	    var allInputs = Array.from(requiredInputs).concat(Array.from(duplicateCheckInputs));
-	    // 포커스를 이동할 대상을 담을 변수
-	    var targetInput = null;
-	    
-	    // 미입력 필드 확인
-	    for (var i = 0; i < requiredInputs.length; i++) {
-	        if (!requiredInputs[i].value) {
-	            // 해당 필드로 스크롤 이동
-	            requiredInputs[i].scrollIntoView({ block: 'center' });
-	            // 해당 필드에 포커스 설정
-	            requiredInputs[i].focus();
-	            // targetInput에 할당하여 유효성 검사
-	            targetInput = requiredInputs[i];
-	            break; // 첫 번째로 발견된 빈 필드에 포커스 설정
-	        }
-	    }
-		
-	    // 중복 체크 필드 확인
-	    if (!targetInput) {
-	        for (var i = 0; i < duplicateCheckInputs.length; i++) {
-	            if (!duplicateCheckInputs[i].value) {
-	                // 해당 필드로 스크롤 이동
-	                duplicateCheckInputs[i].scrollIntoView({ block: 'center' });
-	                // 해당 필드에 포커스 설정
-	                duplicateCheckInputs[i].focus();
-	                // targetInput에 할당하여 유효성 검사
-	                targetInput = duplicateCheckInputs[i];
-	                break; // 첫 번째로 발견된 빈 필드에 포커스 설정
-	            }
-	        }
-	    }
-		
-		// 변수에 선택된 value 저장
-		 academyId = $("#academyId").val();
-	     memberTypeId = $("#memberTypeId").val();
-		 academyNumber = $("#academyNumber").val();
-		 joinDate = $("#academyJoinDate").val();
-		 academyPasswd = $("#academyPasswd").val();
-		 academyName = $("#academyName").val();
-		 guValue = $("#academyGuAddress").val();
-		 dongValue = $("#academyDongAddress").val();
-		 roadValue = $("#academyRoadAddress").val();
-		 academyPhone = $("#academyPhone").val();
-		 managerName = $("#academyManagerPhone").val();
-		 managerEmail = $("#academyManagerEmail").val();
-		 managerPhone = $("#academyManagerPhone").val();
-		 targetGrade = $("input[name='academyTargetGrade']:checked").val();
-		 targetSubject = $("#academyTargetSubject").val();		 
-		 fee = $("input[name='academyFee']:checked").val();
-		 passwdChange = $("#academyPasswdChangeDate").val();
-		 loginFail = $("#academyLoginFailCount").val();
-		 accountDate= $("#academyAccountBannedDate").val();		 
-		
-		var selectedKeywords = [];
-				
-		// 회원가입 정보들 value에 저장
- 		let value = {
-			 academyId : academyId,
-			 academyNumber : academyNumber,
-			 academyPasswd : academyPasswd,
-			 academyName : academyName,
-			 academyGuAddress : guValue,
-			 academyDongAddress : dongValue,
-			 academyRoadAddress : roadValue,
-			 academyPhone : academyPhone,
-			 academyManagerPhone : managerName,
-			 academyManagerEmail : managerEmail,
-			 academyManagerPhone : managerPhone,
-			 academyTargetGrade : targetGrade,
-			 academyTargetSubject : targetSubject,
-			 academyFee : fee,
-			 academyPasswdChangeDate : passwdChange,
-			 academyLoginFailCount : loginFail,
-			 academyAccountBannedDate : accountDate,
-			 academyKeyword1: selectedKeywords[0] ? selectedKeywords[0] : null,
-		     academyKeyword2: selectedKeywords[1] ? selectedKeywords[1] : null,
-		     academyKeyword3: selectedKeywords[2] ? selectedKeywords[2] : null,
-		     academyKeyword4: selectedKeywords[3] ? selectedKeywords[3] : null,
-		     academyKeyword5: selectedKeywords[4] ? selectedKeywords[4] : null
-	    }            
-		
-	    // 유효성 검사 후 회원가입 프로세스 진행
-	    if (!targetInput) {
-	 		
-	        // 모든 조건을 만족했을 경우 회원가입 프로세스 진행
-	        // 회원가입 정보 저장 AJAX 요청
-	        $.ajax({
-	            url: "/academyInsert", // 키워드 저장을 수행하는 컨트롤러의 URL
-	            type: "POST",
-	            headers : {
-					"Content-Type" : "application/json"
-				},
-	            data: JSON.stringify(value),
-	            dataType : "json",
-	            success: function(data) {
-					console.log(data);
-					
-	                alert('회원가입이 완료되었습니다.');
-	                // 저장 후 필요한 작업 수행
-	                // 회원가입 폼 제출
-	                document.getElementById('a_joinForm').submit();
-	            },
-	            error: function(xhr, status, error) {
-	                console.error("서버 에러 발생: " + error);
-	            }
-	        });
-	    }
-	});
-
 });
 
 /* 담당자 이름 유효성 검사 */

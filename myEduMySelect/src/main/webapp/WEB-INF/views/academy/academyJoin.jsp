@@ -35,7 +35,7 @@
 					</th>
 					<td>
 						<input type="text" name="academyId" id="academyId" placeholder="아이디 입력" maxlength="12" required />
-						<button type="button" id="checkDuplicateBtn" onclick="checkId()">중복확인</button>
+						<button type="button" id="checkDuplicateBtn">중복확인</button>
 						<div id="duplicate-message"></div>
 					</td>
 				</tr>
@@ -138,19 +138,19 @@
 					</th>
 					<td>
 						<div id="feeGroup">
-		                  <input type="radio" name="academyFee" id="fee1">
+		                  <input type="radio" name="academyFee" id="fee1" value="20만원 미만">
 		                  <label for="fee1">20만원 미만</label>
-		                  <input type="radio" name="academyFee" id="fee2">
+		                  <input type="radio" name="academyFee" id="fee2" value="20만원 이상 30만원 미만">
 		                  <label for="fee2">20만원 이상 30만원 미만</label>
-		                  <input type="radio" name="academyFee" id="fee3">
+		                  <input type="radio" name="academyFee" id="fee3" value="30만원 이상 40만원 미만">
 		                  <label for="fee3">30만원 이상 40만원 미만</label>
-		                  <input type="radio" name="academyFee" id="fee4">
+		                  <input type="radio" name="academyFee" id="fee4" value="40만원 이상 50만원 미만">
 		                  <label for="fee4">40만원 이상 50만원 미만</label><br/>
-		                  <input type="radio" name="academyFee" id="fee5">
+		                  <input type="radio" name="academyFee" id="fee5" value="50만원 이상 60만원 미만">
 		                  <label for="fee5">50만원 이상 60만원 미만</label>
-		                  <input type="radio" name="academyFee" id="fee6">
+		                  <input type="radio" name="academyFee" id="fee6" value="60만원 이상 70만원 미만">
 		                  <label for="fee5">60만원 이상 70만원 미만</label>
-		                  <input type="radio" name="academyFee" id="fee7">
+		                  <input type="radio" name="academyFee" id="fee7" value="70만원 이상">
 		                  <label for="fee6">70만원 이상</label>
 		                </div>
 					</td>
@@ -161,17 +161,17 @@
 					</th>
 					<td>
 						<div id="ageGroup">
-		                  <input type="radio" name="academyTargetGrade" id="grade1">
+		                  <input type="radio" name="academyTargetGrade" id="grade1" value="미취학">
 		                  <label for="grade1">미취학</label>
-		                  <input type="radio" name="academyTargetGrade" id="grade2">
-		                  <label for="grade2">초등저학년</label>
-		                  <input type="radio" name="academyTargetGrade" id="grade3">
-		                  <label for="grade3">초등고학년</label>
-		                  <input type="radio" name="academyTargetGrade" id="grade4">
+		                  <input type="radio" name="academyTargetGrade" id="grade2" value="초등(저)">
+		                  <label for="grade2">초등(저)</label>
+		                  <input type="radio" name="academyTargetGrade" id="grade3" value="초등(고)">
+		                  <label for="grade3">초등(고)</label>
+		                  <input type="radio" name="academyTargetGrade" id="grade4" value="중등">
 		                  <label for="grade4">중등</label>
-		                  <input type="radio" name="academyTargetGrade" id="grade5">
+		                  <input type="radio" name="academyTargetGrade" id="grade5" value="고등">
 		                  <label for="grade5">고등</label>
-		                  <input type="radio" name="academyTargetGrade" id="grade6">
+		                  <input type="radio" name="academyTargetGrade" id="grade6" value="성인">
 		                  <label for="grade6">성인</label>
 		                </div>
 					</td>
@@ -180,27 +180,35 @@
 					<th>
 						<label for="academyKeyword1" >키워드</label>
 					</th>
-					<td>
-						<div id="keywordGroup">
-				            <input type="checkBox" name="academyKeyword1" id="keyword1" class="keyword-checkbox">
-				            <label for="keyword1">기초부터</label>
-				            <input type="checkBox" name="academyKeyword2" id="keyword2" class="keyword-checkbox">
-				            <label for="keyword2">심화수업</label>
-				            <input type="checkBox" name="academyKeyword3" id="keyword3" class="keyword-checkbox">
-				            <label for="keyword3">친절한 강사</label>
-				            <input type="checkBox" name="academyKeyword4" id="keyword4" class="keyword-checkbox">
-				            <label for="keyword4">꼼꼼한 관리</label>
-				            <input type="checkBox" name="academyKeyword5" id="keyword5" class="keyword-checkbox">
-				            <label for="keyword5">숙제 없음</label>
-				            <input type="checkBox" name="academyKeyword6" id="keyword6" class="keyword-checkbox">
-				            <label for="keyword6">자기주도적</label><br/>
-				            <input type="checkBox" name="academyKeyword7" id="keyword7" class="keyword-checkbox">
-				            <label for="keyword7">강의식 수업</label>
-				            <input type="checkBox" name="academyKeyword8" id="keyword8" class="keyword-checkbox">
-				            <label for="keyword8">입시 대비</label>
-				            <input type="checkBox" name="academyKeyword9" id="keyword9" class="keyword-checkbox">
-				            <label for="keyword9">재밌는 수업</label>
-				         </div>
+					<td colspan="3">
+						<div id="keywordGroup">						    
+						    <input type="checkbox" id="academyKeyword1" name="keyword" value="기초부터" class="keyword-checkbox">
+						    <label for="academyKeyword1">기초부터</label>
+						    
+						    <input type="checkbox" id="academyKeyword2" name="keyword" value="심화수업" class="keyword-checkbox">
+						    <label for="academyKeyword2">심화수업</label>
+						    						    
+						    <input type="checkbox" id="academyKeyword3" name="keyword" value="친절한 강사" class="keyword-checkbox">
+						    <label for="academyKeyword3">친절한 강사</label><br>
+						    						    
+						    <input type="checkbox" id="academyKeyword4" name="keyword" value="꼼꼼한 관리" class="keyword-checkbox">
+						    <label for="academyKeyword4">꼼꼼한 관리</label>						    
+						    
+						    <input type="checkbox" id="academyKeyword5" name="keyword" value="숙제 없음" class="keyword-checkbox">
+						    <label for="academyKeyword5">숙제 없음</label>
+						    						    
+						    <input type="checkbox" id="academyKeyword6" name="keyword" value="자기주도적" class="keyword-checkbox">
+						    <label for="academyKeyword6">자기주도적</label><br>
+						    						    
+						    <input type="checkbox" id="academyKeyword7" name="keyword" value="강의식 수업" class="keyword-checkbox">
+						    <label for="academyKeyword7">강의식 수업</label>
+						    						    
+						    <input type="checkbox" id="academyKeyword8" name="keyword" value="입시 대비" class="keyword-checkbox">
+						    <label for="academyKeyword8">입시 대비</label>
+						    						    
+						    <input type="checkbox" id="academyKeyword9" name="keyword" value="재밌는 수업" class="keyword-checkbox">
+						    <label for="academyKeyword9">재밌는 수업</label><br>
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -230,7 +238,7 @@
   <script src="/resources/include/academy/common.js"></script>  
   <script src="/resources/include/assets/js/main.js"></script>
   <script src="/resources/include/assets/js/academy.js"></script>
-  <script src="/resources/include/academy/academyJoin.js"></script>
+  <!-- <script src="/resources/include/academy/academyJoin.js"></script> -->
   
 	
 	<script>
@@ -256,7 +264,35 @@
       });
    </script>
    
-   <!-- 키워드 선택 제어 -->
+   <!-- <script>
+document.addEventListener("DOMContentLoaded", function() {
+  var checkboxes = document.querySelectorAll('#keywordGroup input[type="checkbox"]');
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', limitCheckboxes);
+  });
+});
+
+function limitCheckboxes() {
+  var checkedCount = 0;
+  var checkboxes = document.querySelectorAll('#keywordGroup input[type="checkbox"]');
+  checkboxes.forEach(function(checkbox) {
+    if (checkbox.checked) {
+      checkedCount++;
+    }
+  });
+  
+  if (checkedCount > 5) {
+    alert("키워드는 최대 5개의 항목만 선택할 수 있습니다.");
+    // 마지막으로 선택한 항목을 해제함
+    this.checked = false;
+  }
+}
+</script> -->
+
+
+
+   
+   <!-- 키워드 선택 제어 
    <script>
        window.onload = function() {
            var maxKeywords = 5;
@@ -281,7 +317,7 @@
        function resetForm(){
     	   $("#a_joinForm")[0].reset();
        }
-   </script>
+   </script>-->
 
 
 </body>

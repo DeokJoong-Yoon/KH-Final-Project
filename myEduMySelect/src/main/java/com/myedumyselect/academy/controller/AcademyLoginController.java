@@ -2,6 +2,7 @@ package com.myedumyselect.academy.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 //import org.springframework.web.bind.annotation.SessionAttribute;
@@ -151,8 +153,10 @@ public class AcademyLoginController {
    
    // 학원회원 회원가입 POST
    @PostMapping("/academyInsert")
-   public String academyInsert(AcademyLoginVO login) {
+   public String academyInsert(@ModelAttribute AcademyLoginVO login ) {
 	   
+	   System.out.println(login.toString());
+	 
        log.info("academyInsert 호출 성공");               
        academyLoginService.academyInsert(login);            
        return "redirect:/academy/join/complete";
