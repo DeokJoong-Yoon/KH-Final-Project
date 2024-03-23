@@ -1,6 +1,7 @@
 package com.myedumyselect.academy.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myedumyselect.academy.service.AcademyAdvertiseService;
 import com.myedumyselect.academy.service.AcademyLoginService;
+import com.myedumyselect.academy.service.AcademyMatchingBoardService;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
-import com.myedumyselect.commonboard.advertise.service.AdvertiseService;
+import com.myedumyselect.client.main.vo.PageDTO;
+import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
+import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 //import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,10 +38,15 @@ public class AcademyLoginController {
    @Setter(onMethod_ = @Autowired)
    private AcademyLoginService academyLoginService;
 
-   @Autowired
-   private AdvertiseService aService;
+   @Setter(onMethod_ = @Autowired)
+   private AcademyAdvertiseService academyAdvertiseService;
    	
+   @Setter(onMethod_ = @Autowired)
+   private AcademyMatchingBoardService academyMatchingBoardService;
    
+   /*************************************************************
+	 * Academy Login
+	 *************************************************************/
    // 학원회원 로그인으로 이동
    @GetMapping("/academy/login")
    public String loginform() {
@@ -118,6 +128,9 @@ public class AcademyLoginController {
       return "redirect:/academy/login"; // 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트한다.
    }
    
+   /*************************************************************
+	 * Academy Logout
+	 *************************************************************/   
    // 로그아웃 처리
    @PostMapping("/academy/logout")
    public String logout(SessionStatus sessionStatus) {
@@ -125,7 +138,10 @@ public class AcademyLoginController {
 	   sessionStatus.setComplete();
 	   return "redirect:/academy/login";
    }
-      
+   
+   /*************************************************************
+  	 * Academy Join
+  	 *************************************************************/   
    //학원회원 가입 페이지
    @GetMapping(value = "/academy/join")
    public String academyjoinForm() {
@@ -140,19 +156,7 @@ public class AcademyLoginController {
        log.info("academyInsert 호출 성공");               
        academyLoginService.academyInsert(login);            
        return "redirect:/academy/join/complete";
-   }
-   
-   // 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동
-	@GetMapping("/academyAdvertiseList")
-	public String getAdvertiseList(Model model, HttpSession session) {
-		AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
-		if (academyLoginVO == null) {
-			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
-			return "redirect:/useraccount/login";
-		}
-		
-		return "academy/academyAdvertiseList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
-	} 
+   }   
 
    // 학원회원 회원가입 완료 페이지로 이동
    @GetMapping("/academy/join/complete")
@@ -160,14 +164,15 @@ public class AcademyLoginController {
       // 회원가입 완료 페이지로 이동
       return "/academy/completeJoin";
    }
-
+   
+   /*************************************************************
+  	 * Academy mypage
+  	 *************************************************************/   
    // 학원회원 마이페이지로 이동
    @GetMapping(value = "/academy/mypage")
    public String mypage(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes redirectAttributes, Model model) {
-	   
-      //AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
-      //academyLoginService.loginProcess(academyLoginVO);
-      log.info("학원회원 mypage 접속!");      
+	  
+      log.info("학원회원 mypage 호출");      
       
       /* 로그인이 되어있지 않다면 */
       if (academyLoginVO == null) {
@@ -177,34 +182,7 @@ public class AcademyLoginController {
             
       //model.addAttribute("academyLoginVO", academyLoginVO);
       log.info("학원회원 정보 불러오기 {} : ", academyLoginVO);      
-      return "/academy/mypage";   
-      
-      /*
-      // 로그인된 경우에는 학원 정보를 가져와서 모델에 추가
-      String academyId = academyLogin.getAcademyId();
-      AcademyLoginVO academyLoginVO = academyLoginService.findById(academyId);
-                  
-       if (academyLoginVO != null) {
-           model.addAttribute("academyLoginVo", academyLoginVO);
-           
-           // 담당자 전화번호 모델에 등록
-           if(academyLoginVO.getAcademyManagerPhone() != null) {
-               model.addAttribute("academyManagerPhone", academyLoginVO.getAcademyManagerPhone());
-           }
-           // 학원 전화번호 모델에 등록
-           if(academyLoginVO.getAcademyPhone() != null) {
-               model.addAttribute("academyPhone", academyLoginVO.getAcademyPhone());
-           }       
-           // 담당자 이름 모델에 등록
-           if(academyLoginVO.getAcademyManagerName() != null) {
-               model.addAttribute("academyManagerName", academyLoginVO.getAcademyManagerName());
-           }
-       } else {
-           // 학원 정보가 없을 경우 처리
-           academyLoginVO = new AcademyLoginVO();
-           model.addAttribute("academyLoginVo", academyLoginVO);
-       }*/
-
+      return "/academy/mypage";     
          
    }
 
@@ -231,10 +209,7 @@ public class AcademyLoginController {
 
    // 마이페이지 회원정보 수정
    @PostMapping("/academyUpdate")
-   public String academyUpdate(@ModelAttribute AcademyLoginVO academyLogin, @SessionAttribute("academyLogin") AcademyLoginVO sessionAcademyLogin, Model model) {
-            
-      
-//      AcademyLoginVO sessionAcademyLogin = (AcademyLoginVO) session.getAttribute("academyLogin");        
+   public String academyUpdate(@ModelAttribute AcademyLoginVO academyLogin, @SessionAttribute("academyLogin") AcademyLoginVO sessionAcademyLogin, Model model) { 
        
       System.out.println(sessionAcademyLogin.toString());
       sessionAcademyLogin.setAcademyManagerName(academyLogin.getAcademyManagerName());
@@ -242,20 +217,14 @@ public class AcademyLoginController {
       sessionAcademyLogin.setAcademyManagerPhone(academyLogin.getAcademyManagerPhone());      
       sessionAcademyLogin.setAcademyPhone(academyLogin.getAcademyPhone());
       sessionAcademyLogin.setAcademyTargetSubject(academyLogin.getAcademyTargetSubject());
-      /**/
-      //log.info("newAcademyInfo 정보 {} : ", academyLogin);
-      
-      // 학원 회원 정보가 null이 아니면 모델에 추가
-		/*
-		 * if(academyLoginVO != null) {
-		 * 
-		 * model.addAttribute("academyLoginVo", academyLoginVO);
-		 * log.info("academyLoginVo null값 아닐 때 모델에 정상 등록 {} : ", academyLoginVO); } else
-		 * { academyLoginVO = new AcademyLoginVO(); model.addAttribute("academyLoginVo",
-		 * academyLoginVO); log.info("academyLoginVo null값 일 때 {} : ", academyLoginVO);
-		 * }
-		 */
-      
+      sessionAcademyLogin.setAcademyTargetGrade(academyLogin.getAcademyTargetGrade());
+      sessionAcademyLogin.setAcademyFee(academyLogin.getAcademyFee());
+      sessionAcademyLogin.setAcademyKeyword1(academyLogin.getAcademyKeyword1());
+      sessionAcademyLogin.setAcademyKeyword2(academyLogin.getAcademyKeyword2());
+      sessionAcademyLogin.setAcademyKeyword3(academyLogin.getAcademyKeyword3());
+      sessionAcademyLogin.setAcademyKeyword4(academyLogin.getAcademyKeyword4());
+      sessionAcademyLogin.setAcademyKeyword5(academyLogin.getAcademyKeyword5());      
+     
       // 학원 정보 업데이트
       // academyLoginService의 academyUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
       int result = academyLoginService.academyUpdate(sessionAcademyLogin);
@@ -271,11 +240,7 @@ public class AcademyLoginController {
       
       // 업데이트 성공 시
       model.addAttribute("academyLogin", sessionAcademyLogin);
-//      model.  ("academyLogin", sessionAcademyLogin);
-      //model.addAttribute(academyLogin);
-      //log.info("모델에 academyLoginVo 등록 {} : ", sessionAcademyLogin);
-      
-   // 업데이트가 성공하면 세션에 업데이트된 academyLoginVo 객체를 저장하고 마이 페이지로 리다이렉트
+      // 업데이트가 성공하면 세션에 업데이트된 academyLoginVo 객체를 저장하고 마이 페이지로 리다이렉트
       
       return "/academy/mypage";
       
@@ -327,18 +292,95 @@ public class AcademyLoginController {
 		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
 		return "FALSE";
    }
-
-
+   
+   /*************************************************************
+  	 * Academy Advertise
+  	 *************************************************************/   
+   /* 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동 */
+   @GetMapping("/academy/advertiseList")
+   public String academyAdvertiseList(@ModelAttribute AdvertiseVO aVO, Model model,
+		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+	   if(academyLoginVO == null) {
+		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+		   return "redirect:/academy/login";
+	   }
+	   
+	   List<AdvertiseVO> advertiseList = academyAdvertiseService.advertiseList(aVO);
+	   model.addAttribute("advertiseList", advertiseList);
+	   
+	   
+	   // 전체 레코드수 반환.
+	   int total = academyAdvertiseService.advertiseListCnt(aVO);
+	   // 페이징 처리
+	   model.addAttribute("pageMaker", new PageDTO(aVO, total));
+	   model.addAttribute("kwd", aVO.getKeyword());
+	   return "academy/academyAdvertiseList"; // 사용자가 작성한 홍보 게시글 목록을 보여주는 페이지로 이동
+   }
+   
    /*
-    * @PostMapping("/checkCurrentPassword")
-    * 
-    * @ResponseBody public boolean checkCurrentPassword(@RequestParam("academyId")
-    * String academyId,
-    * 
-    * @RequestParam("currentPassword") String currentPassword) { // 현재 비밀번호가 일치하는지
-    * 확인하는 로직을 추가 //boolean isValidPassword =
-    * academyLoginService.updatePasswdChangeDate(AcademyLoginVo
-    * AcademyLoginVo.builder()); //return isValidPassword; }
-    */
-
+	@GetMapping("/academyAdvertiseList")
+	public String getAdvertiseList(Model model, HttpSession session) {
+		AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
+		if (academyLoginVO == null) {
+			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
+			return "redirect:/useraccount/login";
+		}
+		
+		return "academy/academyAdvertiseList"; 
+	}*/ 
+   
+   /* 홍보게시판 상세 조회 */
+   @GetMapping("/academy/advertiseDetail")
+   public String academyAdvertiseDetail(@ModelAttribute AdvertiseVO aVO, Model model,       
+			@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+		if (academyLoginVO == null) {
+			ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+			return "redirect:/academy/login";
+		}
+		AdvertiseVO detail = academyAdvertiseService.advertiseDetail(aVO);
+		model.addAttribute("detail", detail);
+		return "/academy/advertiseDetail";
+	}
+   
+   /*************************************************************
+  	 * Academy Matching
+  	 *************************************************************/
+   /* 사용자가 작성한 매칭 게시글 댓글 목록 보기 페이지로 이동 */
+   @GetMapping("/academy/MatchingBoardList")
+   public String academyMatchingBoardList(@ModelAttribute MatchingBoardVO mbVO, Model model,
+		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+	   if(academyLoginVO == null) {
+		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+		   return "redirect:/academy/login";
+	   }
+	   
+	   List<MatchingBoardVO> matchingBoardList = academyMatchingBoardService.mBoardList(mbVO);
+	   model.addAttribute("matchingBoardList", matchingBoardList);
+	   
+	   int total = academyMatchingBoardService.mBoardListCnt(mbVO);
+	   // 페이징 처리
+	   model.addAttribute("pageMaker", new PageDTO(mbVO, total));
+	   model.addAttribute("kwd", mbVO.getKeyword());
+	   return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
+   }
+   
+   /* 사용자가 작성한 홍보 게시글 상세 보기 페이지로 이동 */
+   @GetMapping("/academy/matchingBoardDetail")
+   public String academyMatchingBoardDetail(@ModelAttribute MatchingBoardVO mbVO, Model model,
+		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+	   if(academyLoginVO == null) {
+		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+		   return "redirect:/academy/login";
+	   }
+	   MatchingBoardVO detail = academyMatchingBoardService.mBoardDetail(mbVO);
+	   model.addAttribute("detail", detail);
+	   return "/academy/matchingBoardDetail";
+   }
+   
+   /*************************************************************
+ 	 * Academy FreeBoard
+ 	 *************************************************************/
+   /* 사용자가 작성한 자유게시판 게시글, 댓글 목록 보기 페이지로 이동 
+   @GetMapping("/academy/freeList")
+   */
 }

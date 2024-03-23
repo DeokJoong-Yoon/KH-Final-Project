@@ -37,7 +37,7 @@ $(function() {
 				alert("패스워드 변경 완료");
 				location.reload();
 				} else {
-					alert("패스워드를 정확히 입력해 주세요.");
+					alert("현재 비밀번호가 일치하지 않습니다.");
 					$("#newPassword").val("");
 		            $("#renewPassword").val("");
 		            $("#currentPassword").val("");

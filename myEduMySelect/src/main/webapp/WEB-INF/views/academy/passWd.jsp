@@ -128,7 +128,7 @@
     
     <form id="changePasswdForm" action="passwdChange" method="POST">
 		<div class="row mb-3">
-			<label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">기존 비밀번호</label>
+			<label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
 			<div class="col-md-8 col-lg-9">
 				<input name="currentPassword" type="password" class="form-control" id="currentPassword">
 			</div>

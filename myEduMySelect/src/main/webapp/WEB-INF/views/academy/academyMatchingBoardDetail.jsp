@@ -1,42 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true" %>	
+<%@ include file="/WEB-INF/views/common/common.jspf" %>										
 <!DOCTYPE html>
 <html lang="kr">
-
+ 
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+ 
+  <title>MyEduMySelect </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords"> 
+   
+  <!-- Favicons -->
+  <link href="/resources/include/assets/img/favicon.png" rel="icon">
+  <link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<title>MyEduMySelect</title>
-<meta content="" name="description">
-<meta content="" name="keywords">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-<!-- Favicons -->
-<link href="/resources/include/assets/img/favicon.png" rel="icon">
-<link href="/resources/include/assets/img/apple-touch-icon.png"
-	rel="apple-touch-icon">
+  <!-- Vendor CSS Files -->
+  <link href="/resources/include/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="/resources/include/assets/css/style.css" rel="stylesheet">
+  <link href="/resources/include/matching/css/matchingBoard.css" rel="stylesheet">
 
-<!-- Vendor CSS Files -->
-<link href="/resources/include/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-<!-- Template Main CSS File -->
-<link href="/resources/include/assets/css/style.css" rel="stylesheet">
-
-<!-- =======================================================
+  <!-- =======================================================
   * Template Name: MyEduMySelect
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
   * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
@@ -44,10 +41,21 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 	
-  <!-- <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/academySignUp.css"> -->
+	
+	<!-- <script>
+		window.onload = function(){
+			let confirmMsg = "${confirmMsg}";
+			if(confirmMsg) {
+				let result = confirm(comfirmMsg);
+				if(result) {
+					window.location.href= "/useraccount/login";
+				} else {
+					window.location.href= "/matching/boardList";
+				}
+			}
+		}
+	</script> -->
 
-  
-  
 </head>
 
 <body>
@@ -62,13 +70,13 @@
 	
 	      <nav id="navbar" class="navbar">
 	        <ul>
-	          <li><a class="nav-link scrollto active" href="/">홈</a></li>
+	          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
 	          <li><a class="nav-link scrollto" href="#about">About</a></li>
 	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
 	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
 	            <ul>
 	              <li><a href="/free/freeList">자유게시판</a></li>
-	            <li><a href="/advertiseBoardList">홍보게시판</a></li>
+	            <li><a href="#">홍보게시판</a></li>
 	            <li><a href="/matching/">매칭게시판</a></li>
 	            <li><a href="/notice/boardList">공지게시판</a></li>
 	            <c:if test="${personalLogin.memberTypeId == 1}">
@@ -107,23 +115,6 @@
 	
 	    </div>
   	</header><!-- End Header -->
-	
-	
-	<!-- <script>
-		window.onload = function(){
-			let confirmMsg = "${confirmMsg}";
-			if(confirmMsg) {
-				let result = confirm(comfirmMsg);
-				if(result) {
-					window.location.href= "/useraccount/login";
-				} else {
-					window.location.href= "/matching/boardList";
-				}
-			}
-		}
-	</script> -->
-
-  
 
   <!-- ======= 설명 영역 ======= -->
   <section class="mcHero d-flex align-items-center">
@@ -131,119 +122,101 @@
     <div class="container">
       <div class="row" >
 		<div class="col-12 text-center mcBanner">
-            내가 쓴 글 목록(홍보 게시판)<br/>
+            매칭 게시판<br/>
             <div class="mcDescBox">
-            	<p>내가 쓴 글이 뭐가있을까?</p>
+            	여러분을 기다리고 있는 회원들의 게시물을 볼 수 있는 <b>매칭 게시판</b>입니다.<br>
             </div>
         </div>  
       </div>
     </div>
    </section><!-- 설명영역 끝 -->
 
+
+  <main id="main">
  
-  <main id="main" class="main">
-		<form id="detailForm">
-			<input type="hidden" id="commonNo" name="commonNo" />
-		</form>
-		<form id="advertiseForm" name="advertiseForm">
-			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
-			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+    <!-- ======= 매칭게시판 상세 보기 ======= -->
+    <section class="mcBoard">
+     
+      <div class="container">
+      
+      	<form name="formData" id="formData">
+      		<input type="hidden" name="matchingNo" id="matchingNo" value="${detail.matchingNo }"/>
+      	</form>
+      
+      	<div class="userId">${userId }</div>
+      	
+		<div class="mcBoardDetail">
+			<table>
+				<tr>
+					<th>글 번호</th>
+					<td>${detail.matchingNo}</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td class="writerId">${detail.personalId}</td>
+				</tr>
+				<tr>
+					<th>등록 일시</th>
+					<td>${detail.matchingRegisterDate }</td>
+				</tr>
+				<tr>
+					<th>댓글 수</th>
+					<td class="comment_count">${matchingBoard.commentCnt }</td>
+				</tr>
+			</table>
+			<br>
+			<table>
+				<tbody>
+					<tr>
+						<th>지역</th>
+						<td>${detail.matchingGuAddress }&nbsp ${detail.matchingDongAddress}</td>
+					</tr>
+					<tr>
+						<th>과목</th>
+						<td>${detail.matchingTargetSubject }</td>
+					</tr>
+					<tr>
+						<th>학년</th>
+						<td>${detail.matchingTargetGrade }</td>
+					</tr>
+					<tr>
+						<th>희망 수강료</th>
+						<td>${detail.matchingFee }</td>
+					</tr>
+					<tr>
+						<th>키워드</th>
+						<td>
+							${detail.matchingKeyword1 }&nbsp&nbsp&nbsp ${detail.matchingKeyword2 }&nbsp&nbsp&nbsp ${detail.matchingKeyword3 }
+						</td>
+					</tr>
+					<tr>
+						<th>덧붙이는 말</th>
+						<td>${detail.matchingComment }</td>
+					</tr>
+				</tbody>	
+			</table>
+		</div>
 
-			<!-- <div class="pagetitle">
-				<h1>Advertise Board</h1>
-				<nav>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">advertise board</li>
-					</ol>
-				</nav>
-			</div>
-			End Page Title -->
-
-			<section class="section">
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="row g-2 align-items-center">
-									<div class="col-auto">
-										<label for="search" class="card-title">search</label>
-									</div>
-									<div class="col-auto">
-										<select id="search" name="search" class="form-select form-select-sm">
-											<option value="all">All</option>
-											<option value="common_title">Title</option>
-											<option value="common_content">Content</option>
-										</select>
-									</div>
-									<div class="col-auto">
-										<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
-									</div>
-									<div class="col-auto">
-										<button type="button" id="searchData" class="btn btn-primary btn-sm">검색</button>
-									</div>
-								</div>
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th scope="col">번호</th>
-											<th scope="col">제목</th>
-											<th scope="col">작성자</th>
-											<th scope="col">작성일</th>
-											<th scope="col">조회수</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:choose>
-											<c:when test="${not empty advertiseBoardList}">
-												<c:forEach var="advertise" items="${advertiseBoardList}" varStatus="statusNumber">
-													<%-- <c:if test="${statusNumber.index < 20}"></c:if> --%>
-														<tr data-num="${advertise.commonNo}">
-															<th scope="row">${advertise.commonNo}</th>
-															<th class="goDetail text-start">${advertise.commonTitle}</th>
-															<td class="goDetail text-start">${advertise.commonNickname}</td>
-															<td class="goDetail text-start">${advertise.commonRegisterDate}</td>
-															<td class="goDetail text-start">${advertise.commonReadcnt}</td>
-														</tr>
-												</c:forEach>
-											</c:when>
-											<c:otherwise>
-												<tr>
-													<td colspan="5">조건에 맞는 게시글이 없습니다.</td>
-												</tr>
-											</c:otherwise>
-										</c:choose>
-									</tbody>
-								</table>
-							</div>
-							<%-- ======================== 페이징 출력 시작 ========================--%>
-							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center">
-									<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
-									<c:if test="${pageMaker.prev}">
-										<li class="page-item"><a href="${pageMaker.startPage - 1}" class="page-link">Previous</a> <!-- <a href="${pageMaker.startPage - 10}" class="page-link">Previous</a> --></li>
-									</c:if>
-
-									<!-- 바로가기 번호 출력 -->
-									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-										<li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}"><a href="${num}" class="page-link">${num}</a></li>
-									</c:forEach>
-									<!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
-									<c:if test="${pageMaker.next}">
-										<li class="page-item"><a href="${pageMaker.endPage + 1}" class="page-link">Next</a></li>
-									</c:if>
-
-								</ul>
-
-							</nav>
-
-						</div>
-					</div>
-				</div>
-			</section>
-		</form>
-	</main><!-- End #main -->
+		
+		<div class="detailButtons">
+      		<!-- <button type="button" id="editPost">수정</button>
+      		<button type="button" id="deletePost">삭제</button> -->
+      		<button type="button" id="prevPost">이전글</button>
+      		<button type="button" id="nextPost">다음글</button>
+      		<button type="button" id="gotoList">목록</button>
+      	</div>
+      </div>
+    </section><!-- 매칭게시판 상세보기 끝 -->
+    
+    
+    <!-- 매칭게시판 댓글 -->
+	<section>
+		<%-- 댓글 보여주기 --%>
+		<jsp:include page="matchingComment.jsp" />
+	</section>
+	
+  
+  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
@@ -262,7 +235,7 @@
               <strong>Email:</strong> info@example.com<br>
             </p>
           </div>
- 
+
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
@@ -318,8 +291,6 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-	
-
   <!-- Vendor JS Files -->
   <script src="/resources/include/assets/vendor/aos/aos.js"></script>
   <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -332,27 +303,18 @@
   <!-- Template Main JS File -->
   <script src="/resources/include/js/jquery-3.7.1.min.js"></script>
   <script src="/resources/include/assets/js/main.js"></script>
-  <script src="/resources/include/matching/js/matchingBoard.js"></script>
+  <script src="/resources/include/matching/js/matchingDetail.js"></script>
   
-  
-  <script>
-  
-/*   	$(function() {
-  		let word = "<c:out value='${matchingBoard.keyword}' />";
-  		let value ="";
-  		
-  		if(word != "") {
-			$("#keyword").val("<c:out value='${boardVO.keyword}' />");
-			value = "#mcBoardList tr td.mbdLink";
-			console.log($(value + ":contains('" + word + "')").html());
-			$(value + ":contains('" + word + "')").each(function(){
-				let regex = new RegExp(word, 'gi');
-				$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-			})
-  		}
-  	}) */
-  </script>
-
+ 
+	<script>
+		$(function() {
+			let errorMsg = "${errorMsg}";
+			if (errorMsg != "") {
+				alert(errorMsg);
+			}
+		});
+	</script>
+	
 </body>
 
 </html>

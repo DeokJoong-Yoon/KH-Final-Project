@@ -328,8 +328,8 @@
 				<a href="/payment/payMain" class="btn btn-primary btn-sm">결제하기</a>								
 			</span>
 			<!-- 홍보 게시판에서 내가 쓴 글 목록 보기 -->  
-        	<a href="/advertise/advertiseBoardList" class="btn btn-primary">홍보 게시판 내가 쓴 글 목록</a>
-        	<a href="/academyMatchingList" class="btn btn-primary">매칭 게시판 내가 쓴 글 목록</a>			
+        	<a href="/academy/advertiseList" class="btn btn-primary">홍보 게시판 내가 쓴 글 목록</a>
+        	<a href="/academy/matchingBoardList" class="btn btn-primary">매칭 게시판 내가 쓴 글 목록</a>			
 		</div>	
 		<br />
 	</form>
