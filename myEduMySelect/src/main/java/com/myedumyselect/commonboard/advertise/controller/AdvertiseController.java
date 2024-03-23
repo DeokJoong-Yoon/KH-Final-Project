@@ -31,37 +31,42 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/advertise/*")
 @Slf4j
 public class AdvertiseController {
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private AdvertiseService aService;
-	
-//	@Autowired
-//	private SessionCheckService sessionCheckService;
-	
+
+	@Autowired
+	private SessionCheckService sessionCheckService;
+
 	// 홍보게시판 목록 전체보기 구현
 	@GetMapping("/advertiseBoardList")
-	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model, 
-			@SessionAttribute(required = false, name = "personalLogin") PersonalLoginVO personalLoginVO, 
+	public String advertiseBoardList(@ModelAttribute AdvertiseVO aVO, Model model,
+			@SessionAttribute(required = false, name = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, name = "academyLogin") AcademyLoginVO academyLoginVO) {
 		log.info("advertiseBoardList() 호출 성공");
-		
+
+		String result = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+		if (result == "FALSE") {
+			return "rediect:/";
+		}
+
 		if (personalLoginVO != null || academyLoginVO != null) {
-	        // 전체 레코드 조회
-	        List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
-	        model.addAttribute("advertiseList", advertiseList);
-	        
-	        // 전체 레코드 수 반환
-	        int total = aService.advertiseListCnt(aVO);
-	        
-	        // 페이징 처리
-	        model.addAttribute("pageMaker", new PageDTO(aVO, total));
-	        model.addAttribute("kwd", aVO.getKeyword());
-	        
-	        return "board/advertise/advertiseBoardList";
-	    } else {
-	        // 둘 다 없으면 로그인 페이지로 리디렉션
-	        return "redirect:/loginselect";
-	    }
+			// 전체 레코드 조회
+			List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
+			model.addAttribute("advertiseList", advertiseList);
+
+			// 전체 레코드 수 반환
+			int total = aService.advertiseListCnt(aVO);
+
+			// 페이징 처리
+			model.addAttribute("pageMaker", new PageDTO(aVO, total));
+			model.addAttribute("kwd", aVO.getKeyword());
+
+			return "board/advertise/advertiseBoardList";
+		} else {
+			// 둘 다 없으면 로그인 페이지로 리디렉션
+			return "redirect:/loginselect";
+		}
 //		
 ////		//개인회원 로그인 세션 받기
 ////		String checkedSessionResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model, "로그인 후 열람 가능합니다.");
@@ -99,8 +104,7 @@ public class AdvertiseController {
 //			
 //			url =  "board/advertise/advertiseBoardList";
 //		}
-		
-		
+
 //		//전체 레코드 조회
 //		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
 //		model.addAttribute("advertiseList", advertiseList);
@@ -111,39 +115,34 @@ public class AdvertiseController {
 //		//페이징 처리
 //		model.addAttribute("pageMaker", new PageDTO(aVO, total));
 //		model.addAttribute("kwd", aVO.getKeyword());
-		
-		//return url;
+
+		// return url;
 	}
-	
-	
-	//홍보게시판 글쓰기 입력 폼 출력
+
+	// 홍보게시판 글쓰기 입력 폼 출력
 	@GetMapping("/advertiseWriteForm")
 	public String writeForm(Model model, HttpSession session) {
 		log.info("writeForm 호출 성공");
-		
+
 //		//개인회원 로그인 세션 받기
 //		SessionUtil.personalLoginCheck(session, model, "로그인 후 열람 가능합니다.");
-		
+
 		return "board/advertise/advertiseInsertForm";
 	}
-	
-	
-	//홍보게시판 글 등록
+
+	// 홍보게시판 글 등록
 	@PostMapping("/advertiseInsert")
-	public String advertiseInsertWithFiles(@ModelAttribute AdvertiseVO aVO,
-											@RequestParam("file1") MultipartFile file1,
-								            @RequestParam("file2") MultipartFile file2,
-								            @RequestParam("file3") MultipartFile file3,
-								            @RequestParam("file4") MultipartFile file4,
-								            @RequestParam("file5") MultipartFile file5,
-								            RedirectAttributes ras ) throws Exception {
-		
+	public String advertiseInsertWithFiles(@ModelAttribute AdvertiseVO aVO, @RequestParam("file1") MultipartFile file1,
+			@RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3,
+			@RequestParam("file4") MultipartFile file4, @RequestParam("file5") MultipartFile file5,
+			RedirectAttributes ras) throws Exception {
+
 		int result = 0;
 		String url = "";
-		
+
 		result = aService.advertiseInsertWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			ras.addFlashAttribute("popUp", "등록 완료되었습니다.");
 			url = "redirect:/advertise/advertiseBoardList";
 			log.info("result : 1");
@@ -152,46 +151,44 @@ public class AdvertiseController {
 			url = "/advertise/advertiseInsertForm";
 			log.info("result : 0");
 		}
-        
-        
-        return url; 
+
+		return url;
 	}
-	
-	
-	//홍보게시판 게시글 상세 보기
+
+	// 홍보게시판 게시글 상세 보기
 	@GetMapping("/advertiseDetail")
 	public String advertiseDetail(AdvertiseVO aVO, Model model) {
 		log.info("advertiseDetail() 메소드 호출");
-		
+
 		AdvertiseVO detail = aService.advertiseDetail(aVO);
 		model.addAttribute("detail", detail);
-		
+
 		log.info(detail.toString());
-		
+
 		return "board/advertise/advertiseBoardDetail";
 	}
-	
-	
-	//홍보 게시판 글 삭제
+
+	// 홍보 게시판 글 삭제
 	@PostMapping("/advertiseDelete")
-	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras, HttpSession session) throws Exception {
+	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras, HttpSession session)
+			throws Exception {
 		log.info("delete 호출 성공");
-		
-		//게시글 상세정보 가져오기
+
+		// 게시글 상세정보 가져오기
 		AdvertiseVO avo = new AdvertiseVO();
 		avo.setCommonNo(commonNo);
 		AdvertiseVO detail = aService.advertiseDetail(avo);
-		
-		//게시글 작성자 id 추출
+
+		// 게시글 작성자 id 추출
 		String writer = detail.getAcademyId();
 		log.info("작성자 : " + writer);
-		
+
 		int result = 0;
 		String url = "";
-		
+
 		result = aService.advertiseDelete(avo);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			ras.addFlashAttribute("popUp", "삭제 완료되었습니다.");
 			url = "/advertise/advertiseBoardList";
 			log.info("result : 1");
@@ -200,12 +197,11 @@ public class AdvertiseController {
 			url = "/advertise/advertiseDetail?commonNo=" + avo.getCommonNo();
 			log.info("result : 0");
 		}
-		
+
 		return "redirect:" + url;
 	}
-	
-	
-	//홍보게시판 글 수정 폼 출력
+
+	// 홍보게시판 글 수정 폼 출력
 	@GetMapping("/advertiseUpdate")
 	public String advertiseUpdateForm(@ModelAttribute AdvertiseVO avo, Model model) {
 		log.info("updateForm 호출 성공");
@@ -216,22 +212,19 @@ public class AdvertiseController {
 		model.addAttribute("updateData", updateData);
 		return "board/advertise/advertiseUpdateForm";
 	}
-	
-	//홍보게시판 글 수정
+
+	// 홍보게시판 글 수정
 	@PostMapping("/advertiseUpdate")
 	public String advertiseUpdateWithFiles(@RequestParam("commonNo") int commonNo, AdvertiseVO aVO,
-											@RequestParam("file1") MultipartFile file1,
-								            @RequestParam("file2") MultipartFile file2,
-								            @RequestParam("file3") MultipartFile file3,
-								            @RequestParam("file4") MultipartFile file4,
-								            @RequestParam("file5") MultipartFile file5,
-								            RedirectAttributes ras ) throws Exception {
-		
+			@RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
+			@RequestParam("file3") MultipartFile file3, @RequestParam("file4") MultipartFile file4,
+			@RequestParam("file5") MultipartFile file5, RedirectAttributes ras) throws Exception {
+
 		int result = 0;
 		String url = "";
-		
+
 		result = aService.advertiseUpdateWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
-		
+
 		if (result == 1) {
 			ras.addFlashAttribute("popUp", "수정 완료되었습니다.");
 			url = "/advertise/advertiseDetail?commonNo=" + commonNo;
@@ -241,50 +234,46 @@ public class AdvertiseController {
 			url = "/advertise/advertiseUpdate?commonNo=" + commonNo;
 			log.info("result : 0");
 		}
-		
+
 		return "redirect:" + url;
 	}
-	
-	
-	//이전 게시글 이동
+
+	// 이전 게시글 이동
 	@GetMapping("/prev/{commonNo}")
 	public String prevPost(AdvertiseVO avo, @PathVariable int commonNo) {
-		
-		//이전 게시글의 번호
+
+		// 이전 게시글의 번호
 		int prevNo = aService.prevCommonNo(avo);
-		
-		//주소 담을 변수
+
+		// 주소 담을 변수
 		String url = "";
-		
-		if(prevNo < 20001) {
+
+		if (prevNo < 20001) {
 			url = "redirect:/advertise/advertiseDetail?commonNo=" + commonNo;
 		} else {
-			url =  "redirect:/advertise/advertiseDetail?commonNo=" + prevNo;
+			url = "redirect:/advertise/advertiseDetail?commonNo=" + prevNo;
 		}
-		
+
 		return url;
 	}
-	
-	
-	//다음 게시글 이동
+
+	// 다음 게시글 이동
 	@GetMapping("/next/{commonNo}")
 	public String nextPost(AdvertiseVO avo, @PathVariable int commonNo) {
-		
-		//다음 게시글의 번호
+
+		// 다음 게시글의 번호
 		int nextNo = aService.nextCommonNo(avo);
-		
-		//주소 담을 변수
+
+		// 주소 담을 변수
 		String url = "";
-		
-		if(nextNo == -1) {
+
+		if (nextNo == -1) {
 			url = "redirect:/advertise/advertiseDetail?commonNo=" + commonNo;
 		} else {
-			url =  "redirect:/advertise/advertiseDetail?commonNo=" + nextNo;
+			url = "redirect:/advertise/advertiseDetail?commonNo=" + nextNo;
 		}
-		
+
 		return url;
 	}
-	
-	
-	
+
 }
