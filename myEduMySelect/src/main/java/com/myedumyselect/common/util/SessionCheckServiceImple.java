@@ -12,9 +12,9 @@ import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 @Service
 public class SessionCheckServiceImple implements SessionCheckService {
 
@@ -28,7 +28,8 @@ public class SessionCheckServiceImple implements SessionCheckService {
 	private PersonalLoginService personalLoginService;
 
 	@Override
-	public String isAcademySessionCheck(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, Model model,
+	public String isAcademySessionCheck(
+			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model,
 			String alertMsg) {
 
 		// 로그인 세션여부 체크
@@ -48,7 +49,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				model.addAttribute("alertMsg", alertMsg);
 				// 학원 정보가 존재하면
 				if (selectedAcademyLoginVO != null) {
-					log.info(selectedAcademyLoginVO.toString());
+//					log.info(selectedAcademyLoginVO.toString());
 					int result = paymentService.paymentCheck(selectedAcademyLoginVO);
 					if (result == 1) {
 						model.addAttribute("academyLoginVo", selectedAcademyLoginVO);
@@ -67,7 +68,8 @@ public class SessionCheckServiceImple implements SessionCheckService {
 	}
 
 	@Override
-	public String isAcademySessionCheck(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, Model model) {
+	public String isAcademySessionCheck(
+			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model) {
 
 		// 로그인 세션여부 체크
 		if (academyLoginVO == null) {
@@ -85,7 +87,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				AcademyLoginVO selectedAcademyLoginVO = academyLoginDao.findById(academyId);
 				// 학원 정보가 존재하면
 				if (selectedAcademyLoginVO != null) {
-					log.info(selectedAcademyLoginVO.toString());
+//					log.info(selectedAcademyLoginVO.toString());
 					int result = paymentService.paymentCheck(selectedAcademyLoginVO);
 					if (result == 1) {
 						model.addAttribute("academyLoginVo", selectedAcademyLoginVO);
@@ -104,8 +106,9 @@ public class SessionCheckServiceImple implements SessionCheckService {
 	}
 
 	@Override
-	public String isPersonalSessionCheck(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO,
-			Model model, String alertMsg) {
+	public String isPersonalSessionCheck(
+			@SessionAttribute(value = "personalLogin", required = false) PersonalLoginVO personalLoginVO, Model model,
+			String alertMsg) {
 
 		if (personalLoginVO == null) {
 			model.addAttribute("alertMsg", alertMsg);
@@ -115,7 +118,7 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				model.addAttribute("alertMsg", alertMsg);
 				return "FALSE";
 			} else {
-				log.info("회원 ID : " + personalLoginVO.getPersonalId());
+//				log.info("회원 ID : " + personalLoginVO.getPersonalId());
 				PersonalLoginVO selectedPersonalLoginVO = personalLoginService.personalMyPage(personalLoginVO);
 				model.addAttribute("personalLoginVO", selectedPersonalLoginVO);
 				return "TRUE";
@@ -124,8 +127,8 @@ public class SessionCheckServiceImple implements SessionCheckService {
 	}
 
 	@Override
-	public String isPersonalSessionCheck(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO,
-			Model model) {
+	public String isPersonalSessionCheck(
+			@SessionAttribute(value = "personalLogin", required = false) PersonalLoginVO personalLoginVO, Model model) {
 
 		if (personalLoginVO == null) {
 			model.addAttribute("alertMsg", "로그인이 필요합니다.");

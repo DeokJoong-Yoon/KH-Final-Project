@@ -477,7 +477,7 @@ public class AdminBoardController {
 	/*************************************************************
 	 * Admin academySourceLoad
 	 *************************************************************/
-	@GetMapping("/adminBoard/academySourceLoad")
+	@GetMapping("/academySourceLoad")
 	public String academySourceLoadView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
 			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {

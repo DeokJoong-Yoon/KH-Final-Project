@@ -15,7 +15,6 @@
 </style>
 
 <section id="hero" class="d-flex align-items-center">
-
 	<div class="container">
 		<div class="row">
 			<div
@@ -31,11 +30,13 @@
 									<ul>
 										<li class="bx bx-check">account bank name: KH Bank</li>
 										<li class="bx bx-check">account manager name : Yoon DJ</li>
-										<li class="bx bx-check">account number : 9391-1939-4847-5390</li>
-										<li class="bx bx-check">account amount : ￦989,000 per month</li>
+										<li class="bx bx-check">account number :
+											9391-1939-4847-5390</li>
+										<li class="bx bx-check">account amount : ￦989,000 per
+											month</li>
 										<li class="bx bx-check">24시간 이내로 처리 예정</li>
 									</ul>
-								<a href="/">Home</a>
+									<a href="/">Home</a>
 								</div>
 							</div>
 						</div>
@@ -48,25 +49,16 @@
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-<!-- Vendor JS Files -->
+<!-- JS Files -->
 <script src="/resources/include/assets/vendor/aos/aos.js"></script>
-<script
-	src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script
-	src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script
-	src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script
-	src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script
-	src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-<script
-	src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
+<script	src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script	src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script	src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script	src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script	src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+<script	src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 <script src="/resources/include/payment/js/paySuccess.js"></script>
-
 
 </body>
 </html>

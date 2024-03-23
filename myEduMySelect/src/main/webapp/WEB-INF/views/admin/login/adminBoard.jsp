@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
-<!DOCTYPE html>
-<html lang="kr">
+<%@ include file="/WEB-INF/views/admin/common/common.jspf"%>
 
 <head>
 <meta charset="utf-8">

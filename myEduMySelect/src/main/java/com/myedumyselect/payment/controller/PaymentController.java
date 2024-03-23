@@ -11,28 +11,24 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myedumyselect.academy.service.AcademyLoginService;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
-import com.myedumyselect.auth.SessionInfo;
-import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.payment.service.PaymentService;
 import com.myedumyselect.payment.vo.PaymentVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/payment/*")
 @Controller
-@Slf4j
 public class PaymentController {
 
 	@Setter(onMethod_ = @Autowired)
 	private PaymentService paymentService;
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginService academyLoginService;
 
 	@GetMapping("/payMain")
-	public String paymentBoardView(@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model) {
+	public String paymentBoardView(
+			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO, Model model) {
 		if (academyLoginVO == null) {
 			return "redirect:/academy/login";
 		}
@@ -41,29 +37,32 @@ public class PaymentController {
 	}
 
 	@PostMapping("/paySuccess")
-	public String paySuccessView(@ModelAttribute PaymentVO pvo, Model model, @SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
-		if (academyLoginVO == null) {
-			return "redirect:/academyaccount/login";
+	public String paySuccessView(@ModelAttribute PaymentVO paymentVO, Model model,
+			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
+		if (academyLoginVO == null || paymentVO == null) {
+			return "redirect:/academy/login";
 		}
 
-		paymentService.paymentInsert(pvo);
-		PaymentVO result = paymentService.paymentSelect(pvo);
+		paymentService.paymentInsert(paymentVO);
+		PaymentVO result = paymentService.paymentSelect(paymentVO);
 		model.addAttribute("paymentVO", result);
 		return "payment/paySuccess";
 	}
 
 	@GetMapping("/payFail")
-	public String paymentFailView(@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
+	public String paymentFailView(
+			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
 		if (academyLoginVO == null) {
-			return "redirect:/academyaccount/login";
+			return "redirect:/academy/login";
 		}
 		return "payment/payFail";
 	}
-	
+
 	@GetMapping("/accountInfo")
-	public String accountInfo(@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
+	public String accountInfo(
+			@SessionAttribute(value = "academyLogin", required = false) AcademyLoginVO academyLoginVO) {
 		if (academyLoginVO == null) {
-			return "redirect:/academyaccount/login";
+			return "redirect:/academy/login";
 		}
 		return "payment/accountInfo";
 	}

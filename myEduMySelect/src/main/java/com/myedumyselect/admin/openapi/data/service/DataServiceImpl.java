@@ -16,7 +16,6 @@ import com.myedumyselect.common.openapi.URLConnectUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class DataServiceImpl implements DataService {
 
 	private final static String KEY = "446f765142796b6435314753745172";
@@ -52,7 +51,7 @@ public class DataServiceImpl implements DataService {
 		baseUrl += KEY;
 		baseUrl += "/json/neisAcademyInfo/";
 		int maxGetListCount = 500;
-		listTotalCount = 2000;
+//		listTotalCount = 2000;
 		int cycleCount = listTotalCount / maxGetListCount;
 		int startIndex = 1;
 		int endIndex = maxGetListCount;
