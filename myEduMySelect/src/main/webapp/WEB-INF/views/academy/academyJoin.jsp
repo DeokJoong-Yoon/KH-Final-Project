@@ -15,7 +15,7 @@
          <div class="row">
             <div class="col-12 text-center mcBanner">
 		            학원 회원가입<br/>
-		        </div> 
+		        </div>  
          </div>
       </div>
    </section>

@@ -141,10 +141,10 @@
 					"Content-Type" : "application/json"
 				},
 	            data: JSON.stringify(value),
-	            success: function() {
+	            success: function(data) {
 					alert('회원가입이 완료되었습니다.');
 					if(data == "TRUE") {
-						window.location.href="/acadmey/join/complete";
+						window.location.href="/academy/join/complete";
 					}
 					
 	                
