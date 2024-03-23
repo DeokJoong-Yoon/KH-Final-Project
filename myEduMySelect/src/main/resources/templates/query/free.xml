@@ -17,14 +17,14 @@
 
 
 	<sql id="freeSearch">
-		<if test="search=='commonTitle'">
-				<![CDATA[ common_title LIKE '%' || #{keyword} ||'%' ]]>
+		<if test="search == 'common_title'">
+		<![CDATA[ common_title LIKE '%' || #{keyword} || '%' ]]>
 		</if>
-		<if test="search=='commonContent'">
-				<![CDATA[ common_content LIKE '%' || #{keyword} ||'%' ]]>
+		<if test="search == 'common_content'"> 
+		<![CDATA[ common_content LIKE '%' || #{keyword} || '%' ]]>
 		</if>
-		<if test="search=='personalId'">
-				<![CDATA[ personal_id LIKE '%' || #{keyword} ||'%' ]]>
+		<if test="search=='personal_id'">
+		<![CDATA[ personal_id LIKE '%' || #{keyword} ||'%' ]]>
 		</if>
 	</sql>
 	
@@ -32,7 +32,8 @@
 	
 	<select id="freeListCnt" parameterType="freeBoard" resultType="int">
 		SELECT count(*) FROM
-		(select * from tb_common_board where member_type_id = 1) 
+		(select * from tb_common_board
+		where member_type_id = 1) 
 		
 		<trim prefix=" where (" suffix=")">
 			<include refid="freeSearch"></include>
@@ -44,13 +45,15 @@
 	<select id="freeList" parameterType="freeBoard" resultMap="freeBoardMap">
 	    <![CDATA[
 	    SELECT
-	        common_no, personal_id, common_title, to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date, common_readcnt, common_file,
-	        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_readcnt
+	        common_no, personal_id, common_title,
+	        to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date,
+	        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_readcnt,
+	        common_file, common_content
 	    FROM (
 	            select /*+index_desc(tb_common_board tb_common_board_pk)*/
-	                rownum AS rnum, common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
+	                rownum AS rnum, common_no, personal_id, common_title, common_register_date, common_readcnt, common_file, common_content
 	            from (
-	                select common_no, personal_id, common_title, common_register_date, common_readcnt, common_file
+	                select common_no, personal_id, common_title, common_register_date, common_readcnt, common_file, common_content
 	                from tb_common_board
 	            	where member_type_id = 1
 	               	ORDER BY common_no desc

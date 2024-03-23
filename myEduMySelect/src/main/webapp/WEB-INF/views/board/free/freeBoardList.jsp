@@ -49,7 +49,8 @@
 <!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/board/free/css/free.css" rel="stylesheet">
-
+	<script src="/resources/include/js/common.js"></script>
+	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 <!-- =======================================================
   * Template Name: MyEduMySelect
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -118,10 +119,6 @@
 	<section id="hero" class="d-flex align-items-center ">
 		<div class="container">
 			<div class="row">
-				<form id="detailForm">
-					<input type="hidden" id="commonNo" name="commonNo" />
-				</form>
-
 				<div class="col-12 text-center banner">
 		            자유 게시판<br/>
 		            <div class="descBox">
@@ -134,33 +131,34 @@
 	</section>
 	
 	<main id="main">
-	<form id="f_search" name="f_search">
+		<form id="detailForm">
+			<input type="hidden" id="commonNo" name="commonNo" />
+		</form>
+		<form id="freeForm" name="freeForm">
+			<input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
+			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
+
 		<section class="board">
 		
 			<div class="container">
 			
 				<!-- ======= 검색 영역 ======= -->
 				<div id="freeSearch" class="text-right" style="width:300%;">
-					
-					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
-					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
-				
-					
 						<div class="row g-2 alian-items-center">
 							<div class="col-auto">
 								<select id="search" name="search" class="form-select form-select-sm">
 									<option value="all">전체 목록 조회</option>
-									<option value="commonTitle">글제목</option>
-									<option value="commonContent">글내용</option>
-									<option value="personalId">작성자</option>
+									<option value="common_title">글제목</option>
+									<option value="common_content">글내용</option>
+									<!-- <option value="personal_id">작성자</option> -->
 								</select>
 							</div>
-							<div class="col-auto">
-								<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control form-control-sm" value="${kwd }"/>
-							</div>
-							<div class="col-auto">
-								<button type="button" id="searchData" class="btn btn-success btn-sm">검색</button>
-							</div>
+								<div class="col-auto">
+									<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력해주세요" class="form-control form-control-sm" />
+								</div>
+								<div class="col-auto">
+									<button type="button" id="searchData" class="btn btn-primary btn-sm">검색</button>
+								</div>
 						</div>
 					
 				</div>  <!-- 검색 영역 끝 -->
@@ -188,7 +186,7 @@
 													<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
 												</c:if>
 						                    </td>
-						                    <td class="name">${free.personalId}</td>
+						                    <td class="goDetail">${free.personalId}</td>
 						                    <td class="text-start">${free.commonRegisterDate}</td>
 						                    <td class="text-center">${free.commonReadcnt}</td>
 						                    <td>
@@ -242,6 +240,29 @@
 		</form>
 	</main>
 
+	<script>
+      	$(function() {
+      		/* 검색 후 검색 대상과 검색 단어 출력 */
+      		let word="<c:out value='${freeVo.keyword}' />";
+      		let value ="";
+      		if (word != "") {
+      			$("#keyword").val("<c:out value='${freeVo.keyword}' />");
+      			$("#search").val("<c:out value='${freeVo.search}' />");
+      			
+      			if ($("#search").val() != 'common_content') {
+      				//:contains() 는 특정 텍스트를 포함한 요소 반환
+      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+      				console.log($(value + ":contains('" + word + "')").html());
+      				// $("#list tr td.goDetail:contains('노력')").html();
+      				// => <span class='required'>노력</span>에 대한 명언
+      				$(value + ":contains('" + word +"')").each(function() {
+      					let regex = new RegExp(word, 'gi');
+      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+      				});
+      			}
+      		}
+      	});
+      </script>
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -325,52 +346,32 @@
 		class="back-to-top d-flex align-items-center justify-content-center"><i
 		class="bi bi-arrow-up-short"></i></a>
 
-	
 
-	<!-- Vendor JS Files -->
-	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
-	<script
-		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	<script
-		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
-
-	<!-- Template Main JS File -->
-	<script src="/resources/include/js/common.js"></script>
-	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/board/free/js/freeList.js"></script>
-	<script src="/resources/include/board/common/main.js"></script>
 	<script>
-	$(function() {
-		/* 검색 후 검색 대상과 검색 단어 출력 */
-		 let word = "<c:out value='${FreeVO.keyword}' />";
-		let value = "";
-		if (word != "") {
-			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");
-			$("#search").val("<c:out value='${FreeVO.search}' />");
-			
-			if ($("#search").val() != 'commonContent') {
-				if ($("#search").val() == 'commonTitle')
-					value = "#list tr td.goDetail";
-				else if ($("#search").val() == 'personalId') value = "#list tr td.name";
-				console.log($(value + ":contains('" + word + "')").html());
-				$(value + ":contains('" + word + "')").each(function() {
-							let regex = new RegExp(word, 'gi');
-							$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-				});
-			}
-		}
-	});
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function() {
+   	$(function() {
+  		/* 검색 후 검색 대상과 검색 단어 출력 */
+  		let word="<c:out value='${freeVO.keyword}' />";
+  		console.log(word);
+  		let value ="";
+  		if (word != "") {
+  			$("#keyword").val("<c:out value='${freeVO.keyword}' />");
+  			$("#search").val("<c:out value='${freeVO.search}' />");
+  			
+  			if ($("#search").val() != 'common_content') {
+  				//:contains() 는 특정 텍스트를 포함한 요소 반환
+  				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
+  				console.log($(value + ":contains('" + word + "')").html());
+  				// $("#list tr td.goDetail:contains('노력')").html();
+  				// => <span class='required'>노력</span>에 대한 명언
+  				$(value + ":contains('" + word +"')").each(function() {
+  					let regex = new RegExp(word, 'gi');
+  					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+  				});
+  			}
+  		}
+  	});
+
+		/* $(document).ready(function() {
 		    // 각 게시물의 댓글 수를 가져와서 표시하는 함수
 		    function updatefreeReplyCnt(commonNo) {
 		        $.ajax({
@@ -392,9 +393,31 @@
 		        let commonNo = $(this).attr('id').replace('freeReplyCnt', '');
 		        updatefreeReplyCnt(commonNo);
 		    });
-		});
+		}); */
 
 	</script>
+
+	<!-- Vendor JS Files -->
+	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
+	<script
+		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script
+		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script
+		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script
+		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script
+		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+
+	<!-- Template Main JS File -->
+
+	
+	<script src="/resources/include/board/common/main.js"></script>
+	
+	<script src="/resources/include/board/free/js/freeList.js"></script>
 </body>
 
 </html>

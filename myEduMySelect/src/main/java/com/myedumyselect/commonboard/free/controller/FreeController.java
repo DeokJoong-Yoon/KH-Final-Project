@@ -37,11 +37,9 @@ public class FreeController {
 		
 		int total = freeService.freeListCnt(fvo);
 		
-		
+		log.info("keyword : "+ fvo.getKeyword());
+		log.info("search : "+ fvo.getKeyword());
 		model.addAttribute("pageMaker", new PageDTO(fvo, total));
-		model.addAttribute("kwd", fvo.getKeyword());
-		
-		log.info(fvo.getKeyword());
 		
 		return "board/free/freeBoardList";
 		 

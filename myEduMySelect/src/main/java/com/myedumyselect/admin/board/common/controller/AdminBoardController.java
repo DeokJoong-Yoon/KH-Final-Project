@@ -100,7 +100,7 @@ public class AdminBoardController {
 	}
 
 	@GetMapping(value = "/writeForm")
-	public String writeForm(@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+	public String writeForm(@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -116,7 +116,7 @@ public class AdminBoardController {
 
 	@GetMapping("/boardDetail")
 	public String boardDetail(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -133,7 +133,7 @@ public class AdminBoardController {
 
 	@GetMapping("/updateForm")
 	public String updateForm(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) throws Exception {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) throws Exception {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -162,7 +162,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/matching")
 	public String matchingBoardAdminView(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -180,7 +180,7 @@ public class AdminBoardController {
 
 	@GetMapping("/matchingBoardDetail")
 	public String matchingBoardAdminDetail(@ModelAttribute MatchingBoardVO matchingBoardVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -200,7 +200,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/free")
 	public String freeBoardAdminView(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -218,7 +218,7 @@ public class AdminBoardController {
 
 	@GetMapping("/freeBoardDetail")
 	public String freeBoardAdminDetail(@ModelAttribute FreeBoardAdminVO freeBoardAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -239,7 +239,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/advertise")
 	public String advertiseBoardAdminView(@ModelAttribute AdvertiseVO advertiseVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -263,7 +263,7 @@ public class AdminBoardController {
 
 	@GetMapping("/advertiseBoardDetail")
 	public String freeBoardAdminDetail(@ModelAttribute AdvertiseVO advertiseVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -277,7 +277,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/freeComment")
 	public String freeCommentAdminView(@ModelAttribute FreeReplyAdminVO freeReplyAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -304,7 +304,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/matchingComment")
 	public String matchingCommentAdminView(@ModelAttribute MatchingReplyAdminVO matchingReplyAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -332,7 +332,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/payment")
 	public String paymentBoardAdminView(@ModelAttribute PaymentVO paymentVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -349,7 +349,7 @@ public class AdminBoardController {
 
 	@GetMapping("/paymentBoardDetail")
 	public String paymentBoardDetail(@ModelAttribute PaymentVO paymentVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -370,7 +370,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/personal")
 	public String personalBoardAdminView(@ModelAttribute PersonalAdminVO personalAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -387,7 +387,7 @@ public class AdminBoardController {
 
 	@GetMapping("/personalListDetail")
 	public String personalListDetail(@ModelAttribute PersonalAdminVO personalAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -408,7 +408,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/academy")
 	public String academyBoardAdminView(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -425,7 +425,7 @@ public class AdminBoardController {
 
 	@GetMapping("/acadmeyListDetail")
 	public String academyListDetail(@ModelAttribute AcademyAdminVO academyAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -447,7 +447,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/academySource")
 	public String academySourceBoardAdminView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -464,7 +464,7 @@ public class AdminBoardController {
 
 	@GetMapping("/acadmeySourceListDetail")
 	public String academySourceListDetail(@ModelAttribute AcademySourceVO academyAdminVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
@@ -479,7 +479,7 @@ public class AdminBoardController {
 	 *************************************************************/
 	@GetMapping("/academySourceLoad")
 	public String academySourceLoadView(@ModelAttribute AcademySourceVO academySourceVO, Model model,
-			@SessionAttribute("adminLogin") AdminLoginVO adminLoginVO) {
+			@SessionAttribute(name = "adminLogin", required = false) AdminLoginVO adminLoginVO) {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}

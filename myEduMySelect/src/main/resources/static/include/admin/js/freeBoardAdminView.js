@@ -43,12 +43,12 @@ $(function() {
 	/* 페이징 처리 이벤트 */
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
-		$("#noticeForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#noticeForm").attr({
+		$("#freeForm").find("input[name='pageNum']").val($(this).attr("href"));
+			$("#freeForm").attr({
 				"method" : "get",
 				"action" : "/adminBoard/free"
 			});
-			$("#noticeForm").submit();
+			$("#freeForm").submit();
 	});
 });
 
@@ -56,9 +56,9 @@ function goPage() {
 	if ($("#search").val() == "all") {
 		$("#keyword").val("");
 	}
-	$("#noticeForm").attr({
+	$("#freeForm").attr({
 		"method" : "get",
 		"action" : "/adminBoard/free"
 	});
-	$("#noticeForm").submit();
+	$("#freeForm").submit();
 }

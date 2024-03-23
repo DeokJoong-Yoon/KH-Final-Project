@@ -1,61 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/admin/common/common.jspf" %>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+<title>Admin</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+
+
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="/resources/include/admin/admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/include/admin/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="/resources/include/admin/admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="/resources/include/admin/admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+<link href="/resources/include/admin/admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+<link href="/resources/include/admin/admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="/resources/include/admin/admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="/resources/include/admin/admin/assets/css/style.css" rel="stylesheet">
+<!-- Favicons -->
+<link href="/resources/include/admin/image/admin.png" rel="icon">
+<link href="/resources/include/admin/image/admin.png" rel="apple-touch-icon">
 <style>
 .table {
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 </style>
-
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
+</head>
+<body>
+	<!-- ======= Header ======= -->
+	<header id="header" class="header fixed-top d-flex align-items-center">
+	<jsp:include page="/WEB-INF/views/admin/common/header.jsp" />
+	</header>
+	<!-- End Header -->
 
 	<!-- ======= Sidebar ======= -->
-	<aside id="sidebar" class="sidebar">
-
-		<ul class="sidebar-nav" id="sidebar-nav">
-
-			<li class="nav-item"><a class="nav-link " href="/admin/login"> <i class="bi bi-grid"></i> <span>Dashboard main</span>
-			</a></li>
-			<!-- End Dashboard Nav -->
-			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/notice"> <i class="bi bi-layout-text-window-reverse"></i><span>notice board</span><i class="ms-auto"></i>
-			</a></li>
-			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/free"> <i class="bi bi-layout-text-window-reverse"></i><span>free board</span><i class="ms-auto"></i>
-			</a></li>
-			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/matching"> <i class="bi bi-layout-text-window-reverse"></i><span>matching board</span><i class="ms-auto"></i>
-			</a></li>
-			<!-- End Tables Nav -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/advertisement"> <i class="bi bi-layout-text-window-reverse"></i><span>advertisement board</span><i class="ms-auto"></i>
-			</a></li>
-			<!-- End Tables Nav -->
-			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/payment"> <i class="bi bi-gem"></i><span>payment board</span><i class="ms-auto"></i>
-			</a></li>
-			<!-- End Icons Nav -->
-			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/personal"> <i class="bi bi-person"></i> <span>personal member</span>
-			</a></li>
-			<!-- End Profile Page Nav -->
-
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academy"> <i class="bi bi-person"></i> <span>academy member</span>
-			</a></li>
-			<!-- End Profile Page Nav -->
-
-			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/adminBoard/academySource"> <i class="bi bi-card-list"></i> <span>all academy source</span>
-			</a></li>
-			<!-- End Register Page Nav -->
-
-			<hr>
-			<li class="nav-item"><a class="nav-link collapsed" href="/admin/accmountCreate"> <i class="bi bi-box-arrow-in-right"></i> <span> Admin Account Create</span>
-			</a></li>
-			<!-- End Login Page Nav -->
-
-		</ul>
-
-	</aside>
-	<!-- End Sidebar-->
+	<section>
+	<jsp:include page="/WEB-INF/views/admin/common/section.jsp" />
+	</section>
 
 	<main id="main" class="main">
 		<form name="f_data" id="f_data">
@@ -191,16 +180,7 @@
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
-		<div class="copyright">
-			&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-		</div>
-		<div class="credits">
-			<!-- All the links in the footer should remain intact. -->
-			<!-- You can delete the links only if you purchased the pro version. -->
-			<!-- Licensing information: https://bootstrapmade.com/license/ -->
-			<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-			Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-		</div>
+	<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
 	</footer>
 	<!-- End Footer -->
 

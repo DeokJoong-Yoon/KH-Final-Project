@@ -35,7 +35,6 @@
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 </style>
-
 </head>
 
 <body>
@@ -264,7 +263,6 @@
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 	<jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
-
 	</footer>
 	<!-- End Footer -->
 
