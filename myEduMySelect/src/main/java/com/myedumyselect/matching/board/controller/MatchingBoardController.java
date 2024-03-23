@@ -193,9 +193,9 @@ public class MatchingBoardController {
 	public String mBoardUpdateForm(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
 		if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
 			}
 		} else {
 			return "redirect:/";
