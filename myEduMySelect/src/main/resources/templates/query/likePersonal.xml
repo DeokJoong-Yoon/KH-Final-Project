@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.myedumyselect.personal.dao.PersonalLikeDAO">
+
+	<!-- AdvertiseVO 별칭 일괄 부여 -->
+	<resultMap type="advertiseBoard" id="advertiseBoardMap">
+		<id column="common_no" property="commonNo" />
+		<result column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="common_nickname" property="commonNickname" />
+		<result column="common_title" property="commonTitle" />
+		<result column="common_content" property="commonContent" />
+		<result column="common_register_date" property="commonRegisterDate" />
+		<result column="common_edit" property="commonEdit" />
+		<result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_block_confirm" property="commonBlockConfirm" />
+		<result column="common_block_date" property="commonBlockDate" />
+		<result column="common_thumb" property="commonThumb" />
+		<result column="common_file" property="commonFile" />
+	</resultMap>
+	
+	<!-- LikeVO 별칭 일괄 부여 --> 
+	<resultMap type="like" id="likeMap">
+		<id column="common_no" property="commonNo" />
+		<result column="like_member_id" property="likePropertyId" />
+		<result column="like_check" property="likeCheck" />
+		<result column="like_id" property="likeId" />
+	</resultMap>
+	
+	<!-- personal -->
+	<resultMap type="personalLogin" id="personalLoginMap">
+		<id column="personal_id" property="personalId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="personal_name" property="personalName" />
+		<result column="personal_email" property="personalEmail" />
+		<result column="personal_passwd" property="personalPasswd" />
+		<result column="personal_birth" property="personalBirth" />
+		<result column="personal_address" property="personalAddress" />
+		<result column="personal_phone" property="personalPhone" />
+		<result column="personal_join_date" property="personalJoinDate" />
+		<result column="personal_login_fail_count"
+			property="personalLoginFailCount" />
+		<result column="personal_account_banned_date"
+			property="personalAccountBannedDate" />
+		<result column="personal_passwd_change_date"
+			property="personalPasswdChangeDate" />
+	</resultMap>
+	
+	
+	<!-- 1. 좋아요 테이블에서 본인이 좋아요 누른 게시물의 번호를 가져온다. -->
+	<select id="getLikedCommonNos" parameterType="personalLogin" resultType="java.lang.Integer">
+        SELECT common_no 
+        FROM tb_like 
+        WHERE like_member_id = #{personalId} AND like_check = 1
+    </select>
+    
+    <!-- 2. 반환 받은 게시물 번호들을 가지고 게시물 테이블에 가서 모든 내용을 조회한다. -->
+    <select id="getCommonBoardByNo" parameterType="java.lang.Integer" resultMap="advertiseBoardMap">
+        SELECT * 
+        FROM TB_COMMON_BOARD 
+        WHERE COMMON_NO = #{commonNo}
+    </select>
+
+</mapper>

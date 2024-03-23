@@ -78,5 +78,7 @@
 		WHERE
 		common_no = #{commonNo}
 	</delete>
+	
+	
 
 </mapper>
