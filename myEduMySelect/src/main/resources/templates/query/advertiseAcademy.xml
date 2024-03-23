@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myedumyselect.academy.dao.AcademyAdvertiseDAO">
+	
+	<!--========= 홍보게시판 =========-->
+	<!-- AdvertiseVO 별칭 일괄 부여 -->
+	<resultMap type="advertiseBoard" id="advertiseBoardMap">
+		<id column="common_no" property="commonNo" />
+		<result column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="common_nickname" property="commonNickname" />
+		<result column="common_title" property="commonTitle" />
+		<result column="common_content" property="commonContent" />
+		<result column="common_register_date" property="commonRegisterDate" />
+		<result column="common_edit" property="commonEdit" />
+		<result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_block_confirm" property="commonBlockConfirm" />
+		<result column="common_block_date" property="commonBlockDate" />
+		<result column="common_thumb" property="commonThumb" />
+		<result column="common_file" property="commonFile" />
+	</resultMap>	
+	
+	<!-- 전체 레코드 수 조회 -->
+	<select id="advertiseListCnt" parameterType="advertiseBoard" resultType="int">
+		<![CDATA[
+		SELECT 	count(*) FROM tb_common_board
+		WHERE	common_no >= 20000 AND common_no < 30000
+		AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
+					OR  ( common_title LIKE '%' || #{keyword} || '%' )
+					OR  ( common_content LIKE '%' || #{keyword} || '%' )
+				)
+		]]>
+	</select>	
+	
+	<!-- 홍보게시판 글 목록 조회 + 검색 포함 -->
+	<select id="advertiseList" parameterType="advertiseBoard" resultMap="advertiseBoardMap">
+		  <![CDATA[
+		  SELECT  common_no
+		        , academy_id
+		        , member_type_id
+		        , common_nickname
+		        , common_title
+		        , to_char(common_register_date,'YYYY-MM-DD') as common_register_date
+		        , common_readcnt
+		        , common_block_confirm
+		        , common_thumb
+		        , common_file
+		  FROM    (
+		          SELECT /*+ INDEX_DESC(tb_common_board PK_TB_COMMON_BOARD) */
+		                  rownum as rnum
+		                , common_no
+		                , academy_id  -- Keep this line
+		                , member_type_id
+		                , common_nickname
+		                , common_title
+		                , common_register_date
+		                , common_readcnt
+		                , common_block_confirm
+		                , common_thumb
+		                , common_file
+		          FROM  tb_common_board
+		          WHERE rownum <= #{pageNum} * #{amount}
+		          AND    common_no >= 20000 AND common_no < 30000
+		          AND    (   ( common_nickname LIKE '%' || #{keyword} || '%' )
+		                    OR  ( common_title LIKE '%' || #{keyword} || '%' )
+		                    OR  ( common_content LIKE '%' || #{keyword} || '%' )
+		                )
+		          AND academy_id = #{academyId}  
+		          )
+		  WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+		  ]]>
+	</select>
+
+</mapper>

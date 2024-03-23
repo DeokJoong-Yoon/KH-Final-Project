@@ -36,9 +36,9 @@
 				<div class="insertArea">
 					
 					<!-- 로그인 세션 임시 확인 -->
-					<div class="userId">${userId }</div>
-					<div class="acaId">${acaId }</div>
-					<div class="acaName">${acaName }</div>
+					<%-- <div class="userId">${userId }</div> --%>
+					<div class="acaId">${academyLogin.academyId}</div>
+					<div class="acaName">${academyLogin.academyName}</div>
 					
 					
 					<form id="insertForm">
@@ -47,11 +47,11 @@
 						<table>
 							<tr>
 								<th>작성자</th>
-								<td>${userId  }</td>	<!-- <td>${acaId }</td> -->
+								<td>${academyLogin.academyId}</td>	<!-- <td>${acaId }</td> -->
 							</tr>
 							<tr>
 								<th>학원명</th>
-								<td>${userId  }</td>	<!-- <td>${acaName }</td> -->
+								<td>${academyLogin.academyName}</td>	<!-- <td>${acaName }</td> -->
 							</tr>
 						</table>
 						<br>

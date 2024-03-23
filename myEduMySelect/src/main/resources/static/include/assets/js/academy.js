@@ -265,6 +265,17 @@ $(document).ready(function() {
 	        phoneError.text('');
 	    }
 	});
+    
+    // 키워드 체크박스 클릭 이벤트 핸들러
+    $(".keyword-checkbox").on("click", function() {
+        // 최대 5개까지 선택 가능하도록 제어
+        if (this.checked) {
+            if ($(".keyword-checkbox:checked").length > 5) {
+                this.checked = false; // 선택 취소
+                alert('키워드는 최대 5개의 항목만 선택할 수 있습니다.');
+            }
+        }
+    });
         
     /* 사업자등록번호 검색 이벤트 핸들러 등록 */
     $(document).on('click', '#searchDuplicateBtn', function(event) {

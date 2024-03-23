@@ -40,7 +40,7 @@ public class AcademyLoginController {
    private AcademyLoginService academyLoginService;
 
    @Setter(onMethod_ = @Autowired)
-   private AdvertiseService advertiseService;
+   private AdvertiseService academyAdvertiseService;
    	
    @Setter(onMethod_ = @Autowired)
    private AcademyMatchingBoardService academyMatchingBoardService;
@@ -302,19 +302,20 @@ public class AcademyLoginController {
   	 *************************************************************/   
    /* 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/advertiseList")
-   public String academyAdvertiseList(@ModelAttribute AdvertiseVO advertiseVO, Model model,
-		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+   public String academyAdvertiseList(AdvertiseVO advertiseVO, Model model, HttpSession session) {
+	   AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
 	   if(academyLoginVO == null) {
-		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+		   model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 		   return "redirect:/academy/login";
 	   }
 	   
-	   List<AdvertiseVO> academyAdvertiseList = advertiseService.advertiseList(advertiseVO);
-	   model.addAttribute("advertiseList", academyAdvertiseList);
+	   advertiseVO.setAcademyId(academyLoginVO.getAcademyId());
+	   List<AdvertiseVO> advertiseList = academyAdvertiseService.advertiseList(advertiseVO);
+	   model.addAttribute("advertiseList", advertiseList);
 	   
 	   
 	   // 전체 레코드수 반환.
-	   int total = advertiseService.advertiseListCnt(advertiseVO);
+	   int total = academyAdvertiseService.advertiseListCnt(advertiseVO);
 	   // 페이징 처리
 	   model.addAttribute("pageMaker", new PageDTO(advertiseVO, total));
 	   model.addAttribute("kwd", advertiseVO.getKeyword());

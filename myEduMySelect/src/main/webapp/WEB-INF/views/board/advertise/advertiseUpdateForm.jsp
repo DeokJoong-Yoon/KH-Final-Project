@@ -40,7 +40,7 @@
       		<input type="hidden" name="commonNo" id="commonNo" value="${updateData.commonNo }"/>
       		<%-- <input type="hidden" name="fileVO" id="fileVO" value="${updateData.fileVO }" /> --%>
       
-	      	<div class="userId">${userId }</div>
+	      	<div class="userId">${academyLogin.academyId}</div>
 	      	
 			<div class="advDetail">
 				<table>
@@ -50,11 +50,11 @@
 					</tr>
 					<tr>
 						<th>학원명</th>
-						<td>${updateData.commonNickname}</td>
+						<td>${academyLogin.academyName}</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>${updateData.academyId }</td>
+						<td>${academyLogin.academyId}</td>
 					</tr>
 				</table>
 				<br>

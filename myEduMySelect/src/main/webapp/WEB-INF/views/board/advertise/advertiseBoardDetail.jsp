@@ -37,9 +37,9 @@
       		<%-- <input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' /> --%>
       	</form>
       	
-      	<p>${detail.fileVO[0].getFilePath()}dd</p>
+      	<p>${detail.fileVO[0].getFilePath()}</p>
       
-      	<div class="userId">${userId }</div>
+      	<div class="userId">${academyLogin.academyId}</div>
       	
 		<div class="advDetail">
 			<table>
@@ -49,7 +49,7 @@
 				</tr>
 				<tr>
 					<th>학원명</th>
-					<td>${detail.commonNickname}</td>
+					<td>${academyLogin.academyName}</td>
 				</tr>
 				<tr>
 					<th>등록 일시</th>
