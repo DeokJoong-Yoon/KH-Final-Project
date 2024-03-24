@@ -10,10 +10,11 @@ import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 @Mapper
 public interface AcademyMatchingBoardDAO {
 	
-	//매칭게시판 미리 보기 
-	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
+	//작성한 댓글 조회
+	public List<Integer> getCommentMatchingNos(AcademyLoginVO academyLogin);
 	
-	//전체 레코드 수 반환
-	public int boardListCnt(MatchingBoardVO matchingBoardVO);
+	
+	//해당 댓글이 달린 게시글 조회
+	public MatchingBoardVO getMatchingBoardByNo(int matchingNo);
 	
 }

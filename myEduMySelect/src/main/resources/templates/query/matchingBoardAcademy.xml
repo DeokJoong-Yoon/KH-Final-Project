@@ -21,6 +21,7 @@
 		<result column="matching_comment" property="matchingComment" />
 	</resultMap>
 	
+	<!-- MatchingCommentVO 별칭 일괄 부여 -->
 	<resultMap type="matchingComment" id="matchingCommentMap">
 		<id column="matching_comment_no" property="matchingCommentNo" />
 		<result column="academy_id" property="academyId" />
@@ -59,44 +60,20 @@
     </resultMap>
     
 	
-	<!-- 전체 레코드 수 조회 -->
-	<select id="boardListCnt" parameterType="matchingBoard"
-		resultType="int">
-		SELECT count(*) FROM tb_matching_board
-		WHERE academy_id =
-		#{academyId}
+	<!-- 1. 매칭 댓글 테이블에서 본인이 댓글을 쓴 게시물의 번호를 가져온다. -->
+	<select id="getCommentMatchingNos" parameterType="academyLogin" resultType="java.lang.Integer">
+		SELECT 	matching_no
+		FROM 	tb_matching_comment
+		WHERE	academy_id = #{academyId}
+	</select>
+	
+	
+	<!-- 2. 반환 받은 게시물 번호들을 가지고 매칭게시판 테이블에 가서 모든 내용을 조회한다. -->
+	<select id="getMatchingBoardByNo" parameterType="java.lang.Integer" resultMap="matchingBoardMap">
+		SELECT	*
+		FROM	tb_matching_board
+		WHERE	matching_no = #{matchingNo}
 	</select>
 
-	<!-- 매칭게시판 글 목록 전체 보기 -->
-	<select id="boardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
-		<![CDATA[
-		SELECT  matching_no
-				, matching_gu_address
-				, matching_dong_address
-				, matching_target_subject
-				, matching_target_grade
-				, matching_private
-				, matching_register_date
-				, academy_id
-		FROM   (
-    			SELECT	/*+ INDEX_DESC(tb_matching_board pk_tb_matching_board_pk) */  
-    			rownum as rnum
-    					, matching_no
-    					, matching_gu_address
-    					, matching_dong_address
-    					, matching_target_subject
-    					, matching_target_grade
-    					, matching_private
-    					, matching_register_date
-    					, academy_id
-				FROM   	(
-						SELECT * FROM tb_matching_board
-						WHERE academy_id = #{academyId}
-						ORDER BY matching_register_date DESC) sortedList
-    			WHERE ]]>
-				<![CDATA[rownum <= #{pageNum} * #{amount}) boardList
-				WHERE rnum > (#{pageNum} - 1 ) * #{amount}
-				]]>
-	</select>
 	
 </mapper>
