@@ -84,28 +84,9 @@
 	<script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/personal/common.js"></script>
 	<script src="/resources/include/personal/personalLogin.js"></script>
-	<script src="/resources/include/personal/joinForm.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 	
 	<script>
-		$(function() {
-		    $("#loginBtn").on("click", function() {      
-		        if (!chkData("#personalId","아이디를")) return;
-		        else if (!chkData("#personalPasswd","비밀번호를")) return;      
-		        else {          
-		            $("#loginForm").attr({
-		                "method":"post", 
-		                "action":"/personal/login"      
-		            });                     
-		            $("#loginForm").submit();      
-		        }
-		    });
-		    
-		    $("#logoutBtn").on("click", function() { 
-		        location.href = "/loginselect"
-		    });
-		});
-	
 	    $(function() {
 	        let errorMsg = "${errorMsg}";
 	        if(errorMsg) {

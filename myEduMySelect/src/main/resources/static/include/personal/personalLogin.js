@@ -15,4 +15,3 @@ $(function() {
         location.href = "/loginselect"
     });
 });
- 
