@@ -14,4 +14,4 @@ $(function() {
     $("#logoutBtn").on("click", function() {
         location.href = "/loginselect"
     });
-});
+}); 

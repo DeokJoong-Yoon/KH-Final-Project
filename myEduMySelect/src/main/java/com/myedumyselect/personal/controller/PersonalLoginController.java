@@ -316,7 +316,7 @@ public class PersonalLoginController {
 			if (personalResult != "TRUE") {
 				return personalResult;
 			}
-		} else {
+		} else { 
 			return "redirect:/";
 		}
 
