@@ -6,10 +6,10 @@ $(function(){
 	let academyId = $("#academyId").val();
 	let writerId = $(".writerId").text();
 	
-	/*if(personalId != writerId || academyId != writerId) {
+	if(personalId != writerId || academyId != writerId) {
 		$("#editPost").css("display", "none");
 		$("#deletePost").css("display", "none");
-	}*/
+	}
 		
 	
 	//게시물 수정
