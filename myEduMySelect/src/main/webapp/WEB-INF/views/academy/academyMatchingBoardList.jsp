@@ -16,7 +16,7 @@
   <!-- Favicons -->
   <link href="/resources/include/assets/img/favicon.png" rel="icon">
   <link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+  <link href="/resources/include/board/advertise/css/advertiseList.css" rel="stylesheet">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -60,61 +60,7 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-	    <div class="container d-flex align-items-center">
-	
-	      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
-	      <!-- Uncomment below if you prefer to use an image logo -->
-	      <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-	
-	      <nav id="navbar" class="navbar">
-	        <ul>
-	          <li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-	          <li><a class="nav-link scrollto" href="#about">About</a></li>
-	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
-	            <ul>
-	              <li><a href="/free/freeList">자유게시판</a></li>
-	            <li><a href="#">홍보게시판</a></li>
-	            <li><a href="/matching/">매칭게시판</a></li>
-	            <li><a href="/notice/boardList">공지게시판</a></li>
-	            <c:if test="${personalLogin.memberTypeId == 1}">
-	               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
-	            </c:if>
-	            <c:if test="${academyLogin.memberTypeId == 2}">
-	               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">학원회원 마이페이지</a></li>
-	            </c:if>
-	            </ul>
-	          </li>
-	          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-	          <c:choose>
-	          <c:when test="${not empty personalLogin}">
-	              <li><a class="nav-link scrollto">[개인]&nbsp&nbsp${personalLogin.personalName}님 환영합니다.</a></li>
-	              <li>
-	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
-	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
-	                  </form>
-	              </li>
-	          </c:when>
-	          <c:when test="${not empty academyLogin}">
-	              <li><a class="nav-link scrollto">[학원]&nbsp&nbsp${academyLogin.academyName}님 환영합니다.</a></li>
-	              <li>
-	                  <form action="${pageContext.request.contextPath}/academy/logout" method="POST">
-	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
-	                  </form>
-	              </li>
-	          </c:when>
-	          <c:otherwise>
-	              <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">로그인/회원가입</a></li>
-	          </c:otherwise>
-	        </c:choose>
-	        </ul>
-	        <i class="bi bi-list mobile-nav-toggle"></i>
-	      </nav><!-- .navbar -->
-	
-	    </div>
-  	</header><!-- End Header -->
+  
 
   <!-- ======= 설명 영역 ======= -->
   <section class="mcHero d-flex align-items-center">
@@ -122,7 +68,7 @@
     <div class="container">
       <div class="row" >
 		<div class="col-12 text-center mcBanner">
-            내가 쓴 글 목록(매칭 게시판)<br/>
+            내가 쓴 댓글이 있는 글 목록(매칭 게시판)<br/>
             <div class="mcDescBox">
             	<p>내가 쓴 댓글이 뭐가있을까?</p>
             </div>
@@ -170,43 +116,60 @@
                 </thead>
                 <tbody id="mcBoardList">
                     <c:choose>
-                        <c:when test="${not empty userMatchingList}">
-                            <c:forEach var="matchingBoard" items="${userMatchingList}" varStatus="status">
-                                <tr data-num="${matchingBoard.matchingNo }">
-                                    <td>${matchingBoard.matchingNo }</td>
-                                    <td>
-                                        <form name="privateChk" id="privateChk">
-                                            <input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }"/>
-                                            <input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }"/>
-                                        </form>
-                                        <c:choose>
-                                            <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
-                                                <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
-                                                <a class="mbdLink" href="">
-                                                    ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
-                                                </a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a class="mbdLink" href="">
-                                                    ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
-                                                </a>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <c:if test="${matchingBoard.commentCnt > 0 }">
-                                            <span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
-                                        </c:if>
-                                    </td>
-                                    <td class="writerId">${matchingBoard.academyId }</td>
-                                    <td>${matchingBoard.matchingRegisterDate }</td>
-                                </tr>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="5">등록된 게시글이 존재하지 않습니다</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
+    <c:when test="${not empty academyLogin}">
+        <c:choose>
+            <c:when test="${not empty userMatchingList}">
+                <c:forEach var="matchingBoard" items="${userMatchingList}" varStatus="status">
+                    <%-- 댓글이 작성된 게시글인지 확인하는 조건을 추가합니다. --%>
+                    <c:if test="${matchingBoard.academyId eq academyLogin.academyId and matchingBoard.commentCnt gt 0}">
+                        <tr data-num="${matchingBoard.matchingNo}">
+                            <td>${matchingBoard.matchingNo}</td>
+                            <td>
+                                <form name="privateChk" id="privateChk">
+                                    <input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate}"/>
+                                    <input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd}"/>
+                                </form>
+                                <c:choose>
+                                    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
+                                        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
+                                        <a class="mbdLink" href="">
+                                            ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="mbdLink" href="">
+                                            ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                                <%-- 댓글 수가 0보다 큰 경우에만 댓글 수를 출력합니다. --%>
+                                <c:if test="${matchingBoard.commentCnt > 0}">
+                                    <span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt}]</span>
+                                </c:if>
+                            </td>
+                            <td class="writerId">${matchingBoard.academyId}</td>
+                            <td>${matchingBoard.matchingRegisterDate}</td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <%-- 댓글이 작성된 게시글이 없는 경우에 메시지를 출력합니다. --%>
+                <tr>
+                    <td colspan="5">댓글이 작성된 게시글이 존재하지 않습니다.</td>
+                </tr>
+            </c:otherwise>
+        </c:choose>
+    </c:when>
+    <c:otherwise>
+        <tr>
+            <td colspan="5">학원회원만 이용 가능한 서비스입니다.</td>
+        </tr>
+    </c:otherwise>
+</c:choose>
+
+
+
                 </tbody>    
             </table>
         </div>

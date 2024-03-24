@@ -373,10 +373,11 @@ public class AcademyLoginController {
       // 댓글 단 게시물 번호 목록 조회 (성능 최적화)
       List<Integer> commentedNos = academyMatchingBoardService.getCommentMatchingNos(academyLoginVO);
       
+      
       //본인 아이디를 가지고, 자신이 댓글 단 게시물 가져오는 서비스 실행
       List<MatchingBoardVO> matchingBoardVO = academyMatchingBoardService.getCommented(academyLoginVO);
        
-      
+      model.addAttribute("commentedNos", commentedNos);
       model.addAttribute("academyId", academyId);
       model.addAttribute("matchingBoardVO", matchingBoardVO);
       
