@@ -26,6 +26,7 @@ import com.myedumyselect.client.main.vo.PageDTO;
 import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
+import com.myedumyselect.matching.comment.vo.MatchingCommentVO;
 
 //import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -346,38 +347,48 @@ public class AcademyLoginController {
    }
    
    /*************************************************************
-  	 * Academy Matching
-  	 *************************************************************/
+      * Academy Matching
+      *************************************************************/
    /* 사용자가 작성한 매칭 게시글 댓글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/matchingBoardList")
-   public String academyMatchingBoardList(@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, 
-		   						RedirectAttributes ras, Model model, MatchingBoardVO matchingBoardVO) {
-	   /* 학원전용 GetMapping 제어 */
-	   if(academyLoginVO != null) {
-		   String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-		   if(academyResult != "TRUE") {
-			   ras.addFlashAttribute("errorMsg", "잘못된 접근입니다.");
-			   return academyResult;
-		   } 
-	   } else {
-		   model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
-		   return "redirect:/loginselect";
-	   }	
-	   
-	   String academyId = academyLoginVO.getAcademyId();
-	   model.addAttribute("matchingBoardList", academyId);
-	   
-	   academyMatchingBoardService.boardList(matchingBoardVO);
-	   List<MatchingBoardVO> matchingBoardList = academyMatchingBoardService.boardList(matchingBoardVO);
-	   model.addAttribute("matchingBoardList", matchingBoardList);
-	   
-	   // 전체 레코드 수 반환
-	   int total = academyMatchingBoardService.boardListCnt(matchingBoardVO);
-	   
-	   // 페이징 처리
-	   model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
-	   model.addAttribute("kwd", matchingBoardVO.getKeyword());
-	   return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
+   public String academyMatchingBoardList(MatchingCommentVO mcVO, Model model, 
+                  @SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+    
+      /* 학원전용 GetMapping 제어 */
+      if(academyLoginVO != null) {
+         String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+         if(academyResult != "TRUE") {
+            ras.addFlashAttribute("errorMsg", "잘못된 접근입니다.");
+            return academyResult;
+         } 
+      } else {
+         model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+         return "redirect:/loginselect";
+      }   
+      
+      
+      //본인 아이디 가져오기
+      String academyId = academyLoginVO.getAcademyId();
+      
+      //본인 아이디를 가지고, 자신이 댓글 단 게시물 가져오는 서비스 실행
+      List<MatchingBoardVO> matchingBoardVO = academyMatchingBoardService.getCommented(academyLoginVO);
+      
+      
+      model.addAttribute("academyId", academyId);
+      model.addAttribute("matchingBoardVO", matchingBoardVO);
+      
+      
+       return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
+      
+       
+       
+//      // 전체 레코드 수 반환
+//      int total = academyMatchingBoardService.boardListCnt(matchingBoardVO);
+//      
+//      // 페이징 처리
+//      model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
+//      model.addAttribute("kwd", matchingBoardVO.getKeyword());
+
    }
   
    /*************************************************************
