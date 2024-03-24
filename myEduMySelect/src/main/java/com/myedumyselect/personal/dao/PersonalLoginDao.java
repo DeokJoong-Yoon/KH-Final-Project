@@ -24,8 +24,8 @@ public interface PersonalLoginDao {
 	// 개인회원 이메일 중복확인
 	public int emailCheck(String personalEmail);
 	
-	//비밀번호 일치 불일치
-	public PersonalLoginVO checkPasswd(PersonalLoginVO personalLoginVO);
+	//비밀번호 일치 불일치  
+	public PersonalLoginVO checkPasswd(PersonalLoginVO personalLoginVO); 
 	
 	// 비밀번호 변경
 	public int updatePersonalPasswd(PersonalLoginVO checkPassword);

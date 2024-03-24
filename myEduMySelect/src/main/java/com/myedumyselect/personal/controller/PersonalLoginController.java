@@ -372,7 +372,7 @@ public class PersonalLoginController {
 	
 		//회원 탈퇴 페이지
 		@GetMapping("/personalWithdrawal")
-		public String personalWithdrawal(
+		public String personalWithdrawal(  
 				@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
 			if (personalLoginVO != null) {
 				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);

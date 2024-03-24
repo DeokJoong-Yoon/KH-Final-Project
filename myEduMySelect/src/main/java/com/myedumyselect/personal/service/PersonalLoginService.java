@@ -26,8 +26,8 @@ public interface PersonalLoginService {
 	
 	//비밀번호 일치 불일치
 	public PersonalLoginVO checkPasswd(PersonalLoginVO personalLoginVO);
-
-
+ 
+ 
 	// 마이페이지
 	public PersonalLoginVO personalMyPage(PersonalLoginVO login);
 
