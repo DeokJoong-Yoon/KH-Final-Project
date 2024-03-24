@@ -145,6 +145,8 @@
 				
 				<div class="boardDetail">
 					<form id="f_writeForm">
+					<input type="hidden" id="peronsalId" name="personalId" value="${personalLogin.personalId}"/>
+					<input type="hidden" id="memberTypeId" name="memberTypeId" value="${personalLogin.memberTypeId}"/>
 						<table>
 							<tr>
 								<th>제목</th>

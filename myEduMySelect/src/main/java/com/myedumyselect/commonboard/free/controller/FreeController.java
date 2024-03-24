@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.common.util.SessionCheckService;
@@ -121,32 +122,47 @@ public class FreeController {
 	// 글 수정 구현
 
 	@GetMapping(value = "/freeUpdateForm")
-	public String freeUpdateForm(@ModelAttribute FreeVO fvo, Model model,
+	public String freeUpdateForm(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
 		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
 			if (personalResult != "TRUE") {
 				return personalResult;
+			} else {
+				if (fvo.getPersonalId().equalsIgnoreCase(personalLoginVO.getPersonalId())) {
+					FreeVO freeUpdateData = freeService.freeUpdateForm(fvo);
+					model.addAttribute("freeUpdateData", freeUpdateData);
+					return "board/free/freeUpdateForm";
+				} else {
+					log.info("작성자가 아닙니다.");
+				
+					ras.addFlashAttribute("alertMsg", "작성자가 아닙니다.");
+					return "redirect:/free/freeList";
+				}
 			}
 		} else {
 			return "redirect:/";
 		}
-
-		FreeVO freeUpdateData = freeService.freeUpdateForm(fvo);
-
-		model.addAttribute("freeUpdateData", freeUpdateData);
-		return "board/free/freeUpdateForm";
 	}
 
 	@PostMapping("/freeUpdate")
-	public String freeUpdate(@ModelAttribute FreeVO fvo) throws Exception {
-		log.info("freeUpdate 호출 성공");
-		freeService.freeUpdate(fvo);
-		return "redirect:/free/freeList";
+	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras, Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
+			throws Exception {
+		if (fvo.getPersonalId().equalsIgnoreCase(personalLoginVO.getPersonalId())) {
+			freeService.freeUpdate(fvo);
+			ras.addFlashAttribute("alertMsg", "수정에 성공하였습니다.");
+			FreeVO detail = freeService.freeDetail(fvo);
+			model.addAttribute("detail", detail);
+			return "redirect:/free/freeDetail";
+		} else {
+			ras.addFlashAttribute("alertMsg", "수정에 실패하였습니다.");
+			return "redirect:/free/freeList";
+		}
 	}
 
 	@GetMapping("/freeDelete")
-	public String freeDelete(@ModelAttribute FreeVO fvo, Model model,
+	public String freeDelete(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
 			throws Exception {
 		if (personalLoginVO != null) {
@@ -157,8 +173,14 @@ public class FreeController {
 		} else {
 			return "redirect:/";
 		}
-		freeService.freeDelete(fvo);
-		return "redirect:/free/freeList";
+		if (fvo.getPersonalId().equalsIgnoreCase(personalLoginVO.getPersonalId())) {
+			freeService.freeDelete(fvo);
+			ras.addFlashAttribute("alertMsg", "삭제에 성공하였습니다.");
+			return "redirect:/free/freeList";
+		} else {
+			ras.addFlashAttribute("alertMsg", "삭제에 실패하였습니다.");
+			return "redirect:/free/freeList";
+		}
 	}
 
 	@ResponseBody

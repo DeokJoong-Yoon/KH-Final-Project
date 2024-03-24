@@ -133,6 +133,7 @@
 
 				<form id="f_data" name="f_data">
 					<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo}"/>
+					<input type="hidden" name="personalId" id="personalId" value="${detail.personalId}"/>
 					<input type="hidden" name="commonFile" id="commonFile" value="${detail.commonFile}"/>
 		      	</form>
 					<div class="boardDetail">
