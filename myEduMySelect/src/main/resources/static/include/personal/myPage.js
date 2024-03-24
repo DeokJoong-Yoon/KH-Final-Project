@@ -166,4 +166,22 @@ let address;
 		})
 
 });
+
+$(document).ready(function() {
+    $("#withdrawalBtn").click(function() {
+        if (!confirm("정말 회원탈퇴 하시겠습니까?")) {
+            return false; 
+        }
+
+        if (!confirm("탈퇴 후에는 복구할 수 없습니다. 정말 진행하시겠습니까?")) {
+            return false; 
+        }
+
+        if (!confirm("정말로 마지막 경고입니다. 계속 진행하시겠습니까?")) {
+            return false; 
+        }
+        $("#withdrawalForm").submit();
+    });
+});
+
  

@@ -179,12 +179,14 @@ function validateAddress(personalAddress) {
 $(document).ready(function() {
     $("#personalInsertBtn").click(function() {
         if (validateForm()) {
-            alert("회원가입이 완료되었습니다!");
-            $("#f_joinForm").attr({
-                "method": "post",
-                "action": "/personalInsert"
-            });
-            $("#f_joinForm").submit();
+            if (confirm("회원가입을 완료하시겠습니까?")) {
+                alert("회원가입이 완료되었습니다!");
+                $("#f_joinForm").attr({
+                    "method": "post",
+                    "action": "/personalInsert"
+                });
+                $("#f_joinForm").submit();
+            }
         }
     });
 });

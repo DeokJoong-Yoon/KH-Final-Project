@@ -59,70 +59,18 @@
 
 
 <script>
-		window.onload = function(){
-			let confirmMsg = "${confirmMsg}";
-			if(confirmMsg) {
-				let result = confirm(comfirmMsg);
-				if(result) {
-					window.location.href= "/useraccount/login";
-				} else {
-					window.location.href= "/matching/boardList";
-				}
-			}
-		}
+
 	</script>
 
 </head>
 
 <body>
-
-	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-		<div class="container d-flex align-items-center">
-
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
-					<li class="dropdown"><a href="#"><span>메뉴</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
-						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="#about">로그인/회원가입</a></li>
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
-
-		</div>
-	</header>
-	<!-- End Header -->
-
 	<!-- ======= 설명 영역 ======= -->
 	<section class="mcHero d-flex align-items-center">
-
 		<div class="container">
 			<div class="row">
 				<div class="col-12 text-center mcBanner">
-					매칭 게시판<br />
-					<div class="mcDescBox">
-						여러분이 선택한 조건에 기반하여 자동 등록된 게시물을 볼 수 있는 <b>매칭 게시판</b>입니다.<br>
-						당신에게 딱 맞는 학원이 당신을 찾아올 거예요!<br>
-					</div>
+					<p>내가 쓴 게시글 (매칭게시판)</p>
 				</div>
 			</div>
 		</div>
@@ -130,108 +78,105 @@
 	<!-- 설명영역 끝 -->
 
 
+	<!-- ======= 내가 쓴 게시글 (매칭게시판) 목록 ======= -->
+	<section class="mcBoard">
+		<main id="main" class="main">
+			<form id="detailForm">
+				<input type="hidden" id="matchingNo" name="matchingNo" />
+			</form>
 
+			<form id="matchingForm" name="matchingForm">
+				<input type="hidden" name="pageNum" id="pagenum"
+					value="${pageMaker.cvo.pageNum}"> <input type="hidden"
+					name="amount" id="amount" value="${pageMaker.cvo.amount}">
+				<!-- End Page Title -->
+				<div class="mcBoardList">
+					<table>
+						<thead>
+							<tr>
+								<th>글 번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody id="mcBoardList">
+							<c:choose>
+								<c:when test="${not empty matchingBoardList}">
+									<c:forEach var="matchingBoard" items="${matchingBoardList }"
+										varStatus="status">
+										<tr data-num="${matchingBoard.matchingNo }">
+											<td>${matchingBoard.matchingNo }</td>
+											<td>
+												<form name="privateChk" id="privateChk">
+													<input type="hidden" name="matchingPrivate"
+														value="${matchingBoard.matchingPrivate }" /> <input
+														type="hidden" name="matchingPasswd"
+														value="${matchingBoard.matchingPasswd }" />
+												</form> <c:choose>
+													<c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
+														<img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
+                                                    <a class="mbdLink"
+															href="">
+															${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress}
+															| ${matchingBoard.matchingTargetSubject } |
+															${matchingBoard.matchingTargetGrade } </a>
+													</c:when>
+													<c:otherwise>
+														<a class="mbdLink" href="">
+															${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress}
+															| ${matchingBoard.matchingTargetSubject } |
+															${matchingBoard.matchingTargetGrade } </a>
+													</c:otherwise>
+												</c:choose> <c:if test="${matchingBoard.commentCnt > 0 }">
+													<span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
+												</c:if>
+											</td>
+											<td class="writerId">${matchingBoard.personalId }</td>
+											<td>${matchingBoard.matchingRegisterDate }</td>
+										</tr>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<td colspan="5">등록된 게시글이 존재하지 않습니다</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+				</div>
 
+				<!-- 페이징 출력 시작 -->
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
+						<c:if test="${pageMaker.prev}">
+							<li class="page-item"><a href="${pageMaker.startPage - 1}"
+								class="page-link">Previous</a></li>
+						</c:if>
 
-<!-- ======= 매칭게시판 목록 ======= -->
-<section class="mcBoard">
-    <main id="main" class="main">
-        <form id="detailForm">
-            <input type="hidden" id="matchingNo" name="matchingNo" />
-        </form>
-        
-        <form id="matchingForm" name="matchingForm">
-            <input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
-            <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
-            <div class="pagetitle">
-                <h1>matching board</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-                        <li class="breadcrumb-item active">matching board</li>
-                    </ol>
-                </nav>
-            </div>
-            <!-- End Page Title -->
-            <div class="mcBoardList">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>글 번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>등록일</th>
-                        </tr>
-                    </thead>
-                    <tbody id="mcBoardList">
-                        <c:choose>
-                            <c:when test="${not empty matchingBoardList}">
-                                <c:forEach var="matchingBoard" items="${matchingBoardList }" varStatus="status">
-                                    <tr data-num="${matchingBoard.matchingNo }">
-                                        <td>${matchingBoard.matchingNo }</td>
-                                        <td>
-                                            <form name="privateChk" id="privateChk">
-                                                <input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate }" />
-                                                <input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd }" />
-                                            </form>
-                                            <c:choose>
-                                                <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
-                                                    <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
-                                                    <a class="mbdLink" href="">
-                                                        ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
-                                                    </a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                       <a class="mbdLink" href="">
-                                                        ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
-                                                    </a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <c:if test="${matchingBoard.commentCnt > 0 }">
-                                                <span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
-                                            </c:if>
-                                        </td>
-                                        <td class="writerId">${matchingBoard.personalId }</td>
-                                        <td>${matchingBoard.matchingRegisterDate }</td>
-                                    </tr>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <tr>
-                                    <td colspan="5">등록된 게시글이 존재하지 않습니다</td>
-                                </tr>
-                            </c:otherwise>
-                        </c:choose>
-                    </tbody>    
-                </table>
-            </div>
-            
-            <!-- 페이징 출력 시작 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
-                    <c:if test="${pageMaker.prev}">
-                        <li class="page-item"><a href="${pageMaker.startPage - 1}" class="page-link">Previous</a></li>
-                    </c:if>
+						<!-- 바로가기 번호 출력 -->
+						<c:forEach var="num" begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}">
+							<li
+								class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}"><a
+								href="${num}" class="page-link">${num}</a></li>
+						</c:forEach>
 
-                    <!-- 바로가기 번호 출력 -->
-                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                        <li class="page-item ${pageMaker.cvo.pageNum == num ? 'active':''}"><a href="${num}" class="page-link">${num}</a></li>
-                    </c:forEach>
-                    
-                    <!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
-                    <c:if test="${pageMaker.next}">
-                        <li class="page-item"><a href="${pageMaker.endPage + 1}" class="page-link">Next</a></li>
-                    </c:if>
-                </ul>
-            </nav>
-            <!-- 페이징 출력 끝 -->
-        </form>
-    </main><!-- End #main -->
-</section>
-<!-- 매칭게시판 목록 끝 -->
-
-
+						<!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
+						<c:if test="${pageMaker.next}">
+							<li class="page-item"><a href="${pageMaker.endPage + 1}"
+								class="page-link">Next</a></li>
+						</c:if>
+					</ul>
+				</nav>
+				<!-- 페이징 출력 끝 -->
+			</form>
+		</main>
+		<!-- End #main -->
+	</section>
+	<!-- 내가 쓴 게시글(매칭게시판) 목록 끝 -->
 
 
 	<!-- ======= Footer ======= -->
