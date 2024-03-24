@@ -131,8 +131,6 @@
 				alert(popUp);
 			}
 			
-			console.log("${detail.personalId }");
-			console.log("${detail.matchingComment }");
 		});
 		
 	</script>

@@ -31,6 +31,7 @@
 		<%-- 댓글 리스트 출력 영역 --%>
 		<div id="mcList">
 			<div class="list" id="item-template">
+				<p class="mcId"></p>
 				<h5 class="mcName"></h5>
 				<p class="mcDate"></p>
 				<p class="mcContent"></p>
@@ -49,7 +50,7 @@
 	<script>
 	
 		//새로운 댓글을 화면에 추가하기 위한 함수
-		function template(matchingCommentNo, matchingCommentNickname, matchingCommentContent, matchingCommentDate) {
+		function template(commentWriterId, matchingCommentNo, matchingCommentNickname, matchingCommentContent, matchingCommentDate) {
 			let $div = $("#mcList");
 			
 			let $element = $("#item-template").clone().removeAttr("id");
@@ -58,14 +59,18 @@
 			$element.find(".mcName").html(matchingCommentNickname);
 			$element.find(".mcContent").html(matchingCommentContent);
 			$element.find(".mcDate").html(matchingCommentDate);
+			$element.find(".mcId").html(commentWriterId);
 			
 			$div.append($element);
+			
 			
 		}
 	
 	
 		//댓글 목록을 보여주는 함수
 		function listAll(matchingNo) {
+			let personalId = $("#personalId").val();
+			let academyId = $("#academyId").val();
 			
 			$(".comment").detach();
 			let url = "/matchingcomments/all/" + matchingNo;
@@ -73,17 +78,22 @@
 			$.getJSON(url, function(data) {
 				
 				$(data).each(function(index) {
+					let commentWriterId = this.academyId;
 					let matchingCommentNo = this.matchingCommentNo;
 					let matchingCommentNickname = this.matchingCommentNickname;
 					let matchingCommentContent = this.matchingCommentContent;
 					let matchingCommentDate = this.matchingCommentDate;
 					matchingCommentContent = matchingCommentContent.replace(/(\r\n|\r\n)/g, "<br/>");
 					
-					console.log(matchingCommentDate);
-					
-					template(matchingCommentNo, matchingCommentNickname, matchingCommentContent, matchingCommentDate);
+					template(commentWriterId, matchingCommentNo, matchingCommentNickname, matchingCommentContent, matchingCommentDate);
+				
+					console.log("아이디 : " + commentWriterId);
+				    console.log("각각 : " + academyId);    
+					   
 					
 				});
+				
+				
 			}).fail(function() {
 				alert("댓글 목록을 불러오는 데 실패했습니다. 잠시 후에 다시 실행해 주세요.")
 			})
@@ -159,6 +169,8 @@
 		
 		//로딩 시 실행
 		$(function() {
+			let personalId = $("#personalId").val();
+			let academyId = $("#academyId").val();
 			
 			//댓글 목록 출력
 			let matchingNo = ${detail.matchingNo};
@@ -203,7 +215,17 @@
 			$(document).on("click", "#commentDeleteBtn", function(){
 				console.log("삭제 버튼 클릭");
 				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
-				deleteComment(matchingNo, matchingCommentNo);
+				
+				let commentWriter = $(this).closest(".list").find(".mcId").text();
+				console.log("댓글 작성자 : " + commentWriter);
+				
+				if(commentWriter !== academyId) {
+					alert("본인이 작성한 댓글만 삭제할 수 있습니다.");
+				} else {
+					deleteComment(matchingNo, matchingCommentNo);
+				}
+				
+				
 				console.log(matchingCommentNo);
 			})
 			
@@ -219,21 +241,30 @@
 				let list = $(this).parents("div.list");
 				let matchingCommentNo = list.attr("data-num");
 				
-				//댓글 부분을 폼으로 바꾸기
-				let paragraph = list.find(".mcContent");			// <p> 요소 가져오기
-				original = paragraph.text();
-                let textarea = $("<textarea id='updateCommentForm'>");		// <textarea> 요소 생성
-                textarea.val(paragraph.text());						// <p> 요소의 텍스트 내용을 <textarea>의 값으로 설정
-                paragraph.replaceWith(textarea);					// <p> 요소를 <textarea>로 교체
+				let commentWriter = $(this).closest(".list").find(".mcId").text();
+				console.log("댓글 작성자 : " + commentWriter);
 				
-                //수정,삭제 버튼을 취소,완료 버튼으로 번경
-    	    	let updateBtn = list.find("#commentUpdateBtn");
-    	    	let resetBtn = $("<button type='button' id='commentResetBtn'>되돌리기</button>")
-    	    	updateBtn.replaceWith(resetBtn);
-    	    	
-    	    	let deleteBtn = list.find("#commentDeleteBtn");
-    	    	let completeBtn = $("<button type='button' id='commentCompleteBtn'>완료</button>")
-    	    	deleteBtn.replaceWith(completeBtn);
+				if(commentWriter !== academyId) {
+					alert("본인이 작성한 댓글만 수정할 수 있습니다.");
+				} else {
+					//댓글 부분을 폼으로 바꾸기
+					let paragraph = list.find(".mcContent");			// <p> 요소 가져오기
+					original = paragraph.text();
+	                let textarea = $("<textarea id='updateCommentForm'>");		// <textarea> 요소 생성
+	                textarea.val(paragraph.text());						// <p> 요소의 텍스트 내용을 <textarea>의 값으로 설정
+	                paragraph.replaceWith(textarea);					// <p> 요소를 <textarea>로 교체
+					
+	                //수정,삭제 버튼을 취소,완료 버튼으로 번경
+	    	    	let updateBtn = list.find("#commentUpdateBtn");
+	    	    	let resetBtn = $("<button type='button' id='commentResetBtn'>되돌리기</button>")
+	    	    	updateBtn.replaceWith(resetBtn);
+	    	    	
+	    	    	let deleteBtn = list.find("#commentDeleteBtn");
+	    	    	let completeBtn = $("<button type='button' id='commentCompleteBtn'>완료</button>")
+	    	    	deleteBtn.replaceWith(completeBtn);
+				}
+				
+				
 			})
 			
 			

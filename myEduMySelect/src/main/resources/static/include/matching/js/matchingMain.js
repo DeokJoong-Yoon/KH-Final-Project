@@ -1,5 +1,14 @@
 $(function(){
 	
+	let academySession = $("#academyId").val();
+	
+	if(academySession) {
+		alert("맞춤형 검색은 개인 회원만 이용 가능합니다.")
+		location.href = "/matching/boardList";
+	}
+	
+	
+	
 	//지역 선택
 	$("#gu").change(function() {
 		const selectedGu = $(this).val();

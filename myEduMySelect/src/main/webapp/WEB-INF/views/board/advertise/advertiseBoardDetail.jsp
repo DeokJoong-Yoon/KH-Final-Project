@@ -34,14 +34,15 @@
       
       	<form name="formData" id="formData">
       		<input type="hidden" name="commonNo" id="commonNo" value="${detail.commonNo }"/>
-      		<%-- <input type="hidden" name="fileVO" id="fileVO" value='${JSON.stringify(detail.fileVO)}' /> --%>
       	</form>
       	
-      	<p>${detail.fileVO[0].getFilePath()}dd</p>
-      
-      	<div class="userId">${userId }</div>
+      	<!-- ======= 세션을 위한 hidden input ======= -->
+        <input type="hidden" id="personalId" name="personalId" value="${personalLoginVO.personalId }"/>
+	    <input type="hidden" id="academyId" name="academyId" value="${academyLoginVO.academyId }"/>
+      	
       	
 		<div class="advDetail">
+			<input type="hidden" class="writerId" value="${detail.academyId }" />
 			<table>
 				<tr>
 					<th>글 번호</th>

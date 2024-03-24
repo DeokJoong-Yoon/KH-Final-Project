@@ -1,16 +1,27 @@
 $(function(){
 	
+	
 	let matchingNo = $("#matchingNo").val();
 	
 	let personalId = $("#personalId").val();
 	let academyId = $("#academyId").val();
 	let writerId = $(".writerId").text();
 	
-	if(personalId != writerId || academyId != writerId) {
+	
+	
+	if(personalId) {
+		if(personalId != writerId) {
+			$("#editPost").css("display", "none");
+			$("#deletePost").css("display", "none");
+		} 
+	} else if(!personalId) {
 		$("#editPost").css("display", "none");
-		$("#deletePost").css("display", "none");
+			$("#deletePost").css("display", "none");
 	}
-		
+	
+	console.log("개인 로그인 " + personalId);
+	console.log("학원 로그인 " +academyId);
+	console.log("글 작성자 " +writerId);	
 	
 	//게시물 수정
 	$("#editPost").on("click", function(){

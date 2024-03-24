@@ -2,6 +2,25 @@ $(function() {
 	
 	let commonNo = $("#commonNo").val();
 	
+	let personalId = $("#personalId").val();
+	let academyId = $("#academyId").val();
+	let writerId = $(".writerId").val();
+	
+	console.log("개인세션 : " + personalId);
+	console.log("학원세션 : " + academyId);
+	console.log("작성자 : " + writerId);
+	
+	if(academyId) {
+		if(academyId != writerId) {
+			$("#editPost").css("display", "none");
+			$("#deletePost").css("display", "none");
+			$("#likeButton").css("display", "none");
+		} 
+	} else if(!academyId) {
+		$("#editPost").css("display", "none");
+			$("#deletePost").css("display", "none");
+	}
+	
 	//게시물 수정
 	$("#editPost").on("click", function(){
 		$("#formData").attr({
