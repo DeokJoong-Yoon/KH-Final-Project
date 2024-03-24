@@ -161,6 +161,9 @@ let address;
 		$("#freeBtn").on("click", function () {
 			window.location.href = "/personalFreeView";
 		})
+		$("#likeBtn").on("click", function(){
+			window.location.href = "/personalLikeView";
+		})
 
 });
  

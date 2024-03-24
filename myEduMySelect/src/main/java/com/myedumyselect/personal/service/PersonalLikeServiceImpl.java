@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
+import com.myedumyselect.commonboard.like.vo.LikeVO;
 import com.myedumyselect.personal.dao.PersonalLikeDAO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
@@ -29,6 +30,11 @@ public class PersonalLikeServiceImpl implements PersonalLikeService {
 
 		}
 		return likedCommonBoards;
+	}
+	
+	@Override
+	public List<LikeVO> likeList(LikeVO likeVO){
+		return personalLikeDAO.likeList(likeVO);
 	}
 	
 

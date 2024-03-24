@@ -311,15 +311,29 @@ public class PersonalLoginController {
 	}
 	//사용자가 찜한 자유 게시판 목록 보기 페이지로 이동
 	@GetMapping("/personalLikeView")
-		public String getLikeView(PersonalLoginVO personalLoginVO, Model model, HttpSession session){
-		if (personalLoginVO == null) {
-			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
-			return "redirect:/personal/login";
-		}
+		public String getLikeView(LikeVO likeVO, Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+			if (personalLoginVO != null) {
+				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+				if (personalResult != "TRUE") {
+					return personalResult;
+				}
+			} else {
+				return "redirect:/";
+			}
 		
+		String personalId = personalLoginVO.getPersonalId();
 		List<AdvertiseVO> advertiseVO = personalLikeService.getLikedCommon(personalLoginVO);
-		model.addAttribute("advertiseVO", advertiseVO);
+		List<LikeVO> likeList = personalLikeService.likeList(likeVO);
 		
+		
+		model.addAttribute("personalId", personalId);
+		model.addAttribute("advertiseVO", advertiseVO);
+		model.addAttribute("likeList", likeList);
+		
+		
+		//int total = personalLikeService.getLikedCommonCnt(advertiseVO);
+		
+		//model.addAttribute("pageMaker", new PageDTO(advertiseVO, total));
 		return "personal/personalLikeView";
 	}
 	
