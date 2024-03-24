@@ -12,6 +12,6 @@ public interface AcademyAdvertiseService {
 	
 	//홍보게시판 전체 목록 보기
 	public List<AdvertiseVO> advertiseList(AdvertiseVO advertiseVO);
-	
+	 
 	
 }

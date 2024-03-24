@@ -260,18 +260,14 @@ public class AcademyLoginController {
       if (result == 0) {         
          model.addAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
          return "redirect:/academy/mypage";
-      } 
-      
+      }       
       
       // 업데이트 성공 시
       model.addAttribute("academyLogin", sessionAcademyLogin);
       // 업데이트가 성공하면 세션에 업데이트된 academyLoginVo 객체를 저장하고 마이 페이지로 리다이렉트
       
-      return "/academy/mypage";
-      
-      
-      //model.addAttribute(result);
-      
+      return "/academy/mypage";      
+      //model.addAttribute(result);      
    }
 
    /* 비밀번호 변경 */
@@ -323,18 +319,23 @@ public class AcademyLoginController {
   	 *************************************************************/   
    /* 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/advertiseList")
-   public String academyAdvertiseList(AdvertiseVO advertiseVO, Model model, HttpSession session) {
-	   AcademyLoginVO academyLoginVO = (AcademyLoginVO) session.getAttribute("academyLogin");
-	   if(academyLoginVO == null) {
+   public String academyAdvertiseList(@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, 
+				RedirectAttributes ras, Model model, AdvertiseVO advertiseVO) {
+	   /* 학원전용 GetMapping 제어 */
+	   if(academyLoginVO != null) {
+		   String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+		   if(academyResult != "TRUE") {
+			   return academyResult;
+		   }
+	   } else {
 		   model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
-		   return "redirect:/academy/login";
+		   return "redirect:/loginselect";
 	   }
-	   log.info(academyLoginVO.getAcademyId());
+	   
 	   advertiseVO.setAcademyId(academyLoginVO.getAcademyId());
-	   
+	   academyAdvertiseService.advertiseList(advertiseVO);
 	   List<AdvertiseVO> advertiseList = academyAdvertiseService.advertiseList(advertiseVO);
-	   model.addAttribute("advertiseList", advertiseList);
-	   
+	   model.addAttribute("advertiseList", advertiseList);	   
 	   
 	   // 전체 레코드수 반환.
 	   int total = academyAdvertiseService.advertiseListCnt(advertiseVO);
@@ -349,36 +350,36 @@ public class AcademyLoginController {
   	 *************************************************************/
    /* 사용자가 작성한 매칭 게시글 댓글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/matchingBoardList")
-   public String academyMatchingBoardList(@ModelAttribute MatchingBoardVO mbVO, Model model,
-		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
-	   if(academyLoginVO == null) {
-		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
-		   return "redirect:/academy/login";
-	   }
+   public String academyMatchingBoardList(@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, 
+		   						RedirectAttributes ras, Model model, MatchingBoardVO matchingBoardVO) {
+	   /* 학원전용 GetMapping 제어 */
+	   if(academyLoginVO != null) {
+		   String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+		   if(academyResult != "TRUE") {
+			   ras.addFlashAttribute("errorMsg", "잘못된 접근입니다.");
+			   return academyResult;
+		   } 
+	   } else {
+		   model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
+		   return "redirect:/loginselect";
+	   }	
 	   
-	   List<MatchingBoardVO> matchingBoardList = academyMatchingBoardService.mBoardList(mbVO);
+	   String academyId = academyLoginVO.getAcademyId();
+	   model.addAttribute("matchingBoardList", academyId);
+	   
+	   academyMatchingBoardService.boardList(matchingBoardVO);
+	   List<MatchingBoardVO> matchingBoardList = academyMatchingBoardService.boardList(matchingBoardVO);
 	   model.addAttribute("matchingBoardList", matchingBoardList);
 	   
-	   int total = academyMatchingBoardService.mBoardListCnt(mbVO);
+	   // 전체 레코드 수 반환
+	   int total = academyMatchingBoardService.boardListCnt(matchingBoardVO);
+	   
 	   // 페이징 처리
-	   model.addAttribute("pageMaker", new PageDTO(mbVO, total));
-	   model.addAttribute("kwd", mbVO.getKeyword());
+	   model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
+	   model.addAttribute("kwd", matchingBoardVO.getKeyword());
 	   return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
    }
-   
-   /* 사용자가 작성한 홍보 게시글 상세 보기 페이지로 이동 */
-   @GetMapping("/academy/matchingBoardDetail")
-   public String academyMatchingBoardDetail(@ModelAttribute MatchingBoardVO mbVO, Model model,
-		   @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
-	   if(academyLoginVO == null) {
-		   ras.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
-		   return "redirect:/academy/login";
-	   }
-	   MatchingBoardVO detail = academyMatchingBoardService.mBoardDetail(mbVO);
-	   model.addAttribute("detail", detail);
-	   return "/academy/matchingBoardDetail";
-   }
-   
+  
    /*************************************************************
  	 * Academy FreeBoard
  	 *************************************************************/
