@@ -46,7 +46,7 @@
 		window.onload = function(){
 			let confirmMsg = "${confirmMsg}";
 			if(confirmMsg) {
-				let result = confirm(comfirmMsg);
+				let result = confirm(confirmMsg);
 				if(result) {
 					window.location.href= "/academy/login";
 				} else {
@@ -116,60 +116,58 @@
                 </thead>
                 <tbody id="mcBoardList">
                     <c:choose>
-    <c:when test="${not empty academyLogin}">
-        <c:choose>
-            <c:when test="${not empty userMatchingList}">
-                <c:forEach var="matchingBoard" items="${userMatchingList}" varStatus="status">
-                    <%-- 댓글이 작성된 게시글인지 확인하는 조건을 추가합니다. --%>
-                    <c:if test="${matchingBoard.academyId eq academyLogin.academyId and matchingBoard.commentCnt gt 0}">
-                        <tr data-num="${matchingBoard.matchingNo}">
-                            <td>${matchingBoard.matchingNo}</td>
-                            <td>
-                                <form name="privateChk" id="privateChk">
-                                    <input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate}"/>
-                                    <input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd}"/>
-                                </form>
-                                <c:choose>
-                                    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
-                                        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
-                                        <a class="mbdLink" href="">
-                                            ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
-                                        </a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a class="mbdLink" href="">
-                                            ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
-                                        </a>
-                                    </c:otherwise>
-                                </c:choose>
-                                <%-- 댓글 수가 0보다 큰 경우에만 댓글 수를 출력합니다. --%>
-                                <c:if test="${matchingBoard.commentCnt > 0}">
-                                    <span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt}]</span>
-                                </c:if>
-                            </td>
-                            <td class="writerId">${matchingBoard.academyId}</td>
-                            <td>${matchingBoard.matchingRegisterDate}</td>
-                        </tr>
-                    </c:if>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <%-- 댓글이 작성된 게시글이 없는 경우에 메시지를 출력합니다. --%>
-                <tr>
-                    <td colspan="5">댓글이 작성된 게시글이 존재하지 않습니다.</td>
-                </tr>
-            </c:otherwise>
-        </c:choose>
-    </c:when>
-    <c:otherwise>
-        <tr>
-            <td colspan="5">학원회원만 이용 가능한 서비스입니다.</td>
-        </tr>
-    </c:otherwise>
-</c:choose>
-
-
-
+					    <c:when test="${not empty academyLogin}">
+					        <c:choose>
+					            <c:when test="${not empty userMatchingList}">
+					                <!-- c:forEach 태그를 여기서 시작합니다. -->
+					                <c:forEach var="matchingBoard" items="${userMatchingList}" varStatus="status">
+					                    <!-- 댓글이 작성된 게시글인지 확인하는 조건을 추가합니다. -->
+					                    <c:if test="${matchingBoard.academyId eq academyLogin.academyId and matchingBoard.commentCnt gt 0}">
+					                        <tr data-num="${matchingBoard.matchingNo}">
+					                            <td>${matchingBoard.matchingNo}</td>
+					                            <td>
+					                                <form name="privateChk" id="privateChk">
+					                                    <input type="hidden" name="matchingPrivate" value="${matchingBoard.matchingPrivate}"/>
+					                                    <input type="hidden" name="matchingPasswd" value="${matchingBoard.matchingPasswd}"/>
+					                                </form>
+					                                <c:choose>
+					                                    <c:when test="${matchingBoard.matchingPrivate eq 'Y'}">
+					                                        <img src="/resources/include/assets/img/matching/자물쇠.png">&nbsp;
+					                                        <a class="mbdLink" href="">
+					                                            ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+					                                        </a>
+					                                    </c:when>
+					                                    <c:otherwise>
+					                                        <a class="mbdLink" href="">
+					                                            ${matchingBoard.matchingGuAddress}&nbsp;${matchingBoard.matchingDongAddress} | ${matchingBoard.matchingTargetSubject } | ${matchingBoard.matchingTargetGrade }
+					                                        </a>
+					                                    </c:otherwise>
+					                                </c:choose>
+					                                <!-- 댓글 수가 0보다 큰 경우에만 댓글 수를 출력합니다. -->
+					                                <c:if test="${matchingBoard.commentCnt > 0}">
+					                                    <span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt}]</span>
+					                                </c:if>
+					                            </td>
+					                            <td class="writerId">${matchingBoard.academyId}</td>
+					                            <td>${matchingBoard.matchingRegisterDate}</td>
+					                        </tr>
+					                    </c:if>
+					                </c:forEach>
+					            </c:when>
+					            <c:otherwise>
+					                <!-- 댓글이 작성된 게시글이 없는 경우에 메시지를 출력합니다. -->
+					                <tr>
+					                    <td colspan="5">댓글이 작성된 게시글이 존재하지 않습니다.</td>
+					                </tr>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:when>
+					    <c:otherwise>
+					        <tr>
+					            <td colspan="5">학원회원만 이용 가능한 서비스입니다.</td>
+					        </tr>
+					    </c:otherwise>
+					</c:choose>
                 </tbody>    
             </table>
         </div>

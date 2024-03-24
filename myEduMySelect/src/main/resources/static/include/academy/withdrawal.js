@@ -1,4 +1,6 @@
 function validatePassword(currentPassword) {
+	let currentPassword = $(currentPassword).val();
+    //var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
     console.log("validatePassword 함수 호출됨.");
     
     if (!chkData("#currentPassword", "현재 비밀번호를 ")) {
