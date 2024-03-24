@@ -24,13 +24,14 @@
 	<!-- 로그인 select -->
 	<select id="loginProcess" parameterType="personalLogin"
 		resultMap="personalLoginMap">
-  
+
 		SELECT DISTINCT
 		*
 		FROM tb_personal
 		WHERE
 		personal_id =
-		#{personalId} AND personal_passwd = #{personalPasswd}
+		#{personalId} AND
+		personal_passwd = #{personalPasswd}
 	</select>
 
 	<!-- 로그인 실패 횟수 업데이트 -->
@@ -66,6 +67,7 @@
 		personal_email = #{personalEmail}
 	</select>
 
+
 	<!-- 회원가입 insert -->
 	<insert id="personalInsert" parameterType="personalLogin">
 		INSERT INTO
@@ -94,16 +96,19 @@
 		UPDATE tb_personal
 		SET
 		personal_email = #{personalEmail},
-		personal_address = #{personalAddress},
+		personal_address =
+		#{personalAddress},
 		personal_phone = #{personalPhone}
 		WHERE
-		personal_id = #{personalId}
+		personal_id =
+		#{personalId}
 	</update>
 
 
 	<!-- 비밀번호 변경 -->
 	<update id="updatePersonalPasswd" parameterType="personalLogin">
-		UPDATE tb_personal SET
+		UPDATE
+		tb_personal SET
 		personal_passwd = #{personalPasswd},
 		personal_passwd_change_date = sysdate
 		WHERE personal_id = #{personalId}

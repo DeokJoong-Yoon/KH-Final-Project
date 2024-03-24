@@ -50,42 +50,12 @@
 			property="personalPasswdChangeDate" />
 	</resultMap>
 
-	<!-- 좋아요 등록 -->
-	<insert id="insertLike" parameterType="like">
-		INSERT
-		INTO tb_like (common_no, like_member_id, like_check, like_id)
-		VALUES (
-		#{commonNo}, #{likeMemberId}, 1, like_seq.nextval )
-	</insert>
-
-
-	<!-- 좋아요 변경 -->
-	<update id="toggleLike" parameterType="like">
-		UPDATE tb_like
-		SET like_check = CASE
-		WHEN like_check = 0 THEN 1
-		WHEN like_check = 1 THEN 2
-		WHEN like_check = 2 THEN 1
-		END
-		WHERE common_no = #{commonNo}
-		AND like_member_id = #{likeMemberId}
-	</update>
-
-
-	<!-- 좋아요 개수 <select id="getLikeCount" parameterType="int" resultType="int"> 
-		SELECT COUNT ( NVL(like_check, 0) ) FROM tb_like WHERE common_no = #{common_no} 
-		AND like_check = 1 </select> -->
-
-
-	<!-- 좋아요 여부 확인 -->
-	<select id="getLike" parameterType="like"
-		resultType="java.lang.Integer">
-		SELECT like_check
+	<!-- 찜 목록 전체 조회 -->
+	<select id="likeList" parameterType="like" resultMap="likeMap">
+		SELECT *
 		FROM tb_like
-		WHERE common_no = #{commonNo}
-		AND like_member_id = #{likeMemberId}
+		WHERE like_member_id = #{likeMemberId}
 	</select>
-
 
 	<!-- 1. 좋아요 테이블에서 본인이 좋아요 누른 게시물의 번호를 가져온다. -->
 	<select id="getLikedCommonNos" parameterType="personalLogin"
@@ -102,14 +72,7 @@
 		FROM TB_COMMON_BOARD
 		WHERE COMMON_NO = #{commonNo}
 	</select>
-
-	<select id="likeList" parameterType="like" resultMap="likeMap">
-		SELECT *
-		FROM tb_like
-		WHERE like_member_id = #{likeMemberId}
-	</select>
-
-
+	
 
 
 </mapper>

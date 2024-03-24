@@ -75,8 +75,8 @@
 				<th><label for="personalAddress">주소 변경하기</label></th>
 				<td><label id="personalAddress">현재 주소</label><br> <input
 					type="text" value="${personalLogin.personalAddress}"
-					id="nowAddress" disabled /> <br />
-				<br /> <label id="newAddress">새로운 주소 등록</label>
+					id="nowAddress" disabled /> <br /> <br /> <label id="newAddress">새로운
+						주소 등록</label>
 					<button type="button" onclick="findAddr()">주소찾기</button> <input
 					id="personal_post" name="personalAddress" type="text"
 					placeholder="우편번호" readonly style="display: none;" /> <input
@@ -99,8 +99,9 @@
 	<div id="message" style="text-align: center;"></div>
 
 	<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
-    <button type="submit" id="withdrawalBtn">회원탈퇴</button>
-</form>
+		<button type="submit" id="withdrawalBtn">회원탈퇴</button>
+
+	</form>
 
 </section>
 
@@ -140,6 +141,10 @@
 	</script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
+
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 

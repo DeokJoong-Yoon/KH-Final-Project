@@ -11,7 +11,7 @@ public interface PersonalLoginService {
 
 	// 로그인 실패 횟수
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);
- 
+
 	// 로그인 제한 상태
 	public int updateAccountBannedDate(String personalId, Date bannedDate);
 
@@ -23,6 +23,10 @@ public interface PersonalLoginService {
 
 	// 개인회원 이메일 중복체크
 	public int emailCheck(String email);
+	
+	//비밀번호 일치 불일치
+	public PersonalLoginVO checkPasswd(PersonalLoginVO personalLoginVO);
+
 
 	// 마이페이지
 	public PersonalLoginVO personalMyPage(PersonalLoginVO login);

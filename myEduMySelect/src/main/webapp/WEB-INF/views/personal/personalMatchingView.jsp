@@ -105,8 +105,8 @@
 								<c:when test="${not empty matchingBoardList}">
 									<c:forEach var="matchingBoard" items="${matchingBoardList }"
 										varStatus="status">
-										<tr data-num="${matchingBoard.matchingNo }">
-											<td>${matchingBoard.matchingNo }</td>
+										<tr data-num="${matchingBoard.matchingNo}">
+											<td>${matchingBoard.matchingNo}</td>
 											<td>
 												<form name="privateChk" id="privateChk">
 													<input type="hidden" name="matchingPrivate"

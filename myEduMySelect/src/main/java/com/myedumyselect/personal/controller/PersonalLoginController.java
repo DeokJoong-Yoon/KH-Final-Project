@@ -322,7 +322,7 @@ public class PersonalLoginController {
 		return "personal/personalLikeView";
 	}
 
-	// 비밀번호 변경 페이지
+	// 회원탈퇴 하기전 비밀번호 확인해주는 페이지
 	@GetMapping("/newPasswd")
 	public String passwordChangePage(
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
@@ -369,5 +369,43 @@ public class PersonalLoginController {
 		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
 		return "FALSE";
 	}
+	
+		//회원 탈퇴 페이지
+		@GetMapping("/personalWithdrawal")
+		public String personalWithdrawal(
+				@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
+			if (personalLoginVO != null) {
+				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+				if (personalResult != "TRUE") {
+					return personalResult;
+				}
+			} else {
+				return "redirect:/";
+			}
+			return "personal/withdrawalPersonal";
+		}
+		
+		@ResponseBody
+		@PostMapping(value = "/withdrawalPersonal")
+		public String withdrawalPersonal(@RequestParam("currentPassword") String currentPassword,
+		        @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, RedirectAttributes ras) {
+		    PersonalLoginVO curPersonalLogin = new PersonalLoginVO();
+		    curPersonalLogin.setPersonalId(personalLoginVO.getPersonalId());
+		    curPersonalLogin.setPersonalPasswd(currentPassword);
+		    
+		    PersonalLoginVO checkPasswd = personalLoginService.loginProcess(curPersonalLogin);
+		    
+		    if (checkPasswd != null) {
+		        // 현재 비밀번호 일치
+		        return "TRUE";
+		    } else {
+		        // 현재 비밀번호 불일치
+		        ras.addFlashAttribute("errorMsg", "현재 비밀번호가 일치하지 않습니다.");
+		        return "FALSE";
+		    }
+		}
+
+
+
 
 }

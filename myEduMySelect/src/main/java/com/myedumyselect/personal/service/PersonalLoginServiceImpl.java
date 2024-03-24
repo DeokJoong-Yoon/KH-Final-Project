@@ -59,6 +59,11 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		System.out.println("cnt: " + cnt);
 		return cnt;
 	}
+    @Override
+    public PersonalLoginVO checkPasswd(PersonalLoginVO personalLoginVO) {
+        return personalLoginDao.checkPasswd(personalLoginVO);
+    }
+	
 
 	// 비밀번호 변경
 	@Override

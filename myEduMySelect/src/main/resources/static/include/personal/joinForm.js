@@ -1,10 +1,3 @@
-/*function chkData(item, msg) {
-    if ($(item).val().trim() === "") {
-        $(item).val("").focus();
-        return false;
-    }
-    return true;
-}*/
 
 
 // 유효성 검사 함수를 전역으로 이동 (id랑 email은 중복확인이 필요하기때문)

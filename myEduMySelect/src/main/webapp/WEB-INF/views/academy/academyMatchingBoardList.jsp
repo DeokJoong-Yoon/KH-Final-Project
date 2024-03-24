@@ -116,11 +116,11 @@
                 </thead>
                 <tbody id="mcBoardList">
                     <c:choose>
-					    <c:when test="${not empty academyLogin}">
+					    <c:when test="${not empty matchingBoardVO}">
 					        <c:choose>
-					            <c:when test="${not empty userMatchingList}">
+					            <c:when test="${not empty matchingBoardVO}">
 					                <!-- c:forEach 태그를 여기서 시작합니다. -->
-					                <c:forEach var="matchingBoard" items="${userMatchingList}" varStatus="status">
+					                <c:forEach var="matchingBoard" items="${matchingBoardVO}" varStatus="status">
 					                    <!-- 댓글이 작성된 게시글인지 확인하는 조건을 추가합니다. -->
 					                    <c:if test="${matchingBoard.academyId eq academyLogin.academyId and matchingBoard.commentCnt gt 0}">
 					                        <tr data-num="${matchingBoard.matchingNo}">

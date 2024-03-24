@@ -3,6 +3,8 @@ $(document).ready(function() {
     /** 목록 버튼 클릭 시 처리 이벤트 */
     $("#changePasswdBtn").on("click", function() {
         if (validatePassword("#currentPassword", "#newPassword", "#renewPassword")) return;
+        
+         if (!confirm("비밀번호를 변경하시겠습니까?")) return;
         var formData = $("#changePasswdForm").serialize();
         $.ajax({
         type:'POST',
@@ -12,8 +14,8 @@ $(document).ready(function() {
         success: function(data) {
             console.log(data);
             if(data.trim() ==  "TRUE") {
-                alert("패스워드 변경 완료");
-                location.reload();
+                alert("비밀번호 변경이 완료되었습니다.");
+                window.location.href = "/personal/login";
                 } else {
                     alert("패스워드를 정확히 입력해 주세요.");
                     $("#newPassword").val("");

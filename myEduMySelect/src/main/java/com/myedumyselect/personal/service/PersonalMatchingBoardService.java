@@ -10,7 +10,5 @@ public interface PersonalMatchingBoardService {
 
 	public int boardListCnt(MatchingBoardVO matchingBoardVO);
 
-	public MatchingBoardVO boardDetail(MatchingBoardVO matchingBoardVO);
-
 }
  

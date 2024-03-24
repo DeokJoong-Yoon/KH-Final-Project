@@ -26,10 +26,4 @@ public class PersonalMatchingBoardServiceImpl implements PersonalMatchingBoardSe
 		return personalMatchingBoardDAO.boardListCnt(matchingBoardVO);
 	}
 
-	@Override
-	public MatchingBoardVO boardDetail(MatchingBoardVO matchingBoardVO) {
-		MatchingBoardVO detail = personalMatchingBoardDAO.boardDetail(matchingBoardVO);
-		return detail;
-	}
-
 }

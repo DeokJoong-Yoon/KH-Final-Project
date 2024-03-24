@@ -351,7 +351,7 @@ public class AcademyLoginController {
       *************************************************************/
    /* 사용자가 작성한 매칭 게시글 댓글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/matchingBoardList")
-   public String academyMatchingBoardList(MatchingCommentVO mVO, Model model, 
+   public String academyMatchingBoardList(MatchingCommentVO mcVO, Model model, 
                   @SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
     
       /* 학원전용 GetMapping 제어 */
@@ -366,21 +366,19 @@ public class AcademyLoginController {
          return "redirect:/loginselect";
       }   
       
-      MatchingCommentVO matchingCommentVO = new MatchingCommentVO();
-      matchingCommentVO.setAcademyId(academyLoginVO.getAcademyId());
-      //mVO.setAcademyId(academyLoginVO.getAcademyId();      
+      
       //본인 아이디 가져오기
-      //String academyId = academyLoginVO.getAcademyId();
+      String academyId = academyLoginVO.getAcademyId();
       
       // 댓글 단 게시물 번호 목록 조회 (성능 최적화)
-      
       List<Integer> commentedNos = academyMatchingBoardService.getCommentMatchingNos(academyLoginVO);
-      List<Integer> matchingNos = academyMatchingBoardService.getCommentMatchingNos(academyLoginVO);
+      
       
       //본인 아이디를 가지고, 자신이 댓글 단 게시물 가져오는 서비스 실행
       List<MatchingBoardVO> matchingBoardVO = academyMatchingBoardService.getCommented(academyLoginVO);
-      model.addAttribute("matchingNos", matchingNos); 
-      model.addAttribute("commentedNos", commentedNos);      
+
+      model.addAttribute("commentedNos", commentedNos);
+      model.addAttribute("academyId", academyId);
       model.addAttribute("matchingBoardVO", matchingBoardVO);
       
       

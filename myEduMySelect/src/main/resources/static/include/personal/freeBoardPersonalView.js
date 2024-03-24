@@ -1,13 +1,4 @@
 $(function() {
-    /* 검색 버튼 클릭 시 처리 이벤트 */
-    $("#searchData").on("click", function() {
-        if ($("#search").val() != "all") {
-            if (!chkData("#keyword", "검색어를")) return;
-        }
-        $("#pageNum").val(1);    // 페이지 초기화
-        goPage();
-    });
-    
     /* 페이징 처리 이벤트 */
     $(".page-item a").on("click", function(e) {
         e.preventDefault();
