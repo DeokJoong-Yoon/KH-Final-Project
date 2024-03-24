@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hideErrorMessage(managerNameInput);
         }
     });
-     
+    
     function showErrorMessage(inputElement, message) {
         const parentElement = inputElement.parentElement;
         let errorMessageElement = parentElement.querySelector('.error-message');
@@ -114,23 +114,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 $(document).ready(function() {
-	
-	//홍보게시판 내가 쓴 글 목록 이동
-	$("#advertiseBtn").on("click", function(){
-		window.location.href = "/academy/advertiseList";
-	})
-	
-	//매칭게시판 내가 쓴 댓글 목록 이동
-	$("#matchingBtn").on("click", function(){
-		window.location.href = "/academy/matchingBoardList";
-	})
-	
-	//결제하기 이동
-	$("#payBtn").on("click", function(){
-		window.location.href = "/payment/payMain";
-	})
-	
-	
+   
+   //홍보게시판 내가 쓴 글 목록 이동
+   $("#advertiseBtn").on("click", function(){
+      window.location.href = "/advertise/advertiseBoardList";
+   })
+   
+   
+   //결제하기 이동
+   $("#payBtn").on("click", function(){
+      window.location.href = "/payment/payMain";
+   })
+   
+   
     // 이메일 중복체크 버튼에 클릭 이벤트 핸들러 등록
     /*$('#emailCheckBtn').on('click', function(event) {
         event.preventDefault(); // 기본 동작 방지
@@ -202,120 +198,122 @@ $(document).ready(function() {
     
     //수강료 변경 버튼 클릭 시
     $("#feeChange").on("click", function(){
-		$("#feeGroup").css("display", "block");
-		$("#prevFee").val("");
-	});
-	
-	//학년 변경 버튼 클릭 시
+      $("#feeGroup").css("display", "block");
+      $("#prevFee").val("");
+   });
+   
+   //학년 변경 버튼 클릭 시
     $("#ageChange").on("click", function(){
-		$("#ageGroup").css("display", "block");
-		$("#prevAge").val("");
-	});
-	
-	//키워드 변경 버튼 클릭 시
+      $("#ageGroup").css("display", "block");
+      $("#prevAge").val("");
+   });
+   
+   //키워드 변경 버튼 클릭 시
     $("#keywordChange").on("click", function(){
-		$("#keywordGroup").css("display", "block");
-		$("#prevKeyword1").val("");
-		$("#prevKeyword2").val("");
-		$("#prevKeyword3").val("");
-		$("#prevKeyword4").val("");
-		$("#prevKeyword5").val("");
-	});
-	
-	
-	
-	//수정하기 버튼 클릭 시
-	$("#updateBtn").on("click", function(event) {
-		
-    	event.preventDefault(); // 기본 제출 동작 방지
-    	
+      $("#keywordGroup").css("display", "block");
+      $("#prevKeyword1").val("");
+      $("#prevKeyword2").val("");
+      $("#prevKeyword3").val("");
+      $("#prevKeyword4").val("");
+      $("#prevKeyword5").val("");
+   });
+   
+   
+   
+   //수정하기 버튼 클릭 시
+   $("#updateBtn").on("click", function(event) {
+      
+       event.preventDefault(); // 기본 제출 동작 방지
+       
     
-    	//기존 값
-		var academyManagerName = $("#academyManagerName").val();    	
-		var academyManagerEmail = $("#academyManagerEmail").val();
-		var academyPhone = $("#academyPhone").val();
-		var academyManagerPhone = $("#academyManagerPhone").val();	        	
-		var academyTargetSubject = $("#academyTargetSubject").val();
-		var academyFee = $("#prevFee").val();
-		var academyTargetGrade = $("#prevAge").val();
-		
-		var keyword = [];
-		keyword[0] = $("#prevKeyword1").val();
-		keyword[1] = $("#prevKeyword2").val();
-		keyword[2] = $("#prevKeyword3").val();
-		keyword[3] = $("#prevKeyword4").val();
-		keyword[4] = $("#prevKeyword5").val();
-		
-		//새롭게 설정한 값
-    	var selectedFee = $("input[name='academyFee']:checked").val();
-    	var selectedAge = $("input[name='academyTargetGrade']:checked").val();
-    	var checkedCount = $("input[name='academyKeyword']:checked").length;
-    	var selectedKeyword = [];
-    	
-		//빈 칸 확인
-    	if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="" || academyTargetSubject=="") {
-			alert("빈 칸 없이 입력해 주세요.");
-			return;
-		} else if(academyFee=="" && selectedFee===undefined) {
-			alert("빈 칸 없이 입력해 주세요.");
-			return;
-		} else if(academyTargetGrade=="" && selectedAge===undefined) {
-			alert("빈 칸 없이 입력해 주세요.");
-			return;
-		} else if(keyword[0]=="" && checkedCount==0) {
-			alert("빈 칸 없이 입력해 주세요.");
-			return;
-		}
+       //기존 값
+      var academyManagerName = $("#academyManagerName").val();       
+      var academyManagerEmail = $("#academyManagerEmail").val();
+      var academyPhone = $("#academyPhone").val();
+      var academyManagerPhone = $("#academyManagerPhone").val();              
+      var academyTargetSubject = $("#academyTargetSubject").val();
+      var academyFee = $("#prevFee").val();
+      var academyTargetGrade = $("#prevAge").val();
+      
+      var keyword = [];
+      keyword[0] = $("#prevKeyword1").val();
+      keyword[1] = $("#prevKeyword2").val();
+      keyword[2] = $("#prevKeyword3").val();
+      keyword[3] = $("#prevKeyword4").val();
+      keyword[4] = $("#prevKeyword5").val();
+      
+      //새롭게 설정한 값
+       var selectedFee = $("input[name='academyFee']:checked").val();
+       var selectedAge = $("input[name='academyTargetGrade']:checked").val();
+       var checkedCount = $("input[name='academyKeyword']:checked").length;
+       var selectedKeyword = [];
+       
+      //빈 칸 확인
+       if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="" || academyTargetSubject=="") {
+         alert("빈 칸 없이 입력해 주세요.");
+         return;
+      } else if(academyFee=="" && selectedFee===undefined) {
+         alert("빈 칸 없이 입력해 주세요.");
+         return;
+      } else if(academyTargetGrade=="" && selectedAge===undefined) {
+         alert("빈 칸 없이 입력해 주세요.");
+         return;
+      } else if(keyword[0]=="" && checkedCount==0) {
+         alert("빈 칸 없이 입력해 주세요.");
+         return;
+      }
 
-		
-		//정보 수정 시 변경
-		if(academyFee=="") {		//만약 수강료를 새롭게 선택했다면 
-			academyFee = selectedFee;
-		} else if(academyTargetGrade=="") {		//만약 대상 학년을 새롭게 선택했다면 
-			academyTargetGrade = selectedAge;
-		}
-		
-		//새롭게 선택한 키워드를 우선 배열에 담기
-		var selectedKeyword = [];
-		$("input[name='academyKeyword']:checked").each(function() {
-			selectedKeyword.push($(this).val());
-		})
-		
-		//만약 키워드를 새로 선택했다면
-		if(selectedKeyword.length!=0) {		//만약 대상 키워드를 새롭게 선택했다면 
-			console.log("0 아님");
-			for(let i=0; i<keyword.length; i++) {
-				keyword[i] = selectedKeyword[i];
-			}
-		}
-		
-		console.log(selectedKeyword.length);
-		console.log(keyword.length);
-		
-		console.log(selectedKeyword[0]);
-		console.log(selectedKeyword[1]);
-		
-		
-		//수정한 정보를 담은 객체
-		let value = {
-			academyManagerName : academyManagerName,
-			academyManagerEmail : academyManagerEmail,
-			academyManagerPhone : academyManagerPhone,
-			academyPhone : academyPhone,
-			academyTargetSubject : academyTargetSubject,
-			academyFee : academyFee,
-			academyTargetGrade : academyTargetGrade,
-			academyKeyword1 : keyword[0],
-			academyKeyword2 : keyword[1],
-			academyKeyword3 : keyword[2],
-			academyKeyword4 : keyword[3],
-			academyKeyword5 : keyword[4]
-		}
-		
-    	
-    	console.log("폼 제출 버튼 클릭!");	 
-    	console.log(value);       	
-    	 
+      
+      //정보 수정 시 변경
+      if(academyFee=="") {      //만약 수강료를 새롭게 선택했다면 
+         academyFee = selectedFee;
+      } 
+      
+      if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
+         academyTargetGrade = selectedAge;
+      }
+      
+      //새롭게 선택한 키워드를 우선 배열에 담기
+      var selectedKeyword = [];
+      $("input[name='academyKeyword']:checked").each(function() {
+         selectedKeyword.push($(this).val());
+      })
+      
+      //만약 키워드를 새로 선택했다면
+      if(selectedKeyword.length!=0) {      //만약 대상 키워드를 새롭게 선택했다면 
+         console.log("0 아님");
+         for(let i=0; i<keyword.length; i++) {
+            keyword[i] = selectedKeyword[i];
+         }
+      }
+      
+      console.log(selectedKeyword.length);
+      console.log(keyword.length);
+      
+      console.log(selectedKeyword[0]);
+      console.log(selectedKeyword[1]);
+      
+      
+      //수정한 정보를 담은 객체
+      let value = {
+         academyManagerName : academyManagerName,
+         academyManagerEmail : academyManagerEmail,
+         academyManagerPhone : academyManagerPhone,
+         academyPhone : academyPhone,
+         academyTargetSubject : academyTargetSubject,
+         academyFee : academyFee,
+         academyTargetGrade : academyTargetGrade,
+         academyKeyword1 : keyword[0],
+         academyKeyword2 : keyword[1],
+         academyKeyword3 : keyword[2],
+         academyKeyword4 : keyword[3],
+         academyKeyword5 : keyword[4]
+      }
+      
+       
+       console.log("폼 제출 버튼 클릭!");    
+       console.log(value);          
+        
         /* 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.*/ 
         if (confirm("회원 정보를 수정하시겠습니까?")) {
             // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
@@ -349,8 +347,3 @@ $(document).ready(function() {
     });
     
 });
-
-
-	
-
-
