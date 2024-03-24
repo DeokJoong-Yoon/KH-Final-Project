@@ -1,11 +1,13 @@
 package com.myedumyselect.academy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myedumyselect.academy.dao.AcademyMatchingBoardDAO;
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.Setter;
@@ -17,18 +19,24 @@ public class AcademyMatchingBoardServiceImpl implements AcademyMatchingBoardServ
 	
 	@Setter(onMethod_ = @Autowired)
 	AcademyMatchingBoardDAO academyMatchingBoardDAO;
-	
-	//매칭게시판 미리보기
+
 	@Override
-	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO) {
-		return academyMatchingBoardDAO.boardList(matchingBoardVO);
+	public List<MatchingBoardVO> getCommented(AcademyLoginVO academyLogin) {
 		
+		//내가 댓글 단 게시물 번호들을 담을 List (번호만 담기 때문에 자료형이 Integer인 배열)
+		List<Integer> commentedNos = academyMatchingBoardDAO.getCommentMatchingNos(academyLogin);
+		
+		//내가 댓글 단 매칭 게시물들을 담을 MatchingBoardVO 객체 타입의 List 만들기
+		List<MatchingBoardVO> commentedMatching = new ArrayList<>();
+		
+		
+		for(Integer matchingNo : commentedNos) {
+			MatchingBoardVO matchingVO = academyMatchingBoardDAO.getMatchingBoardByNo(matchingNo);
+			commentedMatching.add(matchingVO);
+		}
+		
+		return commentedMatching;
 	}
-  
-	//전체 레코드 수 반환
-	@Override
-	public int boardListCnt(MatchingBoardVO matchingBoardVO) {
-		return academyMatchingBoardDAO.boardListCnt(matchingBoardVO);
-	}
+	
 	
 }

@@ -609,10 +609,10 @@
 	
 	<script>
 	$(function(){
-		console.log("안녕");
-		
 		$(".afterLogin").on("click", function() {
-			alert("로그인 후 접속 가능합니다.");
+			if(${empty personalLogin} && ${empty academyLogin}) {
+				alert("로그인 후 접속 가능합니다.");				
+			}
 		})
 		
 	})
