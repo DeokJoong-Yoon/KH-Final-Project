@@ -183,12 +183,13 @@ $(function(){
 		            data: formData,
 		            processData: false,  // 데이터를 query 문자열로 변환하지 않음
 		            contentType: false,  // 데이터 형식을 설정하지 않음
-		            success: function() {
-		                alert("공개 매칭 게시글이 정상 등록되었습니다.");
-		                location.reload();
+		            success: function(response) {
+			            alert(response);
+				        window.location.href = "/matching/";
 		            },
 		            error: function(xhr, status, error) {
 		                alert("공개 매칭 게시글이 정상 등록되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
+		            	location.reload();
 		            }
 		        });
 			}			
@@ -264,9 +265,9 @@ $(function(){
 			            data: formData,
 			            processData: false,  // 데이터를 query 문자열로 변환하지 않음
 			            contentType: false,  // 데이터 형식을 설정하지 않음
-			            success: function() {
-			                alert("비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되었습니다.");
-			                location.reload();
+			            success: function(response) {
+			                alert(response);
+			                window.location.href = "/matching/";
 			            },
 			            error: function(xhr, status, error) {
 			                alert("비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
@@ -279,8 +280,6 @@ $(function(){
 			}
 			
 			
-						
-			
 		});
 	});
 	
@@ -292,14 +291,15 @@ $(function(){
 		let matchingPasswd = $(this).closest("tr").find("input[name='matchingPasswd']").val();
 		let boardNumber = $(this).closest("tr").attr("data-num");
 		let writerId = $(this).closest("tr").find(".writerId").text();
-		let userId = $(".userId").text();
+		let personalId = $("#personalId").val();
+		let academyId = $("#academyId").val();
 		
-		if(userId == '') {
+		if(personalId == '' && academyId == '') {
+			console.log("if");
 			alert("로그인 후 열람 가능합니다.");
 			$(this).attr("href", "/matching/boardList")
-		} else if(matchingPrivate == 'N' || userId == writerId) {
-			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
-		} else {
+		} else if(matchingPrivate == 'Y') {
+			console.log("else if 1");
 			let pwd = prompt("비밀번호를 입력하세요", '');
 				if(pwd == matchingPasswd) {
 					$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
@@ -307,8 +307,10 @@ $(function(){
 					alert("비밀번호가 일치하지 않습니다.");
 					$(this).attr("href", "/matching/")
 			}
+		} else if(matchingPrivate == 'N' || personalId == writerId) {
+			console.log("else if 2");
+			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 		} 
-		
 		
 	})
 	

@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.auth.SessionInfo;
-import com.myedumyselect.auth.vo.LoginVo;
 import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
 import com.myedumyselect.matching.board.service.MatchingBoardService;
@@ -54,6 +53,7 @@ public class MatchingBoardController {
 				return pesronalResult;
 			}
 		} else {
+			System.out.println("else");
 			return "redirect:/";
 		}
 
@@ -97,35 +97,8 @@ public class MatchingBoardController {
 
 		return "matching/matchingBoardList";
 	}
-//   // 매칭게시판 전체보기 구현
-//   @GetMapping("/boardList")
-//   public String mBoardList(MatchingBoardVO mbVO, Model model, HttpSession session) {
-//      log.info("mBoardList() 호출 성공");
-//      
-//      LoginVo loginVo = (LoginVo) session.getAttribute(SessionInfo.COMMON);
-//
-//      // 세션이 있을 때만 아이디를 모델에 추가
-//      if (loginVo != null) {
-//         String userId = loginVo.getId();
-//         model.addAttribute("userId", userId);
-//      }
-//
-//      // 전체 레코드 조회
-//      List<MatchingBoardVO> list = mbService.mBoardList(mbVO);
-//      model.addAttribute("mBoardList", list);
-//   
-//      // 전체 레코드 수 반환
-//      int total = mbService.mBoardListCnt(mbVO);
-//  
-//      // 페이징 처리
-//      model.addAttribute("pageMaker", new PageDTO(mbVO, total));
-//      model.addAttribute("kwd", mbVO.getKeyword());
-//
-//      log.info(mbVO.getKeyword());
-//
-//      return "matching/matchingBoardList";
-//   }
 
+	
 	// 맞춤형 검색 결과 구현
 	@PostMapping(value = "/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -137,7 +110,10 @@ public class MatchingBoardController {
 
 	// 공개매칭
 	@PostMapping("/publicUpload")
-	public String publicUpload(MatchingBoardVO mbVO, Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+	@ResponseBody
+	public String publicUpload(MatchingBoardVO mbVO, Model model, 
+					@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
+					@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
 		log.info("publicUpload 메소드 호출 성공");
 		
 		//세션 검사
@@ -146,20 +122,32 @@ public class MatchingBoardController {
 			if (personalResult != "TRUE") {
 				return personalResult;
 			}
+			
 		} else {
-			return "redirect:/";
+			log.info("null");
+			model.addAttribute("check", personalLoginVO);
+			log.info("세션 체크 : " + personalLoginVO);
+			return "학원 회원은 공개 매칭을 등록할 수 없습니다.";
 		}
 		
+		
 		mbService.publicUpload(mbVO);
+		model.addAttribute("check", personalLoginVO);
+		log.info("세션 체크 : " + personalLoginVO);
 
-		return "matching/matchingMain";
+		return "공개 매칭 게시글이 정상 등록되었습니다.";
+		
 	}
+	
 	
 	
 
 	// 비공개매칭
 	@PostMapping("/privateUpload")
-	public String privateUpload(MatchingBoardVO mbVO, Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+	@ResponseBody
+	public String privateUpload(MatchingBoardVO mbVO, Model model, 
+				@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
+				@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
 		log.info("privateUpload 메소드 호출 성공");
 		
 		//세션 검사
@@ -168,17 +156,23 @@ public class MatchingBoardController {
 			if (personalResult != "TRUE") {
 				return personalResult;
 			}
+			
 		} else {
-			return "redirect:/";
+			log.info("null");
+			model.addAttribute("check", personalLoginVO);
+			log.info("세션 체크 : " + personalLoginVO);
+			return "학원 회원은 비공개 매칭을 등록할 수 없습니다.";
 		}
 		
 		mbService.privateUpload(mbVO);
 		mbService.sendEmail(mbVO);
+		model.addAttribute("check", personalLoginVO);
+		log.info("세션 체크 : " + personalLoginVO);
 
-		return "matching/matchingMain";
+		return "비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되었습니다.";
 	}
-
 	
+
 	// 매칭게시글 상세보기
 	@GetMapping("/boardDetail")
 	public String mBoardDetail(MatchingBoardVO mbVO, Model model,

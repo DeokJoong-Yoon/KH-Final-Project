@@ -91,10 +91,10 @@
 	          <li class="dropdown"><a href="#"><span>메뉴</span> <i class="bi bi-chevron-down"></i></a>
 	            <ul>
 	              	<li><a href="/notice/boardList">공지사항</a></li>
-					<li><a href="/matching/">맞춤형 검색</a></li>
-					<li><a href="/matching/boardList">매칭 게시판</a></li>
-					<li><a href="/advertise/advertiseBoardList">학원 홍보 게시판</a></li>
-					<li><a href="/free/freeList">자유 게시판</a></li>
+					<li><a href="/matching/"  class="afterLogin">맞춤형 검색</a></li>
+					<li><a href="/matching/boardList" class="afterLogin">매칭 게시판</a></li>
+					<li><a href="/advertise/advertiseBoardList" class="afterLogin">학원 홍보 게시판</a></li>
+					<li><a href="/free/freeList" class="afterLogin">자유 게시판</a></li>
 		            <c:if test="${personalLogin.memberTypeId == 1}">
 		               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">개인회원 마이페이지</a></li>
 		            </c:if>
@@ -212,7 +212,7 @@
 									<i class="bx bxl-dribbble"></i>
 								</div>
 								<h4>
-									<a href="/free/freeList">자유게시판</a>
+									<a href="/free/freeList" class="afterLogin">자유게시판</a>
 								</h4>
 								<p>자유롭게 좋은 의견을 말해주세요.</p>
 							</div>
@@ -226,7 +226,7 @@
 									<i class="bx bx-file"></i>
 								</div>
 								<h4>
-									<a href="/advertise/advertiseBoardList">홍보게시판</a>
+									<a href="/advertise/advertiseBoardList" class="afterLogin">홍보게시판</a>
 								</h4>
 								<p>멋진 교육 장소를 마음껏 뽐내주세요</p>
 							</div>
@@ -239,7 +239,7 @@
 									<i class="bx bx-tachometer"></i>
 								</div>
 								<h4>
-									<a href="/matching/">맞춤형검색/매칭게시판</a>
+									<a href="/matching/" class="afterLogin">맞춤형검색/매칭게시판</a>
 								</h4>
 								<p>나에게 꼭 맞는 교육을 여기서 확인하세요.</p>
 							</div>
@@ -606,6 +606,18 @@
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
+	
+	<script>
+	$(function(){
+		console.log("안녕");
+		
+		$(".afterLogin").on("click", function() {
+			alert("로그인 후 접속 가능합니다.");
+		})
+		
+	})
+	</script>
+	
 
 </body>
 
