@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }); 
 
-/* 교습과목 유효성 검사 */
+/* 교습과목 유효성 검사 
 document.addEventListener('DOMContentLoaded', function() {
     const subjectInput = document.getElementById('academyTargetSubject');
 
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             parentElement.removeChild(errorMessageElement);
         }
     }
-});
+});*/
 
 /* 학원전화번호, 담당자전화번호, 사업자등록번호 입력 필드 유효성 검사 */
 document.addEventListener('DOMContentLoaded', function() {
@@ -200,6 +200,12 @@ $(document).ready(function() {
         });
     }
     
+    //교습과목 변경 버튼 클릭 시
+    $("#subjectChange").on("click", function(){
+      $("#subjectGroup").css("display", "block");
+      $("#prevSubject").val("");
+   });
+    
     //수강료 변경 버튼 클릭 시
     $("#feeChange").on("click", function(){
       $("#feeGroup").css("display", "block");
@@ -235,7 +241,7 @@ $(document).ready(function() {
       var academyManagerEmail = $("#academyManagerEmail").val();
       var academyPhone = $("#academyPhone").val();
       var academyManagerPhone = $("#academyManagerPhone").val();              
-      var academyTargetSubject = $("#academyTargetSubject").val();
+      var academyTargetSubject = $("#prevSubject").val();  
       var academyFee = $("#prevFee").val();
       var academyTargetGrade = $("#prevAge").val();
       
@@ -247,19 +253,23 @@ $(document).ready(function() {
       keyword[4] = $("#prevKeyword5").val();
       
       //새롭게 설정한 값
+       var selectedSubject = $("input[name='academyTargetSubject']:checked").val();
        var selectedFee = $("input[name='academyFee']:checked").val();
        var selectedAge = $("input[name='academyTargetGrade']:checked").val();
        var checkedCount = $("input[name='academyKeyword']:checked").length;
        var selectedKeyword = [];
        
       //빈 칸 확인
-       if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="" || academyTargetSubject=="") {
+       if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="") {
          alert("빈 칸 없이 입력해 주세요.");
          return;
       } else if(academyFee=="" && selectedFee===undefined) {
          alert("빈 칸 없이 입력해 주세요.");
          return;
       } else if(academyTargetGrade=="" && selectedAge===undefined) {
+         alert("빈 칸 없이 입력해 주세요.");
+         return;
+      } else if(academyTargetSubject=="" && selectedSubject===undefined) {
          alert("빈 칸 없이 입력해 주세요.");
          return;
       } else if(keyword[0]=="" && checkedCount==0) {
@@ -273,6 +283,8 @@ $(document).ready(function() {
          academyFee = selectedFee;
       } else if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
          academyTargetGrade = selectedAge;
+      }  else if(academyTargetSubject=="") {      //만약 대상 학년을 새롭게 선택했다면 
+         academyTargetSubject = selectedSubject;
       }
       
       //새롭게 선택한 키워드를 우선 배열에 담기

@@ -129,7 +129,44 @@
 						<label for="academyTargetSubject" >교습과목</label>
 					</th>
 					<td>
-						<input type="text" name="academyTargetSubject" id="academyTargetSubject"  maxlength="20" placeholder="교습과목을 입력해주세요" required/>
+						<div id="subjectGroup">
+							<input type="radio" name="academyTargetSubject" id="subject1" value="국어">
+							<label for="subject1"> 국어</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject2" value="수학">
+                          	<label for="subject2"> 수학</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject3" value="영어">
+                          	<label for="subject3"> 영어</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject4" value="컴퓨터">
+                          	<label for="subject4"> 컴퓨터</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject5" value="논술">
+                          	<label for="subject5"> 논술</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject6" value="과학">
+                          	<label for="subject6"> 과학</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject7" value="외국어">
+                          	<label for="subject7"> 외국어</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject8" value="실용음악">
+                          	<label for="subject8"> 실용음악</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject9" value="미술">
+                          	<label for="subject9"> 미술</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject10" value="무용/댄스">
+                          	<label for="subject10"> 무용/댄스</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject11" value="체육">
+                          	<label for="subject11"> 체육</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject12" value="악기">
+                          	<label for="subject12"> 악기</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject13" value="연기/연극">
+                          	<label for="subject13"> 연기/연극</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject14" value="예체능입시">
+                          	<label for="subject14"> 예체능입시</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject15" value="고시">
+                          	<label for="subject15"> 고시</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject16" value="취미">
+                          	<label for="subject16"> 취미</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject17" value="직업기술">
+                          	<label for="subject17"> 직업기술</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject18" value="기타">
+                          	<label for="subject18"> 기타</label>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -149,9 +186,9 @@
 		                  <input type="radio" name="academyFee" id="fee5" value="50만원 이상 60만원 미만">
 		                  <label for="fee5">50만원 이상 60만원 미만</label>
 		                  <input type="radio" name="academyFee" id="fee6" value="60만원 이상 70만원 미만">
-		                  <label for="fee5">60만원 이상 70만원 미만</label>
+		                  <label for="fee6">60만원 이상 70만원 미만</label>
 		                  <input type="radio" name="academyFee" id="fee7" value="70만원 이상">
-		                  <label for="fee6">70만원 이상</label>
+		                  <label for="fee7">70만원 이상</label>
 		                </div>
 					</td>
 				</tr>

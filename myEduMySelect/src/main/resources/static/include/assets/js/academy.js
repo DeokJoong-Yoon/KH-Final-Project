@@ -42,10 +42,16 @@
             if (!chkData("#academyRoadAddress", "도로명주소를")) return;
             if (!chkData("#academyDongAddress", "상세주소를")) return;
             if (!chkData("#academyPhone", "학원전화번호를")) return;
-            if (!chkData("#academyTargetSubject", "교습과목을")) return;
-            if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료를")) return;
+            if (!chkRadioData("#subject1", "#subject2", "#subject3", "#subject4", "#subject5", 
+            "#subject6", "#subject7", "#subject8", "#subject9", "#subject10", "#subject11", 
+            "#subject12", "#subject13", "#subject14", "#subject15", "#subject16", "#subject17", "#subject18", "교습과목을")) return;
+            if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "#fee7", "수강료를")) return;
             if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
-            if (!chkCheckboxData("#academyKeyword1", "#academyKeyword2", "#academyKeyword3", "#academyKeyword4", "#academyKeyword5", "#academyKeyword6", "#academyKeyword7", "#academyKeyword8", "#academyKeyword9", "키워드를")) return; // 변경된 부분
+            if (!chkCheckboxData("#academyKeyword1", "#academyKeyword2", "#academyKeyword3", 
+            "#academyKeyword4", "#academyKeyword5", "#academyKeyword6", "#academyKeyword7", 
+            "#academyKeyword8", "#academyKeyword9", "#academyKeyword10", "#academyKeyword11", 
+             "#academyKeyword12", "#academyKeyword13", "#academyKeyword14", "#academyKeyword15",
+              "#academyKeyword16", "#academyKeyword17","키워드를")) return; // 변경된 부분
 
             
         } else {
@@ -84,7 +90,7 @@
 		 managerEmail = $("#academyManagerEmail").val();
 		 managerPhone = $("#academyManagerPhone").val();
 		 targetGrade = $("input[name='academyTargetGrade']:checked").val();
-		 targetSubject = $("#academyTargetSubject").val();		 
+		 targetSubject = $("input[name='academyTargetSubject']:checked").val();		 
 		 fee = $("input[name='academyFee']:checked").val();
 		 passwdChange = $("#academyPasswdChangeDate").val();
 		 loginFail = $("#academyLoginFailCount").val();
@@ -354,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }); 
 
-/* 교습과목 유효성 검사 */
+/* 교습과목 유효성 검사 
 document.addEventListener('DOMContentLoaded', function() {
     const subjectInput = document.getElementById('academyTargetSubject');
 
@@ -387,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
+*/
 
 
 

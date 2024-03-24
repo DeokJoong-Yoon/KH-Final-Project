@@ -13,7 +13,7 @@ $(document).ready(function() {
             if (!chkData("#academyRoadAddress", "도로명주소를")) return;
             if (!chkData("#academyDongAddress", "상세주소를")) return;
             if (!chkData("#academyPhone", "학원전화번호를")) return;
-            if (!chkData("#academyTargetSubject", "교습과목을")) return;
+            if (!chkRadioData("#academyTargetSubject", "교습과목을")) return;
             if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료를")) return;
             if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
             if (!chkCheckboxData("#academyKeyword1", "키워드를")) return; // 변경된 부분

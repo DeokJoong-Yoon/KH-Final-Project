@@ -116,7 +116,46 @@
 						<label for="academyTargetSubject">교습과목</label>
 					</th>
 					<td>
-						<input type="text" value="${academyLogin.academyTargetSubject}" name="academyTargetSubject" id="academyTargetSubject" />
+						<input type="text" id="prevSubject" name="academyTargetSubject" value="${academyLogin.academyTargetSubject}" readonly />
+						<button type="button" id="subjectChange">변경하기</button>
+						<div id="subjectGroup" style="display: none;">
+							<input type="radio" name="academyTargetSubject" id="subject1" value="국어">
+							<label for="subject1"> 국어</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject2" value="수학">
+                          	<label for="subject2"> 수학</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject3" value="영어">
+                          	<label for="subject3"> 영어</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject4" value="컴퓨터">
+                          	<label for="subject4"> 컴퓨터</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject5" value="논술">
+                          	<label for="subject5"> 논술</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject6" value="과학">
+                          	<label for="subject6"> 과학</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject7" value="외국어">
+                          	<label for="subject7"> 외국어</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject8" value="실용음악">
+                          	<label for="subject8"> 실용음악</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject9" value="미술">
+                          	<label for="subject9"> 미술</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject10" value="무용/댄스">
+                          	<label for="subject10"> 무용/댄스</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject11" value="체육">
+                          	<label for="subject11"> 체육</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject12" value="악기">
+                          	<label for="subject12"> 악기</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject13" value="연기/연극">
+                          	<label for="subject13"> 연기/연극</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject14" value="예체능입시">
+                          	<label for="subject14"> 예체능입시</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject15" value="고시">
+                          	<label for="subject15"> 고시</label><br/>
+                          	<input type="radio" name="academyTargetSubject" id="subject16" value="취미">
+                          	<label for="subject16"> 취미</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject17" value="직업기술">
+                          	<label for="subject17"> 직업기술</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject18" value="기타">
+                          	<label for="subject18"> 기타</label>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -225,14 +264,14 @@
 			<button type="submit" id="withdrawalBtn">탈퇴하기</button>
 		</form>
 		
-		<div id="confirmPasswordModal" class="modal">
+		<!-- <div id="confirmPasswordModal" class="modal">
 		    <div class="modal-content">
 		        <span class="close">&times;</span>
 		        <h2>현재 비밀번호 확인</h2>
 		        <input type="password" id="currentPassword" placeholder="현재 비밀번호를 입력해주세요">
 		        <button id="confirmPasswordBtn">확인</button>
 		    </div>
-		</div>
+		</div> -->
 	</section>
 
 	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
@@ -266,7 +305,7 @@
 	    };
 	</script>
 	
-	<script>
+	<!-- <script>
 		$(document).ready(function() {
 		    $("#withdrawalBtn").click(function() {
 		    	event.preventDefault(); // 폼 전송 기본 동작 막기
@@ -292,7 +331,7 @@
 		        }
 		    });
 		});
-	</script>
+	</script> -->
 	
 	<!-- <script>
 		$(document).ready(function() {
@@ -319,61 +358,6 @@
 			}
 		};
 	</script>
-	
-	<!-- <script>
-	    $(function() {
-	        $("#updateBtn").on("click", function(event) {
-	        	//event.preventDefault(); // 기본 제출 동작 방지
-	        	console.log("폼 제출 버튼 클릭!");	        	
-	        	
-	        	
-	        	var academyManagerName = $("#academyManagerName").val();
-	        	var academyManagerEmail = $("#academyManagerEmail").val();
-	        	var academyManagerPhone = $("#academyManagerPhone").val();	        	
-	        	var academyTargetSubject = $("#academyTargetSubject").val();
-	        	/* var academyFee = $("#academyFee").val();
-	        	var academyTargetGrade = $("#academyTargetGrade").val();
-	        	var academyKeyword1 = $("#academyKeyword1").val();
-	        	var academyKeyword2 = $("#academyKeyword2").val();
-	        	var academyKeyword3 = $("#academyKeyword3").val();
-	        	var academyKeyword4 = $("#academyKeyword4").val();
-	        	var academyKeyword5 = $("#academyKeyword5").val();
-	        	 */
-	        	
-	        	
-	            // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
-	            if (confirm("회원 정보를 수정하시겠습니까?")) {
-	                // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
-	                $.ajax({
-	                    url: "/academyUpdate",
-	                    type: "POST",
-	                    data: $(this).serialize(),
-	                    success: function(response) {
-	                        // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
-	                        alert("회원 정보가 성공적으로 업데이트되었습니다.");
-	                        // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.
-	                        location.reload();
-	                    },
-	                    error: function(xhr, status, error) {
-	                        alert("회원 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
-	                        console.error(xhr.responseText);
-	                    }
-	                });
-	            } else {
-	                return false;
-	            }
-	        });
-	
-	        $("#changePasswdBtn").on("click", function() {
-	            // 사용자에게 비밀번호를 수정할 것인지 묻는 알림
-	            if (confirm("비밀번호를 수정하시겠습니까?")) {
-	                window.location.href = "/passwdChangePage";
-	            } else {
-	                // 사용자가 취소를 누른 경우 아무 동작 없음
-	            }
-	        });
-	    });
-	</script> -->
 	
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
