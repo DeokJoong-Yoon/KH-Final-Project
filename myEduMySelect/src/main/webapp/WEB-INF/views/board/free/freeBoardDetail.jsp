@@ -100,6 +100,7 @@
 	<!-- End #main -->
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	
 
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
@@ -121,6 +122,8 @@
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/board/free/js/freeDetail.js"></script>
+		<script>
+	</script>
 </body>
 
 </html>

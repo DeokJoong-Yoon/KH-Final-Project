@@ -36,6 +36,10 @@
 	margin-left: 5px;
 	float: right;
 }
+
+.notice_p {
+	padding-top: 500px;
+}
 </style>
 <section id="hero" class="d-flex align-items-center">
 	<div class="container">
@@ -45,12 +49,12 @@
 				data-aos="fade-up" data-aos-delay="200">
 				<h1>Notice</h1>
 				<h2>교육은 여러분의 선택이지만, 공지는 필수입니다.</h2>
+				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
+					data-aos-delay="200">
+					<img src="/resources/include/assets/img/hero-img.png"
+						class="img-fluid animated" alt="">
+				</div>
 			</div>
-		</div>
-		<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-			data-aos-delay="200">
-			<img src="/resources/include/assets/img/hero-img.png"
-				class="img-fluid animated" alt="">
 		</div>
 	</div>
 </section>
@@ -153,28 +157,34 @@
 </main>
 <!-- End #main -->
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script>
-      	$(function() {
-      		/* 검색 후 검색 대상과 검색 단어 출력 */
-      		let word="<c:out value='${noticeBoardVO.keyword}' />";
-      		let value ="";
-      		if (word != "") {
-      			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
-      			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
-      			
-      			if ($("#search").val() != 'common_content') {
-      				if($("#search").val() == 'common_title') value = "#list tr td.goDetail";
-      				console.log($(value + ":contains('" + word + "')").html());
-      				$(value + ":contains('" + word +"')").each(function() {
-      					let regex = new RegExp(word, 'gi');
-      					$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-      				});
-      			}
-      		}
-      	});
-      </script>
+	$(function() {
+		/* 검색 후 검색 대상과 검색 단어 출력 */
+		let word = "<c:out value='${noticeBoardVO.keyword}' />";
+		let value = "";
+		if (word != "") {
+			$("#keyword").val("<c:out value='${noticeBoardVO.keyword}' />");
+			$("#search").val("<c:out value='${noticeBoardVO.search}' />");
+
+			if ($("#search").val() != 'common_content') {
+				if ($("#search").val() == 'common_title')
+					value = "#list tr td.goDetail";
+				console.log($(value + ":contains('" + word + "')").html());
+				$(value + ":contains('" + word + "')").each(
+						function() {
+							let regex = new RegExp(word, 'gi');
+							$(this).html(
+									$(this).html().replace(
+											regex,
+											"<span class='required'>" + word
+													+ "</span>"));
+						});
+			}
+		}
+	});
+</script>
 
 <!-- Vendor JS Files -->
 <script src="/resources/include/assets/vendor/aos/aos.js"></script>

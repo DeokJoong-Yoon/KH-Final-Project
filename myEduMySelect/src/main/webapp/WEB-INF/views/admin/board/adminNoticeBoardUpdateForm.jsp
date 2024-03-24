@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ include file="/WEB-INF/views/admin/common/common.jspf"%>
+<%-- <%@ include file="/WEB-INF/views/admin/common/common.jspf"%> --%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -168,6 +173,7 @@
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
+	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/admin/admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
 	<script src="/resources/include/admin/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="/resources/include/admin/admin/assets/vendor/chart.js/chart.umd.js"></script>
@@ -180,7 +186,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<script src="/resources/include/admin/admin/assets/vendor/tinymce/tinymce.min.js"></script>
 	<!-- Template Main JS File -->
-	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
+	<script src="/resources/include/js/common.js"></script>
 	<script src="/resources/include/admin/js/adminNoticeBoardUpdateForm.js"></script>
 
 </body>
