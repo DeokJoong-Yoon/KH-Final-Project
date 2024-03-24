@@ -7,25 +7,22 @@ $(function(){
 		let matchingPasswd = $(this).closest("tr").find("input[name='matchingPasswd']").val();
 		let boardNumber = $(this).closest("tr").attr("data-num");
 		let writerId = $(this).closest("tr").find(".writerId").text();
-		let userId = $(".userId").text();
-		let acaId = $(".acaId").text();
-		let acaName = $(".acaName").text(); 
+		let personalId = $("#personalId").val();
+		let academyId = $("#academyId").val();
 		
-		if(userId == '' && acaId == '') {
+		if(personalId == '' && academyId == '') {
 			alert("로그인 후 열람 가능합니다.");
 			$(this).attr("href", "/matching/boardList")
-		} else 
-		
-		if(matchingPrivate == 'N' || userId == writerId) {
-			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
-		} else {
+		} else if(matchingPrivate == 'Y' && personalId != writerId) {
 			let pwd = prompt("비밀번호를 입력하세요", '');
 				if(pwd == matchingPasswd) {
 					$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 				} else {
 					alert("비밀번호가 일치하지 않습니다.");
-					$(this).attr("href", "/matching/boardList")
+					$(this).attr("href", "/matching/")
 			}
+		} else if(matchingPrivate == 'N' || personalId == writerId) {
+			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 		} 
 		
 		

@@ -114,6 +114,19 @@
 		location.href="/matching/boardDetail?matchingNo=" + ${updateData.matchingNo};
 	});
   </script>
+  
+  <script>
+		$(function() {
+			let popUp = "${popUp}";
+			if (popUp != "") {
+				alert(popUp);
+			}
+			
+			console.log("${detail.personalId }");
+			console.log("${detail.matchingComment }");
+		});
+		
+	</script>
  
 
 </body>

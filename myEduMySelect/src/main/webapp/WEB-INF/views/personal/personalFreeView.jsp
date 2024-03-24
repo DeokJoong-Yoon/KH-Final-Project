@@ -4,7 +4,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>		
-
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -100,11 +99,7 @@
 				</form>
 
 				<div class="col-12 text-center banner">
-		            자유 게시판<br/>
-		            <div class="descBox">
-		            	자유롭게 글을 작성할 수 있는 <b>자유게시판</b>입니다.<br>
-		            	질문, 후기, 정보 등 도움이 될 만한 다양한 글을 남겨주세요!
-		            </div>
+		           내가 쓴 게시글(자유 게시판)<br/>
 		       </div> 
 		    </div>
 		</div>

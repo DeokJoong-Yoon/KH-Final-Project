@@ -2,9 +2,11 @@ $(function(){
 	
 	let matchingNo = $("#matchingNo").val();
 	
-	let userId = $(".userId").text();
+	let personalId = $("#personalId").val();
+	let academyId = $("#academyId").val();
 	let writerId = $(".writerId").text();
-	/*if(userId != writerId) {
+	
+	/*if(personalId != writerId || academyId != writerId) {
 		$("#editPost").css("display", "none");
 		$("#deletePost").css("display", "none");
 	}*/

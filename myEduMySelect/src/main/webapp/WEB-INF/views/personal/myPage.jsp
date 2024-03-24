@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf" %>	
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jspf"%>
 <!DOCTYPE html>
 <html lang="kr">
 
@@ -9,118 +9,102 @@
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/personal/css/myPage.css" rel="stylesheet">
 
-	<!-- ======= Hero Section ======= -->
-	<section class="mcHero d-flex align-items-center">
+<!-- ======= Hero Section ======= -->
+<section class="mcHero d-flex align-items-center">
 
-		<div class="container">
-			<div class="row">
-				<div class="col-12 text-center mcBanner">
-		            MY PAGE<br/>
-		        </div> 
+	<div class="container">
+		<div class="row">
+			<div class="col-12 text-center mcBanner">
+				MY PAGE<br />
 			</div>
 		</div>
-	</section>
-	<!-- End Hero -->
+	</div>
+</section>
+<!-- End Hero -->
 
 
-	<!-- 여기서부터 마이페이지 -->
-	<section>
-		<div id="myPostArea" style="max-width: 600px; margin: auto;">
-			<h4>내가 쓴 글 조회</h4>
-			<button type="button" id="matchingBtn">매칭게시판에서 내가 쓴 글 목록 보기</button><br/>
-			<button type="button" id="freeBtn">자유게시판에서 내가 쓴 글 목록 보기</button>
-			<button type="button" id="likeBtn">내가 찜한 학원 목록 보기</button>
-		</div>
-		
-		<br/> 
-		
-		<form id="updateForm" action="/personalUpdate" method="POST"
+<!-- 여기서부터 마이페이지 -->
+<section>
+	<div id="myPostArea" style="max-width: 600px; margin: auto;">
+		<h4>내가 쓴 글 조회</h4>
+		<button type="button" id="matchingBtn">매칭게시판에서 내가 쓴 글 목록 보기</button>
+		<br />
+		<button type="button" id="freeBtn">자유게시판에서 내가 쓴 글 목록 보기</button>
+		<button type="button" id="likeBtn">내가 찜한 학원 목록 보기</button>
+	</div>
+
+	<br />
+
+	<form id="updateForm" action="/personalUpdate" method="POST"
 		style="max-width: 600px; margin: auto;">
-			 
-			<h4>개인정보 조회 및 수정</h4>
-			<table> 
-				<tr>
-					<th>
-						<label for="personalId" >아이디</label>
-					</th>
-					<td>
-						<input type="text" value="${personalLogin.personalId}" id="personalId" name="personalId" disabled />
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label for="personalName" >이름</label>
-					</th>
-					<td>
-						<input type="text" value="${personalLogin.personalName}" id="personalName" name="personalName" disabled />
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label >비밀번호</label>
-					</th>
-					<td>
-						<button type="button" id="movePwdChange">비밀번호 변경 페이지로 이동</button>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label for="personalEmail">이메일</label>
-					</th>
-					<td>
-						<button type="button" id="changeEmail">이메일 변경</button>
-						<input type="email" value="${personalLogin.personalEmail}" id="personalEmail" name="personalEmail" disabled />
-						<button type="button" id="duplicateCheckBtn" style="display: none;" onclick="checkEmail()">중복확인</button>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label for="personalBirth">생년월일</label>
-					</th>
-					<td>
-						<input type="text" value="${personalLogin.personalBirth}"
-							id="personalBirth" name="personalBirth" disabled>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label for="personalAddress">주소 변경하기</label>
-					</th>
-					<td>
-						<label id="personalAddress">현재 주소</label><br>
-						<input type="text" value="${personalLogin.personalAddress}" id="nowAddress" disabled />
-						<br/><br/>
-						<label id="newAddress">새로운 주소 등록</label>
-						<button type="button" onclick="findAddr()">주소찾기</button>
-						<input id="personal_post" name="personalAddress" type="text" placeholder="우편번호" readonly style="display: none;" /> 
-						<input id="personal_addr" name="personalAddress" type="text" placeholder="주소" readonly style="display: none;" /> 
-						<input type="text" id="personalAddressDetail" placeholder="상세주소입력" style="display: none;" />
-					</td>
-				</tr>
-				<tr>
-					<th>
-						<label for="personalPhone">전화번호</label>
-					</th>
-					<td>
-						<input type="text" value="${personalLogin.personalPhone}"
-								onKeyup="this.value=this.value.replace(/[^0-9]/g,'')"
-								id="personalPhone" name="personalPhone" maxlength="11"/>
-					</td>
-				</tr>
-			</table>
-			
-		</form>
-		
-		<button type="button" id="personalUpdateBtn" >수정하기</button>
-		<div id="message" style="text-align: center;"></div>
-		
-		<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
-			<button type="submit" id="withdrawalBtn" >회원탈퇴</button>
-		</form>
-		
-	</section>
-	
-	<script>
+
+		<h4>개인정보 조회 및 수정</h4>
+		<table>
+			<tr>
+				<th><label for="personalId">아이디</label></th>
+				<td><input type="text" value="${personalLogin.personalId}"
+					id="personalId" name="personalId" disabled /></td>
+			</tr>
+			<tr>
+				<th><label for="personalName">이름</label></th>
+				<td><input type="text" value="${personalLogin.personalName}"
+					id="personalName" name="personalName" disabled /></td>
+			</tr>
+			<tr>
+				<th><label>비밀번호</label></th>
+				<td>
+					<button type="button" id="movePwdChange">비밀번호 변경 페이지로 이동</button>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="personalEmail">이메일</label></th>
+				<td>
+					<button type="button" id="changeEmail">이메일 변경</button> <input
+					type="email" value="${personalLogin.personalEmail}"
+					id="personalEmail" name="personalEmail" disabled />
+					<button type="button" id="duplicateCheckBtn" style="display: none;"
+						onclick="checkEmail()">중복확인</button>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="personalBirth">생년월일</label></th>
+				<td><input type="text" value="${personalLogin.personalBirth}"
+					id="personalBirth" name="personalBirth" disabled></td>
+			</tr>
+			<tr>
+				<th><label for="personalAddress">주소 변경하기</label></th>
+				<td><label id="personalAddress">현재 주소</label><br> <input
+					type="text" value="${personalLogin.personalAddress}"
+					id="nowAddress" disabled /> <br />
+				<br /> <label id="newAddress">새로운 주소 등록</label>
+					<button type="button" onclick="findAddr()">주소찾기</button> <input
+					id="personal_post" name="personalAddress" type="text"
+					placeholder="우편번호" readonly style="display: none;" /> <input
+					id="personal_addr" name="personalAddress" type="text"
+					placeholder="주소" readonly style="display: none;" /> <input
+					type="text" id="personalAddressDetail" placeholder="상세주소입력"
+					style="display: none;" /></td>
+			</tr>
+			<tr>
+				<th><label for="personalPhone">전화번호</label></th>
+				<td><input type="text" value="${personalLogin.personalPhone}"
+					onKeyup="this.value=this.value.replace(/[^0-9]/g,'')"
+					id="personalPhone" name="personalPhone" maxlength="11" /></td>
+			</tr>
+		</table>
+
+	</form>
+
+	<button type="button" id="personalUpdateBtn">수정하기</button>
+	<div id="message" style="text-align: center;"></div>
+
+	<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
+    <button type="submit" id="withdrawalBtn">회원탈퇴</button>
+</form>
+
+</section>
+
+<script>
 		function findAddr() {
 			
 			
@@ -154,35 +138,35 @@
 		}
 		
 	</script>
-	<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-	<!-- 마이페이지 끝 -->
+<!-- 마이페이지 끝 -->
 
-	<!-- Vendor JS Files -->
-	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
-	<script
-		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	<script
-		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+<!-- Vendor JS Files -->
+<script src="/resources/include/assets/vendor/aos/aos.js"></script>
+<script
+	src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script
+	src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script
+	src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script
+	src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script
+	src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+<script
+	src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
-	<!-- Template Main JS File -->
-	<script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
-	<script src="/resources/include/personal/myPage.js"></script>
-	<script src="/resources/include/assets/js/main.js"></script>
+<!-- Template Main JS File -->
+<script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
+<script src="/resources/include/personal/myPage.js"></script>
+<script src="/resources/include/assets/js/main.js"></script>
 
 
 
 </body>
 
-</html> 
+</html>

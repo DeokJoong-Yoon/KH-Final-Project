@@ -136,6 +136,8 @@ public class AdvertiseController {
 	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model)
 			throws Exception {
+		
+		//세션
 		if (academyLoginVO != null) {	
 			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
 			if (academyResult != "TRUE") {
@@ -144,6 +146,7 @@ public class AdvertiseController {
 		} else {
 			return "redirect:/loginselect";
 		}
+		
 		// 게시글 상세정보 가져오기
 		AdvertiseVO avo = new AdvertiseVO();
 		avo.setCommonNo(commonNo);
@@ -152,20 +155,29 @@ public class AdvertiseController {
 		// 게시글 작성자 id 추출
 		String writer = detail.getAcademyId();
 		log.info("작성자 : " + writer);
+		log.info("접속자 : " + academyLoginVO.getAcademyId());
 
 		int result = 0;
 		String url = "";
+		
+		//작성자와 접속자가 동일할 때 구분
+		if(writer.equals(academyLoginVO.getAcademyId())) {
+			result = aService.advertiseDelete(avo);
+		} else {
+			result = 2;
+		}
 
-		result = aService.advertiseDelete(avo);
 
+		//결과에 따른 팝업
 		if (result == 1) {
 			ras.addFlashAttribute("popUp", "삭제 완료되었습니다.");
 			url = "/advertise/advertiseBoardList";
-			log.info("result : 1");
+		} else if(result==2) {
+			ras.addFlashAttribute("popUp", "삭제 권한이 없습니다.");
+			url = "/advertise/advertiseDetail?commonNo=" + commonNo;
 		} else {
 			ras.addFlashAttribute("popUp", "삭제에 실패하였습니다. 다시 시도해 주세요.");
-			url = "/advertise/advertiseDetail?commonNo=" + avo.getCommonNo();
-			log.info("result : 0");
+			url = "/advertise/advertiseDetail?commonNo=" + commonNo;
 		}
 
 		return "redirect:" + url;
@@ -193,23 +205,46 @@ public class AdvertiseController {
 	// 홍보게시판 글 수정
 	@PostMapping("/advertiseUpdate")
 	public String advertiseUpdateWithFiles(@RequestParam("commonNo") int commonNo, AdvertiseVO aVO,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model,
 			@RequestParam("file1") MultipartFile file1, @RequestParam("file2") MultipartFile file2,
 			@RequestParam("file3") MultipartFile file3, @RequestParam("file4") MultipartFile file4,
 			@RequestParam("file5") MultipartFile file5, RedirectAttributes ras) throws Exception {
 
+		//세션
+		if (academyLoginVO != null) {	
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else {
+			return "redirect:/loginselect";
+		}
+		
+		//게시글 상세 정보를 거쳐 작성자 추출
+		aVO.setCommonNo(commonNo);
+		AdvertiseVO detail = aService.advertiseDetail(aVO);
+		
+		String writer = detail.getAcademyId();
+
 		int result = 0;
 		String url = "";
-
-		result = aService.advertiseUpdateWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
-
+		
+		//작성자와 접속자가 동일할 때 구분
+		if(writer.equals(academyLoginVO.getAcademyId())) {
+			result = aService.advertiseUpdateWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
+		} else {
+			result = 2;
+		}
+		
 		if (result == 1) {
 			ras.addFlashAttribute("popUp", "수정 완료되었습니다.");
 			url = "/advertise/advertiseDetail?commonNo=" + commonNo;
-			log.info("result : 1");
+		} else if(result == 2) {
+			ras.addFlashAttribute("popUp", "수정 권한이 없습니다.");
+			url = "/advertise/advertiseUpdate?commonNo=" + commonNo;
 		} else {
 			ras.addFlashAttribute("popUp", "수정에 실패하였습니다. 다시 시도해 주세요.");
 			url = "/advertise/advertiseUpdate?commonNo=" + commonNo;
-			log.info("result : 0");
 		}
 
 		return "redirect:" + url;

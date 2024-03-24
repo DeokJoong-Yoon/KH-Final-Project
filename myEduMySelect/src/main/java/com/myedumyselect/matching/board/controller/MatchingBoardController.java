@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -217,100 +218,111 @@ public class MatchingBoardController {
 		return "matching/matchingUpdate";
 	}
 
+	
 	// 매칭게시글 수정
 	@PostMapping("/boardUpdate")
-	public String mBoardUpdate(MatchingBoardVO mbVO, RedirectAttributes ras, Model model,
-			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+	public String mBoardUpdate(@RequestParam("matchingNo") int matchingNo, MatchingBoardVO mbVO, RedirectAttributes ras, Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) throws Exception {
+		
+		//세션
 		if (personalLoginVO != null) {
 			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
 			if (pesronalResult != "TRUE") {
 				return pesronalResult;
 			}
 		} else {
-			return "redirect:/";
+			return "redirect:/loginselect";
 		}
+		
+		//게시글 상세 정보를 거쳐 작성자 추출하기
+		mbVO.setMatchingNo(matchingNo);
+		MatchingBoardVO detail = mbService.mBoardDetail(mbVO);
+		
+		String writer = detail.getPersonalId();
+		log.info("작성자 : " + writer);
 
 		int result = 0;
 		String url = "";
+		
+		//작성자와 접속자가 동일할 때 구분
+		if(writer.equals(personalLoginVO.getPersonalId())) {
+			result = mbService.mBoardUpdate(mbVO);
+		} else {
+			result = 2;
+		}
+		
+		log.info("결과 : " + result);
 
-		result = mbService.mBoardUpdate(mbVO);
 
+		//결과에 따른 팝업
 		if (result == 1) {
 			ras.addFlashAttribute("popUp", "수정 완료되었습니다.");
-			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
+			url = "/matching/boardDetail?matchingNo=" + matchingNo;
+		} else if (result == 2) {
+			ras.addFlashAttribute("popUp", "수정 권한이 없습니다.");
+			url = "/matching/boardUpdate?matchingNo=" + matchingNo;
 		} else {
 			ras.addFlashAttribute("popUp", "수정에 실패하였습니다. 다시 시도해 주세요.");
-			url = "/matching/boardUpdate?matchingNo=" + mbVO.getMatchingNo();
+			url = "/matching/boardUpdate?matchingNo=" + matchingNo;
 		}
 
 		return "redirect:" + url;
 	}
+	
 
 	// 매칭 게시글 삭제
-	@GetMapping("/boardDelete")
-	public String mBoardDelete(MatchingBoardVO mbVO, RedirectAttributes ras, Model model,
-			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+	@PostMapping("/boardDelete")
+	public String mBoardDelete(@RequestParam("matchingNo") int matchingNo, RedirectAttributes ras, Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) throws Exception {
+		
+		//세션
 		if (personalLoginVO != null) {
 			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
 			if (pesronalResult != "TRUE") {
 				return pesronalResult;
 			}
 		} else {
-			return "redirect:/";
+			return "redirect:/loginselect";
 		}
+		
+		//게시글 상세정보 가져오기
+		MatchingBoardVO mbvo = new MatchingBoardVO();
+		mbvo.setMatchingNo(matchingNo);
+		MatchingBoardVO detail = mbService.mBoardDetail(mbvo);
+		
+		//게시글 작성자 id 추출
+		String writer = detail.getPersonalId();
+		log.info("작성자 : " + writer);
+		log.info("접속자 : " + personalLoginVO.getPersonalId());
+		
 		int result = 0;
-		result = mbService.mBoardDelete(mbVO);
-
 		String url = "";
-
+		
+		//작성자와 접속자가 동일할 때 구분
+		if(writer.equals(personalLoginVO.getPersonalId())) {
+			result = mbService.mBoardDelete(mbvo);
+		} else {
+			result = 2;
+		}
+		
+		log.info("결과 : " + result);
+		
+		
+		//결과에 따른 팝업
 		if (result == 1) {
 			ras.addFlashAttribute("popUp", "삭제 완료되었습니다.");
 			url = "/matching/boardList";
+		} else if(result == 2) {
+			ras.addFlashAttribute("popUp", "삭제 권한이 없습니다.");
+			url = "/matching/boardDetail?matchingNo=" + matchingNo;
 		} else {
 			ras.addFlashAttribute("popUp", "삭제에 실패하였습니다. 다시 시도해 주세요.");
-			url = "/matching/boardDetail?matchingNo=" + mbVO.getMatchingNo();
+			url = "/matching/boardDetail?matchingNo=" + matchingNo;
 		}
 
 		return "redirect:" + url;
 	}
 
-//   //이전 게시글 이동
-//   @GetMapping("/prev/{matchingNo}")
-//   public String prevPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
-//      
-//      //이전 게시글의 번호
-//      int prevNo = mbService.prevMatchingNo(mbVO);
-//      
-//      //주소 담을 변수
-//      String url = "";
-//      
-//      if(prevNo == -1) {
-//         url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
-//      } else {
-//         url =  "redirect:/matching/boardDetail?matchingNo=" + prevNo;
-//      }
-//      
-//      return url;
-//   }
-//   
-//   
-//   //다음 게시글 이동
-//   @GetMapping("/next/{matchingNo}")
-//   public String nextPost(MatchingBoardVO mbVO, @PathVariable int matchingNo) {
-//      
-//      //다음 게시글의 번호
-//      int nextNo = mbService.nextMatchingNo(mbVO);
-//      
-//      //주소 담을 변수
-//      String url = "";
-//      
-//      if(nextNo == -1) {
-//         url = "redirect:/matching/boardDetail?matchingNo=" + matchingNo;
-//      } else {
-//         url =  "redirect:/matching/boardDetail?matchingNo=" + nextNo;
-//      }
-//      
-//      return url;
-//   }
+
 
 }

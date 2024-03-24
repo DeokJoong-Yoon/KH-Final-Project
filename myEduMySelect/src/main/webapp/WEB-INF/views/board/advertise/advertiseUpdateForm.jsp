@@ -217,6 +217,15 @@
         $("#cancel").on("click", function(){
 			location.href="/advertise/advertiseDetail?commonNo=" + ${updateData.commonNo};
 		});
+        
+		$(function() {
+			let popUp = "${popUp}";
+			if (popUp != "") {
+				alert(popUp);
+			}
+			
+		});
+		
     </script>
 	
 </body>

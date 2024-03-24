@@ -33,6 +33,7 @@
 	<resultMap type="advertiseBoard" id="boardAndFile">
 	    <!-- AdvertiseBoardVO에 대한 매핑 -->
 	    <result column="common_no" property="commonNo" />
+	    <result column="academy_id" property="academyId" />
 	    <result column="common_nickname" property="commonNickname" />
 	    <result column="common_title" property="commonTitle" />
 	    <result column="common_content" property="commonContent" />
@@ -192,6 +193,7 @@
 	<!-- 홍보게시판 게시글 상세 보기 -->
 	<select id="advertiseDetail" parameterType="advertiseBoard" resultMap="boardAndFile">
 		SELECT		b.common_no,
+					b.academy_id,
 		           	b.common_nickname,
 		           	b.common_title,
 		           	b.common_content,
