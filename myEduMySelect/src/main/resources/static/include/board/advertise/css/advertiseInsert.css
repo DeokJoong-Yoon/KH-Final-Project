@@ -96,7 +96,7 @@
 }
 
 
-#commonTitle {
+#commonTitle, #commonNickname {
 	width : 100%;
 	border-color : #dddddd;
 	padding: 10px;

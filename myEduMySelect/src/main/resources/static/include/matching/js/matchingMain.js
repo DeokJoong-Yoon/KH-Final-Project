@@ -52,6 +52,7 @@ $(function(){
 	//검색결과 조회하기 버튼 클릭 시
 	$("#mcSearchBtn").on("click", function(){
 		
+		
 		//변수에 선택된 value 저장
 		personalId = $("#personalId").val();
 		guValue = $("#gu").val();

@@ -136,7 +136,7 @@ public class AdvertiseController {
 	public String advertiseDelete(@RequestParam("commonNo") int commonNo, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model)
 			throws Exception {
-		if (academyLoginVO != null) {
+		if (academyLoginVO != null) {	
 			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
 			if (academyResult != "TRUE") {
 				return academyResult;

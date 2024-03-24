@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,6 @@ import com.myedumyselect.matching.board.service.MatchingBoardService;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -139,29 +137,48 @@ public class MatchingBoardController {
 
 	// 공개매칭
 	@PostMapping("/publicUpload")
-	public String publicUpload(MatchingBoardVO mbVO, Model model) {
+	public String publicUpload(MatchingBoardVO mbVO, Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
 		log.info("publicUpload 메소드 호출 성공");
-
-		LoginVo loginVo = (LoginVo) model.getAttribute(SessionInfo.COMMON);
-		mbVO.setPersonalId(loginVo.getId());
+		
+		//세션 검사
+		if (personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
+			}
+		} else {
+			return "redirect:/";
+		}
+		
 		mbService.publicUpload(mbVO);
 
 		return "matching/matchingMain";
 	}
+	
+	
 
 	// 비공개매칭
 	@PostMapping("/privateUpload")
-	public String privateUpload(MatchingBoardVO mbVO, Model model) {
+	public String privateUpload(MatchingBoardVO mbVO, Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
 		log.info("privateUpload 메소드 호출 성공");
-		log.info(mbVO.getPrivateChecked().toString());
-		LoginVo loginVo = (LoginVo) model.getAttribute(SessionInfo.COMMON);
-		mbVO.setPersonalId(loginVo.getId());
+		
+		//세션 검사
+		if (personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
+			}
+		} else {
+			return "redirect:/";
+		}
+		
 		mbService.privateUpload(mbVO);
 		mbService.sendEmail(mbVO);
 
 		return "matching/matchingMain";
 	}
 
+	
 	// 매칭게시글 상세보기
 	@GetMapping("/boardDetail")
 	public String mBoardDetail(MatchingBoardVO mbVO, Model model,
@@ -193,13 +210,14 @@ public class MatchingBoardController {
 	public String mBoardUpdateForm(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
 		if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
 			}
 		} else {
 			return "redirect:/";
 		}
+		
 		MatchingBoardVO updateData = mbService.mBoardUpdateForm(mbVO);
 		model.addAttribute("updateData", updateData);
 		return "matching/matchingUpdate";

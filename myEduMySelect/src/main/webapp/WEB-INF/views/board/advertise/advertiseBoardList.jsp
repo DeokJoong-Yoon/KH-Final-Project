@@ -69,11 +69,11 @@
 					                <c:if test="${status.index % 3 == 0}">
 					                    <tr>
 					                </c:if>
-					                <td data-num="${adv.commonNo}">
-					                    <img src="${adv.commonFile }"> <br><br>
-					                    <h5><a class="advLink" href="#">학원명 들어갈 자리${adv.commonNickname} </a></h5> 
-					                    <p>${adv.commonTitle} </p>
-					                </td>
+							                <td data-num="${adv.commonNo}">
+							                    <img src="${adv.commonFile }"> <br><br>
+							                    <h5><a class="advLink" href="#">${adv.commonNickname} </a></h5> 
+							                    <p>${adv.commonTitle} </p>
+							                </td>
 					                <c:if test="${status.index % 3 == 2 or status.index == mBoardList.size() - 1}">
 					                    </tr>
 					                </c:if>

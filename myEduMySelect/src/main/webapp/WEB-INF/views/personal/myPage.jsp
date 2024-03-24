@@ -29,6 +29,7 @@
 			<h4>내가 쓴 글 조회</h4>
 			<button type="button" id="matchingBtn">매칭게시판에서 내가 쓴 글 목록 보기</button><br/>
 			<button type="button" id="freeBtn">자유게시판에서 내가 쓴 글 목록 보기</button>
+			<button type="button" id="likeBtn">내가 찜한 학원 목록 보기</button>
 		</div>
 		
 		<br/> 

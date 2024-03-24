@@ -10,5 +10,7 @@ public interface PersonalLikeService {
 	
 	public List<AdvertiseVO> getLikedCommon(PersonalLoginVO personalLogin);
 
+	public List<LikeVO> likeList(LikeVO likeVO);
+
 	
 }
