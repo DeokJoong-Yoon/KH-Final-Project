@@ -110,7 +110,7 @@
 	                  <form action="${pageContext.request.contextPath}/personal/logout" method="POST">
 	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
 	                  </form>
-	              </li>
+	              </li> 
 	          </c:when>
 	          <c:when test="${not empty academyLogin}">
 	              <li><a class="nav-link scrollto">[학원]&nbsp;&nbsp;${academyLogin.academyName}님 환영합니다.</a></li>
