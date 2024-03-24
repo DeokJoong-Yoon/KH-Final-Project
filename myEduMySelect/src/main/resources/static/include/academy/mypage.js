@@ -117,9 +117,13 @@ $(document).ready(function() {
    
    //홍보게시판 내가 쓴 글 목록 이동
    $("#advertiseBtn").on("click", function(){
-      window.location.href = "/advertise/advertiseBoardList";
+      window.location.href = "/academy/advertiseList";
    })
    
+   //매칭게시판 내가 쓴 댓글 목록 이동
+   $("#matchingBtn").on("click", function(){
+      window.location.href = "/academy/matchingBoardList";
+   })
    
    //결제하기 이동
    $("#payBtn").on("click", function(){
@@ -263,14 +267,11 @@ $(document).ready(function() {
          return;
       }
 
-<<<<<<< HEAD
       
       //정보 수정 시 변경
       if(academyFee=="") {      //만약 수강료를 새롭게 선택했다면 
          academyFee = selectedFee;
-      } 
-      
-      if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
+      } else if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
          academyTargetGrade = selectedAge;
       }
       
@@ -315,59 +316,6 @@ $(document).ready(function() {
        console.log("폼 제출 버튼 클릭!");    
        console.log(value);          
         
-=======
-		
-		//정보 수정 시 변경
-		if(academyFee=="") {		//만약 수강료를 새롭게 선택했다면 
-			academyFee = selectedFee;
-		} 
-		
-		if(academyTargetGrade=="") {		//만약 대상 학년을 새롭게 선택했다면 
-			academyTargetGrade = selectedAge;
-		}
-		
-		//새롭게 선택한 키워드를 우선 배열에 담기
-		var selectedKeyword = [];
-		$("input[name='academyKeyword']:checked").each(function() {
-			selectedKeyword.push($(this).val());
-		})
-		
-		//만약 키워드를 새로 선택했다면
-		if(selectedKeyword.length!=0) {		//만약 대상 키워드를 새롭게 선택했다면 
-			console.log("0 아님");
-			for(let i=0; i<keyword.length; i++) {
-				keyword[i] = selectedKeyword[i];
-			}
-		}
-		
-		console.log(selectedKeyword.length);
-		console.log(keyword.length);
-		
-		console.log(selectedKeyword[0]);
-		console.log(selectedKeyword[1]);
-		
-		
-		//수정한 정보를 담은 객체
-		let value = {
-			academyManagerName : academyManagerName,
-			academyManagerEmail : academyManagerEmail,
-			academyManagerPhone : academyManagerPhone,
-			academyPhone : academyPhone,
-			academyTargetSubject : academyTargetSubject,
-			academyFee : academyFee,
-			academyTargetGrade : academyTargetGrade,
-			academyKeyword1 : keyword[0],
-			academyKeyword2 : keyword[1],
-			academyKeyword3 : keyword[2],
-			academyKeyword4 : keyword[3],
-			academyKeyword5 : keyword[4]
-		}
-		
-    	
-    	console.log("폼 제출 버튼 클릭!");	 
-    	console.log(value);       	
-    	 
->>>>>>> branch 'main' of https://github.com/kimzionoff/KH-Final-Project.git
         /* 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.*/ 
         if (confirm("회원 정보를 수정하시겠습니까?")) {
             // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
@@ -401,3 +349,7 @@ $(document).ready(function() {
     });
     
 });
+
+
+   
+
