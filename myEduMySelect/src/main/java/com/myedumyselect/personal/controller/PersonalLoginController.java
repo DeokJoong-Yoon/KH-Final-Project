@@ -226,7 +226,7 @@ public class PersonalLoginController {
 	// RedirectAttributes 리다이렉트 시에 플래시 메시지를 전달하는데 사용
 	public String personalUpdate(@ModelAttribute PersonalLoginVO personalLogin, HttpSession session,
 			RedirectAttributes redirectAttributes) {
-		// 세션에서 personalLogin 속성을 가져옴
+		
 		PersonalLoginVO sessionPersonalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
 
 		// 세션에서 가져온 personalLogin 객체에 업데이트된 정보를 적용,결론적으로 VO를 들고 오는구조 이메일,주소,전화번호,비밀번호를
@@ -260,14 +260,17 @@ public class PersonalLoginController {
 
 	// 사용자가 작성한 매칭 게시글 목록 보기 페이지로 이동
 	@GetMapping("/personalMatchingView")
-	public String getMatchingView(MatchingBoardVO matchingBoardVO,Model model, HttpSession session) {
-		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
-		if (personalLoginVO == null) {
-			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
-			return "redirect:/personal/login";
+	public String getMatchingView(MatchingBoardVO matchingBoardVO,Model model, 
+			@SessionAttribute(required= false, value = "personalLogin")PersonalLoginVO personalLoginVO) {
+		if(personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
+			}
+		} else {
+			return "redirect:/";
 		}
-		
-			
+	
 		matchingBoardVO.setPersonalId(personalLoginVO.getPersonalId());
 		List<MatchingBoardVO> matchingBoardList = personalMatchingBoardService.boardList(matchingBoardVO);
 		model.addAttribute("matchingBoardList", matchingBoardList);
@@ -282,13 +285,17 @@ public class PersonalLoginController {
 	
 	//사용자가 작성한 자유 게시판 목록 보기 페이지로 이동
 	@GetMapping("/personalFreeView")
-	public String getFreeView(FreeVO freeVO, Model model, HttpSession session) {
-		PersonalLoginVO personalLoginVO = (PersonalLoginVO) session.getAttribute("personalLogin");
-		if (personalLoginVO == null) {
-			// 로그인되지 않은 경우 로그인 페이지로 이동하도록 처리
-			return "redirect:/personal/login";
+	public String getFreeView(FreeVO freeVO, Model model, 
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+		if (personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
+			}
+		} else {
+			return "redirect:/";
 		}
-		
+
 		freeVO.setPersonalId(personalLoginVO.getPersonalId());
 		List<FreeVO> freeBoardList = personalFreeBoardService.boardList(freeVO);
 		model.addAttribute("freeBoardList", freeBoardList);
@@ -300,7 +307,7 @@ public class PersonalLoginController {
 		//페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(freeVO, total));
 		return "personal/personalFreeView";
-		
+		 
 	}
 	//사용자가 찜한 자유 게시판 목록 보기 페이지로 이동
 	@GetMapping("/personalLikeView")
@@ -323,14 +330,18 @@ public class PersonalLoginController {
 
 	// 비밀번호 변경 페이지
 		@GetMapping("/newPasswd")
-		public String passwordChangePage(@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO ) {
-
-			if (personalLoginVO == null) {
-				return "redirect:/personal/login";
+		public String passwordChangePage(@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
+			if (personalLoginVO != null) {
+				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+				if (personalResult != "TRUE") {
+					return personalResult;
+				}
+			} else {
+				return "redirect:/";
 			}
-
 			return "personal/newPasswd";
-		} 
+		}
+		
 
 		@ResponseBody
 		@PostMapping(value = "/updatePersonalPasswd")
@@ -353,7 +364,7 @@ public class PersonalLoginController {
 				if (result == 1) {
 					
 					model.addAttribute("personalLogin", personalLoginService.loginProcess(checkPassword));
-					ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
+					ras.addFlashAttribute("successMsg", "패스워드 변경 완료");		
 					return "TRUE";
 				}
 			} else {
