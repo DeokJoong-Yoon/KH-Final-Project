@@ -133,11 +133,11 @@ public class PersonalLoginController {
 	}
 
 	// 로그아웃
-	@GetMapping("/personal/logout")
+	@PostMapping("/personal/logout")
 	public String logout(SessionStatus sessionStatus) {
 		log.info("로그아웃 처리");
 		sessionStatus.setComplete();
-		return "redirect:/personal/login";
+		return "redirect:/loginselect";
 	}
 
 	// 개인회원 가입 페이지

@@ -12,6 +12,6 @@ $(function() {
     }); 
     
     $("#logoutBtn").on("click", function() {
-        location.href = "/personal/logout"
+        location.href = "/loginselect"
     });
 });

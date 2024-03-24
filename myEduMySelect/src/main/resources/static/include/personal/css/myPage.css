@@ -4,35 +4,35 @@
 }
 
 .mcBanner {
-    text-align: center;
-    font-size: 45px;
-	font-weight: 600; 
-    color: white;
-    width : 100%;
-    margin-top:40px;
+	text-align: center;
+	font-size: 45px;
+	font-weight: 600;
+	color: white;
+	width: 100%;
+	margin-top: 40px;
 }
 
 #updateForm, #myPostArea {
-	background-color : #fff;
+	background-color: #fff;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-	padding : 10px;
-	padding:18px 25px 25px 25px;
+	padding: 10px;
+	padding: 18px 25px 25px 25px;
 }
 
 table {
 	width: 100%;
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
 
- table th,  table td {
-    padding: 6px;
-    border-top: 1px solid #dddddd;
+table th, table td {
+	padding: 6px;
+	border-top: 1px solid #dddddd;
 	border-bottom: 1px solid #dddddd;
 	height: 50px;
 }
 
 table tr:nth-child(odd) {
-  background-color: #f3f5fa;
+	background-color: #f3f5fa;
 }
 
 table th {
@@ -40,35 +40,34 @@ table th {
 	font-size: 16px;
 	font-weight: 600;
 	border-right: 1px solid #dddddd;
-    text-align: center;
-    width:25%;
+	text-align: center;
+	width: 25%;
 }
 
 table td {
-    text-align: left;
-    padding-left: 30px;
+	text-align: left;
+	padding-left: 30px;
 }
 
 input {
 	border: 1px solid #ccc;
 	margin-top: 3px;
 	margin-bottom: 5px;
-	height : 40px;
+	height: 40px;
 	border-radius: 5px;
-	padding-left : 10px;
+	padding-left: 10px;
 }
 
-
 table button {
-	height:35px;
-    padding: 5px 15px;
-    background-color: #47b2e4;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
+	height: 35px;
+	padding: 5px 15px;
+	background-color: #47b2e4;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 button:hover {
@@ -77,29 +76,29 @@ button:hover {
 
 #personalUpdateBtn {
 	padding: 10px 20px;
-    background-color: #48d1cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top:50px;
-    margin-left:5px;
-    float: right;
+	background-color: #48d1cc;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	margin-top: 50px;
+	margin-left: 5px;
+	float: right;
 }
 
-#personalUpdateBtn:hover{
+#personalUpdateBtn:hover {
 	background-color: #37517e;
 }
 
 #nowAddress, #newAddress {
-	margin-right : 10px;
+	margin-right: 10px;
 	margin-top: 10px;
 }
 
 #personalEmail {
-	width : 230px;
+	width: 230px;
 }
 
 #nowAddress {
@@ -107,23 +106,49 @@ button:hover {
 }
 
 #matchingBtn, #freeBtn, #likeBtn {
-    background-color: #48d1cc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    width: 550px;
-    height : 50px;
-    margin-top: 10px;
+	background-color: #48d1cc;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	width: 550px;
+	height: 50px;
+	margin-top: 10px;
 }
 
 #matchingBtn:hover, #freeBtn:hover, #likeBtn:hover {
 	background-color: #37517e;
 }
 
-h4{
+h4 {
 	font-weight: 600px;
 	color: #37517e;
+}
+
+#withdrawalForm {
+	padding: 10px 15px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	margin-top: 50px;
+	margin-left: 5px;
+	float: left;
+}
+
+#withdrawalBtn {
+	padding: 10px 20px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	float: left;
 }

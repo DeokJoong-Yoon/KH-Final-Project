@@ -107,7 +107,7 @@
 	          <c:when test="${not empty personalLogin}">
 	              <li><a class="nav-link scrollto">[개인]&nbsp;&nbsp;${personalLogin.personalName}님 환영합니다.</a></li>
 	              <li>
-	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
+	                  <form action="${pageContext.request.contextPath}/personal/logout" method="POST">
 	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">로그아웃</button>
 	                  </form>
 	              </li>

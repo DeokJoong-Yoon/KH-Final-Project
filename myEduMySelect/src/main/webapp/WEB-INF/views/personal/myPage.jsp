@@ -114,6 +114,10 @@
 		<button type="button" id="personalUpdateBtn" >수정하기</button>
 		<div id="message" style="text-align: center;"></div>
 		
+		<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
+			<button type="submit" id="withdrawalBtn" >회원탈퇴</button>
+		</form>
+		
 	</section>
 	
 	<script>
