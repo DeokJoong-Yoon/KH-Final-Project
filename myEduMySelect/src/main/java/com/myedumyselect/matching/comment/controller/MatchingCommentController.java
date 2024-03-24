@@ -1,5 +1,6 @@
 package com.myedumyselect.matching.comment.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.matching.comment.service.MatchingCommentService;
 import com.myedumyselect.matching.comment.vo.MatchingCommentVO;
-import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,12 +60,14 @@ public class MatchingCommentController {
 	
 	//댓글 삭제 구현
 	@DeleteMapping(value="/{matchingCommentNo}", produces=MediaType.TEXT_PLAIN_VALUE) 
-	public String mCommentDelete(@PathVariable("matchingCommentNo") int matchingCommentNo, MatchingCommentVO mcVO, 
-			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+	public String mCommentDelete(@PathVariable("matchingCommentNo") int matchingCommentNo, MatchingCommentVO mcVO) {
+		
 		log.info("mCommentDelete 호출 성공");
 		
+		mcVO.setMatchingCommentNo(matchingCommentNo);
 		int result = 0;
 		result = mcService.mCommentDelete(mcVO);
+		
 		return (result == 1) ? "SUCCESS" : "FAILURE";
 		
 	}
@@ -76,7 +79,6 @@ public class MatchingCommentController {
 		log.info("mCommentUpdate 호출 성공");
 		
 		mcVO.setMatchingCommentNo(matchingCommentNo);
-		//log.info("matchingCommentNo : " + matchingCommentNo);
 		
 		int result = 0;
 		result = mcService.mCommentUpdate(mcVO);
