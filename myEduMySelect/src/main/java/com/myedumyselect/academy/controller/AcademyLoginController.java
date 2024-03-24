@@ -143,7 +143,7 @@ public class AcademyLoginController {
    public String logout(SessionStatus sessionStatus) {
 	   log.info("로그아웃 처리");
 	   sessionStatus.setComplete();
-	   return "redirect:/academy/login";
+	   return "redirect:/loginselect";
    }
    
    /*************************************************************
@@ -180,7 +180,7 @@ public class AcademyLoginController {
   	 *************************************************************/   
    // 학원회원 마이페이지로 이동
    @GetMapping(value = "/academy/mypage")
-   public String mypage(@SessionAttribute(required = false, value= "academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras, Model model) {
+   public String academyMypage(@SessionAttribute(required = false, value= "academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras, Model model) {
 	   
 	   /* 학원전용 GetMapping 제어
 	   if(academyLoginVO != null) {

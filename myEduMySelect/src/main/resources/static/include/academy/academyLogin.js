@@ -12,7 +12,7 @@ $(function() {
     });
     
     $("#logoutBtn").on("click", function() {
-        location.href = "/academy/logout"
+        location.href = "/loginselect"
     });
 });
 
