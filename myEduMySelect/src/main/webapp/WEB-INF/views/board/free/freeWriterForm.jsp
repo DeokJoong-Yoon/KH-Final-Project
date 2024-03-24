@@ -1,13 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ include file="/WEB-INF/views/common/common.jspf" %>
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="kr">
 <link href="/resources/include/board/free/css/freeUpdate.css" rel="stylesheet">
 
 </head>
 
 <body>
+	<!-- ======= 설명 영역 ======= -->
+	<section id="hero" class="d-flex align-items-center  justify-content-center">
+		<div class="container" >
+			<div class="row">
+				<form id="detailForm">
+					<input type="hidden" id="commonNo" name="commonNo" />
+				</form>
+
+				<div class="col-12 text-center banner">
+		            자유 게시판<br/>
+		            <div class="descBox">
+		            	자유롭게 글을 작성할 수 있는 <b>자유게시판</b>입니다.<br>
+		            	질문, 후기, 정보 등 도움이 될 만한 다양한 글을 남겨주세요!
+		            </div>
+		       </div> 
+		    </div>
+		</div>
+	</section> <!-- ======= 설명 영역 끝 ======= -->
+	
+	
 	<!-- ======= 입력 영역 ======= -->
 	<main id="main">
 		<section id="form">

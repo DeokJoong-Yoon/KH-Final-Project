@@ -19,8 +19,9 @@
 				<div class="col-12 text-center banner">
 		            홍보 게시판<br/>
 		            <div class="descBox">
-		            	학원 홍보게시판입니다.<br>
-		            	정보 얻어 가세요!
+		            	우리 학원이 얼마나 멋진 장소인지 자랑하는 <b>홍보 게시판</b>입니다. <br>
+						당신이 찾는 모든 학원 정보가 바로 여기에!<br>
+						홍보 게시판에서 마음에 드는 학원을 발견했다면, '찜'을 눌러 보세요! 내가 찜한 학원 목록은 마이페이지에서 확인 가능합니다.
 		            </div>
 		       </div> 
 		    </div>
@@ -48,14 +49,6 @@
 						<input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
 					</form>	
 				</div><br><br>		<!-- 검색 영역 끝 -->
-				
-				<!-- 로그인 세션 임시 확인 -->
-				<label>개인 아이디</label>
-				<div class="userId">${personalLoginVO.personalId}</div>
-				<label>학원 아이디</label>
-				<div class="acaId">${academyLoginVO.academyId}</div>
-				<label>학원 이름</label>
-				<div class="acaName">${academyLoginVO.academyName}</div>
 				
 							
 				<!-- ========= 게시글 목록 영역 ======== -->

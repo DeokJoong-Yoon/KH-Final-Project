@@ -10,6 +10,7 @@
 
 <body>
 
+
   <!-- ======= 설명 영역 ======= -->
 	<section id="hero" class="d-flex align-items-center  justify-content-center">
 		<div class="container" >
@@ -39,7 +40,7 @@
 
 				<form id="updateForm" name="updateForm">
 					<input type="hidden" id="commonNo_hidden" name="commonNo" value="${freeUpdateData.commonNo}" />
-					<input type="hidden" id="commonFile" name="commonFile" value="${freeUpdateData.commonFile}" />"
+					<input type="hidden" id="commonFile" name="commonFile" value="${freeUpdateData.commonFile}" />
 							
 					<div class="boardDetail">		
 						<table>

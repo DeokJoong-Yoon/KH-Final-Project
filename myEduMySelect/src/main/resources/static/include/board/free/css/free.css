@@ -36,6 +36,10 @@
 	width : 150px;
 }
 
+#freeSearch {
+	margin-bottom : 10px;
+}
+
 #freeSearch input {
 	height : 35px;
 	width : 300px;
@@ -107,7 +111,7 @@
     font-size: 16px;
     float: right;
     font-weight: 600;
-    margin-top : 20px;
+    margin-right : 100px;
 }
 
 #searchData {

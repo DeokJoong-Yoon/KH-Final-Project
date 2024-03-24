@@ -110,21 +110,9 @@ let address;
 			} 
 			
             
-            alert($("#personalName").val() + "이름");
-            alert($("#personalEmail").val() + "이메일");
-            alert($("#personalBirth").val() + "생년월일");
-            alert($("#nowAddress").val() + "현주소");
-            alert($("#personal_post").val() + "바꾼 우편");
-            alert($("#personal_addr").val() + "바꾼 주소");
-            alert($("#personalAddressDetail").val() + "바꾼 상세 주소");
-            
-            
-				
-            
             // 수정 여부를 사용자에게 확인하기 위해 알림창을 표시합니다.
             if (confirm("개인 정보를 수정하시겠습니까?")) {
 				
-				alert(address);
                 // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
                 $.ajax({
                     url: "/personalUpdate",

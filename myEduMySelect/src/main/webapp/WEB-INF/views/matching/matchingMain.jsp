@@ -106,7 +106,21 @@
 	        					<input type="radio" name="matchingTargetSubject" id="korean" value="국어"><label for="korean"> 국어</label>
 	        					<input type="radio" name="matchingTargetSubject" id="math" value="수학"><label for="math"> 수학</label>
 	        					<input type="radio" name="matchingTargetSubject" id="english" value="영어"><label for="english"> 영어</label>
-	        					<input type="radio" name="matchingTargetSubject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label>
+	        					<input type="radio" name="matchingTargetSubject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="writing" value="논술"><label for="writing"> 논술</label>
+	        					<input type="radio" name="matchingTargetSubject" id="science" value="과학"><label for="science"> 과학</label>
+	        					<input type="radio" name="matchingTargetSubject" id="foreign" value="외국어"><label for="foreign"> 외국어</label>
+	        					<input type="radio" name="matchingTargetSubject" id="foreign" value="실용음악"><label for="music"> 실용음악</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="art" value="미술"><label for="art"> 미술</label>
+	        					<input type="radio" name="matchingTargetSubject" id="dance" value="무용/댄스"><label for="dance"> 무용/댄스</label>
+	        					<input type="radio" name="matchingTargetSubject" id="gym" value="체육"><label for="gym"> 체육</label>
+	        					<input type="radio" name="matchingTargetSubject" id="inst" value="악기"><label for="inst"> 악기</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="acting" value="연기/연극"><label for="acting"> 연기/연극</label>
+	        					<input type="radio" name="matchingTargetSubject" id="entertain" value="예체능입시"><label for="entertain"> 예체능입시</label>
+	        					<input type="radio" name="matchingTargetSubject" id="exam" value="고시"><label for="exam"> 고시</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="hobby" value="취미"><label for="hobby"> 취미</label>
+	        					<input type="radio" name="matchingTargetSubject" id="job" value="직업기술"><label for="job"> 직업기술</label>
+	        					<input type="radio" name="matchingTargetSubject" id="etc" value="기타"><label for="etc"> 기타</label>
 	        				</td>
 	        				<td>수강료</td>
 	        				<td >

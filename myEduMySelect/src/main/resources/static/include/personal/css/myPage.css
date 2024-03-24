@@ -83,7 +83,7 @@ button:hover {
 	border-radius: 5px;
 	font-size: 16px;
 	font-weight: 600;
-	margin-top: 50px;
+	margin-top: 20px;
 	margin-left: 5px;
 	float: right;
 }
@@ -127,21 +127,8 @@ h4 {
 	color: #37517e;
 }
 
-#withdrawalForm {
-	padding: 10px 15px;
-	background-color: red;
-	color: white;
-	border: none;
-	cursor: pointer;
-	border-radius: 5px;
-	font-size: 16px;
-	font-weight: 600;
-	margin-top: 50px;
-	margin-left: 5px;
-	float: left;
-}
 
-#withdrawalBtn {
+#withdrawalGo {
 	padding: 10px 20px;
 	background-color: red;
 	color: white;
@@ -150,5 +137,7 @@ h4 {
 	border-radius: 5px;
 	font-size: 16px;
 	font-weight: 600;
+	margin-top: 20px;
+	margin-left: 5px;
 	float: left;
 }

@@ -94,14 +94,18 @@
 		</table>
 
 	</form>
+	
+	<div style="max-width: 600px; margin: auto;">
+		<button type="button" id="personalUpdateBtn">수정하기</button>
+		<div id="message" style="text-align: center;"></div>
+	
+		<form action="/personalWithdrawal" method="get">
+		    <button type="submit" id="withdrawalGo">회원탈퇴</button>
+		</form>
+		
+	</div>
 
-	<button type="button" id="personalUpdateBtn">수정하기</button>
-	<div id="message" style="text-align: center;"></div>
-
-	<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
-		<button type="submit" id="withdrawalBtn">회원탈퇴</button>
-
-	</form>
+	
 
 </section>
 

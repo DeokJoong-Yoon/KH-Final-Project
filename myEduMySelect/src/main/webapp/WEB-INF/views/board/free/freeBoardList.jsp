@@ -12,8 +12,8 @@
 <body>
 	<!-- End Header -->
 
-	<!-- ======= 게시판 영역 ======= -->
-	<section id="hero" class="d-flex align-items-center ">
+	<!-- ======= 설명 영역 ======= -->
+	<section id="hero" class="d-flex align-items-center justify-content-center">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 text-center banner">
@@ -25,8 +25,10 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>  <!-- ======= 설명 영역 끝 ======= -->
+	
 
+	<!-- ======= 게시판 영역 ======= -->
 	<main id="main">
 		<form id="detailForm">
 			<input type="hidden" id="commonNo" name="commonNo" />
@@ -40,7 +42,7 @@
 				<div class="container">
 
 					<!-- ======= 검색 영역 ======= -->
-					<div id="freeSearch" class="text-right" style="width: 300%;">
+					<div id="freeSearch" >
 						<div class="row g-2 alian-items-center">
 							<div class="col-auto">
 								<select id="search" name="search"
@@ -64,6 +66,8 @@
 					</div>
 					<!-- 검색 영역 끝 -->
 
+
+					<!-- ========= 게시글 목록 영역 ======== -->
 					<div class="list">
 						<table>
 							<thead>

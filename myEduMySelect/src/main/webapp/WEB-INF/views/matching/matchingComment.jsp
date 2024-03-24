@@ -31,8 +31,8 @@
 		<%-- 댓글 리스트 출력 영역 --%>
 		<div id="mcList">
 			<div class="list" id="item-template">
-				<p class="mcId"></p>
-				<h5 class="mcName"></h5>
+				<h5 class="mcName"></h5> &nbsp;&nbsp;&nbsp;&nbsp;
+				<label class="mcId"></label>
 				<p class="mcDate"></p>
 				<p class="mcContent"></p>
 				<div class="commentBtns">
@@ -59,7 +59,7 @@
 			$element.find(".mcName").html(matchingCommentNickname);
 			$element.find(".mcContent").html(matchingCommentContent);
 			$element.find(".mcDate").html(matchingCommentDate);
-			$element.find(".mcId").html(commentWriterId);
+			$element.find(".mcId").html("(" + commentWriterId + ")");
 			
 			$div.append($element);
 			
