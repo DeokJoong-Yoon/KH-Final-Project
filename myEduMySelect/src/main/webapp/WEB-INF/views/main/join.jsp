@@ -58,7 +58,7 @@
 
 	<!-------------------------------------- 여기부터 회원가입 입력란 시작-------------------------------------------->
 	<section>
-		<form action="/personalSignUp">
+		<form>
 		  <div class="container" style="padding-top: 1rem;">
 		  		<div class="section-title">
 		  			<h2>개인정보 취급방침 동의</h2>
@@ -121,7 +121,7 @@ MyEduMySelect는 사용자의 개인정보를 매우 중요하게 생각하며, 
 	         
 			     <!-- 버튼 컨테이너 추가 -->
 				 <div class="button-container">
-				 	<button type="button" id="personalJoin" onclick="window.location.href='/useraccount/join/personal'">개인 회원가입 페이지로 이동</button>
+				 	<button type="button" id="personalJoin" onclick="window.location.href='/personal/join'">개인 회원가입 페이지로 이동</button>
 				 	<button type="button" id="academyJoin" onclick="window.location.href='/academy/join'">학원 회원가입 페이지로 이동</button>
 				</div>
 		    </div>
@@ -151,5 +151,6 @@ MyEduMySelect는 사용자의 개인정보를 매우 중요하게 생각하며, 
 	<!-- Template Main JS File -->
 	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
+	<script src="/resources/include/personal/join.js"></script>
 </body>
 </html>

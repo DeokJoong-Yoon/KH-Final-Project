@@ -28,7 +28,6 @@ import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.service.PersonalMatchingBoardService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
-
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -44,16 +43,16 @@ public class PersonalLoginController {
 
 	@Autowired
 	private PersonalMatchingBoardService personalMatchingBoardService;
-	
+
 	@Autowired
 	private PersonalFreeBoardService personalFreeBoardService;
 
 	@Autowired
 	private PersonalLikeService personalLikeService;
-	
+
 	@Autowired
 	private SessionCheckService sessionCheckService;
-	 
+
 	@GetMapping("/personal/login")
 	public String loginForm() {
 		log.info("personalLogin 페이지 호출");
@@ -138,10 +137,10 @@ public class PersonalLoginController {
 		log.info("로그아웃 처리");
 		sessionStatus.setComplete();
 		return "redirect:/loginselect";
-	}  
+	}
 
 	// 개인회원 가입 페이지
-	@GetMapping(value = "/useraccount/join/personal")
+	@GetMapping(value = "/personal/join")
 	public String personalJoinForm() {
 		log.info("personaljoinForm 호출 성공");
 		return "personal/personalJoin";
@@ -202,13 +201,13 @@ public class PersonalLoginController {
 	// 마이페이지
 	@GetMapping("/myPage")
 	public String personalMyPage(Model model,
-			@SessionAttribute(required = false, value = "personalLogin")PersonalLoginVO personalLoginVO) {
-		if(personalLoginVO != null) {
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if(personalResult != "TRUE") {
+			if (personalResult != "TRUE") {
 				return personalResult;
 			}
-		}else {
+		} else {
 			return "/redirect:/";
 		}
 
@@ -226,7 +225,7 @@ public class PersonalLoginController {
 	// RedirectAttributes 리다이렉트 시에 플래시 메시지를 전달하는데 사용
 	public String personalUpdate(@ModelAttribute PersonalLoginVO personalLogin, HttpSession session,
 			RedirectAttributes redirectAttributes) {
-		
+
 		PersonalLoginVO sessionPersonalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
 
 		// 세션에서 가져온 personalLogin 객체에 업데이트된 정보를 적용,결론적으로 VO를 들고 오는구조 이메일,주소,전화번호,비밀번호를
@@ -260,9 +259,9 @@ public class PersonalLoginController {
 
 	// 사용자가 작성한 매칭 게시글 목록 보기 페이지로 이동
 	@GetMapping("/personalMatchingView")
-	public String getMatchingView(MatchingBoardVO matchingBoardVO,Model model, 
-			@SessionAttribute(required= false, value = "personalLogin")PersonalLoginVO personalLoginVO) {
-		if(personalLoginVO != null) {
+	public String getMatchingView(MatchingBoardVO matchingBoardVO, Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
 			if (personalResult != "TRUE") {
 				return personalResult;
@@ -270,7 +269,7 @@ public class PersonalLoginController {
 		} else {
 			return "redirect:/";
 		}
-	
+
 		matchingBoardVO.setPersonalId(personalLoginVO.getPersonalId());
 		List<MatchingBoardVO> matchingBoardList = personalMatchingBoardService.boardList(matchingBoardVO);
 		model.addAttribute("matchingBoardList", matchingBoardList);
@@ -281,11 +280,10 @@ public class PersonalLoginController {
 		model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
 		return "personal/personalMatchingView"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
 	}
-	
-	
-	//사용자가 작성한 자유 게시판 목록 보기 페이지로 이동
+
+	// 사용자가 작성한 자유 게시판 목록 보기 페이지로 이동
 	@GetMapping("/personalFreeView")
-	public String getFreeView(FreeVO freeVO, Model model, 
+	public String getFreeView(FreeVO freeVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
 		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
@@ -299,95 +297,84 @@ public class PersonalLoginController {
 		freeVO.setPersonalId(personalLoginVO.getPersonalId());
 		List<FreeVO> freeBoardList = personalFreeBoardService.boardList(freeVO);
 		model.addAttribute("freeBoardList", freeBoardList);
-		
-		//전체 레코드수 반환.
+
+		// 전체 레코드수 반환.
 		int total = personalFreeBoardService.boardListCnt(freeVO);
 
-		
-		//페이징 처리
+		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(freeVO, total));
 		return "personal/personalFreeView";
-		 
+
 	}
-	//사용자가 찜한 자유 게시판 목록 보기 페이지로 이동
+
+	// 사용자가 찜한 자유 게시판 목록 보기 페이지로 이동
 	@GetMapping("/personalLikeView")
-		public String getLikeView(LikeVO likeVO, Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
-			if (personalLoginVO != null) {
-				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-				if (personalResult != "TRUE") {
-					return personalResult;
-				}
-			} else {
-				return "redirect:/";
+	public String getLikeView(LikeVO likeVO, Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+		if (personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
 			}
-		
-		String personalId = personalLoginVO.getPersonalId();
+		} else { 
+			return "redirect:/";
+		}
+
 		List<AdvertiseVO> advertiseVO = personalLikeService.getLikedCommon(personalLoginVO);
 		List<LikeVO> likeList = personalLikeService.likeList(likeVO);
-		
-		
-		model.addAttribute("personalId", personalId);
+
 		model.addAttribute("advertiseVO", advertiseVO);
 		model.addAttribute("likeList", likeList);
-		
-		
-		//int total = personalLikeService.getLikedCommonCnt(advertiseVO);
-		
-		//model.addAttribute("pageMaker", new PageDTO(advertiseVO, total));
+
 		return "personal/personalLikeView";
 	}
-	
-	
-
-	
-		
 
 	// 비밀번호 변경 페이지
-		@GetMapping("/newPasswd")
-		public String passwordChangePage(@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
-			if (personalLoginVO != null) {
-				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-				if (personalResult != "TRUE") {
-					return personalResult;
-				}
-			} else {
-				return "redirect:/";
+	@GetMapping("/newPasswd")
+	public String passwordChangePage(
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
+		if (personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
 			}
-			return "personal/newPasswd";
+		} else {
+			return "redirect:/";
 		}
-		
+		return "personal/newPasswd";
+	}
 
-		@ResponseBody
-		@PostMapping(value = "/updatePersonalPasswd")
-		public String updatePersonalPasswd(@RequestParam("currentPassword") String currentPassword,
-				@RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
-				@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, RedirectAttributes ras, Model model) {
-			PersonalLoginVO curPersonalLogin = new PersonalLoginVO();
-			curPersonalLogin.setPersonalId(personalLoginVO.getPersonalId());
-			curPersonalLogin.setPersonalPasswd(currentPassword);
-			PersonalLoginVO checkPassword = personalLoginService.loginProcess(curPersonalLogin);
-			// 현재 계정의 패스워드 재확인
-			if (checkPassword != null) {
-				if (!renewPassword.equals(newPassword)) {
-					ras.addFlashAttribute("errorMsg", "New Password 와 Re-enter New Password 가 일치하지 않습니다.");
-					return "FALSE";
-				}
-				int result = 0;
-				checkPassword.setPersonalPasswd(renewPassword);
-				result = personalLoginService.updatePersonalPasswd(checkPassword);
-				if (result == 1) {
-					
-					model.addAttribute("personalLogin", personalLoginService.loginProcess(checkPassword));
-					ras.addFlashAttribute("successMsg", "패스워드 변경 완료");		
-					return "TRUE";
-				}
-			} else {
-				ras.addFlashAttribute("errorMsg", "패스워드가 맞지 않습니다.");
+	@ResponseBody
+	@PostMapping(value = "/updatePersonalPasswd")
+	public String updatePersonalPasswd(@RequestParam("currentPassword") String currentPassword,
+			@RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
+			@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, RedirectAttributes ras, Model model) {
+		PersonalLoginVO curPersonalLogin = new PersonalLoginVO();
+		curPersonalLogin.setPersonalId(personalLoginVO.getPersonalId());
+		curPersonalLogin.setPersonalPasswd(currentPassword);
+		PersonalLoginVO checkPassword = personalLoginService.loginProcess(curPersonalLogin);
+		// 현재 계정의 패스워드 재확인
+		if (checkPassword != null) {
+			if (!renewPassword.equals(newPassword)) {
+				ras.addFlashAttribute("errorMsg", "New Password 와 Re-enter New Password 가 일치하지 않습니다.");
 				return "FALSE";
 			}
+			int result = 0;
+			checkPassword.setPersonalPasswd(renewPassword);
+			result = personalLoginService.updatePersonalPasswd(checkPassword);
+			if (result == 1) {
 
-			ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
+				model.addAttribute("personalLogin", personalLoginService.loginProcess(checkPassword));
+				ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
+				return "TRUE";
+			}
+		} else {
+			ras.addFlashAttribute("errorMsg", "패스워드가 맞지 않습니다.");
 			return "FALSE";
 		}
-		
+
+		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
+		return "FALSE";
 	}
+
+}
