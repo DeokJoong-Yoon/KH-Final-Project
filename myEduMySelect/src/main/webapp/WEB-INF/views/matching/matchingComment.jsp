@@ -19,7 +19,7 @@
 		<%-- 댓글 입력 화면 --%>
 		<form id="mcForm" name="mcForm">
 			<div class="mcComment">
-				<input type="text" name="matchingCommentNickname" id="matchingCommentNickname" value=${userName } disabled />
+				<input type="text" name="matchingCommentNickname" id="matchingCommentNickname" value="${academyLoginVO.academyName }" disabled />
 				<br>
 				<textarea name="matchingCommentContent" id="matchingCommentContent" placeholder="댓글을 입력하세요"></textarea>
 				<button type="button" id="mcBtn">등록</button>
@@ -169,8 +169,8 @@
 			$(document).on("click", "#mcBtn", function(){
 				
 				let value = {
-					academyId : "${userId }",
-					matchingCommentNickname : "${userName }",
+					academyId : "${academyLoginVO.academyId }",
+					matchingCommentNickname : "${academyLoginVO.academyName }",
 					matchingNo : matchingNo,
 					matchingCommentContent : $("#matchingCommentContent").val(),
 				};

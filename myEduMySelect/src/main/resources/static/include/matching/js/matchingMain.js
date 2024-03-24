@@ -295,11 +295,9 @@ $(function(){
 		let academyId = $("#academyId").val();
 		
 		if(personalId == '' && academyId == '') {
-			console.log("if");
 			alert("로그인 후 열람 가능합니다.");
 			$(this).attr("href", "/matching/boardList")
-		} else if(matchingPrivate == 'Y') {
-			console.log("else if 1");
+		} else if(matchingPrivate == 'Y' && personalId != writerId) {
 			let pwd = prompt("비밀번호를 입력하세요", '');
 				if(pwd == matchingPasswd) {
 					$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
@@ -308,7 +306,6 @@ $(function(){
 					$(this).attr("href", "/matching/")
 			}
 		} else if(matchingPrivate == 'N' || personalId == writerId) {
-			console.log("else if 2");
 			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 		} 
 		

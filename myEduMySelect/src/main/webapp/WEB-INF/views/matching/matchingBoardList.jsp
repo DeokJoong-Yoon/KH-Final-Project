@@ -31,6 +31,11 @@
     <section class="mcBoard">
      
       <div class="container">
+      
+        <!-- ======= 세션을 위한 hidden input ======= -->
+        <input type="hidden" id="personalId" name="personalId" value="${personalLoginVO.personalId }"/>
+	    <input type="hidden" id="academyId" name="academyId" value="${academyLoginVO.academyId }"/>
+      
 
 		<!-- ======= 검색 영역 ======= -->
 		<div class="mcBoardListSearch">

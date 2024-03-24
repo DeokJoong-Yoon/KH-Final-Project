@@ -42,8 +42,8 @@
 					
 					
 					<form id="insertForm">
-				<%-- 		<input type="hidden" id="commonNo" name="commonNo" value="${insertData.commonNo }"/> --%>
 				
+										
 						<table>
 							<tr>
 								<th>작성자</th>
@@ -52,7 +52,8 @@
 							<tr>
 								<th>학원명</th>
 								<td>
-									<input type="text" value="${academyLogin.academyName}" id="commonNickname" name="commonNickname" readonly />								
+									<input type="text" value="${academyLogin.academyName}" id="commonNickname" name="commonNickname" readonly />			
+									<input type="hidden" value="${academyLogin.academyId}" id="academyId" name="academyId" />								
 								</td>
 							</tr>
 						</table>

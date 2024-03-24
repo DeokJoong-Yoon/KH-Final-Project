@@ -132,6 +132,14 @@
 	        					<input type="checkbox" name="matchingKeyword" id="lecture" value="강의식 수업"><label for="lecture"> 강의식 수업</label>
 	        					<input type="checkbox" name="matchingKeyword" id="forEntrance" value="입시대비"><label for="forEntrance"> 입시대비</label> <br>
 	        					<input type="checkbox" name="matchingKeyword" id="interesting" value="재밌는 수업"><label for="interesting"> 재밌는 수업</label>
+	        					<input type="checkbox" name="matchingKeyword" id="once" value="한 번에 많이"><label for="once"> 한 번에 많이</label>
+	        					<input type="checkbox" name="matchingKeyword" id="often" value="조금씩 자주"><label for="often"> 조금씩 자주</label>
+	        					<input type="checkbox" name="matchingKeyword" id="practice" value="실습 중심"><label for="practice"> 실습 중심</label>
+	        					<input type="checkbox" name="matchingKeyword" id="minimum" value="소수정예"><label for="minimum"> 소수정예</label>
+	        					<input type="checkbox" name="matchingKeyword" id="care" value="집중 관리"><label for="care"> 집중 관리</label>
+	        					<input type="checkbox" name="matchingKeyword" id="feedback" value="테스트&피드백 시스템"><label for="feedback"> 테스트&피드백 시스템</label><br>
+	        					<input type="checkbox" name="matchingKeyword" id="consulting" value="상담 및 컨설팅 포함"><label for="consulting"> 상담 및 컨설팅 포함</label>
+	        					<input type="checkbox" name="matchingKeyword" id="job" value="취업"><label for="job"> 취업</label>
 	        				</td>
 	        			<tr>
 	        				<td colspan="4">
@@ -239,7 +247,7 @@
 							        		<span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
 							        	</c:if>
 									</td>
-									<td>${matchingBoard.personalId }</td>
+									<td class="writerId">${matchingBoard.personalId }</td>
 									<td>${matchingBoard.matchingRegisterDate }</td>
 								</tr>
 							</c:forEach>

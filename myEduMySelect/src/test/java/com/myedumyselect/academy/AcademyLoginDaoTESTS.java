@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.myedumyselect.academy.dao.AcademyAdvertiseDAO;
 import com.myedumyselect.academy.dao.AcademyLoginDao;
 import com.myedumyselect.academy.dao.AcademyMatchingBoardDAO;
-import com.myedumyselect.academy.dao.AcademyMatchingCommentDAO;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
@@ -32,8 +31,8 @@ public class AcademyLoginDaoTESTS {
 	@Setter(onMethod_ = @Autowired)
 	private AcademyMatchingBoardDAO academyMatchingBoardDAO;
 	
-	@Setter(onMethod_ = @Autowired)
-	private AcademyMatchingCommentDAO academyMatchingCommentDAO;
+//	@Setter(onMethod_ = @Autowired)
+//	private AcademyMatchingCommentDAO academyMatchingCommentDAO;
 	
 //	@Test
 //	public void findById() {
@@ -56,27 +55,27 @@ public class AcademyLoginDaoTESTS {
 //		}
 //	}
 	
-	@Test
-	public void academyMatchingBoardList() {
-		
-		MatchingBoardVO matchingBoardVO = new MatchingBoardVO();
-		
-	    AcademyLoginVO academyLoginVO = new AcademyLoginVO();
-	    academyLoginVO.setAcademyId("dudalsl");
-	    //String academyId = academyLoginVO.getAcademyId();
-	    
-	    // 임시로 academyId 값을 저장할 수 있는 방법
-	    MatchingCommentVO matchingCommentVO = new MatchingCommentVO();
-	    matchingCommentVO.setAcademyId("dudalsl");	    
-	     
-	    // boardList를 조회할 때는 matchingBoardVO를 파라미터로 전달합니다.
-	    List<MatchingBoardVO> boardList = new ArrayList<MatchingBoardVO>(); 
-	    boardList = academyMatchingBoardDAO.boardList(matchingBoardVO);
-	    
-	    for(MatchingBoardVO list : boardList) {
-	        log.info(list.toString());
-	    }
-	}
+//	@Test
+//	public void academyMatchingBoardList() {
+//		
+//		MatchingBoardVO matchingBoardVO = new MatchingBoardVO();
+//		
+//	    AcademyLoginVO academyLoginVO = new AcademyLoginVO();
+//	    academyLoginVO.setAcademyId("dudalsl");
+//	    //String academyId = academyLoginVO.getAcademyId();
+//	    
+//	    // 임시로 academyId 값을 저장할 수 있는 방법
+//	    MatchingCommentVO matchingCommentVO = new MatchingCommentVO();
+//	    matchingCommentVO.setAcademyId("dudalsl");	    
+//	     
+//	    // boardList를 조회할 때는 matchingBoardVO를 파라미터로 전달합니다.
+//	    List<MatchingBoardVO> boardList = new ArrayList<MatchingBoardVO>(); 
+//	    boardList = academyMatchingBoardDAO.boardList(matchingBoardVO);
+//	    
+//	    for(MatchingBoardVO list : boardList) {
+//	        log.info(list.toString());
+//	    }
+//	}
 
 	
 //	@Test

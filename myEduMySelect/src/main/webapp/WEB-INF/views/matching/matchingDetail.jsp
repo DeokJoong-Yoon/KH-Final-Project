@@ -30,12 +30,15 @@
      
       <div class="container">
       
+      	<!-- ======= 세션을 위한 hidden input ======= -->
+        <input type="hidden" id="personalId" name="personalId" value="${personalLoginVO.personalId }"/>
+	    <input type="hidden" id="academyId" name="academyId" value="${academyLoginVO.academyId }"/>
+      
+      
       	<form name="formData" id="formData">
       		<input type="hidden" name="matchingNo" id="matchingNo" value="${detail.matchingNo }"/>
       	</form>
       
-      	<div class="userId">${userId }</div>
-      	
 		<div class="mcBoardDetail">
 			<table>
 				<tr>
