@@ -75,7 +75,7 @@ button:hover {
 	background-color: #37517e;
 }
 
-#updateBtn, #payBtn, #withdrawalBtn{
+#updateBtn, #payBtn {
 	padding: 10px 20px;
     background-color: #48d1cc;
     color: white;
@@ -84,7 +84,7 @@ button:hover {
     border-radius: 5px;
     font-size: 16px;
     font-weight: 600;
-    margin-top:50px;
+    margin-top:20px;
     margin-left:5px;
     float: right;
 }
@@ -106,4 +106,40 @@ button:hover {
 	margin-right : 30px;
 }
 
+
+#advertiseBtn, #matchingBtn {
+	background-color: #48d1cc;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	width: 750px;
+	height: 50px;
+	margin-top: 10px;
+}
+
+#matchingBtn:hover, #advertiseBtn:hover {
+	background-color: #37517e;
+}
+
+h4 {
+	font-weight: 600px;
+	color: #37517e;
+}
+
+#withdrawalBtn  {
+	padding: 10px 20px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	margin-top: 20px;
+	margin-left: 5px;
+	float: left;
+}
 
