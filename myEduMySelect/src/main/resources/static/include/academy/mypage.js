@@ -117,9 +117,13 @@ $(document).ready(function() {
 	
 	//홍보게시판 내가 쓴 글 목록 이동
 	$("#advertiseBtn").on("click", function(){
-		window.location.href = "/advertise/advertiseBoardList";
+		window.location.href = "/academy/advertiseList";
 	})
 	
+	//매칭게시판 내가 쓴 댓글 목록 이동
+	$("#matchingBtn").on("click", function(){
+		window.location.href = "/academy/matchingBoardList";
+	})
 	
 	//결제하기 이동
 	$("#payBtn").on("click", function(){

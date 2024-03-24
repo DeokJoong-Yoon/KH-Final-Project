@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myedumyselect.academy.dao.AcademyMatchingBoardDAO">
+<mapper namespace="com.myedumyselect.academy.dao.AcademyMatchingCommentDAO">
 	
 	<!-- MatchingBoardVO 별칭 일괄 부여 -->
 	<resultMap type="matchingBoard" id="matchingBoardMap">
@@ -21,6 +21,7 @@
 		<result column="matching_comment" property="matchingComment" />
 	</resultMap>
 	
+	<!-- MatchingCommentVO 별칭 일괄 부여 -->
 	<resultMap type="matchingComment" id="matchingCommentMap">
 		<id column="matching_comment_no" property="matchingCommentNo" />
 		<result column="academy_id" property="academyId" />
@@ -57,46 +58,46 @@
         <result column="academy_login_fail_count" property="academyLoginFailCount"/>
         <result column="academy_account_banned_date" property="academyAccountBannedDate"/>
     </resultMap>
-    
 	
-	<!-- 전체 레코드 수 조회 -->
-	<select id="boardListCnt" parameterType="matchingBoard"
-		resultType="int">
-		SELECT count(*) FROM tb_matching_board
-		WHERE academy_id =
-		#{academyId}
-	</select>
+	<!-- 1. 댓글 테이블에서 본인이 작성한 댓글 게시물의 번호를 가져온다. -->
+	
+    <!-- 2. 반환 받은 게시물 번호들을 가지고 게시물 테이블에 가서 모든 내용을 조회한다. -->
+    	
+	<!-- 댓글 조회 -->
+	<select id="CommentList" parameterType="matchingComment" resultMap="matchingCommentMap">
+		SELECT  matching_comment_no
+		,		academy_id
+		,		matching_no
+		,		matching_comment_nickname
+		,		matching_comment_content
+		,		to_char (matching_comment_date, 'YYYY-MM-DD  HH:MI')   as matching_comment_date
+		FROM    tb_matching_comment
+		WHERE   matching_no = #{matchingNo}
+		ORDER BY  matching_comment_no DESC
+	</select>	
+	
+	<!-- 댓글 입력 -->
+	<insert id="CommentInsert" parameterType="matchingComment">
+		<selectKey keyProperty="matchingCommentNo" resultType="int" order="BEFORE">
+			SELECT   matching_board_comment_seq.nextval  FROM  dual
+		</selectKey>
+		INSERT  into  tb_matching_comment
+		VALUES  (
+			#{matchingCommentNo}, #{academyId}, #{matchingNo}, #{matchingCommentNickname}, #{matchingCommentContent}, sysdate
+		)
+	</insert>		
+	
+	<!-- 댓글 수정 -->
+	<update id="CommentUpdate" parameterType="matchingBoard">
+		UPDATE	tb_matching_comment
+		SET 	matching_comment_content = #{matchingCommentContent}
+		WHERE 	matching_comment_no = #{matchingCommentNo}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="CommentDelete" parameterType="matchingComment">
+		DELETE  FROM	tb_matching_comment
+		WHERE	matching_comment_no = #{matchingCommentNo}
+	</delete>	
 
-	<!-- 매칭게시판 글 목록 전체 보기 -->
-	<select id="boardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
-		<![CDATA[
-		SELECT  matching_no
-				, matching_gu_address
-				, matching_dong_address
-				, matching_target_subject
-				, matching_target_grade
-				, matching_private
-				, matching_register_date
-				, academy_id
-		FROM   (
-    			SELECT	/*+ INDEX_DESC(tb_matching_board pk_tb_matching_board_pk) */  
-    			rownum as rnum
-    					, matching_no
-    					, matching_gu_address
-    					, matching_dong_address
-    					, matching_target_subject
-    					, matching_target_grade
-    					, matching_private
-    					, matching_register_date
-    					, academy_id
-				FROM   	(
-						SELECT * FROM tb_matching_board
-						WHERE academy_id = #{academyId}
-						ORDER BY matching_register_date DESC) sortedList
-    			WHERE ]]>
-				<![CDATA[rownum <= #{pageNum} * #{amount}) boardList
-				WHERE rnum > (#{pageNum} - 1 ) * #{amount}
-				]]>
-	</select>
-	
 </mapper>
