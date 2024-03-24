@@ -168,12 +168,6 @@ public class PersonalLoginController {
 		return "redirect:/useraccount/join/complete";
 	}
 
-	// @GetMapping("/")
-	// public String home() {
-	// 홈 페이지로 이동
-	// return "/personal/main"; // home.jsp
-	// }
-
 	@GetMapping("/useraccount/join")
 	public String signUp() {
 		// 회원가입 페이지로 이동
@@ -225,7 +219,6 @@ public class PersonalLoginController {
 	// RedirectAttributes 리다이렉트 시에 플래시 메시지를 전달하는데 사용
 	public String personalUpdate(@ModelAttribute PersonalLoginVO personalLogin, HttpSession session,
 			RedirectAttributes redirectAttributes) {
-
 		PersonalLoginVO sessionPersonalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
 
 		// 세션에서 가져온 personalLogin 객체에 업데이트된 정보를 적용,결론적으로 VO를 들고 오는구조 이메일,주소,전화번호,비밀번호를
@@ -316,7 +309,7 @@ public class PersonalLoginController {
 			if (personalResult != "TRUE") {
 				return personalResult;
 			}
-		} else { 
+		} else {
 			return "redirect:/";
 		}
 
