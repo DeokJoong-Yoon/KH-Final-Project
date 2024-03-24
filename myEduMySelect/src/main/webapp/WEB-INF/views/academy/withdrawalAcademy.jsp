@@ -8,7 +8,7 @@
 </head>      
 <body>
 	<h1>회원탈퇴 페이지</h1>
-<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
+<form id="withdrawalForm" action="/withdrawal/academy" method="POST">
     <div>
         <label for="currentPassword">현재 비밀번호:</label>
         <input type="password" id="currentPassword" name="currentPassword">
@@ -25,7 +25,7 @@
             var currentPassword = $("#currentPassword").val();
             $.ajax({
                 type: 'POST',
-                url: '/withdrawalPersonal',
+                url: '/withdrawalAcademy',
                 data: {
                     currentPassword: currentPassword
                 },

@@ -218,39 +218,39 @@
 						<input type="text" id="prevKeyword5" name="prevKeyword" value="${academyLogin.academyKeyword5}" readonly /> 
 						<button type="button" id="keywordChange">변경하기</button>
 						<div id="keywordGroup" style="display: none;">
-				            <input type="checkbox" name="academyKeyword" id="keyword1" value="기초부터" />
+				            <input type="checkbox" name="academyKeyword" id="keyword1" value="기초부터" class="keyword-checkbox"/>
 				            <label for="keyword1">기초부터</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword2" value="심화수업" />
+				            <input type="checkbox" name="academyKeyword" id="keyword2" value="심화수업" class="keyword-checkbox"/>
 				            <label for="keyword2">심화수업</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword3" value="친절한 강사" />
+				            <input type="checkbox" name="academyKeyword" id="keyword3" value="친절한 강사" class="keyword-checkbox"/>
 				            <label for="keyword3" >친절한 강사</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword4"value="꼼꼼한 관리" />
+				            <input type="checkbox" name="academyKeyword" id="keyword4"value="꼼꼼한 관리" class="keyword-checkbox"/>
 				            <label for="keyword4">꼼꼼한 관리</label><br>
-				            <input type="checkbox" name="academyKeyword" id="keyword5" value="숙제 없음" />
+				            <input type="checkbox" name="academyKeyword" id="keyword5" value="숙제 없음" class="keyword-checkbox"/>
 				            <label for="keyword5" >숙제 없음</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword6" value="자기주도적" />
+				            <input type="checkbox" name="academyKeyword" id="keyword6" value="자기주도적" class="keyword-checkbox"/>
 				            <label for="keyword6" >자기주도적</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword7" value="강의식 수업" />
+				            <input type="checkbox" name="academyKeyword" id="keyword7" value="강의식 수업" class="keyword-checkbox"/>
 				            <label for="keyword7" >강의식 수업</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword8" value="입시 대비" />
+				            <input type="checkbox" name="academyKeyword" id="keyword8" value="입시 대비" class="keyword-checkbox"/>
 				            <label for="keyword8" >입시 대비</label><br>
-				            <input type="checkbox" name="academyKeyword" id="keyword9" value="재밌는 수업" />
+				            <input type="checkbox" name="academyKeyword" id="keyword9" value="재밌는 수업" class="keyword-checkbox"/>
 				            <label for="keyword9">재밌는 수업</label>
-				            <input type="checkbox" name="academyKeyword" id="keyword10" value="한 번에 많이" />
+				            <input type="checkbox" name="academyKeyword" id="keyword10" value="한 번에 많이" class="keyword-checkbox"/>
 				            <label for="keyword10">한 번에 많이</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword11" value="조금씩 자주" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword11" value="조금씩 자주" class="keyword-checkbox"/>
                           	<label for="keyword11">조금씩 자주</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword12" value="실습 중심" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword12" value="실습 중심" class="keyword-checkbox"/>
                           	<label for="keyword12">실습 중심</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword13" value="소수정예" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword13" value="소수정예" class="keyword-checkbox"/>
                           	<label for="keyword13">소수정예</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword14" value="집중 관리" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword14" value="집중 관리" class="keyword-checkbox"/>
                           	<label for="keyword14">집중 관리</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword15" value="테스트&피드백 시스템" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword15" value="테스트&피드백 시스템" class="keyword-checkbox"/>
                           	<label for="keyword15">테스트&피드백 시스템</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword16" value="상담 및 컨설팅 포함" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword16" value="상담 및 컨설팅 포함" class="keyword-checkbox"/>
                           	<label for="keyword16">상담 및 컨설팅 포함</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword17" value="취업" />
+                          	<input type="checkbox" name="academyKeyword" id="keyword17" value="취업" class="keyword-checkbox"/>
                           	<label for="keyword17">취업</label>
 				         </div>
 					</td>
@@ -283,8 +283,9 @@
 	<!-- 키워드 선택 제어 -->
 	<script>
 	
-	    window.onload = function() {
-	        var maxKeywords = 5;
+	    
+    	$("#keywordChange").on("click", function(event) {
+    		var maxKeywords = 5;
 	        var checkboxes = document.querySelectorAll('.keyword-checkbox');
 	        function checkboxClickHandler() {
 	            var checkedCount = 0;
@@ -306,7 +307,9 @@
 	        var selectedAcademyFee = "${academyLogin.academyFee}";
 	        // 가져온 값과 동일한 id를 가진 라디오 버튼을 선택함
 	        document.getElementById(selectedAcademyFee).checked = true;
-	    };
+    	})
+	        
+	   
 	</script>
 	
 	<!-- <script>
