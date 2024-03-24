@@ -1,11 +1,10 @@
 package com.myedumyselect.commonboard.advertise.dao;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -67,18 +66,18 @@ public class AdvertiseTest {
 //		log.info("총 레코드 수 : " + aDAO.advertiseList(bvo));
 //	}
 	
-	
-	@Test
-	public void detailTest() {
-		log.info("상세페이지 조회");
-		
-		AdvertiseVO aVO = new AdvertiseVO();
-		aVO.setCommonNo(20031);
-		
-		AdvertiseVO vo = aDAO.advertiseDetail(aVO);
-		
-		log.info(vo.toString());
-	}
+//	
+//	@Test
+//	public void detailTest() {
+//		log.info("상세페이지 조회");
+//		
+//		AdvertiseVO aVO = new AdvertiseVO();
+//		aVO.setCommonNo(20031);
+//		
+//		AdvertiseVO vo = aDAO.advertiseDetail(aVO);
+//		
+//		log.info(vo.toString());
+//	}
 	
 //	@Test
 //	public void readcnt() {
@@ -91,5 +90,21 @@ public class AdvertiseTest {
 //		log.info("조회수 : " + result);
 //	}
 //	
+	
+	
+	@Test
+	public void test() {
+		AcademyLoginVO avo = new AcademyLoginVO();
+		avo.setAcademyId("artis0012");
+		
+		AdvertiseVO aVO = new AdvertiseVO();
+		aVO.setAcademyId("artis0012");
+		aVO.setCommonTitle("안녕");
+		aVO.setCommonContent("ㅜㅜ");
+		
+		aDAO.advertiseInsert(aVO);
+		
+		log.info(aVO.toString());
+	}
 
 }

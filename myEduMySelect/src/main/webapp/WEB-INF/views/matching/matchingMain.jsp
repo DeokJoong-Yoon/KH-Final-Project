@@ -51,8 +51,6 @@
 	          <h2>맞춤 조건 선택</h2>
 	        </div>
 	        
-	        <p class="userId">${personalLogin.personalId }</p>
-	
 	        <div class="mcSelect">
 	        	<form id="mcSelectForm">
 	        		<input type="hidden" id="personalId" name="personalId" value="${personalLogin.personalId }"/>

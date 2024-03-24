@@ -51,7 +51,9 @@
 							</tr>
 							<tr>
 								<th>학원명</th>
-								<td>${academyLogin.academyName}</td>	<!-- <td>${acaName }</td> -->
+								<td>
+									<input type="text" value="${academyLogin.academyName}" id="commonNickname" name="commonNickname" readonly />								
+								</td>
 							</tr>
 						</table>
 						<br>
