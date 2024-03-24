@@ -16,4 +16,6 @@ public interface AcademyMatchingBoardService {
     
     // 추가 메서드
     public List<Integer> getCommentMatchingNos(AcademyLoginVO academyLoginVO);
+    
+    public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
 }

@@ -4,16 +4,17 @@
 	namespace="com.myedumyselect.personal.dao.PersonalFreeBoardDAO">
 
 	<resultMap type="freeBoard" id="freeMap">
-		   <id column="common_no" property="commonNo" />
-    <result column="personal_id" property="personalId" />
-    <result column="member_type_id" property="memberTypeId" />
-    <result column="common_title" property="commonTitle" />
-    <result column="common_content" property="commonContent" />
-    <result column="common_register_date" property="commonRegisterDate" />
-    <result column="common_edit" property="commonEdit" />
-    <result column="common_readcnt" property="commonReadcnt" /> 
-    <result column="common_file" property="commonFile" />
-		 
+		<id column="common_no" property="commonNo" />
+		<result column="personal_id" property="personalId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="common_title" property="commonTitle" />
+		<result column="common_content" property="commonContent" />
+		<result column="common_register_date"
+			property="commonRegisterDate" />
+		<result column="common_edit" property="commonEdit" />
+		<result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_file" property="commonFile" />
+
 	</resultMap>
 
 	<sql id="boardSearch">
@@ -26,41 +27,43 @@
 	</sql>
 
 	<!-- 전체 레코드 수 조회 -->
-	<select id="boardListCnt" parameterType="freeBoard" resultType="int">
+	<select id="boardListCnt" parameterType="freeBoard"
+		resultType="int">
 		SELECT count(*) FROM
 		(SELECT * FROM tb_common_board
-		WHERE member_type_id = 1) 
-		
+		WHERE member_type_id
+		= 1)
+
 		<trim prefix=" where (" suffix=")">
 			<include refid="boardSearch"></include>
 		</trim>
 	</select>
 
 
-	<select id="boardList" parameterType="freeBoard" resultMap="freeMap"> 
+	<select id="boardList" parameterType="freeBoard"
+		resultMap="freeMap"> 
 		<![CDATA[
-		SELECT common_no, personal_id, member_type_id, common_nickname, common_title, 
-		common_content, common_register_date, 
-		common_edit, common_readcnt, common_block_confirm, 
-		to_char(common_block_date, 'YYYY-MM-DD') as common_block_date, common_file 
-		FROM (
-			SELECT /*+ INDEX_DESC(tb_common_board pk_tb_common_board) */
-			rownum as rnum, common_no, personal_id, member_type_id, common_nickname, common_title, 
-			common_content, common_register_date, common_edit, common_readcnt, common_block_confirm, 
-			common_block_date, common_file 
-			FROM (
-					select * from tb_common_board
-					where personal_id = #{personalId}
-					order by common_register_date desc
-				 ) sortedBoardList
-			WHERE ]]>
-		<trim prefix="(" suffix=") AND " prefixOverrides="AND">
-			<include refid="boardSearch"></include>
-		</trim>
-		<![CDATA[ rownum <= #{pageNum} * #{amount}
-		) boardList
-		WHERE rnum  > (#{pageNum} - 1 ) * #{amount}
-		]]>
+	    SELECT
+	        common_no, personal_id, common_title,
+	        to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date,
+	        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_readcnt,
+	        common_file, common_content
+	    FROM (
+	            select /*+index_desc(tb_common_board tb_common_board_pk)*/
+	                rownum AS rnum, common_no, personal_id, common_title, common_register_date, common_readcnt, common_file, common_content
+	            from (
+	                select common_no, personal_id, common_title, common_register_date, common_readcnt, common_file, common_content
+	                from tb_common_board
+	            	where member_type_id = 1
+	               	ORDER BY common_no desc
+	               ) freeBoardList
+	            where]]>
+		<!-- <trim prefix="WHERE" prefixOverrides="AND |OR "> -->
+	     	        <![CDATA[
+				rownum <= #{pageNum} * #{amount}
+	        ) freeList         
+	    where rnum > (#{pageNum} - 1) * #{amount}
+	    ]]>
 	</select>
 
 	<select id="boardDetail" parameterType="freeBoard"
@@ -78,7 +81,7 @@
 		WHERE
 		common_no = #{commonNo}
 	</delete>
-	
-	
+
+
 
 </mapper>

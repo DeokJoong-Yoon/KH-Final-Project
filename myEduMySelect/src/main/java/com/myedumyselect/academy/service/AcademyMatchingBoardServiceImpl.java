@@ -39,4 +39,9 @@ public class AcademyMatchingBoardServiceImpl implements AcademyMatchingBoardServ
     public MatchingBoardVO getMatchingBoardByNo(int matchingNo) {
         return academyMatchingBoardDAO.getMatchingBoardByNo(matchingNo);
     }
+    
+    @Override
+	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO) {
+		return academyMatchingBoardDAO.boardList(matchingBoardVO);
+	}
 }

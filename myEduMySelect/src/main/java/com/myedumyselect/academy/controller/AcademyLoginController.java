@@ -351,7 +351,7 @@ public class AcademyLoginController {
       *************************************************************/
    /* 사용자가 작성한 매칭 게시글 댓글 목록 보기 페이지로 이동 */
    @GetMapping("/academy/matchingBoardList")
-   public String academyMatchingBoardList(MatchingCommentVO mcVO, Model model, 
+   public String academyMatchingBoardList(MatchingBoardVO matchingBoardVO, MatchingCommentVO mcVO, Model model, 
                   @SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
     
       /* 학원전용 GetMapping 제어 */
@@ -375,11 +375,11 @@ public class AcademyLoginController {
       
       
       //본인 아이디를 가지고, 자신이 댓글 단 게시물 가져오는 서비스 실행
-      List<MatchingBoardVO> matchingBoardVO = academyMatchingBoardService.getCommented(academyLoginVO);
+      List<MatchingBoardVO> matchingBoardList = academyMatchingBoardService.boardList(matchingBoardVO);
 
       model.addAttribute("commentedNos", commentedNos);
       model.addAttribute("academyId", academyId);
-      model.addAttribute("matchingBoardVO", matchingBoardVO);
+      model.addAttribute("matchingBoardList", matchingBoardList);
       
       
        return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동

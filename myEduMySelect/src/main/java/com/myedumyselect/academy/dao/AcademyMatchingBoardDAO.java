@@ -18,4 +18,6 @@ public interface AcademyMatchingBoardDAO {
     
     // 내가 댓글 단 게시물 목록 불러오기
     public List<MatchingBoardVO> getCommented(AcademyLoginVO academyLoginVO);
+    
+    public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
 }

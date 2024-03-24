@@ -1,10 +1,15 @@
-$(function() {
-    /* 페이징 처리 이벤트 */
-    $(".page-item a").on("click", function(e) {
-        e.preventDefault();
-        $("#pagenum").val($(this).attr("href"));
-        $("#freeForm").submit(); // 폼 제출
-    }); 
+
+    $(function() {	  
+	/* 페이징 처리 이벤트 */
+		$(".page-item a").on("click", function(e) {
+		e.preventDefault();
+		$("#freeForm").find("input[name='pageNum']").val($(this).attr("href"));
+			$("#freeForm").attr({
+				"method" : "get",
+				"action" : "/personalFreeView"
+			});
+			$("#freeForm").submit();
+	});
      
 	$(".goDetail").on("click", function() {
 		

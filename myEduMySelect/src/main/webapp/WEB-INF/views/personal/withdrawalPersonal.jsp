@@ -1,56 +1,127 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jspf"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>      
 <body>
-	<h1>È¸¿øÅ»Åğ ÆäÀÌÁö</h1>
-<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
-    <div>
-        <label for="currentPassword">ÇöÀç ºñ¹Ğ¹øÈ£:</label>
-        <input type="password" id="currentPassword" name="currentPassword">
-    </div>
-    <div>
-        <button type="button" id="checkAndWithdrawalBtn">È¸¿ø Å»Åğ</button>
-    </div> 
-</form>
+<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top ">
+		<div class="container d-flex align-items-center">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $("#checkAndWithdrawalBtn").on("click", function() {
-            var currentPassword = $("#currentPassword").val();
-            $.ajax({
-                type: 'POST',
-                url: '/withdrawalPersonal',
-                data: {
-                    currentPassword: currentPassword
-                },
-                dataType: "text",
-                success: function(data) {
-                    if (data.trim() === "TRUE") {  
-                        // ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ´Â °æ¿ì
-                        if (confirm("È¸¿ø Å»ÅğÇÏ½Ã°Ú½À´Ï±î?")) {
-                            // È®ÀÎ ¹öÆ° Å¬¸¯ ½Ã È¸¿ø Å»Åğ¸¦ À§ÇÑ formÀ» Á¦ÃâÇÕ´Ï´Ù.
-                            $("#withdrawalForm").submit();
+			<h1 class="logo me-auto">
+				<a href="index.html">MyEdu<br />MySelect
+				</a>
+			</h1>
+			<!-- Uncomment below if you prefer to use an image logo -->
+			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+			<nav id="navbar" class="navbar">
+				<ul>
+					<li><a class="nav-link scrollto active" href="#hero">í™ˆ</a></li>
+					<li><a class="nav-link scrollto" href="#about">About</a></li>
+					<li><a class="nav-link scrollto" href="#team">Team</a></li>
+					<li class="dropdown"><a href="#"><span>ë©”ë‰´</span> <i
+							class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="#">ììœ ê²Œì‹œíŒ</a></li>
+							<li><a href="#">í™ë³´ê²Œì‹œíŒ</a></li>
+							<li><a href="#">ë§¤ì¹­ê²Œì‹œíŒ</a></li>
+							<li><a href="#">ë¬¸ì˜ê²Œì‹œíŒ</a></li>
+							<li><a href="#">ë§ˆì´í˜ì´ì§€</a></li>
+						</ul></li>
+					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+					<li><a class="getstarted scrollto" href="/signUp">ë¡œê·¸ì¸/íšŒì›ê°€ì…</a></li>
+
+				</ul>
+				<i class="bi bi-list mobile-nav-toggle"></i>
+			</nav>
+			<!-- .navbar -->
+
+		</div>
+	</header>
+	<!-- End Header -->
+	<!-- ======= Hero Section ======= -->
+	<section id="hero" class="d-flex align-items-center">
+
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+					data-aos="fade-up" data-aos-delay="200">
+					<h1>íšŒì› íƒˆí‡´ í˜ì´ì§€</h1>
+					<h2></h2>
+
+
+				</div>
+				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
+					data-aos-delay="200">
+					<img src="/resources/include/assets/img/hero-img.png"
+						class="img-fluid animated" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Hero -->
+
+    <h1>íšŒì›íƒˆí‡´ í˜ì´ì§€</h1>
+    <form id="withdrawalForm" action="/withdrawal/personal" method="POST">
+        <div>
+            <label for="currentPassword">í˜„ì¬ ë¹„ë°€ë²ˆí˜¸:</label>
+            <input type="password" id="currentPassword" name="currentPassword">
+        </div>
+        <div>
+            <button type="button" id="withdrawalBtn">íšŒì› íƒˆí‡´</button>
+        </div> 
+    </form>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#withdrawalBtn").on("click", function() {
+                var currentPassword = $("#currentPassword").val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/withdrawalPersonal',
+                    data: {
+                        currentPassword: currentPassword
+                    },
+                    dataType: "text",
+                    success: function(data) {
+                        if (data.trim() === "TRUE") {  
+                            // í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ëŠ” ê²½ìš°
+                            if (confirm("íšŒì› íƒˆí‡´í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+                                // í™•ì¸ ë²„íŠ¼ í´ë¦­ ì‹œ íšŒì› íƒˆí‡´ë¥¼ ìœ„í•œ formì„ ì œì¶œ
+                                $("#withdrawalForm").submit();
+                            }
+                        } else {
+                            // í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+                            alert("í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+                            $("#currentPassword").val("");
+                            $("#currentPassword").focus();
                         }
-                    } else {
-                        // ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì
-                        alert("ÇöÀç ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
-                        $("#currentPassword").val("");
-                        $("#currentPassword").focus();
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
                     }
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
-                }
+                });
             });
         });
-    });
-</script>
-
+    </script>
+  
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />   
+    <!-- Vendor JS Files -->
+  <script src="/resources/include/assets/vendor/aos/aos.js"></script>
+  <script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+    
+    <script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
+    <script src="/resources/include/assets/js/main.js"></script>
 </body>
-</html> 
+</html>
