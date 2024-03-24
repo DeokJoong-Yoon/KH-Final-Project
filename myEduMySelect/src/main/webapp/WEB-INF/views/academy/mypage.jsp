@@ -197,6 +197,22 @@
 				            <label for="keyword8" >입시 대비</label><br>
 				            <input type="checkbox" name="academyKeyword" id="keyword9" value="재밌는 수업" />
 				            <label for="keyword9">재밌는 수업</label>
+				            <input type="checkbox" name="academyKeyword" id="keyword10" value="한 번에 많이" />
+				            <label for="keyword10">한 번에 많이</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword11" value="조금씩 자주" />
+                          	<label for="keyword11">조금씩 자주</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword12" value="실습 중심" />
+                          	<label for="keyword12">실습 중심</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword13" value="소수정예" />
+                          	<label for="keyword13">소수정예</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword14" value="집중 관리" />
+                          	<label for="keyword14">집중 관리</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword15" value="테스트&피드백 시스템" />
+                          	<label for="keyword15">테스트&피드백 시스템</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword16" value="상담 및 컨설팅 포함" />
+                          	<label for="keyword16">상담 및 컨설팅 포함</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword17" value="취업" />
+                          	<label for="keyword17">취업</label>
 				         </div>
 					</td>
 				</tr>
@@ -208,6 +224,15 @@
 		<form id="withdrawalForm" action="/withdrawal/academy" method="POST">
 			<button type="submit" id="withdrawalBtn">탈퇴하기</button>
 		</form>
+		
+		<div id="confirmPasswordModal" class="modal">
+		    <div class="modal-content">
+		        <span class="close">&times;</span>
+		        <h2>현재 비밀번호 확인</h2>
+		        <input type="password" id="currentPassword" placeholder="현재 비밀번호를 입력해주세요">
+		        <button id="confirmPasswordBtn">확인</button>
+		    </div>
+		</div>
 	</section>
 
 	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
@@ -243,6 +268,34 @@
 	
 	<script>
 		$(document).ready(function() {
+		    $("#withdrawalBtn").click(function() {
+		    	event.preventDefault(); // 폼 전송 기본 동작 막기
+		        $("#confirmPasswordModal").css("display", "block");
+		    });
+		
+		    $(".close").click(function() {
+		        $("#confirmPasswordModal").css("display", "none");
+		    });
+		
+		    $("#confirmPasswordBtn").click(function() {
+		        var currentPassword = $("#currentPassword").val();
+		
+		        // 비밀번호 검증 함수 호출
+		        if (validatePassword(currentPassword)) {
+		            var confirmWithdrawal = confirm("정말로 탈퇴하시겠습니까?");
+		            if (confirmWithdrawal) {
+		                // 폼 제출
+		                $("#withdrawalForm").submit();
+		            }
+		        } else {
+		            alert("현재 비밀번호가 일치하지 않습니다.");
+		        }
+		    });
+		});
+	</script>
+	
+	<!-- <script>
+		$(document).ready(function() {
 			$("#withdrawalBtn").click(function() {
 				// confirm 창을 띄우고 사용자가 '예'를 선택한 경우에만 form을 제출합니다.
 				var confirmWithdrawal = confirm("정말로 탈퇴하시겠습니까?");
@@ -251,7 +304,7 @@
 				}
 			});
 		});
-	</script>
+	</script> -->
 
 	<script>
 		window.onload = function() {
@@ -337,6 +390,7 @@
 	<!-- Template Main JS File -->
 	<script src="/resources/include/personal/jquery-3.7.1.min.js"></script>
   	<script src="/resources/include/academy/mypage.js"></script>
+  	<script src="/resources/include/academy/withdrawal.js"></script>
   	<!-- <script src="/resources/include/assets/js/academy.js"></script> -->
   	<!-- <script src="/resources/include/academy/academyJoin.js"></script> -->
 	<!-- <script src="/resources/include/academy/common.js"></script> -->

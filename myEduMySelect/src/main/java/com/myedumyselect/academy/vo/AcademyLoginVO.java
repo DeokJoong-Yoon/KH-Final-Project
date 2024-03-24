@@ -36,7 +36,12 @@ public class AcademyLoginVO {
  private String academyFee;
  private LocalDateTime academyPasswdChangeDate;
  private Integer academyLoginFailCount = 0;
- private LocalDateTime academyAccountBannedDate; 
+ private LocalDateTime academyAccountBannedDate;
+ 
+ public AcademyLoginVO(String academyId, String academyPasswd) {
+	 this.academyId = academyId;
+	 this.academyPasswd = academyPasswd;
+ }
 
  
 }

@@ -11,10 +11,15 @@ import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 public interface AcademyMatchingBoardDAO {
 	
 	//작성한 댓글 조회
-	public List<Integer> getCommentMatchingNos(AcademyLoginVO academyLogin);
+	public List<Integer> getCommentMatchingNos(AcademyLoginVO academyLoginVO);
 	
 	
 	//해당 댓글이 달린 게시글 조회
 	public MatchingBoardVO getMatchingBoardByNo(int matchingNo);
+	
+	public List<MatchingBoardVO> getCommented(AcademyLoginVO academyLoginVO);
+
+
+	 
 	
 }

@@ -35,7 +35,7 @@ $(function() {
 			console.log(data);
 	        if(data.trim() ==  "TRUE") {
 				alert("패스워드 변경 완료");
-				location.reload();
+				location.href="/academy/login";
 				} else {
 					alert("현재 비밀번호가 일치하지 않습니다.");
 					$("#newPassword").val("");
@@ -51,7 +51,6 @@ $(function() {
 	
 	});
 })
-
 
 
 

@@ -42,19 +42,19 @@
   ======================================================== -->
 	
 	
-	<!-- <script>
+	<script>
 		window.onload = function(){
 			let confirmMsg = "${confirmMsg}";
 			if(confirmMsg) {
 				let result = confirm(comfirmMsg);
 				if(result) {
-					window.location.href= "/useraccount/login";
+					window.location.href= "/academy/login";
 				} else {
 					window.location.href= "/matching/boardList";
 				}
 			}
 		}
-	</script> -->
+	</script>
 
 </head>
 
@@ -124,7 +124,7 @@
 		<div class="col-12 text-center mcBanner">
             내가 쓴 글 목록(매칭 게시판)<br/>
             <div class="mcDescBox">
-            	<p>내가 쓴 글이 뭐가있을까?</p>
+            	<p>내가 쓴 댓글이 뭐가있을까?</p>
             </div>
         </div>  
       </div>

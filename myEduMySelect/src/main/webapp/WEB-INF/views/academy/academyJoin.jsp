@@ -208,6 +208,30 @@
 						    						    
 						    <input type="checkbox" id="academyKeyword9" name="keyword" value="재밌는 수업" class="keyword-checkbox">
 						    <label for="academyKeyword9">재밌는 수업</label><br>
+						    
+						    <input type="checkbox" id="academyKeyword10" name="keyword"  value="한 번에 많이" class="keyword-checkbox">
+						    <label for="academyKeyword10">한 번에 많이</label>
+						    
+                          	<input type="checkbox" id="academyKeyword11" name="keyword"  value="조금씩 자주" class="keyword-checkbox">
+                          	<label for="academyKeyword11">조금씩 자주</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword12" name="keyword"  value="실습 중심" class="keyword-checkbox">
+                          	<label for="academyKeyword12">실습 중심</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword13" name="keyword"  value="소수정예" class="keyword-checkbox">
+                          	<label for="academyKeyword13">소수정예</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword14" name="keyword"  value="집중 관리" class="keyword-checkbox">
+                          	<label for="academyKeyword14">집중 관리</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword15" name="keyword"  value="테스트&피드백 시스템" class="keyword-checkbox">
+                          	<label for="academyKeyword15">테스트&피드백 시스템</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword16" name="keyword" value="상담 및 컨설팅 포함" class="keyword-checkbox">
+                          	<label for="academyKeyword16">상담 및 컨설팅 포함</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword17" name="keyword" value="취업" class="keyword-checkbox">
+                          	<label for="academyKeyword17">취업</label>
 						</div>
 					</td>
 				</tr>

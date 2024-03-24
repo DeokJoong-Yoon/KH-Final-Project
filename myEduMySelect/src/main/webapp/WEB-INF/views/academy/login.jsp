@@ -89,7 +89,7 @@
   <script src="/resources/include/assets/js/main.js"></script>
   <!-- <script src="/resources/include/academy/academyLogin.js"></script> -->
 
-	<script>
+	<!-- <script>
       $(function() {
           $("#loginBtn").on("click", function() {      
               if (!chkData("#academyId","아이디를")) return;
@@ -113,7 +113,7 @@
               location.href = "/academy/logout"
           });
       });
-    </script>
+    </script> -->
 
 	<script>
        window.onload = function() {
