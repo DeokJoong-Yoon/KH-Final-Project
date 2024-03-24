@@ -21,7 +21,7 @@ public class AcademyMatchingCommentServiceImpl implements AcademyMatchingComment
 		List<MatchingCommentVO> list = academyMatchingCommentDAO.CommentList(matchingCommentVO);
 		return list;
 	}
-	
+	 
 	//댓글 입력
 	@Override
 	public int CommentInsert(MatchingCommentVO matchingCommentVO) {

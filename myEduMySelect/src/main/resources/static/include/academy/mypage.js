@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hideErrorMessage(managerNameInput);
         }
     });
-    
+     
     function showErrorMessage(inputElement, message) {
         const parentElement = inputElement.parentElement;
         let errorMessageElement = parentElement.querySelector('.error-message');

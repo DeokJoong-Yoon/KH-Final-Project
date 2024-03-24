@@ -58,7 +58,7 @@
         <result column="academy_login_fail_count" property="academyLoginFailCount"/>
         <result column="academy_account_banned_date" property="academyAccountBannedDate"/>
     </resultMap>
-	
+	 
 	<!-- 1. 댓글 테이블에서 본인이 작성한 댓글 게시물의 번호를 가져온다. -->
 	
     <!-- 2. 반환 받은 게시물 번호들을 가지고 게시물 테이블에 가서 모든 내용을 조회한다. -->

@@ -68,7 +68,7 @@ public class AcademyLoginDaoTESTS {
 	    // 임시로 academyId 값을 저장할 수 있는 방법
 	    MatchingCommentVO matchingCommentVO = new MatchingCommentVO();
 	    matchingCommentVO.setAcademyId("dudalsl");	    
-	    
+	     
 	    // boardList를 조회할 때는 matchingBoardVO를 파라미터로 전달합니다.
 	    List<MatchingBoardVO> boardList = new ArrayList<MatchingBoardVO>(); 
 	    boardList = academyMatchingBoardDAO.boardList(matchingBoardVO);

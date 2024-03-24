@@ -26,7 +26,7 @@ public class AcademyAdvertiseServiceImpl implements AcademyAdvertiseService{
 	public List<AdvertiseVO> advertiseList(AdvertiseVO advertiseVO) {
 		return academyAdvertiseDAO.advertiseList(advertiseVO);
 	}
-	
+	 
 	//전체 레코드 수 반환
 	@Override
 	public int advertiseListCnt(AdvertiseVO advertiseVO) {

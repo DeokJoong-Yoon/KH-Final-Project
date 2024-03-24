@@ -29,7 +29,7 @@
 		<result column="matching_comment_content" property="matchingCommentContent" />
 		<result column="matching_comment_date" property="matchingCommentDate" />
 	</resultMap>
-	
+	 
 	<!-- AcademyLoginVO 별칭 일괄 부여 -->
 	<resultMap type="academyLogin" id="academyLoginMap">
         <id column="academy_id" property="academyId"/>

@@ -14,3 +14,4 @@ public interface AcademyMatchingCommentService {
 	
 	public int CommentUpdate(MatchingCommentVO matchingCommentVO);
 }
+ 

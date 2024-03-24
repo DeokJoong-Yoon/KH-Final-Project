@@ -8,7 +8,7 @@ import com.myedumyselect.matching.comment.vo.MatchingCommentVO;
 
 @Mapper
 public interface AcademyMatchingCommentDAO {
-	
+	 
 	//댓글 목록 조회
 	public List<MatchingCommentVO> CommentList(MatchingCommentVO matchingCommentVO);
 	

@@ -14,7 +14,7 @@ public interface AcademyLoginService {
 
 	// 로그인 제한 상태
 	public int updateAccountBannedDate(String academyId, Date bannedDate);
-
+ 
 	// 회원가입
 	public int academyInsert(AcademyLoginVO login);
 

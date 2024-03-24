@@ -24,7 +24,7 @@ public class AcademyMatchingBoardServiceImpl implements AcademyMatchingBoardServ
 		return academyMatchingBoardDAO.boardList(matchingBoardVO);
 		
 	}
-
+  
 	//전체 레코드 수 반환
 	@Override
 	public int boardListCnt(MatchingBoardVO matchingBoardVO) {

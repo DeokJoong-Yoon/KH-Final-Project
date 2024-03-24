@@ -13,3 +13,4 @@ public interface AcademyMatchingBoardService {
 	//전체 레코드 수 반환
 	public int boardListCnt(MatchingBoardVO academyMatchingDTO);	
 }
+ 

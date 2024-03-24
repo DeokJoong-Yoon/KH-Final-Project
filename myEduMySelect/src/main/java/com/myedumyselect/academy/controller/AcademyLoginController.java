@@ -358,7 +358,7 @@ public class AcademyLoginController {
 		   if(academyResult != "TRUE") {
 			   ras.addFlashAttribute("errorMsg", "잘못된 접근입니다.");
 			   return academyResult;
-		   }
+		   } 
 	   } else {
 		   model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 		   return "redirect:/loginselect";
