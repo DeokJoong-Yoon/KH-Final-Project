@@ -372,7 +372,7 @@ public class AcademyLoginController {
       
       //본인 아이디를 가지고, 자신이 댓글 단 게시물 가져오는 서비스 실행
       List<MatchingBoardVO> matchingBoardVO = academyMatchingBoardService.getCommented(academyLoginVO);
-      
+       
       
       model.addAttribute("academyId", academyId);
       model.addAttribute("matchingBoardVO", matchingBoardVO);
