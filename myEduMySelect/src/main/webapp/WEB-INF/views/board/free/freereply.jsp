@@ -145,6 +145,9 @@
     });
 
     function listAll(commonNo) {
+    	
+ 
+    	
         $(".freereply").detach();
         let url = "/freereplies/all/" + commonNo;
         $.getJSON(url, function(data) {

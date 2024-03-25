@@ -46,8 +46,8 @@
 	    <![CDATA[
 	    SELECT
 	        common_no, personal_id, common_title,
-	        to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date,
-	        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_readcnt,
+	        to_char(common_register_date, 'YYYY-MM-DD') AS common_register_date, common_readcnt, 
+	        (select count(common_comment_no) from tb_common_comment where common_no = freeList.common_no) as common_comment_count,
 	        common_file, common_content
 	    FROM (
 	            select /*+index_desc(tb_common_board tb_common_board_pk)*/

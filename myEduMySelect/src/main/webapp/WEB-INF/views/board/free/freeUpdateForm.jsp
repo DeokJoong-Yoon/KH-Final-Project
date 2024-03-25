@@ -41,6 +41,7 @@
 				<form id="updateForm" name="updateForm">
 					<input type="hidden" id="commonNo_hidden" name="commonNo" value="${freeUpdateData.commonNo}" />
 					<input type="hidden" id="commonFile" name="commonFile" value="${freeUpdateData.commonFile}" />
+					<input type="hidden" id="personalId" name="personalId" value="${freeUpdateData.personalId}" />
 							
 					<div class="boardDetail">		
 						<table>

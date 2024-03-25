@@ -29,10 +29,13 @@ public class FreeReplyController {
     
     @GetMapping(value="/all/{commonNo}", produces=MediaType.APPLICATION_JSON_VALUE)
     public List<FreeReplyVO> freereplyList(@PathVariable("commonNo") int commonNo){
-        log.info("list 호출 성공");
+        log.info("게시판번호 : " + commonNo);
         
         FreeReplyVO frvo = new FreeReplyVO();
         frvo.setCommonNo(commonNo);
+        
+        log.info("repl list : " + frvo.toString());
+        
         List<FreeReplyVO> list = freereplyService.freereplyList(frvo);
         log.info(list.toString());
         

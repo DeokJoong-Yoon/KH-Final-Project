@@ -40,20 +40,20 @@ public class FreeController {
 	public String freeList(@ModelAttribute FreeVO fvo, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
-//		if (academyLoginVO != null) {
-//			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-//			if (academyResult != "TRUE") {
-//				return academyResult;
-//			}
-//		} else if (personalLoginVO != null) {
-//			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-//			if (pesronalResult != "TRUE") {
-//				return pesronalResult;
-//			}
-//		} else {
-//			System.out.println("else");
-//			return "redirect:/";
-//		}
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else if (personalLoginVO != null) {
+			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (pesronalResult != "TRUE") {
+				return pesronalResult;
+			}
+		} else {
+			System.out.println("else");
+			return "redirect:/";
+		}
 		List<FreeVO> freeList = freeService.freeList(fvo);
 		model.addAttribute("freeList", freeList);
 
@@ -98,20 +98,20 @@ public class FreeController {
 	public String freeDetail(@ModelAttribute FreeVO fvo, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
-//		if (academyLoginVO != null) {
-//			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-//			if (academyResult != "TRUE") {
-//				return academyResult;
-//			}
-//		} else if (personalLoginVO != null) {
-//			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-//			if (pesronalResult != "TRUE") {
-//				return pesronalResult;
-//			}
-//		} else {
-//			System.out.println("else");
-//			return "redirect:/";
-//		}
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else if (personalLoginVO != null) {
+			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (pesronalResult != "TRUE") {
+				return pesronalResult;
+			}
+		} else {
+			System.out.println("else");
+			return "redirect:/";
+		}
 
 		FreeVO detail = freeService.freeDetail(fvo);
 		model.addAttribute("detail", detail);
@@ -153,10 +153,13 @@ public class FreeController {
 			freeService.freeUpdate(fvo);
 			ras.addFlashAttribute("alertMsg", "수정에 성공하였습니다.");
 			FreeVO detail = freeService.freeDetail(fvo);
+			log.info(fvo.toString());
 			model.addAttribute("detail", detail);
-			return "redirect:/free/freeDetail";
+			return "board/free/freeBoardDetail";
 		} else {
 			ras.addFlashAttribute("alertMsg", "수정에 실패하였습니다.");
+			log.info("작성자 id : " + fvo.getPersonalId());
+			log.info("로그인 id : " + personalLoginVO.getPersonalId());
 			return "redirect:/free/freeList";
 		}
 	}
