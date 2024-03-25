@@ -17,17 +17,11 @@
 		<div>
 			<form id="freereplyForm" name="freereplyForm">
 				<div class="row mb-3">
-					<label for="personalId" class="col-sm-1 col-form-label">작성자</label>
-					<div class="col-sm-3">
-						<input type="text" name="personalId" id="personalId" maxlength="6" class="form-control" />
-					</div>
-					<button type="button" id="freereplyInsertBtn" class="btn btn-primary col-sm-1 sendBtn mx-2">저장</button>
-				</div>
-				<div class="row mb-3">
 					<label for="commonCommentContent" class="col-sm-1 col-form-label">댓글내용</label>
 					<div class="col-sm-11">
 						<textarea name="commonCommentContent" id="commonCommentContent" class="form-control" rows="3" placeholder="댓글을 입력하세요"></textarea>
 					</div>
+					<button type="button" id="freereplyInsertBtn" class="btn btn-primary col-sm-1 sendBtn mx-2">저장</button>
 				</div>
 			</form>
 		</div>
