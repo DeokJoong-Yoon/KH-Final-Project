@@ -20,4 +20,6 @@ public interface AcademyMatchingBoardDAO {
     public List<MatchingBoardVO> getCommented(AcademyLoginVO academyLoginVO);
     
     public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
+    
+    public int boardListCnt(MatchingBoardVO matchingBoardVO);
 }

@@ -18,4 +18,6 @@ public interface AcademyMatchingBoardService {
     public List<Integer> getCommentMatchingNos(AcademyLoginVO academyLoginVO);
     
     public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO);
+    
+    public int boardListCnt(MatchingBoardVO matchingBoardVO);
 }

@@ -9,7 +9,7 @@
 <link href="/resources/include/board/advertise/css/advertiseList.css" rel="stylesheet">
 	
 	<!-- ======= 설명 영역 ======= -->
-	<section id="hero" class="d-flex align-items-center  justify-content-center">
+	<section id="hero" class="d-flex align-items-center  justify-content-center" style="height: 300px;">
 		<div class="container" >
 			<div class="row">
 				<form id="detailForm">
@@ -17,11 +17,7 @@
 				</form>
 
 				<div class="col-12 text-center banner">
-		            홍보 게시판<br/>
-		            <div class="descBox">
-		            	학원 홍보게시판입니다.<br>
-		            	정보 얻어 가세요!
-		            </div>
+		            내가 쓴 글 (홍보 게시판)<br/>
 		       </div> 
 		    </div>
 		</div>
@@ -50,13 +46,6 @@
 					</form>	
 				</div><br><br>		<!-- 검색 영역 끝 -->
 				
-				<!-- 로그인 세션 임시 확인 -->
-				<%-- <label>개인 아이디</label>
-				<div class="userId">${personalLoginVO.personalId}</div> --%>
-				<label>학원 아이디</label>
-				<div class="acaId">${academyLoginVO.academyId}</div>
-				<label>학원명</label>
-				<div class="acaName">${academyLoginVO.academyName}</div>
 				
 							
 				<!-- ========= 게시글 목록 영역 ======== -->
@@ -88,10 +77,6 @@
 					    </c:choose>
 					</table>
 					
-				</div>
-				
-				<div class="text-end">
-					<button type="submit" id="advertiseInsertBtn">글쓰기</button>
 				</div>
 			</div>	
 		
