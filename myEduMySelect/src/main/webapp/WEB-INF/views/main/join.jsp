@@ -152,5 +152,31 @@ MyEduMySelect는 사용자의 개인정보를 매우 중요하게 생각하며, 
 	<script src="/resources/include/academy/jquery-3.7.1.min.js"></script>
 	<script src="/resources/include/assets/js/main.js"></script>
 	<script src="/resources/include/personal/join.js"></script>
+	
+	<!-- 약관 미동의에 대한 제어 -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		    // 개인정보 취급방침 동의 여부 확인
+		    var agreeButton = document.querySelector("input[name='privacy'][value='agree']");
+		    var disagreeButton = document.querySelector("input[name='privacy'][value='disagree']");
+		    var personalJoinButton = document.getElementById("personalJoin");
+		    var academyJoinButton = document.getElementById("academyJoin");
+	
+		    agreeButton.addEventListener("change", function() {
+		        if (this.checked) {
+		            personalJoinButton.disabled = false;
+		            academyJoinButton.disabled = false;
+		        }
+		    });
+	
+		    disagreeButton.addEventListener("change", function() {
+		        if (this.checked) {
+		            personalJoinButton.disabled = true;
+		            academyJoinButton.disabled = true;
+		            alert("약관에 동의하지 않으시면 서비스 이용이 불가합니다.");
+		        }
+		    });
+		});	
+	</script>
 </body>
 </html>

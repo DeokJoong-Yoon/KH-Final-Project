@@ -58,7 +58,6 @@ public class AcademyLoginController {
    // 학원회원 로그인으로 이동
    @GetMapping("/academy/login")
    public String loginform() {
-	   log.info("academyLogin 페이지 호출");
 	   return "academy/login";
    }
 
@@ -142,6 +141,13 @@ public class AcademyLoginController {
    // 로그아웃 처리
    @PostMapping("/academy/logout")
    public String logout(SessionStatus sessionStatus) {
+	   log.info("로그아웃 처리");
+	   sessionStatus.setComplete();
+	   return "redirect:/loginselect";
+   }
+   
+   @GetMapping("/academy/logout")
+   public String getLogout(SessionStatus sessionStatus) {
 	   log.info("로그아웃 처리");
 	   sessionStatus.setComplete();
 	   return "redirect:/loginselect";

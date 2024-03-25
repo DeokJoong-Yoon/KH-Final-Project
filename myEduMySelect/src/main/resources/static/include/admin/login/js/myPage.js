@@ -14,7 +14,7 @@ $(function() {
 			$("#f_writeForm").submit();
 		}
 	});
-	
+	 
 	
 	/** 목록 버튼 클릭 시 처리 이벤트 */
 	$("#changePasswdBtn").on("click", function() {
