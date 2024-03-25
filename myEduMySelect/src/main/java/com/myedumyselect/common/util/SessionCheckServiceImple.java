@@ -50,12 +50,11 @@ public class SessionCheckServiceImple implements SessionCheckService {
 				// 학원 정보가 존재하면
 				if (selectedAcademyLoginVO != null) {
 					Integer result = paymentService.paymentCheck(selectedAcademyLoginVO);
-					if (result != null) {
+					if (result != null && result.intValue() == 1) {
 						model.addAttribute("academyLoginVO", selectedAcademyLoginVO);
 						return "TRUE";
 					} else {
 						// not payment
-						log.info("result null");
 						model.addAttribute("alertMsg", "결제가 필요한 서비스입니다.");
 						return "redirect:/payment/payMain";
 					}
