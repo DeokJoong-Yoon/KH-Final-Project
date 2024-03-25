@@ -41,14 +41,14 @@ public class AcademyLoginController {
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginService academyLoginService;
 
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	private AcademyAdvertiseService academyAdvertiseService;
 
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	private AcademyMatchingBoardService academyMatchingBoardService;
 
-	@Setter(onMethod_ = @Autowired)
-	private SessionCheckService sessionCheckService;
+	@Autowired
+	private SessionCheckService sessionCheckService;	
 
 	/*************************************************************
 	 * Academy Login
@@ -375,31 +375,18 @@ public class AcademyLoginController {
 		List<Integer> commentedNos = academyMatchingBoardService.getCommentMatchingNos(academyLoginVO);
 
 		List<MatchingBoardVO> matchingBoardList = academyMatchingBoardService.getCommented(academyLoginVO);
-
-		/*
-		 * //본인 아이디 가져오기 String academyId = academyLoginVO.getAcademyId();
-		 * 
-		 * // 댓글 단 게시물 번호 목록 조회 (성능 최적화) List<Integer> commentedNos =
-		 * academyMatchingBoardService.getCommentMatchingNos(academyLoginVO);
-		 * 
-		 * 
-		 * //본인 아이디를 가지고, 자신이 댓글 단 게시물 가져오는 서비스 실행 List<MatchingBoardVO>
-		 * matchingBoardList = academyMatchingBoardService.boardList(matchingBoardVO);
-		 */
-
-		model.addAttribute("commentedNos", commentedNos);
+		
+        // 전체 레코드 수 반환
+        int total = academyMatchingBoardService.boardListCnt(matchingBoardVO);
+        
+        // model에 저장
+        model.addAttribute("commentedNos", commentedNos);
 		model.addAttribute("academyId", academyId);
 		model.addAttribute("matchingBoardList", matchingBoardList);
-
-		return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
-
-//      // 전체 레코드 수 반환
-//      int total = academyMatchingBoardService.boardListCnt(matchingBoardVO);
-//      
-//      // 페이징 처리
-//      model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
-//      model.addAttribute("kwd", matchingBoardVO.getKeyword());
-
+        model.addAttribute("pageMaker", new PageDTO(matchingBoardVO, total));
+        model.addAttribute("kwd", matchingBoardVO.getKeyword());
+        
+        return "academy/academyMatchingBoardList"; // 사용자가 작성한 매칭 게시글 목록을 보여주는 페이지로 이동
 	}
 
 	/*************************************************************
@@ -423,7 +410,8 @@ public class AcademyLoginController {
 		}
 		return "academy/withdrawalAcademy";
 	}
-
+	
+	/* 회원탈퇴페이지 POST */
 	@ResponseBody
 	@PostMapping(value = "/withdrawalAcademy")
 	public String withdrawalAcademy(@RequestParam("currentPassword") String currentPassword,

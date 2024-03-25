@@ -44,4 +44,10 @@ public class AcademyMatchingBoardServiceImpl implements AcademyMatchingBoardServ
 	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO) {
 		return academyMatchingBoardDAO.boardList(matchingBoardVO);
 	}
+    
+    @Override
+    public int boardListCnt(MatchingBoardVO matchingBoardVO) {
+    	return academyMatchingBoardDAO.boardListCnt(matchingBoardVO);
+    }
+    
 }

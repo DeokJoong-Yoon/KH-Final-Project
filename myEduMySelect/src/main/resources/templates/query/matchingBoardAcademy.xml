@@ -138,7 +138,15 @@
     ]]>
 	</select>
 
-
+	<!-- 전체 레코드 수 조회 -->
+	<select id="boardListCnt" parameterType="matchingBoard"
+		resultType="int">
+		SELECT count(*) FROM tb_matching_board
+		WHERE personal_id =
+		#{personalId}
+	</select>
+	
+	
 <!-- 	<select id="myMatchingBoardList" parameterType="matchingComment"
 		resultMap="matchingBoardMap">
 		SELECT
