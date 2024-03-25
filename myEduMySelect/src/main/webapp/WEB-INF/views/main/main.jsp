@@ -274,7 +274,7 @@
 							돕기 위해 설립되었습니다. 현재의 교육 시장에서는 정보 부족과 주관적인 기준으로 인한 불편함이 여전합니다. 따라서,
 							우리는 객관적이고 명확한 정보를 제공하고, 학원과 학부모(학생) 간의 원활한 중개를 통해 교육 환경을 개선하고자
 							합니다.</p>
-						<a href="#" class="btn-learn-more">Learn More</a>
+						<a href="https://kostat.go.kr/board.es?mid=a10301070100&bid=245&act=view&list_no=424071" class="btn-learn-more">Learn More</a>
 					</div>
 				</div>
 
@@ -485,13 +485,13 @@
 								<sup>￦</sup>599,000<span>per day</span>
 							</h4>
 							<ul>
-								<li><i class="bx bx-check"></i> 홍보 서비스</li>
-								<li><i class="bx bx-check"></i> 매칭 서비스</li>
-								<li><i class="bx bx-check"></i> 상담 서비스</li>
-								<li class="na"><i class="bx bx-x"></i> <span>광고서비스</span></li>
-								<li class="na"><i class="bx bx-x"></i> <span>홍보 컨설팅</span></li>
+								<li><i class="bx bx-check"></i> 학원고객님의 교육이념과 환경을 홍보하실 수 있습니다.</li>
+								<li><i class="bx bx-check"></i> 학생분들이 편하게 학원을 선택할 수 있도록 제시합니다.</li>
+								<li><i class="bx bx-check"></i> 주변 뿐만 아니라 더 넓은 지역의 학생들에게 학원이 소개됩니다.</li>
+								<li class="na"><i class="bx bx-x"></i> <span>CEO가 직접 홍보 컨설팅을 해드립니다.</span></li>
+								<li class="na"><i class="bx bx-x"></i> <span>모든 서비스분야에서 기술지원을 받을 수 있습니다.</span></li>
 							</ul>
-							<a href="#" class="buy-btn">Get Started</a>
+							<a href="/payment/payMain" class="buy-btn">Get Started</a>
 						</div>
 					</div>
 				</div>
@@ -505,88 +505,8 @@
 	</main>
 	<!-- End #main -->
 
-	<!-- ======= Footer ======= -->
-	<footer id="footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-lg-3 col-md-6 footer-contact">
-						<h3>MyEduMySelect</h3>
-						<p> 
-							서울특별시 강남구 테헤란로14길 6 <br> 남도빌딩 2F, 3F, 4F, 5F, 6F <br> 대한민국 <br>
-							<br> <strong>Phone:</strong> +1 5589 55488 55<br> <strong>Email:</strong>
-							info@example.com<br>
-						</p>
-					</div>
-
-					<div class="col-lg-3 col-md-6 footer-links">
-						<h4>Useful Links</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">About
-									us</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Terms
-									of service</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Privacy
-									policy</a></li>
-						</ul>
-					</div>
-
-					<div class="col-lg-3 col-md-6 footer-links">
-						<h4>Our Services</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Web
-									Design</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Web
-									Development</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Product
-									Management</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Graphic
-									Design</a></li>
-						</ul>
-					</div>
-
-					<div class="col-lg-3 col-md-6 footer-links">
-						<h4>Our Social Networks</h4>
-						<p>Cras fermentum odio eu feugiat lide par naso tierra videa
-							magna derita valies</p>
-						<div class="social-links mt-3">
-							<a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> <a
-								href="#" class="facebook"><i class="bx bxl-facebook"></i></a> <a
-								href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-							<a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-							<a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="container footer-bottom clearfix">
-			<div class="copyright">
-				&copy; Copyright <strong><span>MyEduMySelect</span></strong>. All
-				Rights Reserved
-			</div>
-			<div class="credits">
-				<!-- All the links in the footer should remain intact. -->
-				<!-- You can delete the links only if you purchased the pro version. -->
-				<!-- Licensing information: https://bootstrapmade.com/license/ -->
-				<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/ -->
-				Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
-	</footer>
-	<!-- End Footer -->
-
-	<div id="preloader"></div>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
-
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+	
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
 	<script
