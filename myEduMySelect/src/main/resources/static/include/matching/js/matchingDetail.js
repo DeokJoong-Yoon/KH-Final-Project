@@ -10,6 +10,8 @@ $(function(){
 	
 	
 	if(personalId) {
+		$("#matchingCommentNickname").val("댓글은 학원회원만 작성 가능합니다.");
+		$('#matchingCommentContent').prop('disabled', true);
 		if(personalId != writerId) {
 			$("#editPost").css("display", "none");
 			$("#deletePost").css("display", "none");
