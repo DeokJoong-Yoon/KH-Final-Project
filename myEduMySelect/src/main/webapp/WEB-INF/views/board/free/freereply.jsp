@@ -178,16 +178,21 @@
     }
 
     function dataReset() {
-        $("#freereplyForm").each(function() {
-            this.reset();
-        });
+        $("#freereplyForm")[0].reset();
 
         $("#personalId").prop("readonly", false);
-        $("#freereplyForm button[type='button']").removeAttr("data-rnum");
-        $("#freereplyForm button[type='button']").attr("id", "freereplyInsertBtn");
-        $("#freereplyForm button[type='button'].frsendBtn").html("저장");
-        $("#freereplyForm button[type='button'].frresetBtn").detach();
+        let insertButton = $("#freereplyForm button[type='button']");
+        insertButton.removeAttr("data-rnum");
+        insertButton.attr("id", "freereplyInsertBtn"); 
+        insertButton.html("저장"); 
+        $(".frresetBtn").detach(); 
+        
+        $("#upBtn").click(function() {
+            dataReset(); 
+        });
     }
+    
+    
 
     function updateForm(commonCommentNo, card) {
         $("#freereplyForm .frresetBtn").detach();
