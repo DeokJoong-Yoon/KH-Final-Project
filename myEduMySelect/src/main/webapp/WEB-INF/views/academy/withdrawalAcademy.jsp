@@ -26,7 +26,7 @@
 		        <button type="button" id="checkAndWithdrawalBtn">회원 탈퇴하기</button>
 		    </div> 
 		</form>
-	</section>
+	</section> 
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>

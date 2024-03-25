@@ -1,29 +1,40 @@
 #hero {
-	height: 300px; 
+	height: 300px;
 	background-color: #48d1cc;
 }
 
 .banner {
-	text-align: center;
-	font-size: 45px;
-	font-weight: 600;
-	color: white;
-	width: 100%;
-	margin-top: 40px;
+    text-align: center;
+    font-size: 45px;
+	font-weight: 600; 
+    color: white;
+    width : 100%;
+    margin-top:40px;
 }
 
-#withdrawalForm {
-	width : 600px;
-	margin: 0 auto;
+td {
+	padding : 10px;
+	
 }
 
-#currentPassword {
+#changePasswdForm {
+	width: 500px;
+    margin-left : 450px;
+}
+
+
+#currentPassword, #newPassword, #renewPassword {
 	border: 1px solid #ccc;
 	margin-top: 3px;
 	margin-bottom: 5px;
 	height: 40px;
 	border-radius: 5px;
 	padding-left: 10px;
+	width : 200px;
+}
+
+#changePasswdBtn:hover{
+	  background-color: #37517e;
 }
 
 label {
@@ -31,7 +42,7 @@ label {
 	font-weight: 600px;
 }
 
-#checkAndWithdrawalBtn {
+#changePasswdBtn {
 	height: 40px;
 	padding: 5px 15px;
 	background-color: #47b2e4;
@@ -41,9 +52,6 @@ label {
 	border-radius: 5px;
 	font-size: 16px;
 	font-weight: 600;
-	margin-left: 10px;
+	width: 100%;
 }
 
-#checkAndWithdrawalBtn:hover {
-	background-color: #37517e;
-}

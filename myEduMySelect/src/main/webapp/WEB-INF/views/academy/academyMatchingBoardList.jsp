@@ -1,46 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>	
-<%@ include file="/WEB-INF/views/common/common.jspf" %>										
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jspf" %>		
 <!DOCTYPE html>
 <html lang="kr">
- 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
- 
-  <title>MyEduMySelect </title>
-  <meta content="" name="description">
-  <meta content="" name="keywords"> 
-   
-  <!-- Favicons -->
-  <link href="/resources/include/assets/img/favicon.png" rel="icon">
-  <link href="/resources/include/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link href="/resources/include/board/advertise/css/advertiseList.css" rel="stylesheet">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="/resources/include/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/resources/include/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/resources/include/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/resources/include/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/resources/include/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/resources/include/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/resources/include/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="/resources/include/assets/css/style.css" rel="stylesheet">
   <link href="/resources/include/matching/css/matchingBoard.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: MyEduMySelect
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/MyEduMySelect-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-	
 	
 	<script>
 		window.onload = function(){
@@ -63,15 +30,12 @@
   
 
   <!-- ======= 설명 영역 ======= -->
-  <section class="mcHero d-flex align-items-center">
+  <section class="mcHero d-flex align-items-center" style="height: 300px;">
 
     <div class="container">
       <div class="row" >
 		<div class="col-12 text-center mcBanner">
-            내가 쓴 댓글이 있는 글 목록(매칭 게시판)<br/>
-            <div class="mcDescBox">
-            	<p>내가 쓴 댓글이 뭐가있을까?</p>
-            </div>
+            내가 댓글 단 게시물 (매칭 게시판)<br/>
         </div>  
       </div>
     </div>
@@ -99,11 +63,7 @@
                 <input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
             </form>
         </div><br><br>
-        
-        <div class="userId">${personalLogin.personalId}</div>
-        <div class="acaId">${academyLogin.academyId}</div>
-        <div class="acaName">${academyLogin.academyName}</div>
-        
+
      <div class="mcBoardList">
     <table>
         <thead>
