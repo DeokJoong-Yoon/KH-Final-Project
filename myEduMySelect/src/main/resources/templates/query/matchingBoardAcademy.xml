@@ -1,89 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myedumyselect.academy.dao.AcademyMatchingBoardDAO">
-	
+<mapper
+	namespace="com.myedumyselect.academy.dao.AcademyMatchingBoardDAO">
+
 	<!-- MatchingBoardVO 별칭 일괄 부여 -->
 	<resultMap type="matchingBoard" id="matchingBoardMap">
 		<id column="matching_no" property="matchingNo" />
 		<result column="academy_id" property="academyId" />
 		<result column="matching_private" property="matchingPrivate" />
 		<result column="matching_passwd" property="matchingPasswd" />
-		<result column="matching_register_date" property="matchingRegisterDate" />
+		<result column="matching_register_date"
+			property="matchingRegisterDate" />
 		<result column="matching_edit_date" property="matchingEditDate" />
-		<result column="matching_gu_address" property="matchingGuAddress" />
-		<result column="matching_dong_address" property="matchingDongAddress" />
-		<result column="matching_target_grade" property="matchingTargetGrade" />
-		<result column="matching_target_subject" property="matchingTargetSubject" />
+		<result column="matching_gu_address"
+			property="matchingGuAddress" />
+		<result column="matching_dong_address"
+			property="matchingDongAddress" />
+		<result column="matching_target_grade"
+			property="matchingTargetGrade" />
+		<result column="matching_target_subject"
+			property="matchingTargetSubject" />
 		<result column="matching_fee" property="matchingFee" />
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
 		<result column="matching_comment" property="matchingComment" />
 	</resultMap>
-	
+
 	<!-- MatchingCommentVO 별칭 일괄 부여 -->
 	<resultMap type="matchingComment" id="matchingCommentMap">
 		<id column="matching_comment_no" property="matchingCommentNo" />
 		<result column="academy_id" property="academyId" />
 		<result column="matching_no" property="matchingNo" />
-		<result column="matching_comment_nickname" property="matchingCommentNickname" />
-		<result column="matching_comment_content" property="matchingCommentContent" />
-		<result column="matching_comment_date" property="matchingCommentDate" />
+		<result column="matching_comment_nickname"
+			property="matchingCommentNickname" />
+		<result column="matching_comment_content"
+			property="matchingCommentContent" />
+		<result column="matching_comment_date"
+			property="matchingCommentDate" />
 	</resultMap>
-	 
+
 	<!-- AcademyLoginVO 별칭 일괄 부여 -->
 	<resultMap type="academyLogin" id="academyLoginMap">
-        <id column="academy_id" property="academyId"/>
-        <result column="member_type_id" property="memberTypeId"/>
-        <result column="academy_number" property="academyNumber"/>
-        <result column="academy_join_date" property="academyJoinDate"/>
-        <result column="academy_passwd" property="academyPasswd"/>
-        <result column="academy_name" property="academyName"/>
-        <result column="academy_gu_address" property="academyGuAddress"/>
-        <result column="academy_dong_address" property="academyDongAddress"/>
-        <result column="academy_road_address" property="academyRoadAddress"/>
-        <result column="academy_phone" property="academyPhone"/>
-        <result column="academy_manager_name" property="academyManagerName"/>
-        <result column="academy_manager_email" property="academyManagerEmail"/>
-        <result column="academy_manager_phone" property="academyManagerPhone"/>
-        <result column="academy_target_grade" property="academyTargetGrade"/>
-        <result column="academy_target_subject" property="academyTargetSubject"/>
-        <result column="academy_keyword1" property="academyKeyword1"/>
-        <result column="academy_keyword2" property="academyKeyword2"/>
-        <result column="academy_keyword3" property="academyKeyword3"/>
-        <result column="academy_keyword4" property="academyKeyword4"/>
-        <result column="academy_keyword5" property="academyKeyword5"/>
-        <result column="academy_fee" property="academyFee"/>
-        <result column="academy_passwd_change_date" property="academyPasswdChangeDate"/>
-        <result column="academy_login_fail_count" property="academyLoginFailCount"/>
-        <result column="academy_account_banned_date" property="academyAccountBannedDate"/>
-    </resultMap>
-    
-	
+		<id column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="academy_number" property="academyNumber" />
+		<result column="academy_join_date" property="academyJoinDate" />
+		<result column="academy_passwd" property="academyPasswd" />
+		<result column="academy_name" property="academyName" />
+		<result column="academy_gu_address" property="academyGuAddress" />
+		<result column="academy_dong_address"
+			property="academyDongAddress" />
+		<result column="academy_road_address"
+			property="academyRoadAddress" />
+		<result column="academy_phone" property="academyPhone" />
+		<result column="academy_manager_name"
+			property="academyManagerName" />
+		<result column="academy_manager_email"
+			property="academyManagerEmail" />
+		<result column="academy_manager_phone"
+			property="academyManagerPhone" />
+		<result column="academy_target_grade"
+			property="academyTargetGrade" />
+		<result column="academy_target_subject"
+			property="academyTargetSubject" />
+		<result column="academy_keyword1" property="academyKeyword1" />
+		<result column="academy_keyword2" property="academyKeyword2" />
+		<result column="academy_keyword3" property="academyKeyword3" />
+		<result column="academy_keyword4" property="academyKeyword4" />
+		<result column="academy_keyword5" property="academyKeyword5" />
+		<result column="academy_fee" property="academyFee" />
+		<result column="academy_passwd_change_date"
+			property="academyPasswdChangeDate" />
+		<result column="academy_login_fail_count"
+			property="academyLoginFailCount" />
+		<result column="academy_account_banned_date"
+			property="academyAccountBannedDate" />
+	</resultMap>
+
+
 	<!-- 1. 매칭 댓글 테이블에서 본인이 댓글을 쓴 게시물의 번호를 가져온다. -->
-<select id="getCommentMatchingNos" parameterType="academyLogin" resultType="java.lang.Integer">
-    SELECT  matching_no
-    FROM    tb_matching_comment
-    WHERE   academy_id = #{academyId}
-</select>
+	<select id="getCommentMatchingNos" parameterType="academyLogin"
+		resultType="java.lang.Integer">
+		SELECT matching_no
+		FROM tb_matching_comment
+		WHERE academy_id = #{academyId}
+	</select>
 
-<!-- 2. 반환 받은 게시물 번호들을 가지고 매칭게시판 테이블에 가서 모든 내용을 조회한다. -->
-<select id="getMatchingBoardByNo" parameterType="java.lang.Integer" resultMap="matchingBoardMap">
-    SELECT  *
-    FROM    tb_matching_board
-    WHERE   matching_no = #{matchingNo}
-</select>
+	<!-- 2. 반환 받은 게시물 번호들을 가지고 매칭게시판 테이블에 가서 모든 내용을 조회한다. -->
+	<select id="getMatchingBoardByNo"
+		parameterType="java.lang.Integer" resultMap="matchingBoardMap">
+		SELECT *
+		FROM tb_matching_board
+		WHERE matching_no = #{matchingNo}
+	</select>
 
-<!-- 3. 조회된 결과를 matchingBoardMap resultMap에 매핑된 MatchingBoardVO 객체의 리스트로 반환한다. -->
-<select id="getCommented" parameterType="academyLogin" resultMap="matchingBoardMap">
-    SELECT  *
-    FROM    tb_matching_board
-    INNER JOIN tb_matching_comment ON tb_matching_board.matching_no = tb_matching_comment.matching_no
-    WHERE   tb_matching_comment.academy_id = #{academyLogin.academyId}
-</select>
+	<!-- 3. 조회된 결과를 matchingBoardMap resultMap에 매핑된 MatchingBoardVO 객체의 리스트로 
+		반환한다. -->
+	<select id="getCommented" parameterType="academyLogin"
+		resultMap="matchingBoardMap">
+		SELECT *
+		FROM tb_matching_board
+		INNER JOIN tb_matching_comment ON tb_matching_board.matching_no =
+		tb_matching_comment.matching_no
+		WHERE tb_matching_comment.academy_id = #{academyLogin.academyId}
+	</select>
 
-<!-- 매칭게시판 글 번호로 게시글 목록 조회 -->
-<select id="boardList" parameterType="matchingBoard" resultMap="matchingBoardMap">
+	<!-- 매칭게시판 글 번호로 게시글 목록 조회 -->
+	<select id="boardList" parameterType="matchingBoard"
+		resultMap="matchingBoardMap">
     <![CDATA[
     SELECT  matching_no
             , matching_gu_address
@@ -105,13 +130,30 @@
                     , matching_register_date
                     , personal_id
             FROM    (
-                    SELECT * FROM tb_matching_board
+                    SELECT * FROM
+                    tb_matching_board
                     ORDER BY matching_register_date DESC) sortedList
             WHERE rownum <= #{pageNum} * #{amount}) boardList
             WHERE rnum > (#{pageNum} - 1 ) * #{amount}
     ]]>
-</select>
+	</select>
 
 
-	
+<!-- 	<select id="myMatchingBoardList" parameterType="matchingComment"
+		resultMap="matchingBoardMap">
+		SELECT
+		mb.*,
+		mc.*
+		FROM
+		tb_matching_board mb
+		JOIN
+		tb_matching_comment mc
+		ON
+		mb.matching_no = mc.matching_no
+		WHERE
+		mc.academy_id = #{academyId}
+	</select>
+ -->
+
+
 </mapper>
