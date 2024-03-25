@@ -60,6 +60,13 @@ public class AdvertiseController {
 		// 전체 레코드 조회
 		List<AdvertiseVO> advertiseList = aService.advertiseList(aVO);
 		model.addAttribute("advertiseList", advertiseList);
+		
+		int i = 1;
+		for (AdvertiseVO a : advertiseList) {
+			log.info(i + a.toString());
+			++i;
+		}
+		log.info("list : " + advertiseList.toString());
 
 		// 전체 레코드 수 반환
 		int total = aService.advertiseListCnt(aVO);

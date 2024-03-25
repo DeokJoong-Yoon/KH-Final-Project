@@ -59,8 +59,27 @@
 	<select id="advertiseListCnt" parameterType="advertiseBoard"
 		resultType="int">
 		<![CDATA[
-		SELECT 	count(*) FROM tb_common_board
-		WHERE	common_no >= 20000 AND common_no < 30000
+		SELECT 	count(*) FROM (
+	            SELECT cb.common_no,
+				       cb.personal_id,
+				       cb.academy_id,
+				       cb.admin_id,
+				       cb.member_type_id,
+				       cb.common_nickname,
+				       cb.common_title,
+				       cb.common_content,
+				       cb.common_register_date,
+				       cb.common_edit,
+				       cb.common_readcnt,
+				       cb.common_block_confirm,
+				       cb.common_block_date,
+				       cb.common_thumb,
+				       cb.common_file
+				FROM tb_common_board cb
+				JOIN tb_payment p ON cb.academy_id = p.academy_id
+				WHERE cb.member_type_id = 2
+					AND TO_DATE(p.payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 30)
+				WHERE	common_no >= 20000 AND common_no < 30000
 		AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
 					OR  ( common_title LIKE '%' || #{keyword} || '%' )
 					OR  ( common_content LIKE '%' || #{keyword} || '%' )
@@ -154,6 +173,7 @@
 				JOIN tb_payment p ON cb.academy_id = p.academy_id
 				WHERE cb.member_type_id = 2
 				  AND TO_DATE(p.payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 30
+				ORDER BY common_register_date DESC 
 	            )
 	            WHERE	rownum <= #{pageNum} * #{amount}
 	            AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
