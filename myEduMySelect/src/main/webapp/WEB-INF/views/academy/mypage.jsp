@@ -153,8 +153,10 @@
                           	<label for="subject16"> 취미</label>
                           	<input type="radio" name="academyTargetSubject" id="subject17" value="직업기술">
                           	<label for="subject17"> 직업기술</label>
-                          	<input type="radio" name="academyTargetSubject" id="subject18" value="기타">
-                          	<label for="subject18"> 기타</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject18" value="종합">
+                          	<label for="subject18"> 종합</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject19" value="기타">
+                          	<label for="subject19"> 기타</label>
 						</div>
 					</td>
 				</tr>
@@ -246,12 +248,16 @@
                           	<label for="keyword13">소수정예</label>
                           	<input type="checkbox" name="academyKeyword" id="keyword14" value="집중 관리" class="keyword-checkbox"/>
                           	<label for="keyword14">집중 관리</label>
-                          	<input type="checkbox" name="academyKeyword" id="keyword15" value="테스트&피드백 시스템" class="keyword-checkbox"/>
-                          	<label for="keyword15">테스트&피드백 시스템</label>
+                          	<input type="checkbox" name="academyKeyword" id="keyword15" value="테스트/피드백 시스템" class="keyword-checkbox"/>
+                          	<label for="keyword15">테스트/피드백 시스템</label>
                           	<input type="checkbox" name="academyKeyword" id="keyword16" value="상담 및 컨설팅 포함" class="keyword-checkbox"/>
                           	<label for="keyword16">상담 및 컨설팅 포함</label>
                           	<input type="checkbox" name="academyKeyword" id="keyword17" value="취업" class="keyword-checkbox"/>
                           	<label for="keyword17">취업</label>
+                          	<input type="checkbox" id="keyword18" name="academyKeyword" value="수능대비" class="keyword-checkbox">
+                          	<label for="academyKeyword18">수능대비</label>
+                          	<input type="checkbox" id="keyword19" name="academyKeyword" value="내신대비" class="keyword-checkbox">
+                          	<label for="academyKeyword19">내신대비</label>
 				         </div>
 					</td>
 				</tr>

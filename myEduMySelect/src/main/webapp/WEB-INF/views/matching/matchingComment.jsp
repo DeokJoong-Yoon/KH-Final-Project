@@ -59,7 +59,7 @@
 			$element.find(".mcName").html(matchingCommentNickname);
 			$element.find(".mcContent").html(matchingCommentContent);
 			$element.find(".mcDate").html(matchingCommentDate);
-			$element.find(".mcId").html("(" + commentWriterId + ")");
+			$element.find(".mcId").html(commentWriterId);
 			
 			$div.append($element);
 			

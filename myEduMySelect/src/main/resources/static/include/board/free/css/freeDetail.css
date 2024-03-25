@@ -101,7 +101,7 @@
 
 #commonCommentContent {
 	resize: none;
-	width : 100%;
+	width : 87%;
 	height: 80px;
 	border-color : #dddddd;
 	padding: 10px;
@@ -125,16 +125,19 @@
 }
 
 #freereplyInsertBtn, #upBtn {
-	float: right;
-	padding: 5px 10px;
+	padding: 10px 20px;
     background-color: #48d1cc;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 7px;
     font-size: 16px;
     font-weight: 600;
     margin-left:5px;
+    float: right;
+    height: 80px;
+    clear: both;
+    width: 12%;
 }
 
 label {

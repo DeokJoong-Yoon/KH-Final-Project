@@ -109,12 +109,13 @@
 	        					<input type="radio" name="matchingTargetSubject" id="computer" value="컴퓨터"><label for="computer"> 컴퓨터</label><br/>
 	        					<input type="radio" name="matchingTargetSubject" id="writing" value="논술"><label for="writing"> 논술</label>
 	        					<input type="radio" name="matchingTargetSubject" id="science" value="과학"><label for="science"> 과학</label>
-	        					<input type="radio" name="matchingTargetSubject" id="foreign" value="외국어"><label for="foreign"> 외국어</label>
-	        					<input type="radio" name="matchingTargetSubject" id="foreign" value="실용음악"><label for="music"> 실용음악</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="diverse" value="종합"><label for="diverse"> 종합</label>
+	        					<input type="radio" name="matchingTargetSubject" id="foreign" value="외국어"><label for="foreign"> 외국어</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="foreign" value="실용음악"><label for="music"> 실용음악</label>
 	        					<input type="radio" name="matchingTargetSubject" id="art" value="미술"><label for="art"> 미술</label>
 	        					<input type="radio" name="matchingTargetSubject" id="dance" value="무용/댄스"><label for="dance"> 무용/댄스</label>
-	        					<input type="radio" name="matchingTargetSubject" id="gym" value="체육"><label for="gym"> 체육</label>
-	        					<input type="radio" name="matchingTargetSubject" id="inst" value="악기"><label for="inst"> 악기</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="gym" value="체육"><label for="gym"> 체육</label><br/>
+	        					<input type="radio" name="matchingTargetSubject" id="inst" value="악기"><label for="inst"> 악기</label>
 	        					<input type="radio" name="matchingTargetSubject" id="acting" value="연기/연극"><label for="acting"> 연기/연극</label>
 	        					<input type="radio" name="matchingTargetSubject" id="entertain" value="예체능입시"><label for="entertain"> 예체능입시</label>
 	        					<input type="radio" name="matchingTargetSubject" id="exam" value="고시"><label for="exam"> 고시</label><br/>
@@ -151,9 +152,11 @@
 	        					<input type="checkbox" name="matchingKeyword" id="practice" value="실습 중심"><label for="practice"> 실습 중심</label>
 	        					<input type="checkbox" name="matchingKeyword" id="minimum" value="소수정예"><label for="minimum"> 소수정예</label>
 	        					<input type="checkbox" name="matchingKeyword" id="care" value="집중 관리"><label for="care"> 집중 관리</label>
-	        					<input type="checkbox" name="matchingKeyword" id="feedback" value="테스트&피드백 시스템"><label for="feedback"> 테스트&피드백 시스템</label><br>
+	        					<input type="checkbox" name="matchingKeyword" id="feedback" value="테스트/피드백 시스템"><label for="feedback"> 테스트/피드백 시스템</label><br>
 	        					<input type="checkbox" name="matchingKeyword" id="consulting" value="상담 및 컨설팅 포함"><label for="consulting"> 상담 및 컨설팅 포함</label>
 	        					<input type="checkbox" name="matchingKeyword" id="job" value="취업"><label for="job"> 취업</label>
+	        					<input type="checkbox" name="matchingKeyword" id="suneung" value="수능대비"><label for="suneung"> 수능대비</label>
+	        					<input type="checkbox" name="matchingKeyword" id="naeshin" value="내신"><label for="naeshin"> 내신</label>
 	        				</td>
 	        			<tr>
 	        				<td colspan="4">

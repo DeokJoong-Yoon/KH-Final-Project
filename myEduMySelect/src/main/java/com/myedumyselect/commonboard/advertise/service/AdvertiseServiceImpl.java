@@ -77,6 +77,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	public AdvertiseVO advertiseDetail(AdvertiseVO aVO) {
 		
 		AdvertiseVO detail = aDAO.advertiseDetail(aVO);
+		
+		if(detail != null) {
+			detail.setCommonContent(detail.getCommonContent().replaceAll("\n", "<br/>"));
+		}
+		
 		aDAO.readCntUpdate(aVO);
 		log.info("조회수 : " + aVO.getCommonReadcnt());
 		return detail;

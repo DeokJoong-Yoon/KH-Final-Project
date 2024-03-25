@@ -11,10 +11,10 @@ $(function() {
 	console.log("작성자 : " + writerId);
 	
 	if(academyId) {
+		$("#likeButton").css("display", "none");
 		if(academyId != writerId) {
 			$("#editPost").css("display", "none");
 			$("#deletePost").css("display", "none");
-			$("#likeButton").css("display", "none");
 		} 
 	} else if(!academyId) {
 		$("#editPost").css("display", "none");

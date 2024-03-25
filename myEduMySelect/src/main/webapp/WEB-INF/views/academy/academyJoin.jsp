@@ -137,7 +137,7 @@
                           	<input type="radio" name="academyTargetSubject" id="subject3" value="영어">
                           	<label for="subject3"> 영어</label>
                           	<input type="radio" name="academyTargetSubject" id="subject4" value="컴퓨터">
-                          	<label for="subject4"> 컴퓨터</label><br/>
+                          	<label for="subject4"> 컴퓨터</label>
                           	<input type="radio" name="academyTargetSubject" id="subject5" value="논술">
                           	<label for="subject5"> 논술</label>
                           	<input type="radio" name="academyTargetSubject" id="subject6" value="과학">
@@ -153,7 +153,7 @@
                           	<input type="radio" name="academyTargetSubject" id="subject11" value="체육">
                           	<label for="subject11"> 체육</label>
                           	<input type="radio" name="academyTargetSubject" id="subject12" value="악기">
-                          	<label for="subject12"> 악기</label><br/>
+                          	<label for="subject12"> 악기</label>
                           	<input type="radio" name="academyTargetSubject" id="subject13" value="연기/연극">
                           	<label for="subject13"> 연기/연극</label>
                           	<input type="radio" name="academyTargetSubject" id="subject14" value="예체능입시">
@@ -164,8 +164,10 @@
                           	<label for="subject16"> 취미</label>
                           	<input type="radio" name="academyTargetSubject" id="subject17" value="직업기술">
                           	<label for="subject17"> 직업기술</label>
-                          	<input type="radio" name="academyTargetSubject" id="subject18" value="기타">
-                          	<label for="subject18"> 기타</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject18" value="종합">
+                          	<label for="subject18"> 종합</label>
+                          	<input type="radio" name="academyTargetSubject" id="subject19" value="기타">
+                          	<label for="subject19"> 기타</label>
 						</div>
 					</td>
 				</tr>
@@ -226,7 +228,7 @@
 						    <label for="academyKeyword2">심화수업</label>
 						    						    
 						    <input type="checkbox" id="academyKeyword3" name="keyword" value="친절한 강사" class="keyword-checkbox">
-						    <label for="academyKeyword3">친절한 강사</label><br>
+						    <label for="academyKeyword3">친절한 강사</label>
 						    						    
 						    <input type="checkbox" id="academyKeyword4" name="keyword" value="꼼꼼한 관리" class="keyword-checkbox">
 						    <label for="academyKeyword4">꼼꼼한 관리</label>						    
@@ -244,7 +246,7 @@
 						    <label for="academyKeyword8">입시 대비</label>
 						    						    
 						    <input type="checkbox" id="academyKeyword9" name="keyword" value="재밌는 수업" class="keyword-checkbox">
-						    <label for="academyKeyword9">재밌는 수업</label><br>
+						    <label for="academyKeyword9">재밌는 수업</label>
 						    
 						    <input type="checkbox" id="academyKeyword10" name="keyword"  value="한 번에 많이" class="keyword-checkbox">
 						    <label for="academyKeyword10">한 번에 많이</label>
@@ -253,7 +255,7 @@
                           	<label for="academyKeyword11">조금씩 자주</label>
                           	
                           	<input type="checkbox" id="academyKeyword12" name="keyword"  value="실습 중심" class="keyword-checkbox">
-                          	<label for="academyKeyword12">실습 중심</label>
+                          	<label for="academyKeyword12">실습 중심</label><br>
                           	
                           	<input type="checkbox" id="academyKeyword13" name="keyword"  value="소수정예" class="keyword-checkbox">
                           	<label for="academyKeyword13">소수정예</label>
@@ -261,14 +263,20 @@
                           	<input type="checkbox" id="academyKeyword14" name="keyword"  value="집중 관리" class="keyword-checkbox">
                           	<label for="academyKeyword14">집중 관리</label>
                           	
-                          	<input type="checkbox" id="academyKeyword15" name="keyword"  value="테스트&피드백 시스템" class="keyword-checkbox">
-                          	<label for="academyKeyword15">테스트&피드백 시스템</label>
+                          	<input type="checkbox" id="academyKeyword15" name="keyword"  value="테스트/피드백 시스템" class="keyword-checkbox">
+                          	<label for="academyKeyword15">테스트/피드백 시스템</label>
                           	
                           	<input type="checkbox" id="academyKeyword16" name="keyword" value="상담 및 컨설팅 포함" class="keyword-checkbox">
                           	<label for="academyKeyword16">상담 및 컨설팅 포함</label>
                           	
                           	<input type="checkbox" id="academyKeyword17" name="keyword" value="취업" class="keyword-checkbox">
-                          	<label for="academyKeyword17">취업</label>
+                          	<label for="academyKeyword17">취업</label><br>
+                          	
+                          	<input type="checkbox" id="academyKeyword18" name="keyword" value="수능대비" class="keyword-checkbox">
+                          	<label for="academyKeyword18">수능대비</label>
+                          	
+                          	<input type="checkbox" id="academyKeyword19" name="keyword" value="내신대비" class="keyword-checkbox">
+                          	<label for="academyKeyword19">내신대비</label>
 						</div>
 					</td>
 				</tr>

@@ -1,101 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jspf" %>
 <!DOCTYPE html>
 <html lang="kr">
+
+	<link href="/resources/include/academy/css/withdrawal.css" rel="stylesheet">
       
-<body>
-<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-	    <div class="container d-flex align-items-center">
-	
-	      <h1 class="logo me-auto"><a href="/">MyEdu<br />MySelect</a></h1>
-	      <!-- Uncomment below if you prefer to use an image logo -->
-	      <!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
-	
-	      <nav id="navbar" class="navbar">
-	        <ul>
-	          <li><a class="nav-link scrollto active" href="#hero">È¨</a></li>
-	          <li><a class="nav-link scrollto" href="#about">About</a></li>
-	          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-	          <li class="dropdown"><a href="#"><span>¸Þ´º</span> <i class="bi bi-chevron-down"></i></a>
-	            <ul>
-	              <li><a href="/free/freeList">ÀÚÀ¯°Ô½ÃÆÇ</a></li>
-	            <li><a href="#">È«º¸°Ô½ÃÆÇ</a></li>
-	            <li><a href="/matching/">¸ÅÄª°Ô½ÃÆÇ</a></li>
-	            <li><a href="/notice/boardList">°øÁö°Ô½ÃÆÇ</a></li>
-	            <c:if test="${personalLogin.memberTypeId == 1}">
-	               <li><a href="${pageContext.request.contextPath}/myPage" id="mypageBtn">°³ÀÎÈ¸¿ø ¸¶ÀÌÆäÀÌÁö</a></li>
-	            </c:if>
-	            <c:if test="${academyLogin.memberTypeId == 2}">
-	               <li><a href="${pageContext.request.contextPath}/academy/mypage" id="mypageBtn">ÇÐ¿øÈ¸¿ø ¸¶ÀÌÆäÀÌÁö</a></li>
-	            </c:if>
-	            </ul>
-	          </li>
-	          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-	          <c:choose>
-	          <c:when test="${not empty personalLogin}">
-	              <li><a class="nav-link scrollto">[°³ÀÎ]&nbsp&nbsp${personalLogin.personalName}´Ô È¯¿µÇÕ´Ï´Ù.</a></li>
-	              <li>
-	                  <form action="${pageContext.request.contextPath}/useraccount/logout" method="POST">
-	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">·Î±×¾Æ¿ô</button>
-	                  </form>
-	              </li>
-	          </c:when>
-	          <c:when test="${not empty academyLogin}">
-	              <li><a class="nav-link scrollto">[ÇÐ¿ø]&nbsp&nbsp${academyLogin.academyName}´Ô È¯¿µÇÕ´Ï´Ù.</a></li>
-	              <li>
-	                  <form action="${pageContext.request.contextPath}/academy/logout" method="POST">
-	                      <button class="getstarted scrollto btn btn-aquamarine" type="submit">·Î±×¾Æ¿ô</button>
-	                  </form>
-	              </li>
-	          </c:when>
-	          <c:otherwise>
-	              <li><a class="getstarted scrollto" href="${pageContext.request.contextPath}/loginselect">·Î±×ÀÎ/È¸¿ø°¡ÀÔ</a></li>
-	          </c:otherwise>
-	        </c:choose>
-	        </ul>
-	        <i class="bi bi-list mobile-nav-toggle"></i>
-	      </nav><!-- .navbar -->
-	
-	    </div>
-  	</header>
-	<!-- End Header -->
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
 
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<h1>È¸¿ø Å»Åð ÆäÀÌÁö</h1>
-					<h2></h2>
-
-
-				</div>
-				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-					data-aos-delay="200">
-					<img src="/resources/include/assets/img/hero-img.png"
-						class="img-fluid animated" alt="">
+				<div class="col-12 text-center banner">
+					í•™ì› íšŒì› íƒˆí‡´<br />
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- End Hero -->
-	
-	<h1>È¸¿øÅ»Åð ÆäÀÌÁö</h1>
-	<form id="withdrawalForm" action="/withdrawal/academy" method="POST">
-	    <div>
-	        <label for="currentPassword">ÇöÀç ºñ¹Ð¹øÈ£:</label>
-	        <input type="password" id="currentPassword" name="currentPassword">
-	    </div>
-	    <div>
-	        <button type="button" id="checkAndWithdrawalBtn">È¸¿ø Å»Åð</button>
-	    </div> 
-	</form>
+	<section>	
+		<form id="withdrawalForm" action="/withdrawal/academy" method="POST">
+		    <div>
+		        <label for="currentPassword">í˜„ìž¬ ë¹„ë°€ë²ˆí˜¸ ìž…ë ¥ :</label>
+		        <input type="password" id="currentPassword" name="currentPassword">
+		        <button type="button" id="checkAndWithdrawalBtn">íšŒì› íƒˆí‡´í•˜ê¸°</button>
+		    </div> 
+		</form>
+	</section>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
@@ -111,14 +42,14 @@
 	                dataType: "text",
 	                success: function(data) {
 	                    if (data.trim() === "TRUE") {  
-	                        // ÇöÀç ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏ´Â °æ¿ì
-	                        if (confirm("È¸¿ø Å»ÅðÇÏ½Ã°Ú½À´Ï±î?")) {
-	                            // È®ÀÎ ¹öÆ° Å¬¸¯ ½Ã È¸¿ø Å»Åð¸¦ À§ÇÑ formÀ» Á¦ÃâÇÕ´Ï´Ù.
+	                        // í˜„ìž¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ëŠ” ê²½ìš°
+	                        if (confirm("íšŒì› íƒˆí‡´í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")) {
+	                            // í™•ì¸ ë²„íŠ¼ í´ë¦­ ì‹œ íšŒì› íƒˆí‡´ë¥¼ ìœ„í•œ formì„ ì œì¶œí•©ë‹ˆë‹¤.
 	                            $("#withdrawalForm").submit();
 	                        }
 	                    } else {
-	                        // ÇöÀç ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì
-	                        alert("ÇöÀç ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+	                        // í˜„ìž¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+	                        alert("í˜„ìž¬ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	                        $("#currentPassword").val("");
 	                        $("#currentPassword").focus();
 	                    }
