@@ -53,27 +53,28 @@
 							</tr>
 						</thead>
 						<tbody id="list" >
-						    <c:choose>
+						    <c:choose> 
 						        <c:when test="${not empty freeBoardList}">
 						            <c:forEach var="free" items="${freeBoardList}" varStatus="status">
-						                <tr data-num="${free.commonNo}">
-						                    <td>${free.commonNo}</td>
-						                    <td class="goDetail">${free.commonTitle}
-						                        <c:if test="${free.freeReplyCnt > 0}">
-													<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
-												</c:if>
-						                    </td>
-						                    <td class="goDetail">${free.personalId}</td>
-						                    <td class="text-start">${free.commonRegisterDate}</td>
-						                    <td class="text-center">${free.commonReadcnt}</td>
-						                    <td>
-						                    <c:if test="${not empty free.commonFile}">
-						                        <img src="/uploadStorage/free/${free.commonFile}" class="rounded w-50 h-50" />
-						                    </c:if>
-						                    <c:if test="${empty free.commonFile}">
-						                        <img src="/resources/include/board/images/no-image-icon.png" class="rounded w-50 h-50" />
-						                    </c:if>
-						                </tr>
+						               <tr data-num="${free.commonNo}">
+												<td>${free.commonNo}</td>
+												<td class="goDetail">${free.commonTitle}<c:if
+														test="${free.freeReplyCnt > 0}">
+														<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
+													</c:if>
+												</td>
+												<td class="goDetail">${free.personalId}</td>
+												<td class="text-start">${free.commonRegisterDate}</td>
+												<td class="text-center">${free.commonReadcnt}</td>
+												<td><c:if test="${not empty free.commonFile}">
+														<img src="/uploadStorage/free/${free.commonFile}"
+															class="rounded w-50 h-50" />
+													</c:if> <c:if test="${empty free.commonFile}">
+														<img
+															src="/resources/include/board/images/no-image-icon.png"
+															class="rounded w-50 h-50" />
+													</c:if>
+											</tr>
 						            </c:forEach>
 						        </c:when>
 						        <c:otherwise>
@@ -139,54 +140,7 @@
 	<!--<script src="/resources/include/board/common/main.js"></script>-->
 	<script src="/resources/include/personal/main.js"></script>
 	<script src="/resources/include/personal/freeBoardPersonalView.js"></script>
-	<script>
-	$(function() {
-		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word = "<c:out value='${FreeVO.keyword}' />";
-		let value = "";
-		if (word != "") {
-			$("#keyword").val("<c:out value='${FreeVO.keyword}' />");
-			$("#search").val("<c:out value='${FreeVO.search}' />");
-			
-			if ($("#search").val() != 'commonContent') {
-				if ($("#search").val() == 'commonTitle')
-					value = "#list tr td.goDetail";
-				else if ($("#search").val() == 'personalId') value = "#list tr td.name";
-				console.log($(value + ":contains('" + word + "')").html());
-				$(value + ":contains('" + word + "')").each(function() {
-							let regex = new RegExp(word, 'gi');
-							$(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
-				});
-			}
-		}
-	});
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    // 각 게시물의 댓글 수를 가져와서 표시하는 함수
-		    function updatefreeReplyCnt(commonNo) {
-		        $.ajax({
-		            type: 'POST',
-		            url: '/freeReplyCnt',
-		            data: { commonNo: commonNo },
-		            success: function(data) {
-		                // 성공적으로 댓글 수를 가져온 경우, 해당 게시물의 댓글 수를 업데이트
-		                $('#freeReplyCnt' + commonNo).html('<b>[' + data + ']</b>');
-		            },
-		            error: function(xhr, status, error) {
-		                console.error('댓글 갯수를 가져오는데 실패하였습니다: ' + error);
-		            }
-		        });
-		    }
 	
-		    // 페이지 로드 시 각 게시물 별로 댓글 수를 업데이트
-		    $('[id^=freeReplyCnt]').each(function() {
-		        let commonNo = $(this).attr('id').replace('freeReplyCnt', '');
-		        updatefreeReplyCnt(commonNo);
-		    });
-		});
-
-	</script>
 </body>
 
 </html>

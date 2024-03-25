@@ -15,4 +15,4 @@ public interface PersonalLikeDAO {
 	public AdvertiseVO getCommonBoardByNo (int commonNo);
 	
 	public List<LikeVO> likeList(LikeVO likeVO);
-}
+} 
