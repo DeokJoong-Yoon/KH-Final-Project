@@ -12,5 +12,4 @@ public interface PersonalAdminService {
 	public PersonalAdminVO memberDetail(PersonalAdminVO personalAdminVO);
 
 	public int memberDelete(PersonalAdminVO personalAdminVO);
-
 }

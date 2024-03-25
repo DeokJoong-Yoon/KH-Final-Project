@@ -19,6 +19,7 @@ public class AcademyAdminServiceImpl implements AcademyAdminService {
 	public List<AcademyAdminVO> memberList(AcademyAdminVO academyAdminVO) {
 		List<AcademyAdminVO> list = null;
 		list = academyAdminDAO.memberList(academyAdminVO);
+		maskAcademyPhone(list);
 		return list;
 	}
 
@@ -29,12 +30,29 @@ public class AcademyAdminServiceImpl implements AcademyAdminService {
 
 	@Override
 	public AcademyAdminVO memberDetail(AcademyAdminVO academyAdminVO) {
-		return academyAdminDAO.memberDetail(academyAdminVO);
+		AcademyAdminVO result = academyAdminDAO.memberDetail(academyAdminVO);
+		maskAcademyPhone(result);
+		return result;
 	}
 
 	@Override
 	public int memberDelete(AcademyAdminVO academyAdminVO) {
 		return academyAdminDAO.memberDelete(academyAdminVO);
+	}
+
+	// academy_phone 마스킹 처리
+	private void maskAcademyPhone(List<AcademyAdminVO> academyList) {
+		for (AcademyAdminVO academy : academyList) {
+			maskAcademyPhone(academy);
+		}
+	}
+
+	private void maskAcademyPhone(AcademyAdminVO academy) {
+		if (academy != null && academy.getAcademyManagerPhone() != null && academy.getAcademyManagerPhone().length() == 11) {
+			String phone = academy.getAcademyManagerPhone();
+			String maskedPhone = phone.substring(0, 7) + "****";
+			academy.setAcademyManagerPhone(maskedPhone);
+		}
 	}
 
 }

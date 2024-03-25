@@ -154,6 +154,14 @@
 									<tr>
 										<td>
 											<div class="md-3 row">
+												<label for="academyManagerName" class="col-sm-2 col-form-label">Manager Phone</label>
+												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyManagerPhone}</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="md-3 row">
 												<label for="academyPasswdChangeDate" class="col-sm-2 col-form-label">Password Change Date</label>
 												<div class="text-start col-sm-10 mt-2 mb-2">${detail.academyPasswdChangeDate}</div>
 											</div>

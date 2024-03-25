@@ -20,6 +20,7 @@ public class PersonalAdminServiceImpl implements PersonalAdminService {
 	public List<PersonalAdminVO> memberList(PersonalAdminVO personalAdminVO) {
 		List<PersonalAdminVO> list = null;
 		list = personalAdminDAO.memberList(personalAdminVO);
+		maskPersonalPhone(list);
 		return list;
 	}
 
@@ -30,13 +31,29 @@ public class PersonalAdminServiceImpl implements PersonalAdminService {
 
 	@Override
 	public PersonalAdminVO memberDetail(PersonalAdminVO personalAdminVO) {
-		return personalAdminDAO.memberDetail(personalAdminVO);
+		PersonalAdminVO result = personalAdminDAO.memberDetail(personalAdminVO);
+		maskPersonalPhone(result);
+		return result;
 	}
 
 	@Override
 	public int memberDelete(PersonalAdminVO personalAdminVO) {
 		return personalAdminDAO.memberDelete(personalAdminVO);
-		
+	}
+
+	// personal_phone 마스킹 처리
+	private void maskPersonalPhone(List<PersonalAdminVO> personalList) {
+		for (PersonalAdminVO personal : personalList) {
+			maskPersonalPhone(personal);
+		}
+	}
+
+	private void maskPersonalPhone(PersonalAdminVO personal) {
+		if (personal != null && personal.getPersonalPhone() != null && personal.getPersonalPhone().length() == 11) {
+			String phone = personal.getPersonalPhone();
+			String maskedPhone = phone.substring(0, 7) + "****";
+			personal.setPersonalPhone(maskedPhone);
+		}
 	}
 
 }
