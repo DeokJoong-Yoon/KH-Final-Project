@@ -37,7 +37,7 @@ public class WithdrawalController {
 		}
 		withdrawalService.personalDelete(personalLoginVO);
 		sessionStatus.setComplete();
-		return "redirect:/academy/logout";
+		return "redirect:/personal/logout";
 	}
 
 	@PostMapping("/academy")

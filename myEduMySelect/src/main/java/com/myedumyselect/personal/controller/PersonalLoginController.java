@@ -138,6 +138,13 @@ public class PersonalLoginController {
 		sessionStatus.setComplete();
 		return "redirect:/loginselect";
 	}
+	
+	@GetMapping("/personal/logout")
+	public String getLogout(SessionStatus sessionStatus) {
+		log.info("회원탈퇴 처리");
+		sessionStatus.setComplete();
+		return "redirect:/";
+	}
 
 	// 개인회원 가입 페이지
 	@GetMapping(value = "/personal/join")
