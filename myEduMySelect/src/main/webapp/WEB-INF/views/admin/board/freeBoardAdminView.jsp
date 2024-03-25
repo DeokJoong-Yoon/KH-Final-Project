@@ -102,7 +102,7 @@
 										<tr>
 											<th scope="col">No</th>
 											<th scope="col">Title</th>
-											<th scope="col">Name</th>
+											<th scope="col">Personal</th>
 											<th scope="col">RegisterDate</th>
 											<th scope="col">ReadCount</th>
 										</tr>
@@ -115,7 +115,7 @@
 														<tr data-num="${free.commonNo}">
 															<th scope="row">${free.commonNo}</th>
 															<th class="goDetail text-start">${free.commonTitle}</th>
-															<td class="goDetail text-start">${free.commonNickname}</td>
+															<td class="goDetail text-start">${free.personalId}</td>
 															<td class="goDetail text-start">${free.commonRegisterDate}</td>
 															<td class="goDetail text-start">${free.commonReadcnt}</td>
 														</tr>

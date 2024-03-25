@@ -99,7 +99,7 @@
 										<td>
 											<div class="md-3 row">
 												<label for="boardName" class="col-sm-2 col-form-label">Name</label>
-												<div class="col-sm-10 mt-2 mb-2">${detail.commonNickname}</div>
+												<div class="col-sm-10 mt-2 mb-2">${detail.personalId}</div>
 											</div>
 										</td>
 									</tr>
