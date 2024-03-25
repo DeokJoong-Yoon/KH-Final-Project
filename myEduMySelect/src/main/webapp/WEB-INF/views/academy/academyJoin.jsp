@@ -323,71 +323,27 @@
 	})
 	</script>
 		
-   <script>
-      $(document).ready(function() {
-         // 폼 제출 이벤트 핸들러 등록
-         $('#emailForm').on('submit', function(event) {
+   	<script>
+      	$(document).ready(function() {
+         	// 폼 제출 이벤트 핸들러 등록
+         	$('#emailForm').on('submit', function(event) {
             event.preventDefault(); // 기본 동작 방지
             // 폼이 서버로 전송되지 않도록 방지
-         });
-      });
-   </script>
+         	});
+      	});
+   	</script>
    
-   <!-- <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var checkboxes = document.querySelectorAll('#keywordGroup input[type="checkbox"]');
-  checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('change', limitCheckboxes);
-  });
-});
-
-function limitCheckboxes() {
-  var checkedCount = 0;
-  var checkboxes = document.querySelectorAll('#keywordGroup input[type="checkbox"]');
-  checkboxes.forEach(function(checkbox) {
-    if (checkbox.checked) {
-      checkedCount++;
-    }
-  });
-  
-  if (checkedCount > 5) {
-    alert("키워드는 최대 5개의 항목만 선택할 수 있습니다.");
-    // 마지막으로 선택한 항목을 해제함
-    this.checked = false;
-  }
-}
-</script> -->
-
-
-
+   	<script>
+   		$(document).ready(function() {
+   			$('#reset-btn').on('click', function() {
+   				$("#a_joinForm")[0].reset();
+   	   		 	// 사업자 등록번호와 담당자 이메일의 readonly 속성을 해제
+   	   		    $("#academyNumber").prop('readonly', false);
+   	   		    $("#academyManagerEmail").prop('readonly', false);	
+   			})
+   		})
+   	</script>
    
-   <!-- 키워드 선택 제어 
-   <script>
-       window.onload = function() {
-           var maxKeywords = 5;
-           var checkboxes = document.querySelectorAll('.keyword-checkbox');
-           function checkboxClickHandler() {
-               var checkedCount = 0;
-               checkboxes.forEach(function(checkbox) {
-                   if (checkbox.checked) {
-                       checkedCount++;
-                   }
-               });
-               if (checkedCount > maxKeywords) {
-                   this.checked = false;
-                   alert('키워드는 최대 ' + maxKeywords + '개의 항목만 선택할 수 있습니다.');
-               }
-           }
-           checkboxes.forEach(function(checkbox) {
-               checkbox.addEventListener('click', checkboxClickHandler);
-           });
-       };
-       
-       function resetForm(){
-    	   $("#a_joinForm")[0].reset();
-       }
-   </script>-->
-
 
 </body>
 

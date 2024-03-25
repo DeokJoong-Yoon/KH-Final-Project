@@ -127,6 +127,7 @@
     <!-- ======= academyPassWd Update Form ======= -->   
     
     <form id="changePasswdForm" action="passwdChange" method="POST">
+    	<input type="hidden" id="academyId" data-academy-id="${academyLogin.academyId}" />    
 		<div class="row mb-3">
 			<label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
 			<div class="col-md-8 col-lg-9">
@@ -153,46 +154,7 @@
 		</div>
 	</form>
 	
-	<!-- <script>
-	function checkPassword() {
-	    var newPassword = document.getElementById("newPasswd").value;
-	    var confirmPassword = document.getElementById("newPasswd2").value;
-	    var errorMessage = "";
-
-	    // 비밀번호가 최소 요구 사항을 충족하는지 확인
-	    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-	    if (!regex.test(newPassword)) {
-	        errorMessage = "새로운 비밀번호는 최소 하나의 대문자, 소문자, 숫자, 특수문자를 포함하고 8~20자 이내여야 합니다.";
-	    }
-
-	    // 비밀번호 확인과 일치하는지 확인
-	    if (newPassword !== confirmPassword) {
-	        errorMessage = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
-	    }
-
-	    // 에러 메시지를 표시
-	    document.getElementById("password-check-message").innerText = errorMessage;
-	    // 비밀번호가 유효하면 버튼 활성화
-	    var changePasswdBtn = document.getElementById("changePasswdBtn");
-	    if (errorMessage === "") {
-	        changePasswdBtn.disabled = false;
-	    } else {
-	        changePasswdBtn.disabled = true;
-	    }
-	}
-
-	// 페이지 로드 시 이벤트 리스너 등록
-	document.addEventListener("DOMContentLoaded", function() {
-	    var newPasswordInput = document.getElementById("newPasswd");
-	    var confirmPasswordInput = document.getElementById("newPasswd2");
-	    if (newPasswordInput && confirmPasswordInput) {
-	        newPasswordInput.addEventListener("keyup", checkPassword);
-	        confirmPasswordInput.addEventListener("keyup", checkPassword);
-	    }
-	});
-
-	</script> -->
-	
+		
 	
     <!-- ======= Contact Section ======= -->  	
   </main><!-- End #main -->
