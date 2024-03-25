@@ -14,5 +14,5 @@ public interface PersonalMatchingBoardDAO {
 	public int boardListCnt(MatchingBoardVO matchingBoardVO);
 
 
-  
+   
 }

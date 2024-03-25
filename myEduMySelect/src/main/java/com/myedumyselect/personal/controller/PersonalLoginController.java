@@ -363,7 +363,7 @@ public class PersonalLoginController {
 			checkPassword.setPersonalPasswd(renewPassword);
 			result = personalLoginService.updatePersonalPasswd(checkPassword);
 			if (result == 1) { 
-
+ 
 				model.addAttribute("personalLogin", personalLoginService.loginProcess(checkPassword));
 				ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
 				return "TRUE";

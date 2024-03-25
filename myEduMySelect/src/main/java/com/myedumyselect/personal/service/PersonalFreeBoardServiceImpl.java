@@ -20,7 +20,7 @@ public class PersonalFreeBoardServiceImpl implements PersonalFreeBoardService {
 	public List<FreeVO> boardList(FreeVO freeVO) {
 		return personalFreeBoardDAO.boardList(freeVO);
 	}
- 
+  
 	@Override
 	public int boardListCnt(FreeVO freeVO) {
 		return personalFreeBoardDAO.boardListCnt(freeVO);

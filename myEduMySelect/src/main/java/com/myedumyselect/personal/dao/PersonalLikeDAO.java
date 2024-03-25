@@ -16,3 +16,4 @@ public interface PersonalLikeDAO {
 	
 	public List<LikeVO> likeList(LikeVO likeVO);
 } 
+ 

@@ -61,7 +61,7 @@
 												<td class="goDetail">${free.commonTitle}<c:if
 														test="${free.freeReplyCnt > 0}">
 														<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
-													</c:if>
+													</c:if> 
 												</td>
 												<td class="goDetail">${free.personalId}</td>
 												<td class="text-start">${free.commonRegisterDate}</td>

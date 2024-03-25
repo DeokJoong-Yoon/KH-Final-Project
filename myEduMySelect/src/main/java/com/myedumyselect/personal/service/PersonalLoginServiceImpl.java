@@ -21,7 +21,7 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 	public PersonalLoginVO loginProcess(PersonalLoginVO login) {
 		PersonalLoginVO personalLogin = personalLoginDao.loginProcess(login);
 		return personalLogin;
-	}
+	} 
 
 	// 로그인 실패 횟수
 	@Override

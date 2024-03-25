@@ -113,7 +113,7 @@
 		personal_passwd_change_date = sysdate
 		WHERE personal_id = #{personalId}
 	</update>
-
+ 
 
 	<resultMap type="matchingBoard" id="matchingBoardMap">
 		<id column="matching_no" property="matchingNo" />

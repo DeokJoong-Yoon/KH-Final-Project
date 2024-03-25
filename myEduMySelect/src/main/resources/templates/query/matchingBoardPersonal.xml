@@ -12,7 +12,7 @@
 		<result column="matching_register_date"
 			property="matchingRegisterDate" />
 		<result column="matching_edit_date" property="matchingEditDate" />
-		<result column="matching_gu_address"
+		<result column="matching_gu_address" 
 			property="matchingGuAddress" />
 		<result column="matching_dong_address"
 			property="matchingDongAddress" />

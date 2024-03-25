@@ -29,7 +29,7 @@ $(document).ready(function() {
             }
         });
     });
-
+ 
     // validatePassword 함수 정의
     function validatePassword(currentPassword, newPassword, renewPassword) {
         let curPasswd = $(currentPassword).val();

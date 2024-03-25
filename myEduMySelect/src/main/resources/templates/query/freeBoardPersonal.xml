@@ -23,7 +23,7 @@
 		(SELECT * FROM tb_common_board
 		WHERE personal_id
 		= #{personalId})
-	</select>
+	</select> 
 
 
 	<select id="boardList" parameterType="freeBoard" resultMap="freeBoardMap">

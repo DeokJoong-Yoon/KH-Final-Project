@@ -9,7 +9,7 @@
 				"action" : "/personalFreeView"
 			});
 			$("#freeForm").submit();
-	});
+	}); 
      
 	$(".goDetail").on("click", function() {
 		

@@ -28,7 +28,7 @@ public class PersonalLikeServiceImpl implements PersonalLikeService {
 			AdvertiseVO advertiseVO = personalLikeDAO.getCommonBoardByNo(commonNo);
 			likedCommonBoards.add(advertiseVO);
 
-		}
+		} 
 		return likedCommonBoards;
 	}
 	

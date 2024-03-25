@@ -75,6 +75,6 @@
 	<script src="/resources/include/personal/newPasswd.js"></script>
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script> 
 
-
+ 
 </body>
 </html>

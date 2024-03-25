@@ -13,7 +13,7 @@
 	<!-- ======= 설명 영역 ======= -->
 	<section class="mcHero d-flex align-items-center">
 		<div class="container">
-			
+			 
 			<div class="row">
 				<div class="col-12 text-center mcBanner">
 					<p>내가 쓴 게시글 (매칭게시판)</p>

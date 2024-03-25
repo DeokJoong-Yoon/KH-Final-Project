@@ -9,7 +9,7 @@ $(function() {
 			});
 			$("#matchingForm").submit();
 	});
-	
+	 
 	//제목 클릭 시 상세 페이지 이동
 	$(".mbdLink").on("click", function(){
     let matchingPrivate = $(this).closest("tr").find("input[name='matchingPrivate']").val();

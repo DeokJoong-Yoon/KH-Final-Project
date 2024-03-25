@@ -15,7 +15,7 @@ public interface PersonalLoginDao {
 	// 로그인 실패 횟수
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);
 
-	// 로그인 제한 상태 
+	// 로그인 제한 상태  
 	public int updateAccountBannedDate(String personalId, Date bannedDate);
 
 	// 개인회원 아이디 중복확인

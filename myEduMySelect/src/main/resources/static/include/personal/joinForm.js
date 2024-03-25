@@ -10,7 +10,7 @@ function validateEmail(personalEmail) {
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(personalEmail);
 }
-
+ 
 function checkId() {
     var personalId = $('#personalId').val();
     // 아이디 유효성 검사 추가
