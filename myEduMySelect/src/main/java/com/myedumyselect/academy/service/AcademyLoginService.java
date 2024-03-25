@@ -35,5 +35,5 @@ public interface AcademyLoginService {
 
 	// 비밀번호 변경
 	public int updatePasswdChangeDate(AcademyLoginVO checkPassword);
-
+		
 }

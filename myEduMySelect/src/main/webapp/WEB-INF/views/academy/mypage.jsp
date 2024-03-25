@@ -261,7 +261,7 @@
 		<div style="max-width: 800px; margin: auto;">
 			<button type="button" name="updateBtn" id="updateBtn">회원정보 수정하기</button>
 			<button type="button" name="payBtn" id="payBtn">결제하기</button> 
-			<form id="withdrawalForm" action="/withdrawal/academy" method="POST">
+			<form id="withdrawalForm" action="/academyWithdrawal" method="GET">
 				<button type="submit" id="withdrawalBtn">탈퇴하기</button>
 			</form>
 		</div>

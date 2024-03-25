@@ -407,4 +407,42 @@ public class AcademyLoginController {
    /* 사용자가 작성한 자유게시판 게시글, 댓글 목록 보기 페이지로 이동 
    @GetMapping("/academy/freeList")
    */
+   
+   /*************************************************************
+	 * Academy Withdrawal passCheck
+	 *************************************************************/
+   /* 회원탈퇴 하기 전 비밀번호 현재 비밀번호 인증하는 페이지로 이동 */
+	@GetMapping("/academyWithdrawal")
+	public String academyWithdrawal(  
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model) {
+		if (academyLoginVO != null) {
+			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
+			if (academyResult != "TRUE") {
+				return academyResult;
+			}
+		} else {
+			return "redirect:/";
+		}
+		return "academy/withdrawalAcademy";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/withdrawalAcademy")
+	public String withdrawalAcademy(@RequestParam("currentPassword") String currentPassword,
+	        @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras) {
+		AcademyLoginVO curAcademyLogin = new AcademyLoginVO();
+		curAcademyLogin.setAcademyId(academyLoginVO.getAcademyId());
+		curAcademyLogin.setAcademyPasswd(currentPassword);
+	    
+		AcademyLoginVO checkPasswd = academyLoginService.loginProcess(curAcademyLogin);
+	    
+	    if (checkPasswd != null) {
+	        // 현재 비밀번호 일치
+	        return "TRUE";
+	    } else {
+	        // 현재 비밀번호 불일치
+	        ras.addFlashAttribute("errorMsg", "현재 비밀번호가 일치하지 않습니다.");
+	        return "FALSE";
+	    }
+	}
 }

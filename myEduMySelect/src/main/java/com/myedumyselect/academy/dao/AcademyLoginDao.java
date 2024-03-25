@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
+import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 @Mapper 
 public interface AcademyLoginDao {
@@ -39,5 +40,5 @@ public interface AcademyLoginDao {
 
 	// 비밀번호 변경
 	public int updatePasswdChangeDate(AcademyLoginVO checkPassword);
-
+	
 }
