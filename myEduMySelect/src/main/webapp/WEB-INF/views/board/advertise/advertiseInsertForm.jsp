@@ -18,7 +18,7 @@
 				<div class="col-12 text-center banner">
 		            홍보 게시판<br/>
 		            <div class="descBox">
-		            	우리 학원이 얼마나 멋진 장소인지 자랑하는 <b>홍보 게시판</b>입니다. <br>
+		            	우리 학원이 얼마나 멋진 장소인지 자랑하는 <b>홍보 게시판</b>입니다. 
 						당신이 찾는 모든 학원 정보가 바로 여기에!<br>
 						홍보 게시판에서 마음에 드는 학원을 발견했다면, '찜'을 눌러 보세요! 내가 찜한 학원 목록은 마이페이지에서 확인 가능합니다.
 		            </div>
@@ -35,11 +35,6 @@
 		<section class="form">
 			<div class="container">
 				<div class="insertArea">
-					
-					<!-- 로그인 세션 임시 확인 -->
-					<%-- <div class="userId">${userId }</div> --%>
-					<div class="acaId">${academyLogin.academyId}</div>
-					<div class="acaName">${academyLogin.academyName}</div>
 					
 					
 					<form id="insertForm">

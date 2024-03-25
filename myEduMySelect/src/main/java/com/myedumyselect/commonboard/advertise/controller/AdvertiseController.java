@@ -91,6 +91,7 @@ public class AdvertiseController {
 
 		int result = 0;
 		String url = "";
+		
 
 		result = aService.advertiseInsertWithFiles(aVO, Arrays.asList(file1, file2, file3, file4, file5));
 
@@ -125,6 +126,7 @@ public class AdvertiseController {
 		} else {
 			return "redirect:/";
 		}
+		
 		AdvertiseVO detail = aService.advertiseDetail(aVO);
 		model.addAttribute("detail", detail);
 
@@ -228,6 +230,7 @@ public class AdvertiseController {
 
 		int result = 0;
 		String url = "";
+		
 		
 		//작성자와 접속자가 동일할 때 구분
 		if(writer.equals(academyLoginVO.getAcademyId())) {

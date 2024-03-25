@@ -107,11 +107,11 @@ button:hover {
 	margin-top: 0px;
 }
 
-#feeGroup input, #ageGroup input, #keywordGroup input {
+#feeGroup input, #ageGroup input, #keywordGroup input, #subjectGroup input {
 	margin-right: 5px;
 	height: 15px;
 }
 
-#feeGroup label, #ageGroup label, #keywordGroup label {
+#feeGroup label, #ageGroup label, #keywordGroup label, #subjectGroup label {
 	margin-right : 30px;
 }

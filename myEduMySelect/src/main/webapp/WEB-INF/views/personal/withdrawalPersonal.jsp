@@ -1,81 +1,37 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/common.jspf"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/common.jspf" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>      
-<body>
-<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top ">
-		<div class="container d-flex align-items-center">
+<html lang="kr">
 
-			<h1 class="logo me-auto">
-				<a href="index.html">MyEdu<br />MySelect
-				</a>
-			</h1>
-			<!-- Uncomment below if you prefer to use an image logo -->
-			<!-- <a href="index.html" class="logo me-auto"><img src="/resources/include/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+	<link href="/resources/include/personal/css/withdrawal.css" rel="stylesheet">
 
-			<nav id="navbar" class="navbar">
-				<ul>
-					<li><a class="nav-link scrollto active" href="#hero">홈</a></li>
-					<li><a class="nav-link scrollto" href="#about">About</a></li>
-					<li><a class="nav-link scrollto" href="#team">Team</a></li>
-					<li class="dropdown"><a href="#"><span>메뉴</span> <i
-							class="bi bi-chevron-down"></i></a>
-						<ul>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">홍보게시판</a></li>
-							<li><a href="#">매칭게시판</a></li>
-							<li><a href="#">문의게시판</a></li>
-							<li><a href="#">마이페이지</a></li>
-						</ul></li>
-					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-					<li><a class="getstarted scrollto" href="/signUp">로그인/회원가입</a></li>
-
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
-
-		</div>
-	</header>
-	<!-- End Header -->
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
 
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-					data-aos="fade-up" data-aos-delay="200">
-					<h1>회원 탈퇴 페이지</h1>
-					<h2></h2>
-
-
-				</div>
-				<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-					data-aos-delay="200">
-					<img src="/resources/include/assets/img/hero-img.png"
-						class="img-fluid animated" alt="">
+				<div class="col-12 text-center banner">
+					개인 회원 탈퇴<br />
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- End Hero -->
+	
+	<section>
+		<div class="container">
+			<form id="withdrawalForm" action="/withdrawal/personal" method="POST">
+		        <div>
+		            <label for="currentPassword">현재 비밀번호 입력 : </label>
+		            <input type="password" id="currentPassword" name="currentPassword">
+		            <button type="button" id="withdrawalBtn">회원 탈퇴하기</button>
+		        </div> 
+		    </form>
+		</div>
+	</section>
 
-    <h1>회원탈퇴 페이지</h1>
-    <form id="withdrawalForm" action="/withdrawal/personal" method="POST">
-        <div>
-            <label for="currentPassword">현재 비밀번호:</label>
-            <input type="password" id="currentPassword" name="currentPassword">
-        </div>
-        <div>
-            <button type="button" id="withdrawalBtn">회원 탈퇴</button>
-        </div> 
-    </form>
+    
 
 
     <script>
