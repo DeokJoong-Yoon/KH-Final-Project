@@ -30,9 +30,9 @@
     
     <section>	
     	<div class="container">
-			<form id="changePasswdForm" >
+			<form id="changePasswdForm" action="passwdChange" method="POST">			
 			    <div>
-			    	<input type="hidden" id="academyId" name="academyId" value="${academyLogin.academyId}" />
+			    	<input type="hidden" id="academyId" name="academyId" data-academy-id="${academyLogin.academyId}" />
 			    	<table>
 			    		<tr>
 			    			<td><label for="currentPassword" >현재 비밀번호</label></td>
