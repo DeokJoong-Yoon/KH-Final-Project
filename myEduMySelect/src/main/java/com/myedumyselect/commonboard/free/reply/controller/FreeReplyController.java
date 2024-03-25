@@ -19,11 +19,9 @@ import com.myedumyselect.commonboard.free.reply.vo.FreeReplyVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value = "/freereplies")
-@Slf4j
 public class FreeReplyController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -31,15 +29,10 @@ public class FreeReplyController {
 
 	@GetMapping(value = "/all/{commonNo}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FreeReplyVO> freereplyList(@PathVariable("commonNo") int commonNo) {
-		log.info("게시판번호 : " + commonNo);
-
 		FreeReplyVO frvo = new FreeReplyVO();
 		frvo.setCommonNo(commonNo);
 
-		log.info("repl list : " + frvo.toString());
-
 		List<FreeReplyVO> list = freereplyService.freereplyList(frvo);
-		log.info(list.toString());
 
 		return list;
 	}
@@ -47,9 +40,8 @@ public class FreeReplyController {
 	@PostMapping(value = "/freereplyInsert", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyInsert(@RequestBody FreeReplyVO frvo,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin) {
-		log.info("FreeReplyVO : " + frvo);
 		int result = 0;
-		frvo.setPersonalId(personalLogin.getPersonalId());
+		frvo.setPersonalId(personalLogin.getPersonalId()); // bbb111
 
 		result = freereplyService.freereplyInsert(frvo);
 		return (result == 1) ? "SUCCESS" : "FAILURE";
@@ -59,15 +51,32 @@ public class FreeReplyController {
 	public String freereplyUpdate(@PathVariable("commonCommentNo") int commonCommentNo, @RequestBody FreeReplyVO frvo,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin) {
 		frvo.setCommonCommentNo(commonCommentNo);
-		int result = freereplyService.freereplyUpdate(frvo);
-		return (result == 1) ? "SUCCESS" : "FAILURE";
+		FreeReplyVO selectedFreeReplyVO = freereplyService.selectedFreeReply(frvo);
+
+		if (selectedFreeReplyVO.getPersonalId().equals(personalLogin.getPersonalId())) {
+
+			frvo.setCommonCommentNo(commonCommentNo);
+			int result = freereplyService.freereplyUpdate(frvo);
+			return (result == 1) ? "SUCCESS" : "FAILURE";
+		}
+		return "FAILURE";
 	}
 
 	@DeleteMapping(value = "/{commonCommentNo}", produces = MediaType.TEXT_PLAIN_VALUE)
-	public String freereplyDelete(@PathVariable("commonCommentNo") int commonCommentNo, FreeReplyVO frvo) {
+	public String freereplyDelete(@PathVariable("commonCommentNo") int commonCommentNo, FreeReplyVO frvo,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin) {
+
 		frvo.setCommonCommentNo(commonCommentNo);
-		int result = freereplyService.freereplyDelete(frvo);
-		return (result == 1) ? "SUCCESS" : "FAILURE";
+		FreeReplyVO selectedFreeReplyVO = freereplyService.selectedFreeReply(frvo);
+
+		if (selectedFreeReplyVO.getPersonalId().equals(personalLogin.getPersonalId())) {
+
+			frvo.setCommonCommentNo(commonCommentNo);
+			int result = freereplyService.freereplyDelete(frvo);
+			return (result == 1) ? "SUCCESS" : "FAILURE";
+		}
+
+		return "FAILURE";
 	}
 
 }

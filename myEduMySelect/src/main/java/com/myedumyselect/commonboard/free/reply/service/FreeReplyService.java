@@ -9,4 +9,5 @@ public interface FreeReplyService {
 	public int freereplyInsert(FreeReplyVO frvo);
 	public int freereplyUpdate(FreeReplyVO frvo);
 	public int freereplyDelete(FreeReplyVO frvo);
+	public FreeReplyVO selectedFreeReply(FreeReplyVO frvo);
 }

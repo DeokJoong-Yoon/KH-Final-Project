@@ -43,6 +43,11 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 		result = freereplyDAO.freereplyDelete(frvo);
 		return result;
 	}
+
+	@Override
+	public FreeReplyVO selectedFreeReply(FreeReplyVO frvo) {
+		return freereplyDAO.selectedFreeReply(frvo);
+	}
 	
 	
 	

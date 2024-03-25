@@ -16,6 +16,11 @@
 	    where common_no = #{commonNo}
 	    order by common_comment_no desc
 	</select>
+	
+    <select id="selectedFreeReply" parameterType="freeReply" resultMap="freeReplyMap">
+	    select * from tb_common_comment
+	    where common_comment_no = #{commonCommentNo}
+	</select>
 
 
 	<insert id="freereplyInsert" parameterType="freeReply">

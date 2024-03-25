@@ -51,7 +51,7 @@
 
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/common.js"></script>
-	<script src="/resources/include/board/free/js/freeReply.js"></script>
+	<!-- <script src="/resources/include/board/free/js/freeReply.js"></script> -->
 <script>
     let replyTotal = 0;
 
@@ -132,6 +132,9 @@
                         console.log($("updateForm").val());
                         dataReset();
                         listAll(commonNo);
+                    } else if (result == "FAILURE") {
+                    	alert("작성자만 수정이 가능합니다.");
+                    	listAll(commonNo);
                     }
                 }
             });
