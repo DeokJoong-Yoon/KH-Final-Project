@@ -204,7 +204,7 @@ $(document).ready(function() {
     $("#subjectChange").on("click", function(){
       $("#subjectGroup").css("display", "block");
       $("#prevSubject").val("");
-   });
+   	});
     
     //수강료 변경 버튼 클릭 시
     $("#feeChange").on("click", function(){
@@ -281,9 +281,11 @@ $(document).ready(function() {
       //정보 수정 시 변경
       if(academyFee=="") {      //만약 수강료를 새롭게 선택했다면 
          academyFee = selectedFee;
-      } else if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
+      }  
+      if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
          academyTargetGrade = selectedAge;
-      }  else if(academyTargetSubject=="") {      //만약 대상 학년을 새롭게 선택했다면 
+      }  
+      if(academyTargetSubject=="") {      //만약 대상 학년을 새롭게 선택했다면 
          academyTargetSubject = selectedSubject;
       }
       

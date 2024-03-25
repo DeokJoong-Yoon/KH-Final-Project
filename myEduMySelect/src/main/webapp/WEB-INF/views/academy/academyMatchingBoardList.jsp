@@ -184,7 +184,7 @@
             </c:if>
             
             <!-- 바로가기 번호 출력 -->
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+            <c:forEach var="num" begin="${pageMaker.startPage + 1}" end="${pageMaker.endPage + 1}">
                 <li class="page-item  ${pageMaker.cvo.pageNum == num ? 'active':''}">
                     <a href="${num}" class="page-link">${num}</a>
                 </li>
