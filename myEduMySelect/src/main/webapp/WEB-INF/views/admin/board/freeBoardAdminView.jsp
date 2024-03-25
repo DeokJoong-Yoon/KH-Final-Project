@@ -148,7 +148,8 @@
 									</c:forEach>
 									<!--  다음 바로가기 10개 존재 여부를 next 필드의 값으로 확인. -->
 									<c:if test="${pageMaker.next}">
-										<li class="page-item"><a href="${pageMaker.endPage + 1}" class="page-link">Next</a></li>
+										<li class="page-item">
+											<a href="${pageMaker.endPage + 1}" class="page-link">Next</a></li>
 									</c:if>
 
 								</ul>

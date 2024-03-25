@@ -18,7 +18,9 @@ $(function() {
 	$("#keyword").bind("keydown", function(event) {
 		if (event.keyCode == 13) {
 			event.preventDefault();
+			$("#searchData").click();
 		}
+		
 	});
 	
 	/* 검색 대상이 변경될 때마다 처리 이벤트 */
@@ -44,11 +46,7 @@ $(function() {
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
 		$("#freeForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#freeForm").attr({
-				"method" : "get",
-				"action" : "/adminBoard/free"
-			});
-			$("#freeForm").submit();
+			goPage()
 	});
 });
 

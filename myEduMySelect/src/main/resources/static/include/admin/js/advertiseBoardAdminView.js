@@ -18,6 +18,7 @@ $(function() {
 	$("#keyword").bind("keydown", function(event) {
 		if (event.keyCode == 13) {
 			event.preventDefault();
+			$("#searchData").click();
 		}
 	});
 	
@@ -44,11 +45,7 @@ $(function() {
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
 		$("#advertiseForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#advertiseForm").attr({
-				"method" : "get",
-				"action" : "/adminBoard/advertise"
-			});
-			$("#advertiseForm").submit();
+			goPage();
 	});
 });
 

@@ -67,11 +67,7 @@ $(function(){
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
 		$("#freeForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#freeForm").attr({
-				"method" : "get",
-				"action" : "/free/freeList"
-			});
-			$("#freeForm").submit();
+			goPage();
 	});
 	
 });

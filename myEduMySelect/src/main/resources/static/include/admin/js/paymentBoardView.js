@@ -17,6 +17,7 @@ $(function() {
 	$("#keyword").bind("keydown", function(event) {
 		if (event.keyCode == 13) {
 			event.preventDefault();
+			$("#searchData").click();
 		}
 	});
 	
@@ -27,6 +28,7 @@ $(function() {
 		} else if ($("#search").val() !="all") {
 			$("#keyword").val("");
 			$("#keyword").focus();
+			$("#searchData").click();
 		} 
 	});
 	
@@ -43,11 +45,7 @@ $(function() {
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
 		$("#paymentForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#paymentForm").attr({
-				"method" : "get",
-				"action" : "/adminBoard/payment"
-			});
-			$("#paymentForm").submit();
+			goPage();
 	});
 });
 
