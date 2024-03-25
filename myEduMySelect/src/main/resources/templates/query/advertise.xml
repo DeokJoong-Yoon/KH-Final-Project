@@ -153,7 +153,7 @@
 				FROM tb_common_board cb
 				JOIN tb_payment p ON cb.academy_id = p.academy_id
 				WHERE cb.member_type_id = 2
-				  AND TO_DATE(p.payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 3
+				  AND TO_DATE(p.payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 30
 	            )
 	            WHERE	rownum <= #{pageNum} * #{amount}
 	            AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
@@ -216,52 +216,48 @@
 
 	<!-- 홍보게시글 등록 시, advertiseVO의 thumb, file에 첫 번째 사진이 등록되게 하기 -->
 	<update id="advertiseThumbnail" parameterType="advertiseBoard">
-		UPDATE
-		tb_common_board
-		SET
-		common_thumb = (
-		SELECT
-		CASE
-		WHEN (
-		SELECT COUNT(*)
-		FROM
-		tb_file
-		WHERE common_no = tb_common_board.common_no
-		) = 0
-		THEN
-		'noimage.png'
-		ELSE (
-		SELECT file_name
-		FROM tb_file
-		WHERE common_no =
-		tb_common_board.common_no
-		ORDER BY file_no
-		FETCH FIRST 1 ROW ONLY)
-		END
-		FROM dual
-		),
-		common_file = (
-		SELECT
-		CASE
-		WHEN (
-		SELECT COUNT(*)
-		FROM tb_file
-		WHERE common_no = tb_common_board.common_no
-		) = 0
-		THEN
-		'../../uploadStorage/advertise/noimage.png'
-		ELSE (
-		SELECT file_path
-		FROM
-		tb_file
-		WHERE common_no = tb_common_board.common_no
-		ORDER BY file_no
-		FETCH FIRST 1 ROW ONLY)
-		END
-		FROM dual
-		)
-		WHERE common_no = #{commonNo}
+	    UPDATE tb_common_board
+			SET
+			    common_thumb = (
+			        SELECT
+			            CASE
+			                WHEN (
+			                		SELECT 	COUNT(*) 
+			                		FROM 	tb_file 
+			                		WHERE 	common_no = tb_common_board.common_no
+			                	) = 0 
+			                	THEN 'noimage.png'
+			                ELSE (
+			                		SELECT 	file_name 
+			                		FROM 	tb_file 
+			                		WHERE 	common_no = tb_common_board.common_no 
+			                		ORDER BY file_no 
+			                		FETCH FIRST 1 ROW ONLY)
+			            END
+			        FROM dual
+			    ),
+			    common_file = (
+			        SELECT
+			            CASE
+			                WHEN (
+			                		SELECT 	COUNT(*) 
+			                		FROM 	tb_file 
+			                		WHERE 	common_no = tb_common_board.common_no
+			                	) = 0 
+			                	THEN '../../uploadStorage/advertise/noimage.png'
+			                ELSE (
+			                		SELECT 	file_path 
+			                		FROM 	tb_file 
+			                		WHERE	common_no = tb_common_board.common_no 
+			                		ORDER BY file_no 
+			                		FETCH FIRST 1 ROW ONLY)
+			            END
+			        FROM dual
+			    )
+			WHERE common_no = #{commonNo}
 	</update>
+		
+
 
 
 	<!-- 홍보게시판 게시글 상세 보기 -->
