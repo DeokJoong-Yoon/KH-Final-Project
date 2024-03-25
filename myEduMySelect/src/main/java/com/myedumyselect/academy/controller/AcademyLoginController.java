@@ -415,12 +415,7 @@ public class AcademyLoginController {
 	@GetMapping("/academyWithdrawal")
 	public String academyWithdrawal(  
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO, Model model) {
-		if (academyLoginVO != null) {
-			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-			if (academyResult != "TRUE") {
-				return academyResult;
-			}
-		} else {
+		if (academyLoginVO == null) {
 			return "redirect:/";
 		}
 		return "academy/withdrawalAcademy";
