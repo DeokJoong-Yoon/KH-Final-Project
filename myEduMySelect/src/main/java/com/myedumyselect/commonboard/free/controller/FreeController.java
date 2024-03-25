@@ -59,8 +59,6 @@ public class FreeController {
 
 		int total = freeService.freeListCnt(fvo);
 
-		log.info("keyword : " + fvo.getKeyword());
-		log.info("search : " + fvo.getKeyword());
 		model.addAttribute("pageMaker", new PageDTO(fvo, total));
 
 		return "board/free/freeBoardList";
@@ -85,11 +83,7 @@ public class FreeController {
 
 	@PostMapping("/freeInsert")
 	public String freeInsert(FreeVO fvo) throws Exception {
-		log.info("freeInsert 호출 성공");
-		log.info(fvo.toString());
 		freeService.freeInsert(fvo);
-
-		log.info(fvo.toString());
 		return "redirect:/free/freeList";
 	}
 
@@ -109,7 +103,6 @@ public class FreeController {
 				return pesronalResult;
 			}
 		} else {
-			System.out.println("else");
 			return "redirect:/";
 		}
 
@@ -134,8 +127,6 @@ public class FreeController {
 					model.addAttribute("freeUpdateData", freeUpdateData);
 					return "board/free/freeUpdateForm";
 				} else {
-					log.info("작성자가 아닙니다.");
-				
 					ras.addFlashAttribute("alertMsg", "작성자가 아닙니다.");
 					return "redirect:/free/freeList";
 				}
@@ -158,8 +149,6 @@ public class FreeController {
 			return "board/free/freeBoardDetail";
 		} else {
 			ras.addFlashAttribute("alertMsg", "수정에 실패하였습니다.");
-			log.info("작성자 id : " + fvo.getPersonalId());
-			log.info("로그인 id : " + personalLoginVO.getPersonalId());
 			return "redirect:/free/freeList";
 		}
 	}
@@ -189,8 +178,6 @@ public class FreeController {
 	@ResponseBody
 	@PostMapping(value = "/freereplyCount", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyCount(@RequestParam("commonNo") int commonNo) {
-		log.info("freereplyCount 호출 성공");
-
 		int result = 0;
 		result = freeService.freeReplyCnt(commonNo);
 
