@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myedumyselect.admin.board.advertise.service.AdvertiseBoardAdminService;
 import com.myedumyselect.admin.board.free.service.FreeBoardAdminService;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
 import com.myedumyselect.admin.board.matching.service.MatchingBoardAdminService;
@@ -24,6 +25,7 @@ import com.myedumyselect.admin.member.service.AcademyAdminService;
 import com.myedumyselect.admin.member.service.PersonalAdminService;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
 import com.myedumyselect.admin.member.vo.PersonalAdminVO;
+import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.commonboard.notice.service.NoticeBoardService;
 import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
@@ -47,6 +49,9 @@ public class AdminLoginController {
 	private FreeBoardAdminService freeBoardAdminService;
 
 	@Setter(onMethod_ = @Autowired)
+	private AdvertiseBoardAdminService advertiseBoardAdminService;
+
+	@Setter(onMethod_ = @Autowired)
 	private AcademyAdminService academyAdminService;
 
 	@Setter(onMethod_ = @Autowired)
@@ -67,6 +72,9 @@ public class AdminLoginController {
 			FreeBoardAdminVO freeBoardAdminVO = new FreeBoardAdminVO();
 			List<FreeBoardAdminVO> freeBoardList = freeBoardAdminService.boardList(freeBoardAdminVO);
 			model.addAttribute("freeBoardList", freeBoardList);
+			AdvertiseVO advertiseVO = new AdvertiseVO();
+			List<AdvertiseVO> advertiseBoardList = advertiseBoardAdminService.boardList(advertiseVO);
+			model.addAttribute("advertiseBoardList", advertiseBoardList);
 
 			// 회원 리스트 결과
 			PersonalAdminVO personalAdminVO = new PersonalAdminVO();

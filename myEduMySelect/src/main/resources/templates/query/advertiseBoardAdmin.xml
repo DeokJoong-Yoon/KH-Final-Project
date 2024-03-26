@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.myedumyselect.admin.board.advertise.dao.AdvertiseBoardAdminDAO">
+
+	<!-- AdvertiseVO 별칭 일괄 부여 -->
+	<resultMap type="advertiseBoard" id="advertiseBoardMap">
+		<id column="common_no" property="commonNo" />
+		<result column="academy_id" property="academyId" />
+		<result column="member_type_id" property="memberTypeId" />
+		<result column="common_nickname" property="commonNickname" />
+		<result column="common_title" property="commonTitle" />
+		<result column="common_content" property="commonContent" />
+		<result column="common_register_date"
+			property="commonRegisterDate" />
+		<result column="common_edit" property="commonEdit" />
+		<result column="common_readcnt" property="commonReadcnt" />
+		<result column="common_block_confirm"
+			property="commonBlockConfirm" />
+		<result column="common_block_date" property="commonBlockDate" />
+		<result column="common_thumb" property="commonThumb" />
+		<result column="common_file" property="commonFile" />
+	</resultMap>
+
+
+	<select id="boardList" parameterType="advertiseBoard"
+		resultMap="advertiseBoardMap">
+		<![CDATA[
+		SELECT 	common_no
+		, 		academy_id
+		, 		member_type_id
+		, 		common_nickname
+		, 		common_title
+		, 		to_char(common_register_date,'YYYY-MM-DD') as common_register_date
+		, 		common_readcnt
+		,		common_block_confirm
+		,		common_thumb
+		,		common_file
+		FROM 	(
+				SELECT /*+ INDEX_DESC(tb_common_board PK_TB_COMMON_BOARD) */
+						rownum as rnum
+				,		common_no
+				,		academy_id
+				,		member_type_id
+				,		common_nickname
+				,		common_title
+				,		common_register_date
+				,		common_readcnt
+				,		common_block_confirm
+				,		common_thumb
+				,		common_file
+	            FROM	(
+	            SELECT cb.common_no,
+				       cb.personal_id,
+				       cb.academy_id,
+				       cb.admin_id,
+				       cb.member_type_id,
+				       cb.common_nickname,
+				       cb.common_title,
+				       cb.common_content,
+				       cb.common_register_date,
+				       cb.common_edit,
+				       cb.common_readcnt,
+				       cb.common_block_confirm,
+				       cb.common_block_date,
+				       cb.common_thumb,
+				       cb.common_file
+				FROM tb_common_board cb
+				JOIN tb_payment p ON cb.academy_id = p.academy_id
+				WHERE cb.member_type_id = 2
+				  AND TO_DATE(p.payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 30
+				ORDER BY common_register_date DESC 
+	            )
+	            WHERE	rownum <= #{pageNum} * #{amount}
+	            AND		( 	( common_nickname LIKE '%' || #{keyword} || '%' )
+							OR  ( common_title LIKE '%' || #{keyword} || '%' )
+							OR  ( common_content LIKE '%' || #{keyword} || '%' )
+						)
+				)
+		WHERE rnum > (#{pageNum} - 1 ) * #{amount}
+		]]>
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
