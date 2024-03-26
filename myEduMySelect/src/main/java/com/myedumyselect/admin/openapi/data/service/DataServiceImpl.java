@@ -52,7 +52,7 @@ public class DataServiceImpl implements DataService {
 		baseUrl += "/json/neisAcademyInfo/";
 		int maxGetListCount = 500;
 //		listTotalCount = 2000;
-		int cycleCount = listTotalCount / maxGetListCount;
+		int cycleCount = listTotalCount / maxGetListCount + 1;
 		int startIndex = 1;
 		int endIndex = maxGetListCount;
 		for (int i = 1; i <= cycleCount; ++i) {
