@@ -55,6 +55,7 @@
 <script>
     let replyTotal = 0;
 
+    <!-- 댓글 등록 -->
     $(function() {
         let commonNo = ${detail.commonNo};
         listAll(commonNo);
@@ -105,6 +106,8 @@
         });
         
 
+        
+        <!-- 댓글 수정 -->
         $(document).on("click", "#upBtn", function() {
             let commonCommentNo = $(this).attr("data-rnum");
             let commonCommentContent = $("#commonCommentContent").val(); // 댓글 내용 받아오기
@@ -145,7 +148,7 @@
     function listAll(commonNo) {
     	
  
-    	
+    	<!-- 댓글 리스트 불러오기 -->
         $(".freereply").detach();
         let url = "/freereplies/all/" + commonNo;
         $.getJSON(url, function(data) {
@@ -177,6 +180,8 @@
         $div.append($element);
     }
 
+    
+    <!-- 댓글 수정 -->
     function dataReset() {
         $("#freereplyForm")[0].reset();
 
@@ -192,8 +197,6 @@
         });
     }
     
-    
-
     function updateForm(commonCommentNo, card) {
         $("#freereplyForm .frresetBtn").detach();
 
@@ -213,6 +216,8 @@
         $("#freereplyForm .frsendBtn").after(frresetButton);
     }
 
+    
+    <!-- 댓글 삭제 -->
     function frDeleteBtn(commonNo, commonCommentNo) {
         if (confirm("선택하신 댓글을 삭제하시겠습니까?")) {
             $.ajax({

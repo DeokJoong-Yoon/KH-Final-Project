@@ -184,29 +184,6 @@
 			}
 		});
 
-		/* $(document).ready(function() {
-		    // 각 게시물의 댓글 수를 가져와서 표시하는 함수
-		    function updatefreeReplyCnt(commonNo) {
-		        $.ajax({
-		            type: 'POST',
-		            url: '/freeReplyCnt',
-		            data: { commonNo: commonNo },
-		            success: function(data) {
-		                // 성공적으로 댓글 수를 가져온 경우, 해당 게시물의 댓글 수를 업데이트
-		                $('#freeReplyCnt' + commonNo).html('<b>[' + data + ']</b>');
-		            },
-		            error: function(xhr, status, error) {
-		                console.error('댓글 갯수를 가져오는데 실패하였습니다: ' + error);
-		            }
-		        });
-		    }
-		
-		    // 페이지 로드 시 각 게시물 별로 댓글 수를 업데이트
-		    $('[id^=freeReplyCnt]').each(function() {
-		        let commonNo = $(this).attr('id').replace('freeReplyCnt', '');
-		        updatefreeReplyCnt(commonNo);
-		    });
-		}); */
 	</script>
 
 	<!-- Vendor JS Files -->
