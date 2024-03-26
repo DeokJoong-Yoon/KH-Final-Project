@@ -95,6 +95,8 @@ public class FreeServiceImpl implements FreeService {
 		return result;
 	}
 	
+	
+	// 댓글 갯수 구현
 	@Override
 	public int freeReplyCnt(int commonNo) {
 		int result = 0;

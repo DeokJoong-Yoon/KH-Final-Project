@@ -112,8 +112,7 @@ public class FreeController {
 		return "board/free/freeBoardDetail";
 	}
 
-	// 글 수정 구현
-
+	/* 글 수정 구현 */
 	@GetMapping(value = "/freeUpdateForm")
 	public String freeUpdateForm(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
@@ -153,6 +152,7 @@ public class FreeController {
 		}
 	}
 
+	/* 글 삭제 구현 */
 	@GetMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
@@ -175,6 +175,7 @@ public class FreeController {
 		}
 	}
 
+	/* 댓글 갯수 구현 */
 	@ResponseBody
 	@PostMapping(value = "/freereplyCount", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyCount(@RequestParam("commonNo") int commonNo) {
