@@ -16,8 +16,8 @@ public class WebConfig implements WebMvcConfigurer {
 	 * 경로 설정시 - 경로의 마지막은 반드시 "/" 또는 "\"로 끝나야 한다. - 로컬 디스크 경로일 경우 file:/// 접두어를 명시해
 	 * 두어야 한다.
 	 */
-	private String resourcePath = "file:///C:\\uploadStorage\\";
-
+//	private String resourcePath = "file:///C:\\uploadStorage\\";
+	private String resourcePath = "file:\\\\192.168.30.205/uploadStorage/";
 	/*******************************************************
 	 * addResourceHandler : 리소스와 연결될 URL path를 지정. addResourceLocations : 실제 리소스가
 	 * 졸재하는 외부 경로를 지정
