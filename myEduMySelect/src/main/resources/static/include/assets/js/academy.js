@@ -8,7 +8,7 @@
 	document.getElementById('submit-btn').addEventListener('click', function(event) {
 	    event.preventDefault(); // 기본 동작 방지
 	
-	    /*// 필수 입력 사항을 체크할 요소들의 배열*/
+	    // 필수 입력 사항을 체크할 요소들의 배열*/
 	    var requiredInputs = document.querySelectorAll('input[required]');
 	    // 중복 체크가 필요한 요소들의 배열
 	    var duplicateCheckInputs = document.querySelectorAll('.duplicate-check');
@@ -51,8 +51,7 @@
             "#academyKeyword4", "#academyKeyword5", "#academyKeyword6", "#academyKeyword7", 
             "#academyKeyword8", "#academyKeyword9", "#academyKeyword10", "#academyKeyword11", 
              "#academyKeyword12", "#academyKeyword13", "#academyKeyword14", "#academyKeyword15",
-              "#academyKeyword16", "#academyKeyword17","키워드를")) return; // 변경된 부분
-
+              "#academyKeyword16", "#academyKeyword17","키워드를")) return; 
             
         } else {
             // 아이디 중복 체크가 되지 않은 경우 메시지 출력
@@ -76,29 +75,29 @@
 	    }
 		
 		// 변수에 선택된 value 저장
-		 academyId = $("#academyId").val();
-	     memberTypeId = $("#memberTypeId").val();
-		 academyNumber = $("#academyNumber").val();
-		 joinDate = $("#academyJoinDate").val();
-		 academyPasswd = $("#academyPasswd").val();
-		 academyName = $("#academyName").val();
-		 guValue = $("#academyGuAddress").val();
-		 dongValue = $("#academyDongAddress").val();
-		 roadValue = $("#academyRoadAddress").val();
-		 academyPhone = $("#academyPhone").val();
-		 managerName = $("#academyManagerName").val();
-		 managerEmail = $("#academyManagerEmail").val();
-		 managerPhone = $("#academyManagerPhone").val();
-		 targetGrade = $("input[name='academyTargetGrade']:checked").val();
-		 targetSubject = $("input[name='academyTargetSubject']:checked").val();		 
-		 fee = $("input[name='academyFee']:checked").val();
-		 passwdChange = $("#academyPasswdChangeDate").val();
-		 loginFail = $("#academyLoginFailCount").val();
-		 accountDate= $("#academyAccountBannedDate").val();		 
-		 keywordValue = [];
-		 $("input[name='keyword']:checked").each(function() {
-			 keywordValue.push($(this).val());
-		 }) 
+		academyId = $("#academyId").val();
+	    memberTypeId = $("#memberTypeId").val();
+		academyNumber = $("#academyNumber").val();
+		joinDate = $("#academyJoinDate").val();
+		academyPasswd = $("#academyPasswd").val();
+		academyName = $("#academyName").val();
+		guValue = $("#academyGuAddress").val();
+		dongValue = $("#academyDongAddress").val();
+		roadValue = $("#academyRoadAddress").val();
+		academyPhone = $("#academyPhone").val();
+		managerName = $("#academyManagerName").val();
+		managerEmail = $("#academyManagerEmail").val();
+		managerPhone = $("#academyManagerPhone").val();
+		targetGrade = $("input[name='academyTargetGrade']:checked").val();
+		targetSubject = $("input[name='academyTargetSubject']:checked").val();		 
+		fee = $("input[name='academyFee']:checked").val();
+		passwdChange = $("#academyPasswdChangeDate").val();
+		loginFail = $("#academyLoginFailCount").val();
+		accountDate= $("#academyAccountBannedDate").val();		 
+		keywordValue = [];
+		$("input[name='keyword']:checked").each(function() {
+		 	keywordValue.push($(this).val());
+		}) 
 		
 		for(let i = 0; i < keywordValue.length; i++) {
 			$("input[name='keyword" + (i+1) + "']").val(keywordValue[i]);
@@ -132,16 +131,9 @@
 		
 	    // 유효성 검사 후 회원가입 프로세스 진행
 	    if (!targetInput) {
-			
-			console.log(value.academyId);
-			console.log(value.academyNumber);
-			console.log(value.academyName);
-			console.log(value.academyManagerName);
-	 		
-	        // 모든 조건을 만족했을 경우 회원가입 프로세스 진행
-	        // 회원가입 정보 저장 AJAX 요청
+	        // 모든 조건을 만족했을 경우 회원가입 정보 저장 AJAX 요청
 	        $.ajax({
-	            url: "/academyInsert", // 키워드 저장을 수행하는 컨트롤러의 URL
+	            url: "/academyInsert", 
 	            type: "POST",
 	            headers : {
 					"Content-Type" : "application/json"
@@ -152,14 +144,8 @@
 					if(data == "TRUE") {
 						window.location.href="/academy/join/complete";
 					}
-					
-	                
-	                // 저장 후 필요한 작업 수행
-	                // 회원가입 폼 제출
-	                /*document.getElementById('a_joinForm').submit();*/
 	            },
 	            error: function(xhr, status, error) {
-	                console.error("서버 에러 발생: " + error);
 	            }
 	        });
 	    }
@@ -171,14 +157,11 @@ $(document).ready(function() {
     /* 아이디 중복 체크 버튼에 클릭 이벤트 핸들러 등록 */
     $(document).on('click', '#checkDuplicateBtn', function(event) {
        event.preventDefault(); // 기본 동작 방지
-	
-	
-	
+       
         // 입력된 아이디 가져오기
         var academyId = $('#academyId').val();
 		
-		// 잘못된 값 입력 후 중복체크 버튼 클릭 시 제어
-		// (db에서는 중복된 값이 없으므로 '사용 가능한 아이디입니다'를 반환하기 때문)
+		// 잘못된 값 입력 후 중복체크 버튼 클릭 시 제어 (db에서는 중복된 값이 없으므로 '사용 가능한 아이디입니다'를 반환하기 때문)
 	    const idRegex = /^[a-zA-Z0-9]{6,12}$/;
 	    if (!idRegex.test(academyId)) {
 	        alert("아이디를 올바른 형식으로 입력 후 다시 중복체크 버튼을 눌러주세요");
@@ -199,7 +182,6 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr, status, error) {
-                console.error("서버 에러 발생: " + error);
             }
         });
     });
@@ -222,7 +204,6 @@ $(document).ready(function() {
 	    event.preventDefault(); // 기본 동작 방지
 	
 	    // 입력된 이메일 유효성 검사
-	    
 	    const emailAddress = $('#academyManagerEmail').val();
 	    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	    if (!emailRegex.test(emailAddress)) {
@@ -248,13 +229,11 @@ $(document).ready(function() {
 	                $('#email-check-message').text('사용 가능한 이메일 주소입니다.');
 	                // 이메일 주소를 입력 필드에 채우고 readonly 처리
 	                $('#academyManagerEmail').val(emailAddress).prop('readonly', true);
-	                console.log("이메일 입력 성공!");
 	            } else {
 	                $('#email-check-message').text('이미 사용 중인 이메일 주소입니다, 다시 입력해주세요.');
 	            }
 	        },
 	        error: function(xhr, status, error) {
-	            console.error("서버 에러 발생: " + error);
 	        }
 	    });
 	}
@@ -320,7 +299,6 @@ $(document).ready(function() {
 		        }
 		    },
 		    error: function(xhr, status, error) {
-		        console.error("서버 에러 발생: " + error);
 		    }
 		});
     });
@@ -340,6 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    /* 유효성 실패 시 메시지 노출 */
     function showErrorMessage(inputElement, message) {
         const parentElement = inputElement.parentElement;
         let errorMessageElement = parentElement.querySelector('.error-message');
@@ -351,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessageElement.textContent = message;
     }
     
+    /* 유효성 성공 시 메시지 가리기 */
     function hideErrorMessage(inputElement) {
         const parentElement = inputElement.parentElement;
         const errorMessageElement = parentElement.querySelector('.error-message');
@@ -360,51 +340,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }); 
 
-/* 교습과목 유효성 검사 
-document.addEventListener('DOMContentLoaded', function() {
-    const subjectInput = document.getElementById('academyTargetSubject');
-
-    subjectInput.addEventListener('input', function(event) {
-        const inputValue = event.target.value.trim();
-
-        if (/^[가-힣]*$/.test(inputValue)) { // 한글만 포함된 경우
-            hideErrorMessage();
-        } else { // 다른 문자가 포함된 경우
-            showErrorMessage('교습과목은 공백, 특수문자 없이 한글로만 입력해주세요.');
-        }
-    }); 
-
-    function showErrorMessage(message) {
-        const parentElement = subjectInput.parentElement;
-        let errorMessageElement = parentElement.querySelector('.error-message');
-        if (!errorMessageElement) {
-            errorMessageElement = document.createElement('span');
-            errorMessageElement.className = 'error-message';
-            parentElement.appendChild(errorMessageElement);
-        }
-        errorMessageElement.textContent = message;
-    }
-
-    function hideErrorMessage() {
-        const parentElement = subjectInput.parentElement;
-        const errorMessageElement = parentElement.querySelector('.error-message');
-        if (errorMessageElement) {
-            parentElement.removeChild(errorMessageElement);
-        }
-    }
-});
-*/
-
-
-
-
 /* 학원전화번호, 담당자전화번호, 사업자등록번호 입력 필드 유효성 검사 */
 document.addEventListener('DOMContentLoaded', function() {
     const managerPhoneInput = document.getElementById('academyManagerPhone');
     const academyPhoneInput = document.getElementById('academyPhone');
     const academyNumberInput = document.getElementById('academyNumber');
-    
-    const regex = /^[0-9]*$/; // 숫자만 허용하는 정규표현식
+    const regex = /^[0-9]*$/; 
     
     managerPhoneInput.addEventListener('input', function(event) {
         const inputValue = event.target.value;
@@ -433,6 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    /* 유효성 실패 시 메시지 노출 */
     function showErrorMessage(inputElement, message) {
         const parentElement = inputElement.parentElement;
         let errorMessageElement = parentElement.querySelector('.error-message');
@@ -444,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function() {
         errorMessageElement.textContent = message;
     }
     
+    /* 유효성 성공 시 메시지 가리기 */
     function hideErrorMessage(inputElement) {
         const parentElement = inputElement.parentElement;
         const errorMessageElement = parentElement.querySelector('.error-message');
@@ -462,22 +405,12 @@ document.getElementById('academyPasswd2').addEventListener('input', function() {
   checkPassword();
 });
 
-
-/* 수강료, 대상학년, 키워드 부분 컬럼 배치
-const specificInputGroup = document.querySelector('.specific-input-group');
-
-specificInputGroup.style.display = 'flex';
-specificInputGroup.style.flexDirection = 'row';
-specificInputGroup.style.justifyContent = 'space-between';
-*/
-
 // 비밀번호 무결성 체크 로직
 function checkPasswordStrength(password) {
     // 최소 8자리, 최대 20자리
     if (password.length < 8 || password.length > 20) {
         return false;
     }
-
     // 대문자/소문자/숫자/특수문자 중 하나 포함
     const regex = /(?=.*[a-z])|(?=.*[A-Z])|(?=.*[0-9])|(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}/;
     return regex.test(password);
@@ -519,20 +452,7 @@ document.getElementById('academyPasswd').addEventListener('input', function() {
     checkPassword();
 });
 
-/* 마이페이지 버튼 클릭 시 세션값 확인 후 결과에 따라 제어 
-document.getElementById("mypageBtn").addEventListener("click", function(event) {
-    if (!commonLogin) {
-		event.preventDefault();
-        alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "/academy/login";
-	} else {
-        window.location.href = "/academy/mypage"; // 세션값이 있을 경우 마이페이지로 이동
-    }
-});
-*/
-
 /* 아래부터 main.js 파일 */				
-    
 (function() {
 	"use strict";
 

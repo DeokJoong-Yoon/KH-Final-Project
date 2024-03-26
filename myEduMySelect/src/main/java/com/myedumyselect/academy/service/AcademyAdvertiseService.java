@@ -1,9 +1,6 @@
 package com.myedumyselect.academy.service;
 
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 
 public interface AcademyAdvertiseService {
@@ -12,7 +9,4 @@ public interface AcademyAdvertiseService {
 	
 	//홍보게시판 전체 목록 보기
 	public List<AdvertiseVO> advertiseList(AdvertiseVO advertiseVO);
-	
-	 			
-	
 }

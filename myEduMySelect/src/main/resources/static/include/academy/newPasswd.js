@@ -2,7 +2,6 @@ function validatePassword(currentPassword, newPassword, renewPassword) {
     let curPasswd = $(currentPassword).val();
     let newPasswd = $(newPassword).val();
     let renewPasswd = $(renewPassword).val();
-    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
 
     // 현재 비밀번호, 새 비밀번호, 비밀번호 확인 필드가 비어 있는지 확인
     if (!curPasswd) {
@@ -45,7 +44,6 @@ function validatePassword(currentPassword, newPassword, renewPassword) {
             return true; 
         }
     }	
-	
     return false; // 모든 유효성 검사 통과
 }
 

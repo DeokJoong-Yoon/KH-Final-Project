@@ -4,10 +4,8 @@
 <!DOCTYPE html>
 <html lang="kr">
 
-
 <!-- Template Main CSS File -->
 <link href="/resources/include/board/advertise/css/advertiseList.css" rel="stylesheet">
-	
 	<!-- ======= 설명 영역 ======= -->
 	<section id="hero" class="d-flex align-items-center  justify-content-center" style="height: 300px;">
 		<div class="container" >
@@ -21,37 +19,29 @@
 		       </div> 
 		    </div>
 		</div>
-	</section> <!-- ======= 설명 영역 끝 ======= -->
-	
+	</section> 
+	<!-- ======= 설명 영역 끝 ======= -->
 	
 	<!-- ======= 게시판 영역 ======= -->
 	<main id="main">
 		<section class="board">
-			
 			<div class="container">
-			
 				<!-- ======= 검색 영역 ======= -->
 				<div class="advertiseSearch">
 					<form id="a_search" name="a_search" >
-					
 						<!-- 페이징 처리를 위한 파라미터 -->
 						<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
 	 					<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 	 					<input type="hidden" name="academyId" id="academyId" value="${academyLoginVO.academyId}">	
-	 					
 	 					<button type="button" id="boardAll">전체 보기</button>
-	 					
 	 					<button type="button" id="boardSearchBtn">검색</button>	 			
 						<input type="text" name="keyword" id="keyword" placeholder="검색어 입력" value="${kwd }">
 					</form>	
-				</div><br><br>		<!-- 검색 영역 끝 -->
-				
-				
+				</div><br><br>		
+				<!-- 검색 영역 끝 -->
 							
 				<!-- ========= 게시글 목록 영역 ======== -->
 				<div class="boardList">
-				
-						
 					<table id="listBoxes">
 					    <c:choose>
 					        <c:when test="${not empty advertiseList}">
@@ -76,10 +66,8 @@
 					        </c:otherwise>
 					    </c:choose>
 					</table>
-					
 				</div>
 			</div>	
-		
 		</section>
 		
 		<%------------ 페이징 출력 시작 ---------- --%>
@@ -107,27 +95,19 @@
 			</c:if>
 		  </ul>
 		</nav>		<!-- 매칭게시판 목록 끝 -->
-		
 	</main>
 	
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />	
 
-
 	<!-- Vendor JS Files -->
 	<script src="/resources/include/assets/vendor/aos/aos.js"></script>
-	<script
-		src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script
-		src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	<script
-		src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
+	<script src="/resources/include/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/resources/include/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="/resources/include/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="/resources/include/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="/resources/include/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script src="/resources/include/assets/vendor/php-email-form/validate.js"></script>
 
 	<!-- Template Main JS File -->
 	<script src="/resources/include/js/jquery-3.7.1.min.js"></script>
@@ -144,5 +124,4 @@
 	</script>
 
 </body>
-
 </html>
