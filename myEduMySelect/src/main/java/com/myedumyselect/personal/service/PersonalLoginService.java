@@ -17,7 +17,7 @@ public interface PersonalLoginService {
 
 	// 회원가입
 	public int personalInsert(PersonalLoginVO login);
-
+ 
 	// 개인회원 아이디 중복체크
 	public int idCheck(String id);
 

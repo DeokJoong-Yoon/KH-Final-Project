@@ -8,10 +8,10 @@
 <!-- Template Main CSS File -->
 <link href="/resources/include/assets/css/style.css" rel="stylesheet">
 <link href="/resources/include/personal/css/myPage.css" rel="stylesheet">
-
+ 
 <!-- ======= Hero Section ======= -->
 <section class="mcHero d-flex align-items-center">
-
+ 
 	<div class="container">
 		<div class="row">
 			<div class="col-12 text-center mcBanner">

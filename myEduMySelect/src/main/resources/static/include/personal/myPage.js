@@ -5,7 +5,7 @@ function validateEmail(personalEmail) {
     return emailRegex.test(personalEmail);
 }
 
-
+ 
 function checkEmail() {
     var personalEmail = $('#personalEmail').val();
     // 이메일 유효성 검사 추가

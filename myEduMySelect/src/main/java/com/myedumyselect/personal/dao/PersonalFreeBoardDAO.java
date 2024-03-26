@@ -16,5 +16,6 @@ public interface PersonalFreeBoardDAO {
 	public int boardListCnt(FreeVO freeVO);
 	
 	//자유 게시판 상세보기
-	public FreeVO boardDetail(FreeVO freeVO);
+	public FreeVO boardDetail(FreeVO freeVO); 
 }
+ 

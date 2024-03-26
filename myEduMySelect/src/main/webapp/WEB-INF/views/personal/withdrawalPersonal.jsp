@@ -15,7 +15,7 @@
 					개인 회원 탈퇴<br />
 				</div>
 			</div>
-		</div>
+		</div> 
 	</section>
 	<!-- End Hero -->
 	

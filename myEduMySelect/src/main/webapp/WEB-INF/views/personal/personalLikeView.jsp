@@ -14,7 +14,7 @@
 			<div class="row">
 				<form id="detailForm">
 					<input type="hidden" id="common_no" name="common_no" />
-				</form>
+				</form> 
 
 				<div class="col-12 text-center banner">
 		            내가 찜한 학원 목록<br/>

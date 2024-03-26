@@ -30,7 +30,7 @@
 		<div class="container">
 			<form id="changePasswdForm" >
 			    <div>
-			    	<input type="hidden" id="academyId" name="academyId" value="${academyLogin.academyId}" />
+			    	<input type="hidden" id="personalId" name="personalId" value="${personalLogin.personalId}" />
 			    	<table>
 			    		<tr>
 			    			<td><label for="currentPassword" >현재 비밀번호</label></td>
@@ -72,7 +72,9 @@
 
 	<!-- Template Main JS File -->
 	<script src="/resources/include/personal/main.js"></script>
+	<script src="/resources/include/personal/newPasswd.js"></script>
+	<script src="/resources/include/js/jquery-3.7.1.min.js"></script> 
 
-
+ 
 </body>
 </html>

@@ -11,7 +11,7 @@
 
 	<!-- ======= Hero Section ======= -->
 	<section id="hero" class="d-flex align-items-center">
-
+ 
 		<div class="container"> 
 			<div class="row">
 				<c:if test="${empty personalLogin}">

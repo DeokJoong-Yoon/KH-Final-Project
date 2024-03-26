@@ -8,7 +8,7 @@ $(function() {
                 "action":"/personal/login"      
             });                     
             $("#loginForm").submit();      
-        }
+        } 
     }); 
     
     $("#logoutBtn").on("click", function() {

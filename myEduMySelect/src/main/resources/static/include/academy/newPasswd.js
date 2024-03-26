@@ -42,7 +42,7 @@ function validatePassword(currentPassword, newPassword, renewPassword) {
         let substr = userId.substring(i, i + 3);
         if (newPasswd.includes(substr)) {
             alert("새 비밀번호는 현재 아이디와 3자리 이상 일치하게 사용할 수 없습니다.");
-            return true;
+            return true; 
         }
     }	
 	
