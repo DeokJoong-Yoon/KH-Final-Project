@@ -1,13 +1,8 @@
 function validatePassword(currentPassword) {
 	let currentPassword = $(currentPassword).val();
-    //var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-    console.log("validatePassword 함수 호출됨.");
-    
     if (!chkData("#currentPassword", "현재 비밀번호를 ")) {
-        console.log("비밀번호 유효성 검사 실패:", currentPassword);
         return false;
     } else {
-        console.log("비밀번호 유효성 검사 성공:", currentPassword);
         return true;
     }
 };
@@ -17,7 +12,6 @@ $(function() {
     // 폼 제출 이벤트 핸들러
     $("#withdrawalForm").on("submit", function(event) {
         event.preventDefault(); // 폼 전송 기본 동작 막기
-        
         var currentPassword = $("#currentPassword").val();
         
         // 현재 비밀번호가 비어있는지 확인
@@ -55,8 +49,3 @@ $(function() {
         }
     });
 });
-
-
-
-
-

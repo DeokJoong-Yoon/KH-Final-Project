@@ -9,7 +9,6 @@ import com.myedumyselect.academy.dao.AcademyAdvertiseDAO;
 import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 
 import lombok.Setter;
-
 @Service
 public class AcademyAdvertiseServiceImpl implements AcademyAdvertiseService {
 
@@ -27,5 +26,4 @@ public class AcademyAdvertiseServiceImpl implements AcademyAdvertiseService {
 	public int advertiseListCnt(AdvertiseVO advertiseVO) {
 		return academyAdvertiseDAO.advertiseListCnt(advertiseVO);
 	}
-
 }

@@ -43,7 +43,7 @@ $(document).ready(function() {
     });
 });
 
-
+/* 아래부터 main.js 내용 */
 (function() {
 	"use strict";
 

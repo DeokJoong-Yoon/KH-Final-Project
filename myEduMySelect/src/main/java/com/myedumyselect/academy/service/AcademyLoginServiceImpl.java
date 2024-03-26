@@ -43,18 +43,6 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 		return result;
 	}
 
-	/*
-	 * // 로그인 실패 횟수
-	 * 
-	 * @Override public int updateacademyLoginFailCount(academyLoginVo login) {
-	 * return academyLoginDao.updateacademyLoginFailCount(login); }
-	 * 
-	 * 
-	 * @Override public int updateAccountBannedDate(String academyId, Date
-	 * bannedDate) { return academyLoginDao.updateAccountBannedDate(academyId,
-	 * bannedDate); }
-	 */
-
 	// 마이페이지에 Id값을 기준으로 정보 불러올 떄
 	@Override
 	public AcademyLoginVO findById(String academyId) {
@@ -107,12 +95,4 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 		result = academyLoginDao.updatePasswdChangeDate(checkPassword);
 		return result;
 	}
-
-	/*
-	 * / 사업자등록번호로 정보 조회
-	 * 
-	 * @Override public AcademyLoginVo getAcademyInfo(String academyNumber) { return
-	 * academyLoginDao.findByNumber(academyNumber); }
-	 */
-
 }

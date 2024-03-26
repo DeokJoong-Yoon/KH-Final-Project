@@ -27,6 +27,8 @@ public class FreeReplyController {
 	@Setter(onMethod_ = @Autowired)
 	private FreeReplyService freereplyService;
 
+	
+	/* 댓글 갯수 리스트 구현 */
 	@GetMapping(value = "/all/{commonNo}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FreeReplyVO> freereplyList(@PathVariable("commonNo") int commonNo) {
 		FreeReplyVO frvo = new FreeReplyVO();
@@ -37,6 +39,8 @@ public class FreeReplyController {
 		return list;
 	}
 
+	
+	/* 댓글 작성 구현 */
 	@PostMapping(value = "/freereplyInsert", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyInsert(@RequestBody FreeReplyVO frvo,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin) {
@@ -47,6 +51,8 @@ public class FreeReplyController {
 		return (result == 1) ? "SUCCESS" : "FAILURE";
 	}
 
+	
+	/* 댓글 수정 구현 */
 	@PutMapping(value = "/{commonCommentNo}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyUpdate(@PathVariable("commonCommentNo") int commonCommentNo, @RequestBody FreeReplyVO frvo,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin) {
@@ -62,6 +68,8 @@ public class FreeReplyController {
 		return "FAILURE";
 	}
 
+	
+	/* 댓글 삭제 구현 */
 	@DeleteMapping(value = "/{commonCommentNo}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyDelete(@PathVariable("commonCommentNo") int commonCommentNo, FreeReplyVO frvo,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin) {
