@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.myedumyselect.admin.board.free.dao.FreeBoardDAO;
 import com.myedumyselect.admin.board.free.vo.FreeBoardAdminVO;
-import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.Setter;
 

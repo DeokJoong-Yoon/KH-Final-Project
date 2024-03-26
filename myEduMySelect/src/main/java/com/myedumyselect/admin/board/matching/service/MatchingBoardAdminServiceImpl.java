@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myedumyselect.admin.board.matching.dao.MatchingBoardAdminDAO;
-import com.myedumyselect.common.file.FileUploadUtil;
-import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 @Service
 public class MatchingBoardAdminServiceImpl implements MatchingBoardAdminService {
-	
+
 	@Autowired
 	private MatchingBoardAdminDAO matchingBoardAdminDAO;
 

@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 import com.myedumyselect.admin.board.free.reply.dao.MatchingReplyAdminDAO;
 import com.myedumyselect.admin.board.matching.reply.vo.MatchingReplyAdminVO;
 
-import lombok.Setter;
-
 @Service
 public class MatchingReplyAdminServiceImpl implements MatchingReplyAdminService {
 
 	@Autowired
 	private MatchingReplyAdminDAO matchingReplyAdminDAO;
-	
+
 	@Override
 	public List<MatchingReplyAdminVO> commentList(MatchingReplyAdminVO matchingReplyAdminVO) {
 		List<MatchingReplyAdminVO> list = null;
@@ -25,7 +23,7 @@ public class MatchingReplyAdminServiceImpl implements MatchingReplyAdminService 
 
 	@Override
 	public int commentListCnt(MatchingReplyAdminVO matchingReplyAdminVO) {
-		 return matchingReplyAdminDAO.commentListCnt(matchingReplyAdminVO);
+		return matchingReplyAdminDAO.commentListCnt(matchingReplyAdminVO);
 	}
 
 	@Override
@@ -33,7 +31,7 @@ public class MatchingReplyAdminServiceImpl implements MatchingReplyAdminService 
 		int result = 0;
 		result = matchingReplyAdminDAO.commentDelete(matchingReplyAdminVO);
 		return result;
-		
+
 	}
 
 }

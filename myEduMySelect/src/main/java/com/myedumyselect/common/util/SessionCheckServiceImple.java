@@ -12,10 +12,7 @@ import com.myedumyselect.personal.service.PersonalLoginService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.Setter;
-//import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class SessionCheckServiceImple implements SessionCheckService {
 
