@@ -12,6 +12,8 @@ public class LikeServiceImpl implements LikeService {
 	@Autowired
 	private LikeDAO ldao;
 
+
+	//최초 좋아요 처리
 	@Override
 	public int insertLike(LikeVO lvo) {
 		int result = 0;
@@ -19,6 +21,8 @@ public class LikeServiceImpl implements LikeService {
 		return result;
 	}
 
+
+	//이후 좋아요 취소/등록 토글
 	@Override
 	public int toggleLike(LikeVO lvo) {
 		int result = 0;
@@ -27,6 +31,8 @@ public class LikeServiceImpl implements LikeService {
 		return result;
 	}
 
+	
+	//좋아요 상태 확인
 	@Override
 	public Integer getLike(LikeVO lvo) {
 		Integer result = ldao.getLike(lvo);

@@ -16,7 +16,7 @@ $(function() {
     });
 });
 
-
+/* 아래부터 main.js */
 (function() {
 	"use strict";
 

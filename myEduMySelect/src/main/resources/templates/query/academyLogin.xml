@@ -251,17 +251,5 @@
 	  WHERE 
 	  		academy_id = #{academyId}
 	</select>
-	
-    <!-- DELETE 기능 구현 
-    <delete id="deleteAcademy" parameterType="int">
-        DELETE 
-        
-        FROM 
-        	tb_academy
-        WHERE 
-        	academy_id = #{academyId}
-    </delete>-->
-	
-	
 
 </mapper>

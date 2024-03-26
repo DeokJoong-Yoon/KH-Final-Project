@@ -1,7 +1,6 @@
 package com.myedumyselect.academy.dao;
 
 import java.sql.Date;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
@@ -9,7 +8,7 @@ import com.myedumyselect.academy.vo.AcademyLoginVO;
 @Mapper
 public interface AcademyLoginDao {
 
-//로그인
+	// 로그인
 	public AcademyLoginVO loginProcess(AcademyLoginVO login);
 
 	// 로그인 실패 횟수

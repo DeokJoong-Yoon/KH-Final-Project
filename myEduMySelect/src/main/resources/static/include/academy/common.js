@@ -1,7 +1,4 @@
-/* 함수명 : chkData(유효성 체크 대상, 메시지 내용)
- * 출력 영역 : alert으로.
- * 예시 : if (!chkData("#keyword", "검색어를")) return;
- * */
+/* text 필드 유효성 검사 */
 function chkData(item, msg) {
 	if($(item).val().replace(/\s/g, "") == "") {
 		alert(msg + " 입력해 주세요.");

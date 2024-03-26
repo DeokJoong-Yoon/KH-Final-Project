@@ -2,10 +2,8 @@ package com.myedumyselect.academy.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.myedumyselect.academy.dao.AcademyMatchingBoardDAO;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
