@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.admin.member.vo.AcademyAdminVO;
-import com.myedumyselect.admin.member.vo.PersonalAdminVO;
 
 @Mapper
 public interface AcademyAdminDAO {

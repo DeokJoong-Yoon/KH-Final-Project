@@ -2,9 +2,10 @@ package com.myedumyselect.academy.dao;
 
 import java.sql.Date;
 import org.apache.ibatis.annotations.Mapper;
+
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 
-@Mapper 
+@Mapper
 public interface AcademyLoginDao {
 
 	// 로그인
@@ -16,8 +17,8 @@ public interface AcademyLoginDao {
 	// 로그인 제한 상태
 	public int updateAccountBannedDate(String academyId, Date bannedDate);
 
-    // 회원가입
-    public int academyInsert(AcademyLoginVO login);
+	// 회원가입
+	public int academyInsert(AcademyLoginVO login);
 
 	// 아이디 찾기
 	public AcademyLoginVO findById(String academyId);
@@ -36,5 +37,5 @@ public interface AcademyLoginDao {
 
 	// 비밀번호 변경
 	public int updatePasswdChangeDate(AcademyLoginVO checkPassword);
-	
+
 }

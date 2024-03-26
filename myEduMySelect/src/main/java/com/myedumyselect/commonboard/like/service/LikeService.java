@@ -9,11 +9,8 @@ public interface LikeService {
 	
 	//좋아요 토글
 	public int toggleLike(LikeVO lvo);
-	
-	//좋아요 개수
-	//public int getLikeCount(int commonNo);
 
 	//좋아요 상태 확인
-	public Integer  getLike(LikeVO lvo);
+	public Integer getLike(LikeVO lvo);
 	
 }

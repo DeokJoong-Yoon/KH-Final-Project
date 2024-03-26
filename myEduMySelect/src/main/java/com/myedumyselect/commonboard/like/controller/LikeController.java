@@ -9,44 +9,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myedumyselect.commonboard.like.service.LikeService;
 import com.myedumyselect.commonboard.like.vo.LikeVO;
 
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@Slf4j
 public class LikeController {
     
     @Autowired
     private LikeService likeService;
     
+    //좋아요 상태 체크
     @PostMapping("/like/get")
     public int getLike(@RequestBody LikeVO likeVO, Model model) {
-    	log.info("Getting like status for commonNo: {}", likeVO.getCommonNo());
     	int status = likeService.getLike(likeVO);
-    	log.info("status : " + status);
     	model.addAttribute("like", likeVO);
         return status;
     }
     
+    
+    //좋아요 최초 등록
     @PostMapping("/like/insert")
-    public String insertLike(@RequestBody LikeVO likeVO) {
-        log.info("Inserting like for commonNo: {}", likeVO.getCommonNo());
+    public int insertLike(@RequestBody LikeVO likeVO) {
         int result = likeService.insertLike(likeVO);
-        log.info("result : " + result);
-        return (result == 1) ? "SUCCESS" : "FAILURE";
+        return result;
     }
     
+    
+    //좋아요 토글
     @PostMapping("/like/toggle")
     public String toggleLike(@RequestBody LikeVO likeVO, Model model) {
-        log.info("Toggling like for commonNo: {}", likeVO.getCommonNo());
-        int before = likeService.getLike(likeVO);
-        int result = likeService.toggleLike(likeVO);
-        int after = likeService.getLike(likeVO);
-        log.info("before : " + before);
-        log.info("after : " + after);
-        log.info("result : " + result);
+        likeService.getLike(likeVO);
+        likeService.toggleLike(likeVO);
+        int result = likeService.getLike(likeVO);
         
         String returnVal;
-        if(after == 1) {
+        if(result == 1) {
         	returnVal = "좋아요 등록";
         } else {
         	returnVal = "좋아요 취소";

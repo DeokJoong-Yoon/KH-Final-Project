@@ -147,7 +147,7 @@
                 dataType: "text",
                 success: function(status) {
                     // 결과값에 따라 이미지 변경
-                    if (status == 0) {
+                    if (status == 0) {			//좋아요 이력이 없을 때 => insert
                     	$("#likeMsg").text("이 학원을 찜할까요?");
                     	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
                     	$("#likeButton").on("click", function(){
@@ -170,7 +170,7 @@
                         		}
                     		})
                     	})
-                    } else {
+                    } else {			//좋아요 이력이 있을 때 => update(toggle)
                     	if(status == 1) {
                     		$("#likeMsg").text("찜한 학원입니다.");
                     		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
@@ -184,10 +184,14 @@
                             		}),
                             		contentType: "application/json; charset=utf-8",
                                     dataType: "text",
-                                    success: function(){
-                                    	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                                    	alert("찜을 취소했습니다.");
-                                    	location.reload();
+                                    success: function(returnVal){
+                                    	if(returnVal == "좋아요 취소") {
+                                    		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
+                                        	alert("찜을 취소했습니다.");
+                                        	location.reload();
+                                    	} else {
+											alert("찜 취소 실패");                                    		
+                                    	}
                                     },
                             		error: function(){
                             			alert("update 실패");
@@ -207,11 +211,14 @@
                             		}),
                             		contentType: "application/json; charset=utf-8",
                                     dataType: "text",
-                                    success: function(){
-                                    	$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                                    	location.reload();
-                                    	alert("이 학원을 찜했습니다!");
-                                    },
+                                    success: function(returnVal){
+                                    	if(returnVal == "좋아요 등록") {
+                                    		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
+                                        	location.reload();
+                                        	alert("이 학원을 찜했습니다!");
+                                    	} else {
+                                    		alert("찜 실패");    
+                                    	}
                             		error: function(){
                             			alert("update 실패");
                             		}
@@ -221,7 +228,7 @@
                     }
                 },
                 error: function(){
-                	alert("getLike 실패");
+                	alert("error");
                 }
             });
         });

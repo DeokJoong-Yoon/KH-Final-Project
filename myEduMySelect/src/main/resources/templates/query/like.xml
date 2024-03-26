@@ -33,15 +33,6 @@
 	</update> 
 	
 	
-	<!-- 좋아요 개수
-	<select id="getLikeCount" parameterType="int" resultType="int">
-		SELECT	COUNT ( NVL(like_check, 0) )
-		FROM	tb_like
-		WHERE   common_no	= #{common_no}
-		AND		like_check	= 1
-	</select> -->
-	
-	
 	<!-- 좋아요 여부 확인-->
 	<select id="getLike" parameterType="like" resultType="java.lang.Integer">
 	    SELECT 	like_check
