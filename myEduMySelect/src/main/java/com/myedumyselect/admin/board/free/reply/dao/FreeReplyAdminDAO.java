@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.myedumyselect.admin.board.free.reply.vo.FreeReplyAdminVO;
-import com.myedumyselect.commonboard.free.reply.vo.FreeReplyVO;
 
 @Mapper
 public interface  FreeReplyAdminDAO {

@@ -6,11 +6,9 @@ import org.springframework.stereotype.Service;
 import com.myedumyselect.commonboard.like.dao.LikeDAO;
 import com.myedumyselect.commonboard.like.vo.LikeVO;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 public class LikeServiceImpl implements LikeService {
-	
+
 	@Autowired
 	private LikeDAO ldao;
 
@@ -29,7 +27,7 @@ public class LikeServiceImpl implements LikeService {
 	public int toggleLike(LikeVO lvo) {
 		int result = 0;
 		result = ldao.toggleLike(lvo);
-		
+
 		return result;
 	}
 
@@ -40,7 +38,5 @@ public class LikeServiceImpl implements LikeService {
 		Integer result = ldao.getLike(lvo);
 		return (result != null) ? result : 0;
 	}
-
-	
 
 }

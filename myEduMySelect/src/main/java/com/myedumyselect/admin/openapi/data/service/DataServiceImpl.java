@@ -13,8 +13,6 @@ import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
 import com.myedumyselect.admin.openapi.data.vo.OpenApiDTO;
 import com.myedumyselect.common.openapi.URLConnectUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 public class DataServiceImpl implements DataService {
 
@@ -45,7 +43,6 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public int insertAcademySourceList(int listTotalCount) throws Exception {
-		List<AcademySourceVO> resultList = new ArrayList<>();
 		int result = 0;
 		String baseUrl = "http://openapi.seoul.go.kr:8088/";
 		baseUrl += KEY;

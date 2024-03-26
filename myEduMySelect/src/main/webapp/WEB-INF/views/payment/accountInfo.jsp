@@ -32,7 +32,7 @@
 										<li class="bx bx-check">account manager name : Yoon DJ</li>
 										<li class="bx bx-check">account number :
 											9391-1939-4847-5390</li>
-										<li class="bx bx-check">account amount : ￦989,000 per
+										<li class="bx bx-check">account amount : ￦199,000 per
 											month</li>
 										<li class="bx bx-check">24시간 이내로 처리 예정</li>
 									</ul>

@@ -1,14 +1,9 @@
 package com.myedumyselect.matching.board.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.myedumyselect.academy.vo.AcademyLoginVO;
-import com.myedumyselect.commonboard.advertise.vo.AdvertiseVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SpringBootTest
 public class MatchingBoardTest {
-	
+
 	@Autowired
 	private MatchingBoardDAO mbDAO;
-	
+
 //	@Test
 //	public void testMBoardList() {
 //		log.info("mBoardList() 메소드 실행");
@@ -65,7 +60,7 @@ public class MatchingBoardTest {
 //			log.info(vo.toString());
 //		}
 //	}
-	
+
 //	@Test
 //	public void testBoardUpdate() {
 //		MatchingBoardVO mbVO = new MatchingBoardVO();
@@ -75,16 +70,15 @@ public class MatchingBoardTest {
 //		int count = mbDAO.mBoardUpdate(mbVO);
 //		log.info("수정된 행의 수 : " + count);
 //	}
-	
-	
+
 	@Test
 	public void testPrevNext() {
 		MatchingBoardVO mbVO = new MatchingBoardVO();
 		mbVO.setMatchingNo(68);
-		
+
 		int prev = mbDAO.prevMatchingNo(mbVO);
 		int next = mbDAO.nextMatchingNo(mbVO);
-		
+
 		log.info("prev : " + prev);
 		log.info("next : " + next);
 	}

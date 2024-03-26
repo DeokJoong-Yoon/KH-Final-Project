@@ -8,85 +8,48 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.admin.openapi.data.vo.AcademySourceVO;
-import com.myedumyselect.auth.SessionInfo;
 import com.myedumyselect.client.main.service.MainService;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
-@SessionAttributes(SessionInfo.COMMON)
 public class mainController {
 
 	@Setter(onMethod_ = @Autowired)
 	private MainService mainService;
 
-//	@GetMapping("/")
-//	public String mainIndex() {
-//		return "main/main";
-//	}
-
 	@GetMapping("/")
-	public String mainIndex(Model model, HttpSession session) {
+	public String mainIndex(Model model,
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLogin,
+			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLogin) {
 
 		String userId = "";
 
 		// 개인 로그인 세션
-		PersonalLoginVO personalLogin = (PersonalLoginVO) session.getAttribute("personalLogin");
 		if (personalLogin != null) {
-			log.info("로그인 세션 있음");
 			userId = personalLogin.getPersonalId();
-		} else {
-			log.info("로그인 세션 없음");
 		}
 
 		// 개인 로그인 세션
-		AcademyLoginVO academyLogin = (AcademyLoginVO) session.getAttribute("academyLogin");
 		if (academyLogin != null) {
-			log.info("로그인 세션 있음");
 			userId = academyLogin.getAcademyId();
-		} else {
-			log.info("로그인 세션 없음");
 		}
 
 		model.addAttribute("userId", userId);
 
 		return "main/main";
 	}
-	/*
-	// 개인/학원 로그인 선택화면
-	@GetMapping("/loginselect")
-	public String loginSelect() {
-		return "main/loginSelect";
-	}
-	*/
-	/*
-	 * @GetMapping("/") public String mainIndex( Model model, HttpSession session) {
-	 * 
-	 * //개인 로그인 세션 PersonalLoginVO personalLogin = (PersonalLoginVO)
-	 * session.getAttribute("personalLogin"); String userId = ""; if(personalLogin
-	 * != null) { log.info("로그인 세션 있음"); userId = personalLogin.getPersonalId(); }
-	 * else { log.info("로그인 세션 없음"); } model.addAttribute("userId", userId);
-	 * 
-	 * return "main/main"; }
-	 */
 
 	@PostMapping(value = "/mainSearchList")
 	public String mainSearchList(@ModelAttribute AcademySourceVO avo, Model model) {
 		List<AcademySourceVO> mainSearchList = mainService.mainSearchList(avo);
 		model.addAttribute("mainSearchList", mainSearchList);
 
-//		int total = mainService.mainListCnt(avo);
-//		
-//		model.addAttribute("pageMaker", new PageDTO(avo, total));
-//		
 		return "main/mainSearchList";
 	}
 }

@@ -54,7 +54,7 @@
 								<div class="box">
 									<h3>결제내역</h3>
 									<h4>
-										<sup>￦</sup>989,000<span>per month</span>
+										<sup>￦</sup>199,000<span>per month</span>
 									</h4>
 									<ul>
 										<li><i class="bx bx-check"></i> 홍보서비스 30일</li>
