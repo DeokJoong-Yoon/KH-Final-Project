@@ -40,7 +40,7 @@ public class FileUploadUtil {
 	public static void fileDelete(String fileName) throws IOException {
 
 		String dirName = fileName.substring(0, fileName.indexOf("_")); // 삭제할 파일이 존재하는 폴더 얻기
-		String docRoot = "C:/uploadStorage/" + dirName;
+		String docRoot = "\\\\\\\\192.168.30.205/uploadStorage/" + dirName;
 		File fileDelete = new File(docRoot + "/" + fileName);
 
 		if (fileDelete.exists() && fileDelete.isFile()) {

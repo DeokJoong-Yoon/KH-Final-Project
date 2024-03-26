@@ -29,11 +29,9 @@ import com.myedumyselect.commonboard.notice.vo.NoticeBoardVO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @SessionAttributes("adminLogin")
 @RequestMapping("/admin/*")
-@Slf4j
 @Controller
 public class AdminLoginController {
 	@Setter(onMethod_ = @Autowired)
@@ -56,8 +54,6 @@ public class AdminLoginController {
 
 	@GetMapping("/login")
 	public String loginProcess(Model model) {
-
-		System.out.println("로그인");
 
 		if (model.containsAttribute("adminLogin")) {
 
@@ -103,7 +99,6 @@ public class AdminLoginController {
 
 	@GetMapping("/logout")
 	public String logoutProcess(SessionStatus sessionStatus) {
-		log.info("admin 로그인 아웃 처리");
 		sessionStatus.setComplete();
 		return "redirect:/admin/login";
 	}

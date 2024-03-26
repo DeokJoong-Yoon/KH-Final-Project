@@ -36,8 +36,7 @@
 										<li class="bx bx-check">merchant id :
 											${paymentVO.merchantUid}</li>
 										<li class="bx bx-check">pay name : ${paymentVO.name}</li>
-										<li class="bx bx-check">pay amount :
-											${paymentVO.payAmount}</li>
+										<li class="bx bx-check">pay amount :￦ 199,000</li>
 										<li class="bx bx-check">academy id :
 											${paymentVO.academyId}</li>
 										<li class="bx bx-check">academy number :
