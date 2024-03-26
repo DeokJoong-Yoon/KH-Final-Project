@@ -80,19 +80,24 @@
 	<select id="mResult" parameterType="matchingBoard" resultMap="academyMap">
 		SELECT  *
 		FROM    tb_academy 
-		WHERE   academy_gu_address = #{matchingGuAddress} 
-			AND academy_dong_address LIKE '%' || #{matchingDongAddress} || '%'
-			AND academy_target_grade = #{matchingTargetGrade}
-			AND academy_target_subject = #{matchingTargetSubject}
-			AND ( academy_fee = #{matchingFee} OR #{matchingFee} = '무관' )
-			AND  (
-					( #{matchingKeyword1} IS NULL OR 
+		WHERE   academy_gu_address 		= 	#{matchingGuAddress} 
+			AND academy_dong_address 	LIKE '%' || #{matchingDongAddress} || '%'
+			AND academy_target_grade 	= 	#{matchingTargetGrade}
+			AND academy_target_subject 	= 	#{matchingTargetSubject}
+			AND (	academy_fee = #{matchingFee} 	
+					OR 	  
+					#{matchingFee} = '무관'	)
+			AND (
+					( 	#{matchingKeyword1} IS NULL 
+						OR 
 						#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
 				    AND
-				    ( #{matchingKeyword2} IS NULL OR
+				    ( 	#{matchingKeyword2} IS NULL 
+				    	OR
 				    	#{matchingKeyword2} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
 				    AND
-				    ( #{matchingKeyword3} IS NULL OR 
+				    ( 	#{matchingKeyword3} IS NULL 
+				    	OR 
 				    	#{matchingKeyword3} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
 			)
 	</select> 
@@ -101,28 +106,62 @@
 	<!-- 공개매칭 자동 등록 -->
 	<insert id="publicUpload" parameterType="matchingBoard" >
 		INSERT  into  tb_matching_board
-		VALUES (matching_board_seq.nextval, #{personalId}, 'N', null, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
-					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
-					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
+		VALUES 	(
+					matching_board_seq.nextval
+				 ,  #{personalId}
+				 ,  'N'
+				 ,  null
+				 ,  sysdate
+				 ,  null
+				 ,  #{matchingGuAddress}
+				 ,  #{matchingDongAddress}
+				 ,  #{matchingTargetGrade}
+				 ,  #{matchingTargetSubject}
+				 ,  #{matchingFee}
+				 ,  #{matchingKeyword1}
+				 ,  #{matchingKeyword2}
+				 ,  #{matchingKeyword3}
+				 ,  #{matchingComment}  
+				)
 	</insert>
+	
 	
 	<!-- 비공개매칭 자동 등록 -->
 	<insert id="privateUpload" parameterType="matchingBoard" useGeneratedKeys="true" keyProperty="matchingNo">
 		<![CDATA[
-		INSERT into tb_matching_board
-		VALUES (matching_board_seq.nextval, #{personalId}, 'Y', #{matchingPasswd}, sysdate, null, #{matchingGuAddress}, #{matchingDongAddress},
-					#{matchingTargetGrade}, #{matchingTargetSubject}, #{matchingFee}, 
-					#{matchingKeyword1}, #{matchingKeyword2}, #{matchingKeyword3}, #{matchingComment}  )
+		INSERT 	into tb_matching_board
+		VALUES 	(
+				 	matching_board_seq.nextval
+				 , 	#{personalId}
+				 , 	'Y'
+				 , 	#{matchingPasswd}
+				 , 	sysdate
+				 ,  null
+				 ,  #{matchingGuAddress}
+				 ,  #{matchingDongAddress}
+				 ,  #{matchingTargetGrade}
+				 ,  #{matchingTargetSubject}
+				 ,  #{matchingFee}
+				 ,  #{matchingKeyword1}
+				 ,  #{matchingKeyword2}
+				 ,  #{matchingKeyword3}
+				 ,  #{matchingComment}  
+				)
 		]]>
 		<selectKey keyProperty="matchingNo" resultType="int" order="AFTER">
-			SELECT matching_board_seq.currval AS matchingNo FROM DUAL
+			SELECT 	matching_board_seq.currval 	AS 	matchingNo 
+			FROM 	DUAL
 		</selectKey>
 	</insert>
 	
+	
 	<!-- 비공개매칭 시 이메일 검색 -->
 	<select id="searchEmail" parameterType="matchingBoard" resultMap="academyMap">
-		SELECT academy_name, academy_manager_email from tb_academy
-		WHERE academy_name IN
+		SELECT 	academy_name
+		, 		academy_manager_email 
+		FROM 	tb_academy
+		WHERE 	academy_name 
+		IN
 		<foreach collection="privateChecked" item="name" open="(" separator="," close=")">
 			#{name}
 		</foreach>
@@ -213,8 +252,9 @@
 	
 	<!-- 매칭게시판 게시글 삭제 -->
 	<delete id="mBoardDelete" parameterType="matchingBoard">
-		DELETE FROM tb_matching_board
-	    WHERE matching_no = #{matchingNo}
+		DELETE 	
+		FROM 	tb_matching_board
+	    WHERE 	matching_no = #{matchingNo}
 	</delete>
 	
 	

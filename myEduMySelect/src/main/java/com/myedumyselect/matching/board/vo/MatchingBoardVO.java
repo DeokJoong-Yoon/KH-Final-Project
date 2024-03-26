@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class MatchingBoardVO extends CommonVO {
 	
+	//데이터 베이스에 존재하는 컬럼들을 필드로 정의
 	private int matchingNo = 0;
 	private String personalId = "";
 	private String matchingPrivate = "N";
@@ -26,10 +27,9 @@ public class MatchingBoardVO extends CommonVO {
 	private String matchingKeyword2 = "";
 	private String matchingKeyword3 = "";
 	private int commentCnt = 0;
-	
 	private String matchingComment = "";
 	
+	//비공개 매칭 시 메일 발송할 대상을 정하기 위해 필요
 	private List<String> privateChecked;
 	
-	private int rowNumber;
 }
