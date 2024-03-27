@@ -60,7 +60,7 @@ public class PersonalLoginController {
 	public String loginForm() {
 		return "personal/login"; // login.jsp 호출
 
-	}
+	} 
 	
 	@PostMapping("/personal/login")
 	public String loginProcess(PersonalLoginVO login, Model model, RedirectAttributes ras, HttpSession session) {
