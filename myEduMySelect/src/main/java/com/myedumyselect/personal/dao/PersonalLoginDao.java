@@ -15,6 +15,7 @@ public interface PersonalLoginDao {
 	// 로그인 실패 횟수
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);
 	
+	// 로그인 실패 카운트
 	public PersonalLoginVO loginTryCount(PersonalLoginVO login);
  
 	// 로그인 제한 상태  

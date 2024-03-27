@@ -11,7 +11,11 @@ $(function() {
         } 
     }); 
     
+   $(document).ready(function() {
     $("#logoutBtn").on("click", function() {
-        location.href = "/loginselect"
+        $.post("/personal/logout", function() {
+            window.location.href = "/loginselect"; 
+        });
     });
+});
 }); 

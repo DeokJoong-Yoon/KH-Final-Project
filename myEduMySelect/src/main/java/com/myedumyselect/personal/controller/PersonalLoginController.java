@@ -64,45 +64,52 @@ public class PersonalLoginController {
 	
 	@PostMapping("/personal/login")
 	public String loginProcess(PersonalLoginVO login, Model model, RedirectAttributes ras, HttpSession session) {
+	    // PersonalLoginVO 객체 생성
+	    PersonalLoginVO triedPersonal = new PersonalLoginVO();
 	    
-		PersonalLoginVO triedPersonal = new PersonalLoginVO();
-	    
+	    // 로그인 시도한 개인 ID 설정
 	    triedPersonal.setPersonalId(login.getPersonalId()); 
-	    Date bannedUntil = (Date) session.getAttribute("personalId"); 
 
-	    // 계정이 잠겨 있을 때
-	    if (bannedUntil != null && new Date().before(bannedUntil)) {
-	        long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60* 10); // 잔여 시간(분)
+	    // 로그인 잠금 여부 확인 및 처리
+	    if (session.getAttribute("bannedUntil_" + triedPersonal.getPersonalId()) != null && new Date().before((Date)session.getAttribute("bannedUntil_" + triedPersonal.getPersonalId()))) {
+	        long remainingTime = (((Date)session.getAttribute("bannedUntil_" + triedPersonal.getPersonalId())).getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
 	        ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
 	        return "redirect:/personal/login";
 	    }
-    
+
+	    // PersonalLoginVO 객체를 사용하여 로그인 시도 횟수 조회
 	    triedPersonal = personalLoginService.loginTryCount(triedPersonal);
 	    int personalLoginFailCount = triedPersonal.getPersonalLoginFailCount();
-	    log.info("dd현재 실패 횟수 : " + personalLoginFailCount);
-	    
-	     
+	    log.info("현재 실패 횟수 : " + personalLoginFailCount);
 	    
 	    // 로그인 시도
 	    PersonalLoginVO personalLogin = personalLoginService.loginProcess(login);
 	    
 	    if (personalLogin != null) {
+	        // 로그인에 성공한 경우
 	        model.addAttribute("personalLogin", personalLogin);
 	        personalLogin.setPersonalLoginFailCount(0);
 	        personalLoginService.updatePersonalLoginFailCount(personalLogin);
 	    } else {
-	        // personalLoginFailCount 업데이트
-	    	personalLoginFailCount++;
-	    	log.info("dd업데이트 전 횟수 : " + triedPersonal.getPersonalLoginFailCount());
-	    	log.info("로그인 정보 : " + triedPersonal.toString());
-	    	triedPersonal.setPersonalLoginFailCount(triedPersonal.getPersonalLoginFailCount() + 1);
-	    	personalLoginService.updatePersonalLoginFailCount(triedPersonal);
-	    	log.info("dd업데이트 후 횟수 : " + triedPersonal.getPersonalLoginFailCount());    
+	        // 로그인에 실패한 경우
+	        personalLoginFailCount++;
+	        log.info("업데이트 전 횟수 : " + triedPersonal.getPersonalLoginFailCount());
+	        log.info("로그인 정보 : " + triedPersonal.toString());
+	        triedPersonal.setPersonalLoginFailCount(triedPersonal.getPersonalLoginFailCount() + 1);
+	        personalLoginService.updatePersonalLoginFailCount(triedPersonal);
+	        log.info("업데이트 후 횟수 : " + triedPersonal.getPersonalLoginFailCount());    
 	        
 	        if (triedPersonal.getPersonalLoginFailCount() >= 5) {
+	            // 로그인 잠금 처리
 	            long currentTime = System.currentTimeMillis();
 	            Date lockoutTime = new Date(currentTime + (10 * 60 * 1000)); // 10분 후 시간
 	            session.setAttribute("bannedUntil_" + triedPersonal.getPersonalId(), lockoutTime); 
+	            
+	            // PersonalLoginVO에 로그인 잠금 날짜 설정
+	            triedPersonal.setPersonalAccountBannedDate(lockoutTime);
+	            
+	            //updateAccountBannedDate
+	            personalLoginService.updateAccountBannedDate(triedPersonal.getPersonalId(), lockoutTime);
 
 	            long remainingTime = (lockoutTime.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
 	            ras.addFlashAttribute("errorMsg",
@@ -117,31 +124,10 @@ public class PersonalLoginController {
 	        } 
 	    }
 	    
-	    // 로그인 실패 시 personalLoginFailCount 업데이트
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+	    // 로그인 실패 시 personalLoginFailCount 업데이트     
 	    return "redirect:/personal/login"; 
 	}
+
 
 
 
@@ -154,16 +140,12 @@ public class PersonalLoginController {
 	@PostMapping("/personal/logout")
 	public String logout(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();
+		log.info("POST 요청으로 로그아웃 세션을 종료.");
 		return "redirect:/loginselect";
+		 
 	}
 	
-	@GetMapping("/personal/logout")
-	public String getLogout(SessionStatus sessionStatus) {
-		sessionStatus.setComplete();
-		return "redirect:/";
-	}
 	
-
 	/*************************************************************
 	 * Personal Join
 	 *************************************************************/
