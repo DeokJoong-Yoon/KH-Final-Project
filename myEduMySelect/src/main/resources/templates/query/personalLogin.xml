@@ -33,6 +33,19 @@
 		#{personalId} AND
 		personal_passwd = #{personalPasswd}
 	</select>
+	
+	<!-- 로그인 시도횟수 호출 -->
+	<select id="loginTryCount" parameterType="personalLogin"
+		resultMap="personalLoginMap">
+
+		SELECT
+		personal_id,
+		personal_login_fail_count
+		FROM tb_personal
+		WHERE
+		personal_id =
+		#{personalId}
+	</select>
 
 	<!-- 로그인 실패 횟수 업데이트 -->
 	<update id="updatePersonalLoginFailCount"

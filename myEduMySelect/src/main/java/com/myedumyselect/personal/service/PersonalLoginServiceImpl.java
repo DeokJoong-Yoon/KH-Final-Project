@@ -22,12 +22,20 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 		PersonalLoginVO personalLogin = personalLoginDao.loginProcess(login);
 		return personalLogin;
 	} 
+	
+	public PersonalLoginVO loginTryCount(PersonalLoginVO login) {
+		PersonalLoginVO personalLogin = personalLoginDao.loginTryCount(login);
+		return personalLogin;
+	} 
 
 	// 로그인 실패 횟수
+	// 로그인 실패 횟수 업데이트
 	@Override
 	public int updatePersonalLoginFailCount(PersonalLoginVO login) {
-		return personalLoginDao.updatePersonalLoginFailCount(login);
+	    return personalLoginDao.updatePersonalLoginFailCount(login);
 	}
+
+
 
 	@Override
 	public int updateAccountBannedDate(String personalId, Date bannedDate) {

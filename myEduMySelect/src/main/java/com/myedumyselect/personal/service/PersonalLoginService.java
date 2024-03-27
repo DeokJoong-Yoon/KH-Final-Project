@@ -8,6 +8,8 @@ public interface PersonalLoginService {
 
 	// 로그인
 	public PersonalLoginVO loginProcess(PersonalLoginVO login);
+	
+	public PersonalLoginVO loginTryCount(PersonalLoginVO login);
 
 	// 로그인 실패 횟수
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);

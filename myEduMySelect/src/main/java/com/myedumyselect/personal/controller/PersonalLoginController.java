@@ -64,54 +64,87 @@ public class PersonalLoginController {
 	
 	@PostMapping("/personal/login")
 	public String loginProcess(PersonalLoginVO login, Model model, RedirectAttributes ras, HttpSession session) {
-		
-		Integer loginAttempts = (Integer) session.getAttribute("loginAttempts");
-		Date bannedUntil = (Date) session.getAttribute("bannedUntil");
+	    
+		PersonalLoginVO triedPersonal = new PersonalLoginVO();
+	    
+	    triedPersonal.setPersonalId(login.getPersonalId()); 
+	    Date bannedUntil = (Date) session.getAttribute("personalId"); 
 
-		// 계정이 잠겨 있을 때
-		if (bannedUntil != null && new Date().before(bannedUntil)) {
-			long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
-			ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
-			return "redirect:/personal/login";
-		}
+	    // 계정이 잠겨 있을 때
+	    if (bannedUntil != null && new Date().before(bannedUntil)) {
+	        long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60* 10); // 잔여 시간(분)
+	        ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
+	        return "redirect:/personal/login";
+	    }
+    
+	    triedPersonal = personalLoginService.loginTryCount(triedPersonal);
+	    int personalLoginFailCount = triedPersonal.getPersonalLoginFailCount();
+	    log.info("dd현재 실패 횟수 : " + personalLoginFailCount);
+	    
+	    
+	    
+	    // 로그인 시도
+	    PersonalLoginVO personalLogin = personalLoginService.loginProcess(login);
+	    
+	    if (personalLogin != null) {
+	        model.addAttribute("personalLogin", personalLogin);
+	        personalLogin.setPersonalLoginFailCount(0);
+	        personalLoginService.updatePersonalLoginFailCount(personalLogin);
+	    } else {
+	        // personalLoginFailCount 업데이트
+	    	personalLoginFailCount++;
+	    	log.info("dd업데이트 전 횟수 : " + triedPersonal.getPersonalLoginFailCount());
+	    	log.info("로그인 정보 : " + triedPersonal.toString());
+	    	triedPersonal.setPersonalLoginFailCount(triedPersonal.getPersonalLoginFailCount() + 1);
+	    	personalLoginService.updatePersonalLoginFailCount(triedPersonal);
+	    	log.info("dd업데이트 후 횟수 : " + triedPersonal.getPersonalLoginFailCount());    
+	        
+	        if (triedPersonal.getPersonalLoginFailCount() >= 5) {
+	            long currentTime = System.currentTimeMillis();
+	            Date lockoutTime = new Date(currentTime + (10 * 60 * 1000)); // 10분 후 시간
+	            session.setAttribute("bannedUntil_" + triedPersonal.getPersonalId(), lockoutTime); 
 
-		// 로그인 시도 횟수 카운트
-		if (loginAttempts == null) {
-			loginAttempts = 0;
-		}
-	
-		// 로그인 시도
-		PersonalLoginVO personalLogin = personalLoginService.loginProcess(login);
+	            long remainingTime = (lockoutTime.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
+	            ras.addFlashAttribute("errorMsg",
+	                    "아이디 및 비밀번호 입력 5회 이상 실패하였습니다. 계정 로그인이 10분간 제한됩니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
+	            ras.addFlashAttribute("bannedUntil", lockoutTime);
 
-		if (personalLogin != null) {
-			model.addAttribute("personalLogin", personalLogin);
-			session.removeAttribute("loginAttempts"); 
-		} else {
-			loginAttempts++;
-			session.setAttribute("loginAttempts", loginAttempts);
-
-			if (loginAttempts >= 5) {
-				long currentTime = System.currentTimeMillis();
-				Date lockoutTime = new Date(currentTime + (10 * 60 * 1000)); // 10분 후 시간
-				session.setAttribute("bannedUntil", lockoutTime);
-
-				long remainingTime = (lockoutTime.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
-				ras.addFlashAttribute("loginAttempts", "5/5");
-				ras.addFlashAttribute("errorMsg",
-						"아이디 및 비밀번호 입력 5회 이상 실패하였습니다. 계정 로그인이 10분간 제한됩니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
-				ras.addFlashAttribute("bannedUntil", lockoutTime);
-
-				return "redirect:/personal/login";
-			} else {
-				ras.addFlashAttribute("errorMsg",
-						"아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + loginAttempts + "/5");
-				log.warn("로그인 실패  현재 로그인 시도 횟수: " + loginAttempts);
-				return "redirect:/personal/login";
-			} 
-		}
-		
-		return "redirect:/personal/login"; 
+	            return "redirect:/personal/login";
+	        } else {
+	            ras.addFlashAttribute("errorMsg",
+	                    "아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + triedPersonal.getPersonalLoginFailCount() + "/5");
+	            return "redirect:/personal/login";
+	        } 
+	    }
+	    
+	    // 로그인 실패 시 personalLoginFailCount 업데이트
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    return "redirect:/personal/login"; 
 	}
+
+
+
 	
 	/*************************************************************
 	 * Personal Logout
