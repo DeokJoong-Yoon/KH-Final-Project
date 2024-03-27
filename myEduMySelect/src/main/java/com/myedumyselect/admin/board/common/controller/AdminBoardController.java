@@ -36,11 +36,9 @@ import com.myedumyselect.payment.service.PaymentService;
 import com.myedumyselect.payment.vo.PaymentVO;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/adminBoard/*")
-@Slf4j
 public class AdminBoardController {
 
 	@Setter(onMethod_ = @Autowired)
@@ -90,7 +88,7 @@ public class AdminBoardController {
 		// 전체 레코드 조회
 		List<NoticeBoardVO> boardList = noticeBoardServcie.boardList(noticeBoardVO);
 		model.addAttribute("boardList", boardList);
-		log.info(noticeBoardVO.getKeyword());
+
 		// 전체 레코드수 반환.
 		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
 		// 페이징 처리

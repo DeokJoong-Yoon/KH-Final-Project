@@ -30,11 +30,8 @@ import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-//@RequestMapping("/personal/*")
-@Slf4j
 @SessionAttributes("personalLogin")
 public class PersonalLoginController {
 
@@ -55,7 +52,6 @@ public class PersonalLoginController {
 
 	@GetMapping("/personal/login")
 	public String loginForm() {
-		log.info("personalLogin 페이지 호출");
 		return "personal/login"; // login.jsp 호출
 
 	}
@@ -119,14 +115,12 @@ public class PersonalLoginController {
 			} else {
 				ras.addFlashAttribute("errorMsg",
 						"아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + loginAttempts + "/5");
-				log.warn("로그인 실패  현재 로그인 시도 횟수: " + loginAttempts);
 				return "redirect:/personal/login";
 			} // 로그인이 실패한 경우, 로그인 시도 횟수를 증가시키고, 잠금 시간을 설정한다.
 				// 잠금 시간까지 남은 시간을 계산하고, 알림 메시지를 추가하여 사용자에게 알린다.
 				// 로그인 시도 횟수가 5회 이상이면 계정을 잠그고, 잠금 해제 시간까지 알려주는 알림 메시지를 추가한다.
 				// 로그인 시도 횟수가 5회 미만인 경우, 실패 메시지와 함께 로그인 페이지로 리다이렉트한다.
 		}
-		log.info("로그인 성공: 개인회원 ID - " + personalLogin.getPersonalId());
 		// log.info("개인회원 로그인 성공");
 		return "redirect:/personal/login"; // 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트한다.
 	}
@@ -134,14 +128,12 @@ public class PersonalLoginController {
 	// 로그아웃
 	@PostMapping("/personal/logout")
 	public String logout(SessionStatus sessionStatus) {
-		log.info("로그아웃 처리");
 		sessionStatus.setComplete();
 		return "redirect:/loginselect";
 	}
-	
+
 	@GetMapping("/personal/logout")
 	public String getLogout(SessionStatus sessionStatus) {
-		log.info("회원탈퇴 처리");
 		sessionStatus.setComplete();
 		return "redirect:/";
 	}
@@ -149,7 +141,6 @@ public class PersonalLoginController {
 	// 개인회원 가입 페이지
 	@GetMapping(value = "/personal/join")
 	public String personalJoinForm() {
-		log.info("personaljoinForm 호출 성공");
 		return "personal/personalJoin";
 	}
 
@@ -170,7 +161,6 @@ public class PersonalLoginController {
 	// 회원가입
 	@PostMapping("/personalInsert")
 	public String personalInsert(PersonalLoginVO login) {
-		log.info("personalInsert 호출 성공");
 		personalLoginService.personalInsert(login);
 		return "redirect:/useraccount/join/complete";
 	}
@@ -239,8 +229,6 @@ public class PersonalLoginController {
 			sessionPersonalLogin.setPersonalAddress(pvo.getPersonalAddress());
 		}
 		sessionPersonalLogin.setPersonalPhone(personalLogin.getPersonalPhone());
-
-		log.info("personalUpdate 호출 성공");
 
 		// 개인 정보 업데이트
 		// personalLoginService의 personalUpdate 메서드를 호출하여 데이터베이스에 개인 정보를 업데이트
@@ -362,8 +350,8 @@ public class PersonalLoginController {
 			int result = 0;
 			checkPassword.setPersonalPasswd(renewPassword);
 			result = personalLoginService.updatePersonalPasswd(checkPassword);
-			if (result == 1) { 
- 
+			if (result == 1) {
+
 				model.addAttribute("personalLogin", personalLoginService.loginProcess(checkPassword));
 				ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
 				return "TRUE";
@@ -376,43 +364,40 @@ public class PersonalLoginController {
 		ras.addFlashAttribute("errorMsg", "패스워드 변경 실패");
 		return "FALSE";
 	}
-	
-		//회원 탈퇴 페이지
-		@GetMapping("/personalWithdrawal")
-		public String personalWithdrawal(  
-				@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
-			if (personalLoginVO != null) {
-				String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-				if (personalResult != "TRUE") {
-					return personalResult;
-				}
-			} else {
-				return "redirect:/";
+
+	// 회원 탈퇴 페이지
+	@GetMapping("/personalWithdrawal")
+	public String personalWithdrawal(
+			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO, Model model) {
+		if (personalLoginVO != null) {
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (personalResult != "TRUE") {
+				return personalResult;
 			}
-			return "personal/withdrawalPersonal";
+		} else {
+			return "redirect:/";
 		}
-		
-		@ResponseBody
-		@PostMapping(value = "/withdrawalPersonal")
-		public String withdrawalPersonal(@RequestParam("currentPassword") String currentPassword,
-		        @SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, RedirectAttributes ras) {
-		    PersonalLoginVO curPersonalLogin = new PersonalLoginVO();
-		    curPersonalLogin.setPersonalId(personalLoginVO.getPersonalId());
-		    curPersonalLogin.setPersonalPasswd(currentPassword);
-		    
-		    PersonalLoginVO checkPasswd = personalLoginService.loginProcess(curPersonalLogin);
-		    
-		    if (checkPasswd != null) {
-		        // 현재 비밀번호 일치
-		        return "TRUE";
-		    } else {
-		        // 현재 비밀번호 불일치
-		        ras.addFlashAttribute("errorMsg", "현재 비밀번호가 일치하지 않습니다.");
-		        return "FALSE";
-		    }
+		return "personal/withdrawalPersonal";
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/withdrawalPersonal")
+	public String withdrawalPersonal(@RequestParam("currentPassword") String currentPassword,
+			@SessionAttribute("personalLogin") PersonalLoginVO personalLoginVO, RedirectAttributes ras) {
+		PersonalLoginVO curPersonalLogin = new PersonalLoginVO();
+		curPersonalLogin.setPersonalId(personalLoginVO.getPersonalId());
+		curPersonalLogin.setPersonalPasswd(currentPassword);
+
+		PersonalLoginVO checkPasswd = personalLoginService.loginProcess(curPersonalLogin);
+
+		if (checkPasswd != null) {
+			// 현재 비밀번호 일치
+			return "TRUE";
+		} else {
+			// 현재 비밀번호 불일치
+			ras.addFlashAttribute("errorMsg", "현재 비밀번호가 일치하지 않습니다.");
+			return "FALSE";
 		}
-
-
-
+	}
 
 }
