@@ -18,12 +18,19 @@
 									<div class="box">
 										<h3>결제자 정보</h3>
 										<ul class="list-group">
+											<label>ID : </label>
 										    <li class="list-group-item border-0" id="academy_id"><span class="bi bi-check"></span>${academyLoginVO.academyId}</li>
+										    <label>Academy number : </label>
 										    <li class="list-group-item border-0" id="academy_number"><span class="bi bi-check"></span>${academyLoginVO.academyNumber}</li>
+										    <label>Academy Name : </label>
 										    <li class="list-group-item border-0" id="academy_name"><span class="bi bi-check"></span>${academyLoginVO.academyName}</li>
+										    <label>Payment Status : </label>
 										    <li class="list-group-item border-0" id="academy_status"><span class="bi bi-check"></span>0</li>
+										    <label>Manager Name : </label>
 										    <li class="list-group-item border-0" id="academy_manager_name"><span class="bi bi-check"></span>${academyLoginVO.academyManagerName}</li>
+										    <label>Manager Email : </label>
 										    <li class="list-group-item border-0" id="academy_manager_email"><span class="bi bi-check"></span>${academyLoginVO.academyManagerEmail}</li>
+										    <label>Manager Phone : </label>
 										    <li class="list-group-item border-0" id="academy_manager_phone"><span class="bi bi-check"></span>${academyLoginVO.academyManagerPhone}</li>
 										</ul>
 									</div>
