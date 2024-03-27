@@ -38,21 +38,7 @@ $(function(){
 		} 
 	});
     
-     //검색 버튼 클릭 시 처리 
-    /*$("#searchData").on("click", function(){
-        if($("#search").val() !== "all") {
-            if(!chkData("#keyword","검색어를")) return;
-        }
-        $("#pageNum").val(1);
-        goPage();
-    });
-    
-    $(".page-item a").on("click", function(e){
-		e.preventDefault();
-		var pageNum = $(this).text();
-		$("#f_search").find("input[name='pageNum']").val(pageNum);
-		goPage();
-	});*/
+   
 	
 	/* 검색 버튼 클릭 시 처리 */
 	$("#searchData").on("click", function() {
