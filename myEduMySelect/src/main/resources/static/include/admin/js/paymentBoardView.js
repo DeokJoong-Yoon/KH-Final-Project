@@ -28,7 +28,6 @@ $(function() {
 		} else if ($("#search").val() !="all") {
 			$("#keyword").val("");
 			$("#keyword").focus();
-			$("#searchData").click();
 		} 
 	});
 	

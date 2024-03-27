@@ -54,7 +54,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	            FileVO fileVO = new FileVO();
 	            fileVO.setCommonNo(aVO.getCommonNo());
 	            fileVO.setFileName(fileName);
-	            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName); // 파일이 첨부되지 않은 경우 이 부분 수정
+	            fileVO.setFilePath("../../uploadStorage/advertise/" + fileName); 
 	           
 	            int fileResult = aDAO.advertiseInsertFile(fileVO);
 	            

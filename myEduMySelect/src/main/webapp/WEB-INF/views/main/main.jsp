@@ -41,8 +41,8 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="/resources/include/assets/img/favicon.png" rel="icon">
-<link href="/resources/include/assets/img/apple-touch-icon.png"
+<link href="/resources/images/common/icon.png" rel="icon">
+<link href="/resources/images/common/icon.png"
 	rel="apple-touch-icon">
 
 <!-- Google Fonts -->
@@ -482,7 +482,7 @@
 						<div class="box text-center mx-auto">
 							<h3>Best Service</h3>
 							<h4>
-								<sup>￦</sup>199,000<span>per day</span>
+								<sup>￦</sup>199,000<span>per month</span>
 							</h4>
 							<ul>
 								<li><i class="bx bx-check"></i> 학원고객님의 교육이념과 환경을 홍보하실 수 있습니다.</li>

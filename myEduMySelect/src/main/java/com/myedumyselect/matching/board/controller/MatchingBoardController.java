@@ -23,9 +23,7 @@ import com.myedumyselect.matching.board.service.MatchingBoardService;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping("/matching/*")
 public class MatchingBoardController {
@@ -91,8 +89,6 @@ public class MatchingBoardController {
 		model.addAttribute("pageMaker", new PageDTO(mbVO, total));
 		model.addAttribute("kwd", mbVO.getKeyword());
 
-		log.info(mbVO.getKeyword());
-
 		return "matching/matchingBoardList";
 	}
 
@@ -100,7 +96,6 @@ public class MatchingBoardController {
 	@PostMapping(value = "/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<AcademyLoginVO> mResult(@RequestBody MatchingBoardVO mbVO) {
-		log.info("맞춤형 검색 결과 호출");
 		List<AcademyLoginVO> list = mbService.mResult(mbVO);
 		return list;
 	}
@@ -111,7 +106,6 @@ public class MatchingBoardController {
 	public String publicUpload(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
-		log.info("publicUpload 메소드 호출 성공");
 
 		// 세션 검사
 		if (personalLoginVO != null) {
@@ -121,15 +115,12 @@ public class MatchingBoardController {
 			}
 
 		} else {
-			log.info("null");
 			model.addAttribute("check", personalLoginVO);
-			log.info("세션 체크 : " + personalLoginVO);
 			return "학원 회원은 공개 매칭을 등록할 수 없습니다.";
 		}
 
 		mbService.publicUpload(mbVO);
 		model.addAttribute("check", personalLoginVO);
-		log.info("세션 체크 : " + personalLoginVO);
 
 		return "공개 매칭 게시글이 정상 등록되었습니다.";
 
@@ -141,7 +132,6 @@ public class MatchingBoardController {
 	public String privateUpload(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
-		log.info("privateUpload 메소드 호출 성공");
 
 		// 세션 검사
 		if (personalLoginVO != null) {
@@ -151,16 +141,13 @@ public class MatchingBoardController {
 			}
 
 		} else {
-			log.info("null");
 			model.addAttribute("check", personalLoginVO);
-			log.info("세션 체크 : " + personalLoginVO);
 			return "학원 회원은 비공개 매칭을 등록할 수 없습니다.";
 		}
 
 		mbService.privateUpload(mbVO);
 		mbService.sendEmail(mbVO);
 		model.addAttribute("check", personalLoginVO);
-		log.info("세션 체크 : " + personalLoginVO);
 
 		return "비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되었습니다.";
 	}
@@ -186,7 +173,6 @@ public class MatchingBoardController {
 
 		MatchingBoardVO detail = mbService.mBoardDetail(mbVO);
 		model.addAttribute("detail", detail);
-		// model.addAttribute("userId", userId);
 
 		return "matching/matchingDetail";
 	}
@@ -230,7 +216,6 @@ public class MatchingBoardController {
 		MatchingBoardVO detail = mbService.mBoardDetail(mbVO);
 
 		String writer = detail.getPersonalId();
-		log.info("작성자 : " + writer);
 
 		int result = 0;
 		String url = "";
@@ -241,8 +226,6 @@ public class MatchingBoardController {
 		} else {
 			result = 2;
 		}
-
-		log.info("결과 : " + result);
 
 		// 결과에 따른 팝업
 		if (result == 1) {
@@ -282,8 +265,6 @@ public class MatchingBoardController {
 
 		// 게시글 작성자 id 추출
 		String writer = detail.getPersonalId();
-		log.info("작성자 : " + writer);
-		log.info("접속자 : " + personalLoginVO.getPersonalId());
 
 		int result = 0;
 		String url = "";
@@ -294,8 +275,6 @@ public class MatchingBoardController {
 		} else {
 			result = 2;
 		}
-
-		log.info("결과 : " + result);
 
 		// 결과에 따른 팝업
 		if (result == 1) {

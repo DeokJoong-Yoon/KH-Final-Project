@@ -247,7 +247,7 @@ public class PersonalLoginController {
 		} else {
 			return "redirect:/";
 		}
-
+  
 		matchingBoardVO.setPersonalId(personalLoginVO.getPersonalId());
 		List<MatchingBoardVO> matchingBoardList = personalMatchingBoardService.boardList(matchingBoardVO);
 		model.addAttribute("matchingBoardList", matchingBoardList);

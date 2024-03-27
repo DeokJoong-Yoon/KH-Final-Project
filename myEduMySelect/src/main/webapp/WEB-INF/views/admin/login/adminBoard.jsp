@@ -34,6 +34,12 @@
 .table {
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
+.thumnail {
+	width: 100px; 
+    height: 120px; 
+    object-fit: cover;
+    margin-top:20px;
+}
 </style>
 </head>
 
@@ -108,6 +114,56 @@
 					</div>
 					<div class="card">
 						<div class="card-body">
+							<h5 class="card-title">advertise board</h5>
+							<table class="table table-info">
+								<thead>
+									<tr>
+										<th scope="col">No</th>
+										<th scope="col">Title</th>
+										<th scope="col">Academy</th>
+										<th scope="col">RegisterDate</th>
+										<th scope="col">ReadCount</th>
+										<th scope="col">Image</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:choose>
+										<c:when test="${not empty advertiseBoardList}">
+											<c:forEach var="advertise" items="${advertiseBoardList}" varStatus="statusNumber">
+												<c:if test="${statusNumber.index < 5}">
+													<tr data-num="${statusNumber.index + 1}">
+														<th scope="row">${advertise.commonNo}</th>
+														<td>${advertise.commonTitle}</td>
+														<td>${advertise.commonNickname}</td>
+														<td>${advertise.commonRegisterDate}</td>
+														<td>${advertise.commonReadcnt}</td>
+														<td>
+					                                 	<c:if test="${not empty advertise.commonFile}">
+					                                 		<%-- <img src="/uploadStorage/board/${advertise.commonFile}" class="rounded w-50 h-50"/> --%>
+					                                 		<img src="${advertise.commonFile}" class="thumnail rounded w-10 h-10"/>
+					                                 	</c:if>
+					                                 	<c:if test="${empty advertise.commonFile}">
+					                                 		<img src="/uploadStorage/image/noimage.png" class="thumnail rounded w-10 h-10"/>
+					                                 	</c:if>
+					                                 </td>
+													</tr>
+													
+												</c:if>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td colspan="5">조건에 맞는 공지가 없습니다.</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
+								</tbody>
+							</table>
+							<!-- End Default Table Example -->
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-body">
 							<h5 class="card-title">matching board</h5>
 							<table class="table table-primary">
 								<thead>
@@ -115,7 +171,7 @@
 										<th scope="col">No</th>
 										<th scope="col">Student</th>
 										<th scope="col">RegisterDate</th>
-										<th scope="col">Comment</th>
+										<th scope="col">Private</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -127,7 +183,7 @@
 														<th scope="row">${match.matchingNo}</th>
 														<td>${match.personalId}</td>
 														<td>${match.matchingRegisterDate}</td>
-														<td>${match.commentCnt}</td>
+														<td>${match.matchingPrivate}</td>
 													</tr>
 												</c:if>
 											</c:forEach>

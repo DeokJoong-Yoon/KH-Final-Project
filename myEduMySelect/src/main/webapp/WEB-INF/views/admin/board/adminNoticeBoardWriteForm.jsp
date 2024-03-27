@@ -127,7 +127,6 @@
 
 											<div class="text-end">
 												<button type="button" id="boardInsertBtn" class="btn btn-primary">저장</button>
-												<button type="button" id="boardCancelBtn" class="btn btn-primary">취소</button>
 												<button type="button" id="boardListBtn" class="btn btn-primary">목록</button>
 											</div>
 										</td>

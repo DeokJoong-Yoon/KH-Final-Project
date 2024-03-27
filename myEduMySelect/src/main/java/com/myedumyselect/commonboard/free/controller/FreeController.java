@@ -23,11 +23,9 @@ import com.myedumyselect.commonboard.free.vo.FreeVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/free/*")
-@Slf4j
 public class FreeController {
 	@Setter(onMethod_ = @Autowired)
 	private FreeService freeService;
@@ -112,8 +110,7 @@ public class FreeController {
 		return "board/free/freeBoardDetail";
 	}
 
-	// 글 수정 구현
-
+	/* 글 수정 구현 */
 	@GetMapping(value = "/freeUpdateForm")
 	public String freeUpdateForm(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
@@ -144,7 +141,6 @@ public class FreeController {
 			freeService.freeUpdate(fvo);
 			ras.addFlashAttribute("alertMsg", "수정에 성공하였습니다.");
 			FreeVO detail = freeService.freeDetail(fvo);
-			log.info(fvo.toString());
 			model.addAttribute("detail", detail);
 			return "board/free/freeBoardDetail";
 		} else {
@@ -153,6 +149,7 @@ public class FreeController {
 		}
 	}
 
+	/* 글 삭제 구현 */
 	@GetMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
@@ -175,6 +172,7 @@ public class FreeController {
 		}
 	}
 
+	/* 댓글 갯수 구현 */
 	@ResponseBody
 	@PostMapping(value = "/freereplyCount", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyCount(@RequestParam("commonNo") int commonNo) {

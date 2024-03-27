@@ -12,9 +12,6 @@ import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.matching.board.dao.MatchingBoardDAO;
 import com.myedumyselect.matching.board.vo.MatchingBoardVO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class MatchingBoardServiceImpl implements MatchingBoardService {
 
@@ -53,8 +50,7 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	//비공개매칭 게시글 등록
 	@Override
 	public int privateUpload(MatchingBoardVO mbVO) {
-		int result = 0;
-		result = mbDAO.privateUpload(mbVO);
+		int result = mbDAO.privateUpload(mbVO);
 
 		return result;
 	}
@@ -64,8 +60,6 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	@Override
 	public void sendEmail(MatchingBoardVO mbVO) {
 		
-		log.info(mbVO.getPrivateChecked().toString());
-	
 		List<AcademyLoginVO> totalList = mbDAO.searchEmail(mbVO);
 		
 		//전송할 이메일의 List 생성
@@ -89,10 +83,6 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		javaMailSender.send(mail);			//이메일 전송
 		
 		
-		System.out.println(mail.getTo());
-		System.out.println(mail.getSubject());
-		System.out.println(mail.getText());
-	
 	}
 
 	
