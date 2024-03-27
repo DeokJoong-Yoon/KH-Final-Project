@@ -171,7 +171,7 @@
 										<th scope="col">No</th>
 										<th scope="col">Student</th>
 										<th scope="col">RegisterDate</th>
-										<th scope="col">Comment</th>
+										<th scope="col">Private</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -183,7 +183,7 @@
 														<th scope="row">${match.matchingNo}</th>
 														<td>${match.personalId}</td>
 														<td>${match.matchingRegisterDate}</td>
-														<td>${match.commentCnt}</td>
+														<td>${match.matchingPrivate}</td>
 													</tr>
 												</c:if>
 											</c:forEach>

@@ -62,11 +62,11 @@
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
 			<div class="pagetitle">
-				<h1>Notice board</h1>
+				<h1>payment board</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">notice board</li>
+						<li class="breadcrumb-item active">payment board</li>
 					</ol>
 				</nav>
 			</div>
@@ -117,7 +117,7 @@
 															<th class="goDetail text-start">${payment.academyName}</th>
 															<td class="goDetail text-start">${payment.academyManagerName}</td>
 															<td class="goDetail text-start">${payment.paymentDate}</td>
-															<td class="goDetail text-start">${payment.paymentDate}</td>
+															<td class="goDetail text-start">${payment.payAmount}</td>
 														</tr>
 												</c:forEach>
 											</c:when>
