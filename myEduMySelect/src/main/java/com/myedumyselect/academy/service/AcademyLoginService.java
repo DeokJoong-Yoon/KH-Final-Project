@@ -9,6 +9,9 @@ public interface AcademyLoginService {
 	// 로그인
 	public AcademyLoginVO loginProcess(AcademyLoginVO login);
 
+	// 로그인 시도 횟수
+	public AcademyLoginVO loginTryCount(AcademyLoginVO login);
+	
 	// 로그인 실패 횟수
 	public int updateAcademyLoginFailCount(AcademyLoginVO login);
 

@@ -60,55 +60,42 @@ public class AcademyLoginController {
 	// 학원회원 로그인 POST
 	@PostMapping("/academy/login")
 	public String loginProcess(AcademyLoginVO login, Model model, RedirectAttributes ras, HttpSession session) {
-/*
-		Integer loginAttempts = (Integer) session.getAttribute("loginAttempts");
-		Date bannedUntil = (Date) session.getAttribute("bannedUntil");
-		// 세션에서 loginAttempts와 bannedUntil 속성을 가져온다. 결국 얘네도 변수 이름이다.
-		// loginAttempts는 로그인 시도 횟수를, bannedUntil은 계정 잠금이 해제되는 시간을 나타낸다.
-		// currentTiem는 현재시간을 나타내는 변수이다 . 밑에 System.currentTimeMillis()을 통해
-		// 현재 시간을 밀리초 단위로 가져온다. 결론적으로 이 변수는 계정 잠금 해제 시간을 계산할때 사용한다.
-		// lockoutTime 계정이 잠금되는 시간을 나타내는 변수이다 currentTime 와 똑같은 개념이다
-		// ex) 1분은 60초 1초는 1000밀리초 그래서 10분을 밀리초 단위로 계산하면 10 * 60 * 1000 이렇게된다 10분 =
-		// 600000 밀리초
-		// currentTime + 600000 잠금이 풀리는 시간을 계산하면 이런식이다.
+		
+		AcademyLoginVO triedAcademy = new AcademyLoginVO();
 
-		// 즉시 잠금 해제
-		// session.removeAttribute("bannedUntil");
-
-		// 계정이 잠겨 있을 때
+		triedAcademy.setAcademyId(login.getAcademyId());
+		Date bannedUntil = (Date) session.getAttribute("academyId");
+		
+		// 게정이 잠겨있을 때
 		if (bannedUntil != null && new Date().before(bannedUntil)) {
-			long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
-			ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
-			return "redirect:/academy/login";
-		}
-		// 계정이 잠겨 있고, 잠금 해제 시간이 현재 시간 이후인 경우를 검사한다.
-		// 계정이 잠겨 있을 때 사용자에게 알림 메시지를 추가하고, 로그인 페이지로 리다이렉트한다.
-
-		// 로그인 시도 횟수 카운트
-		if (loginAttempts == null) {
-			loginAttempts = 0;
-		}
-		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
-*/
+	        long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60* 10); // 잔여 시간(분)
+	        ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
+	        return "redirect:/academy/login";
+	    }
+		
+		triedAcademy = academyLoginService.loginTryCount(triedAcademy);
+	    int academyLoginFailCount = triedAcademy.getAcademyLoginFailCount();
+	    log.info("현재 실패 횟수 : " + academyLoginFailCount);
+		
 		// 로그인 시도
 		AcademyLoginVO academyLogin = academyLoginService.loginProcess(login);
-
-		// AcademyLoginService를 통해 로그인을 시도한다.
-
+		
 		if (academyLogin != null) {
 			model.addAttribute("academyLogin", academyLogin);
-			session.removeAttribute("loginAttempts");// 로그인이 성공한 경우, 모델에 로그인 정보를 추가하고, 세션에서 로그인 시도 횟수 속성을 제거한다.
-		} /*else {
-			loginAttempts++;
-			session.setAttribute("loginAttempts", loginAttempts);
-
-			if (loginAttempts >= 5) {
+			academyLogin.setAcademyLoginFailCount(0);
+			academyLoginService.updateAcademyLoginFailCount(academyLogin);
+		} else {
+			// academyLoginFailCount 업데이트
+			academyLoginFailCount++;
+			triedAcademy.setAcademyLoginFailCount(triedAcademy.getAcademyLoginFailCount() + 1);
+			academyLoginService.updateAcademyLoginFailCount(triedAcademy);
+			
+			if (triedAcademy.getAcademyLoginFailCount() >= 5) {
 				long currentTime = System.currentTimeMillis();
 				Date lockoutTime = new Date(currentTime + (10 * 60 * 1000)); // 10분 후 시간
-				session.setAttribute("bannedUntil", lockoutTime);
+				session.setAttribute("bannedUntil_" + triedAcademy.getAcademyId(), lockoutTime);
 
 				long remainingTime = (lockoutTime.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
-				ras.addFlashAttribute("loginAttempts", "5/5");
 				ras.addFlashAttribute("errorMsg",
 						"아이디 및 비밀번호 입력 5회 이상 실패하였습니다. 계정 로그인이 10분간 제한됩니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
 				ras.addFlashAttribute("bannedUntil", lockoutTime);
@@ -116,15 +103,12 @@ public class AcademyLoginController {
 				return "redirect:/academy/login";
 			} else {
 				ras.addFlashAttribute("errorMsg",
-						"아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + loginAttempts + "/5");
-				log.warn("로그인 실패  현재 로그인 시도 횟수: " + loginAttempts);
+						"아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + triedAcademy.getAcademyLoginFailCount() + "/5");
 				return "redirect:/academy/login";
-			} // 로그인이 실패한 경우, 로그인 시도 횟수를 증가시키고, 잠금 시간을 설정한다.
-				// 잠금 시간까지 남은 시간을 계산하고, 알림 메시지를 추가하여 사용자에게 알린다.
-				// 로그인 시도 횟수가 5회 이상이면 계정을 잠그고, 잠금 해제 시간까지 알려주는 알림 메시지를 추가한다.
-				// 로그인 시도 횟수가 5회 미만인 경우, 실패 메시지와 함께 로그인 페이지로 리다이렉트한다.
-		}*/
-		return "redirect:/academy/login"; // 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트한다.
+			} 
+		}
+		// 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트
+		return "redirect:/academy/login"; 
 	}
 
 	/*************************************************************

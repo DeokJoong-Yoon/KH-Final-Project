@@ -277,28 +277,28 @@ $(document).ready(function() {
 		    success: function(response) {
 		        // 서버로부터의 응답에 따라 중복 메시지 표시
 		        if (response) {
-		            // 이미 사용 중인 사업자등록번호인 경우
-		            $('#academyNumber').val(response.academyNumber).prop('readonly', true); // 해당 번호를 입력 필드에 채우고 readonly 처리
+		            // 사용 가능한 사업자등록번호인 경우 해당 번호를 입력 필드에 채우고 readonly 처리
+		            $('#academyNumber').val(response.academyNumber).prop('readonly', true); 
 		            $('#search-message').text('정상적으로 입력되었습니다.');
 		
-		            // 추가 정보를 조회하여 모든 필드에 값을 입력하고 readonly 처리
+		            // 추가 정보를 조회하여 모든 필드에 값을 입력하고 readonly 처리 
 		            $('#academyName').val(response.academyName).prop('readonly', true);
 		            $('#academyGuAddress').val(response.academyGuAddress).prop('readonly', true);
 		            $('#academyRoadAddress').val(response.academyRoadAddress).prop('readonly', true);
 		            $('#academyDongAddress').val(response.academyDongAddress).prop('readonly', true);
 		        } else {
-		            // 사용 가능한 사업자등록번호인 경우
+		            // 사용할 수 없는 사업자등록번호인 경우 
 		            $('#academyNumber').prop('readonly', false); // readonly 해제
 		            $('#search-message').text('해당하는 사업자번호가 존재하지 않습니다. 다시 입력 후 검색버튼을 눌러주세요.');
 		
-		            // 추가 정보 필드의 값을 초기화하고 readonly 상태 해제
+		            // 추가 정보를 조회하여 모든 필드에 값을 입력하고 readonly 처리
 		            $('#academyName').val('').prop('readonly', false);
 		            $('#academyGuAddress').val('').prop('readonly', false);
 		            $('#academyRoadAddress').val('').prop('readonly', false);
 		            $('#academyDongAddress').val('').prop('readonly', false);
 		        }
 		    },
-		    error: function(xhr, status, error) {
+		    error: function(xhr, status, error) {				
 		    }
 		});
     });
