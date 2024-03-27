@@ -59,7 +59,7 @@
 			<input type="hidden" name="commonFile" id="commonFile" value="${detail.commonFile}" />
 		</form>
 		<div class="pagetitle">
-			<h1>Dashboard</h1>
+			<h1>Free Detail</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
@@ -142,7 +142,7 @@
 												<div class="md-3 row">
 													<label for="commonContent" class="col-sm-2 col-form-label">image</label>
 													<div class="text-start col-sm-10 mt-2 mb-2">
-														<img src="/uploadStorage/board/${detail.commonFile}" class="rounded" style="max-width: 100%; height: auto;"/>
+														<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="max-width: 100%; height: auto;"/>
 													</div>
 												</div>
 											</td>

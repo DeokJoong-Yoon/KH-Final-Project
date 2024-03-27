@@ -51,11 +51,11 @@
 			<input type="hidden" name="academyId" id="academyId" value="${detail.academyId}" />
 		</form>
 		<div class="pagetitle">
-			<h1>Dashboard</h1>
+			<h1>Academy Detail</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-					<li class="breadcrumb-item active">Personal Detail</li>
+					<li class="breadcrumb-item active">Academy Detail</li>
 				</ol>
 			</nav>
 		</div>
@@ -65,7 +65,7 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title md-6 row">personal detail</h5>
+						<h5 class="card-title md-6 row">academy detail</h5>
 
 						<!-- Table with stripped rows -->
 						<form id="f_writeForm">

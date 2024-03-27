@@ -62,11 +62,11 @@
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
 			<div class="pagetitle">
-				<h1>Personal List</h1>
+				<h1>Academy Source Detail</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">personal list</li>
+						<li class="breadcrumb-item active">Academy Source Detail</li>
 					</ol>
 				</nav>
 			</div>

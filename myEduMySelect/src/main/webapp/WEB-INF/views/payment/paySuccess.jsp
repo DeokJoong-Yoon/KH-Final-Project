@@ -43,14 +43,12 @@
 											${paymentVO.academyNumber}</li>
 										<li class="bx bx-check">academy name :
 											${paymentVO.academyName}</li>
-										<li class="bx bx-check">academy manager
-											name${paymentVO.academyManagerName}</li>
-										<li class="bx bx-check">academy manager
-											email${paymentVO.academyManagerEmail}</li>
+										<li class="bx bx-check">academy manager : name ${paymentVO.academyManagerName}</li>
+										<li class="bx bx-check">academy manager email : ${paymentVO.academyManagerEmail}</li>
 										<li class="bx bx-check">academy
-											managerphone${paymentVO.academyManagerPhone}</li>
+											managerphone : ${paymentVO.academyManagerPhone}</li>
 										<li class="bx bx-check">payment
-											date${paymentVO.paymentDate}</li>
+											date :${paymentVO.paymentDate}</li>
 									</ul>
 								<a href="/">Home</a>
 								</div>
