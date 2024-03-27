@@ -51,6 +51,7 @@ public class AcademyLoginController {
 	/*************************************************************
 	 * Academy Login
 	 *************************************************************/
+	
 	// 학원회원 로그인으로 이동
 	@GetMapping("/academy/login")
 	public String loginform() {
@@ -63,37 +64,21 @@ public class AcademyLoginController {
 
 		Integer loginAttempts = (Integer) session.getAttribute("loginAttempts");
 		Date bannedUntil = (Date) session.getAttribute("bannedUntil");
-		// 세션에서 loginAttempts와 bannedUntil 속성을 가져온다. 결국 얘네도 변수 이름이다.
-		// loginAttempts는 로그인 시도 횟수를, bannedUntil은 계정 잠금이 해제되는 시간을 나타낸다.
-		// currentTiem는 현재시간을 나타내는 변수이다 . 밑에 System.currentTimeMillis()을 통해
-		// 현재 시간을 밀리초 단위로 가져온다. 결론적으로 이 변수는 계정 잠금 해제 시간을 계산할때 사용한다.
-		// lockoutTime 계정이 잠금되는 시간을 나타내는 변수이다 currentTime 와 똑같은 개념이다
-		// ex) 1분은 60초 1초는 1000밀리초 그래서 10분을 밀리초 단위로 계산하면 10 * 60 * 1000 이렇게된다 10분 =
-		// 600000 밀리초
-		// currentTime + 600000 잠금이 풀리는 시간을 계산하면 이런식이다.
-
-		// 즉시 잠금 해제
-		// session.removeAttribute("bannedUntil");
-
+		
 		// 계정이 잠겨 있을 때
 		if (bannedUntil != null && new Date().before(bannedUntil)) {
 			long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60); // 잔여 시간(분)
 			ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
 			return "redirect:/academy/login";
 		}
-		// 계정이 잠겨 있고, 잠금 해제 시간이 현재 시간 이후인 경우를 검사한다.
-		// 계정이 잠겨 있을 때 사용자에게 알림 메시지를 추가하고, 로그인 페이지로 리다이렉트한다.
-
+		
 		// 로그인 시도 횟수 카운트
 		if (loginAttempts == null) {
 			loginAttempts = 0;
 		}
-		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
-
+		
 		// 로그인 시도
 		AcademyLoginVO academyLogin = academyLoginService.loginProcess(login);
-
-		// AcademyLoginService를 통해 로그인을 시도한다.
 
 		if (academyLogin != null) {
 			model.addAttribute("academyLogin", academyLogin);
@@ -119,17 +104,16 @@ public class AcademyLoginController {
 						"아이디 또는 비밀번호를 잘못 입력하셨습니다. 입력하신 내용을 다시 확인해주세요.로그인 시도 횟수: " + loginAttempts + "/5");
 				log.warn("로그인 실패  현재 로그인 시도 횟수: " + loginAttempts);
 				return "redirect:/academy/login";
-			} // 로그인이 실패한 경우, 로그인 시도 횟수를 증가시키고, 잠금 시간을 설정한다.
-				// 잠금 시간까지 남은 시간을 계산하고, 알림 메시지를 추가하여 사용자에게 알린다.
-				// 로그인 시도 횟수가 5회 이상이면 계정을 잠그고, 잠금 해제 시간까지 알려주는 알림 메시지를 추가한다.
-				// 로그인 시도 횟수가 5회 미만인 경우, 실패 메시지와 함께 로그인 페이지로 리다이렉트한다.
+			} 
 		}
+		
 		return "redirect:/academy/login"; // 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트한다.
 	}
 
 	/*************************************************************
 	 * Academy Logout
 	 *************************************************************/
+	
 	// 로그아웃 처리
 	@PostMapping("/academy/logout")
 	public String logout(SessionStatus sessionStatus) {
@@ -146,6 +130,7 @@ public class AcademyLoginController {
 	/*************************************************************
 	 * Academy Join
 	 *************************************************************/
+	
 	// 학원회원 가입 페이지
 	@GetMapping(value = "/academy/join")
 	public String academyjoinForm() {
@@ -167,8 +152,9 @@ public class AcademyLoginController {
 	}
 
 	/*************************************************************
-	 * Academy mypage
+	 * Academy Mypage
 	 *************************************************************/
+	
 	// 학원회원 마이페이지로 이동
 	@GetMapping(value = "/academy/mypage")
 	public String academyMypage(
@@ -235,7 +221,11 @@ public class AcademyLoginController {
 		model.addAttribute("academyLogin", sessionAcademyLogin);
 		return "/academy/mypage";
 	}
-
+	
+	/*************************************************************
+	 * Academy PasswdChange
+	 *************************************************************/
+	
 	/* 비밀번호 변경 */
 	@GetMapping("/passwdChangePage")
 	public String passwdChangePage(@SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO) {
@@ -284,6 +274,7 @@ public class AcademyLoginController {
 	/*************************************************************
 	 * Academy Advertise
 	 *************************************************************/
+	
 	/* 사용자가 작성한 홍보 게시글 목록 보기 페이지로 이동 */
 	@GetMapping("/academy/advertiseList")
 	public String academyAdvertiseList(
@@ -317,6 +308,7 @@ public class AcademyLoginController {
 	/*************************************************************
 	 * Academy Matching
 	 *************************************************************/
+	
 	/* 사용자가 작성한 매칭 게시글 댓글 목록 보기 페이지로 이동 */
 	@GetMapping("/academy/matchingBoardList")
 	public String academyMatchingBoardList(MatchingBoardVO matchingBoardVO, MatchingCommentVO mcVO, Model model,
@@ -354,8 +346,9 @@ public class AcademyLoginController {
 	}
 
 	/*************************************************************
-	 * Academy Withdrawal passCheck
+	 * Academy Withdrawal passwdCheck
 	 *************************************************************/
+	
 	/* 회원탈퇴 하기 전 비밀번호 현재 비밀번호 인증하는 페이지로 이동 */
 	@GetMapping("/academyWithdrawal")
 	public String academyWithdrawal(

@@ -40,7 +40,6 @@ $(function() {
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {
-                    console.log("Ajax 요청 실패:", textStatus, errorThrown);
                     alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
                 }
             });

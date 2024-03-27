@@ -13,7 +13,8 @@ public class AcademyMatchingBoardServiceImpl implements AcademyMatchingBoardServ
 
 	@Autowired
 	private AcademyMatchingBoardDAO academyMatchingBoardDAO;
-
+	
+	// 해당 학원회원이 작성한 댓글이 달린 매칭게시판 게시글 리스트 가져오기
 	@Override
 	public List<MatchingBoardVO> getCommented(AcademyLoginVO academyLoginVO) {
 		List<Integer> commentedNos = academyMatchingBoardDAO.getCommentMatchingNos(academyLoginVO);
@@ -24,22 +25,26 @@ public class AcademyMatchingBoardServiceImpl implements AcademyMatchingBoardServ
 		}
 		return commentedMatching;
 	}
-
+	
+	// 해당 학원회원이 작성한 댓글이 달린 매칭게시판 게시글 번호 가져오기
 	@Override
 	public List<Integer> getCommentMatchingNos(AcademyLoginVO academyLoginVO) {
 		return academyMatchingBoardDAO.getCommentMatchingNos(academyLoginVO);
 	}
-
+	
+	// 게시글 번호에 해당하는 매칭게시판 게시글 리스트 가져오기
 	@Override
 	public MatchingBoardVO getMatchingBoardByNo(int matchingNo) {
 		return academyMatchingBoardDAO.getMatchingBoardByNo(matchingNo);
 	}
-
+	
+	// 매칭게시판 게시글 목록 가져오기 
 	@Override
 	public List<MatchingBoardVO> boardList(MatchingBoardVO matchingBoardVO) {
 		return academyMatchingBoardDAO.boardList(matchingBoardVO);
 	}
-
+	
+	// 전체 레코드 수 반환
 	@Override
 	public int boardListCnt(MatchingBoardVO matchingBoardVO) {
 		return academyMatchingBoardDAO.boardListCnt(matchingBoardVO);
