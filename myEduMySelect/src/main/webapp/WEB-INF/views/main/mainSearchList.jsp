@@ -91,8 +91,9 @@
 	<!-- End Hero -->
 
   <main id="main">
-  <%-- <input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
-  <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}"> --%>
+  <form id="mainSearchForm" name="mainSearchForm">
+  <input type="hidden" name="pageNum" id="pagenum" value="${pageMaker.cvo.pageNum}">
+  <input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
     
     <!-- ======= 매칭게시판 목록 ======= -->
     <section class="mcBoard">
@@ -133,7 +134,7 @@
 				</tbody>	
 			</table>
 		</div>
-		<%-- ======================== 페이징 출력 시작 ========================
+		<!--======================== 페이징 출력 시작 ========================-->
           <nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">
 			  <!-- 이전 바로가기 10개 존재 여부를 prev 필드의 값으로 확인. -->
@@ -158,10 +159,10 @@
 			  </c:if>
 			  
 			  </ul>
-			</nav>--%>
+			</nav>
       </div>
     </section><!-- 매칭게시판 목록 끝 -->
-
+	</form>
   
   </main><!-- End #main -->
 	<!-- End #main -->

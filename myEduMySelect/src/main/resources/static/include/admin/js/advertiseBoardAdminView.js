@@ -55,7 +55,7 @@ function goPage() {
 	}
 	$("#advertiseForm").attr({
 		"method" : "get",
-		"action" : "/adminBoard/asvertise"
+		"action" : "/adminBoard/advertise"
 	});
 	$("#advertiseForm").submit();
 }

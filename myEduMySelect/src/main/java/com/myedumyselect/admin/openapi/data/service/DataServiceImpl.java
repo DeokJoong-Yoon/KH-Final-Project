@@ -23,7 +23,6 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public int listTotalCount() throws Exception {
-		// http://openapi.seoul.go.kr:8088/446f765142796b6435314753745172/json/neisAcademyInfo/1/1/
 		StringBuffer site = new StringBuffer("http://openapi.seoul.go.kr:8088/");
 		site.append(KEY);
 		site.append("/json/neisAcademyInfo/1/1/");
@@ -36,19 +35,18 @@ public class DataServiceImpl implements DataService {
 		JsonNode rootNode = objectMapper.readTree(result.toString());
 
 		// 특정 필드의 값을 추출
-		int listTotalCount = rootNode.path("neisAcademyInfo").path("list_total_count").asInt();
+		int listTotalCount = 0;
+		listTotalCount = rootNode.path("neisAcademyInfo").path("list_total_count").asInt();
 
 		return listTotalCount;
 	}
 
 	@Override
 	public int insertAcademySourceList(int listTotalCount) throws Exception {
-		int result = 0;
 		String baseUrl = "http://openapi.seoul.go.kr:8088/";
 		baseUrl += KEY;
 		baseUrl += "/json/neisAcademyInfo/";
-		int maxGetListCount = 500;
-//		listTotalCount = 2000;
+		int maxGetListCount = 999;
 		int cycleCount = listTotalCount / maxGetListCount + 1;
 		int startIndex = 1;
 		int endIndex = maxGetListCount;
@@ -59,22 +57,19 @@ public class DataServiceImpl implements DataService {
 			OpenApiDTO openApi = new OpenApiDTO(url, "GET");
 			StringBuffer currentResult = URLConnectUtil.openAPIData(openApi);
 
-			if (currentResult == null || currentResult.toString().isEmpty()) {
+			if (currentResult == null || currentResult.toString().isEmpty()
+					|| (currentResult.indexOf("INFO-200") != -1)) {
 				break; // 데이터 없으면 종료
 			}
 
-			List<AcademySourceVO> academyList = mapJsonToAcademyList(currentResult.toString());
-
+			List<AcademySourceVO> academyList = null;
+			academyList = mapJsonToAcademyList(currentResult.toString());
+			
 			for (AcademySourceVO asv : academyList) {
-				result += academySourceDAO.insertAcademySource(asv);
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				academySourceDAO.insertAcademySource(asv);
 			}
 		}
-		return result;
+		return 1;
 	}
 
 	public List<AcademySourceVO> mapJsonToAcademyList(String jsonData) {

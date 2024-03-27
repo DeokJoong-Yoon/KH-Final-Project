@@ -60,7 +60,7 @@ public class AcademyLoginController {
 	// 학원회원 로그인 POST
 	@PostMapping("/academy/login")
 	public String loginProcess(AcademyLoginVO login, Model model, RedirectAttributes ras, HttpSession session) {
-
+/*
 		Integer loginAttempts = (Integer) session.getAttribute("loginAttempts");
 		Date bannedUntil = (Date) session.getAttribute("bannedUntil");
 		// 세션에서 loginAttempts와 bannedUntil 속성을 가져온다. 결국 얘네도 변수 이름이다.
@@ -89,7 +89,7 @@ public class AcademyLoginController {
 			loginAttempts = 0;
 		}
 		// 로그인 시도 횟수를 확인하고, 값이 없으면 0으로 초기화한다.
-
+*/
 		// 로그인 시도
 		AcademyLoginVO academyLogin = academyLoginService.loginProcess(login);
 
@@ -98,7 +98,7 @@ public class AcademyLoginController {
 		if (academyLogin != null) {
 			model.addAttribute("academyLogin", academyLogin);
 			session.removeAttribute("loginAttempts");// 로그인이 성공한 경우, 모델에 로그인 정보를 추가하고, 세션에서 로그인 시도 횟수 속성을 제거한다.
-		} else {
+		} /*else {
 			loginAttempts++;
 			session.setAttribute("loginAttempts", loginAttempts);
 
@@ -123,7 +123,7 @@ public class AcademyLoginController {
 				// 잠금 시간까지 남은 시간을 계산하고, 알림 메시지를 추가하여 사용자에게 알린다.
 				// 로그인 시도 횟수가 5회 이상이면 계정을 잠그고, 잠금 해제 시간까지 알려주는 알림 메시지를 추가한다.
 				// 로그인 시도 횟수가 5회 미만인 경우, 실패 메시지와 함께 로그인 페이지로 리다이렉트한다.
-		}
+		}*/
 		return "redirect:/academy/login"; // 로그인이 성공하거나 실패한 후에는 항상 로그인 페이지로 리다이렉트한다.
 	}
 

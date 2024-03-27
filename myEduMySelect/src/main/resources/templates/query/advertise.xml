@@ -264,7 +264,7 @@
 			                		FROM 	tb_file 
 			                		WHERE 	common_no = tb_common_board.common_no
 			                	) = 0 
-			                	THEN '../../uploadStorage/advertise/noimage.png'
+			                	THEN '\\192.168.30.205/uploadStorage/advertise/noimage.png'
 			                ELSE (
 			                		SELECT 	file_path 
 			                		FROM 	tb_file 

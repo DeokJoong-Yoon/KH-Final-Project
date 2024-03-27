@@ -384,7 +384,7 @@
 							<div class="member-info">
 								<h4>윤덕중</h4>
 								<span>CTO(Chief Technology Officer)</span>
-								<p>e</p>
+								<p>언제올지 모르는 기회를 잡기위해, 끊임없이 꾸준히 계속<br/>합니다.</p>
 								<div class="social">
 									<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
 										class="ri-facebook-fill"></i></a> <a href=""><i

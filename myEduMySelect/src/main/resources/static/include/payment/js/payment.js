@@ -28,11 +28,9 @@ window.onload = function(){
 		    if ( rsp.success ) {
 		        academyStatus = '1';	//	결제 성공
 		        pay_info(rsp, academyId, academyNumber, academyName, academyStatus, payment_date);
-		        
 		    } else {
 				var msg = '결제에 실패하였습니다.';
         		msg += '에러내용 : ' + rsp.error_msg;
-        		//console.log(msg);
 				location.href="/payment/payFail";
 		    }
 		});

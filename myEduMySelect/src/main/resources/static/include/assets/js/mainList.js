@@ -58,7 +58,7 @@ $(function() {
 		submitForm();
 	});
 	
-	$("mainSearchForm").keydown(function(event) {
+	$("mainSearchBtn").keydown(function(event) {
 		if(event.keyCode == 13) {
 			event.preventDefault();
 			submitForm();
@@ -69,24 +69,30 @@ $(function() {
 		if (!chkData("#academyGuAddress", "검색할 지역을 ")) return;
 		else if (!chkData("#academyCurriculumName", "과목")) return;
 		else {
-			$("#mainSearchForm").attr({
-				"method": "post",
-				"action": "/mainSearchList"
-			})
-			$("#mainSearchForm").submit();
+			$("#pageNum").val(1);	// 페이지 초기화
+			goPage();
 		}
 	}
-	/* 페이징 처리 이벤트 
+/*	 페이징 처리 이벤트 */
 	$(".page-item a").on("click", function(e) {
 		e.preventDefault();
 		$("#mainSearchForm").find("input[name='pageNum']").val($(this).attr("href"));
-			$("#mainSearchForm").attr({
-				"method" : "get",
-				"action" : "/mainSearchList"
-			});
-			$("#mainSearchForm").submit();
-	});*/
+			goPage();
+	});
 });
+
+function goPage() {
+	if ($("#search").val() == "all") {
+		$("#keyword").val("");
+	}
+	$("#mainSearchForm").attr({
+		"method" : "post",
+		"action" : "/mainSearchList"
+	});
+	$("#mainSearchForm").submit();
+}
+
+
 (function() {
 	"use strict";
 
