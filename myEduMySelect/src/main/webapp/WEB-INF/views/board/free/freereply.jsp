@@ -145,10 +145,10 @@
 
     });
 
+	<!-- 댓글 리스트 불러오기 -->
+
     function listAll(commonNo) {
     	
- 
-    	<!-- 댓글 리스트 불러오기 -->
         $(".freereply").detach();
         let url = "/freereplies/all/" + commonNo;
         $.getJSON(url, function(data) {
