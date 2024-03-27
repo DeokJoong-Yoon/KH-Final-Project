@@ -86,11 +86,7 @@
 										<c:forEach var="free" items="${freeList}" varStatus="status">
 											<tr data-num="${free.commonNo}">
 												<td>${free.commonNo}</td>
-												<td class="goDetail">${free.commonTitle}<c:if
-														test="${free.freeReplyCnt > 0}">
-														<span class="freeReplyCnt">[${free.freeReplyCnt}]</span>
-													</c:if>
-												</td>
+												<td class="goDetail">${free.commonTitle}</td>
 												<td class="goDetail">${free.personalId}</td>
 												<td class="text-start">${free.commonRegisterDate}</td>
 												<td class="text-center">${free.commonReadcnt}</td>
