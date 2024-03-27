@@ -62,11 +62,11 @@
 			<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">
 
 			<div class="pagetitle">
-				<h1>Notice board</h1>
+				<h1>Free Comment Board</h1>
 				<nav>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
-						<li class="breadcrumb-item active">notice board</li>
+						<li class="breadcrumb-item active">Free Comment Board</li>
 					</ol>
 				</nav>
 			</div>

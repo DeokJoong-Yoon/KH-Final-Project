@@ -31,6 +31,9 @@ public class FreeBoardAdminServiceImpl implements FreeBoardAdminService {
 	@Override
 	public FreeBoardAdminVO boardDetail(FreeBoardAdminVO freeBoardAdminVO) {
 		FreeBoardAdminVO detail = freeBoardDAO.boardDetail(freeBoardAdminVO);
+		if(detail!=null) {
+			detail.setCommonContent(detail.getCommonContent().replaceAll("\n", "<br />"));
+		}
 		return detail;
 	}
 

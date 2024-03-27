@@ -219,6 +219,7 @@
                                     	} else {
                                     		alert("찜 실패");    
                                     	}
+                                    },
                             		error: function(){
                             			alert("update 실패");
                             		}

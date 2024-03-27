@@ -77,10 +77,10 @@
 			</a></li>
 
 			<hr>
-			<li class="nav-item"><a class="nav-link collapsed"
+<!-- 			<li class="nav-item"><a class="nav-link collapsed"
 				href="/admin/accountCreate"> <i class="bi bi-box-arrow-in-right"></i>
 					<span>admin account create</span>
-			</a></li>
+			</a></li> -->
 			<!-- End Login Page Nav -->
 		</ul>
 	</aside>

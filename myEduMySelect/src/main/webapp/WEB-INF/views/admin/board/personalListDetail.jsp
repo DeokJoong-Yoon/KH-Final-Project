@@ -58,7 +58,7 @@
 			<input type="hidden" name="personalName" id="personalName" value="${detail.personalName}" />
 		</form>
 		<div class="pagetitle">
-			<h1>Dashboard</h1>
+			<h1>Personal Detail</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/admin/login">Home</a></li>
