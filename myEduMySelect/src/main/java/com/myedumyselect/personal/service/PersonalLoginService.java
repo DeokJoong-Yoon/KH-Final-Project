@@ -17,7 +17,7 @@ public interface PersonalLoginService {
 	// 로그인 제한 상태
 	public int updateAccountBannedDate(String personalId, Date bannedDate);
 
-	// 회원가입
+	// 회원가입 
 	public int personalInsert(PersonalLoginVO login);
  
 	// 개인회원 아이디 중복체크

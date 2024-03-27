@@ -25,7 +25,7 @@ public class PersonalLoginServiceImpl implements PersonalLoginService {
 	
 	public PersonalLoginVO loginTryCount(PersonalLoginVO login) {
 		PersonalLoginVO personalLogin = personalLoginDao.loginTryCount(login);
-		return personalLogin;
+		return personalLogin; 
 	} 
 
 	// 로그인 실패 횟수

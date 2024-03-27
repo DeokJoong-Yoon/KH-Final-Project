@@ -39,7 +39,7 @@
 		resultMap="personalLoginMap">
 
 		SELECT
-		personal_id,
+		personal_id, 
 		personal_login_fail_count
 		FROM tb_personal
 		WHERE

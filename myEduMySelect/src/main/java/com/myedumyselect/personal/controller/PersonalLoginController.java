@@ -81,7 +81,7 @@ public class PersonalLoginController {
 	    int personalLoginFailCount = triedPersonal.getPersonalLoginFailCount();
 	    log.info("dd현재 실패 횟수 : " + personalLoginFailCount);
 	    
-	    
+	     
 	    
 	    // 로그인 시도
 	    PersonalLoginVO personalLogin = personalLoginService.loginProcess(login);

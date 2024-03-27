@@ -16,7 +16,7 @@ public interface PersonalLoginDao {
 	public int updatePersonalLoginFailCount(PersonalLoginVO login);
 	
 	public PersonalLoginVO loginTryCount(PersonalLoginVO login);
-
+ 
 	// 로그인 제한 상태  
 	public int updateAccountBannedDate(String personalId, Date bannedDate);
 
