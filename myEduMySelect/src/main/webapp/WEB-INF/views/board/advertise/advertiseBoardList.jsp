@@ -29,6 +29,11 @@
 	</section> <!-- ======= 설명 영역 끝 ======= -->
 	
 	
+	<!-- ======= 세션을 위한 hidden input ======= -->
+	<input type="hidden" id="personalId" name="personalId" value="${personalLoginVO.personalId }"/>
+	<input type="hidden" id="academyId" name="academyId" value="${academyLoginVO.academyId }"/>
+
+
 	<!-- ======= 게시판 영역 ======= -->
 	<main id="main">
 		<section class="board">
