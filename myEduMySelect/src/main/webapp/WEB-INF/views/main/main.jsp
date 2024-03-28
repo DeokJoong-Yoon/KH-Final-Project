@@ -362,8 +362,7 @@
 							<div class="member-info">
 								<h4>김시온</h4>
 								<span>CEO(Chief Executive Officer)</span>
-								<p>Explicabo voluptatem mollitia et repellat qui dolorum
-									quasi</p>
+								<p>안녕하세요 2조 조장 김시온입니다. 성실함과 책임감으로 앞장 서는 리더가 되겠습니다.</p>
 								<div class="social">
 									<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
 										class="ri-facebook-fill"></i></a> <a href=""><i
@@ -384,7 +383,7 @@
 							<div class="member-info">
 								<h4>윤덕중</h4>
 								<span>CTO(Chief Technology Officer)</span>
-								<p>언제올지 모르는 기회를 잡기위해, 끊임없이 꾸준히 계속<br/>합니다.</p>
+								<p>끊임없이 노력하고 성장하는 개발자가 되겠습니다.<br/></p>
 								<div class="social">
 									<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
 										class="ri-facebook-fill"></i></a> <a href=""><i
@@ -405,8 +404,7 @@
 							<div class="member-info">
 								<h4>최영민</h4>
 								<span>COO(Chief Operating Officer)</span>
-								<p>Aut maiores voluptates amet et quis praesentium qui senda
-									para</p>
+								<p>신기술의 최전선에서 누구보다 빠르게 배우며 나아가겠습니다.</p>
 								<div class="social">
 									<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
 										class="ri-facebook-fill"></i></a> <a href=""><i
@@ -427,8 +425,7 @@
 							<div class="member-info">
 								<h4>김나연</h4>
 								<span>CFO(Chief Financial Officer)</span>
-								<p>Quisquam facilis cum velit laborum corrupti fuga rerum
-									quia</p>
+								<p>항상 최고를 생각하며, 더 높은 곳을 향하는 자세로 임하겠습니다.</p>
 								<div class="social">
 									<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
 										class="ri-facebook-fill"></i></a> <a href=""><i
@@ -449,8 +446,8 @@
 							<div class="member-info">
 								<h4>강민호</h4>
 								<span>CIO(Chief Information Office)</span>
-								<p>Dolorum tempora officiis odit laborum officiis et et
-									accusamus</p>
+								<p>가장 완벽한 이해를 위해 반복적으로 보고 배우고 익혀 최상의 서비스를
+								만드는 개발자가 되겠습니다.</p>
 								<div class="social">
 									<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
 										class="ri-facebook-fill"></i></a> <a href=""><i
