@@ -72,7 +72,7 @@
                 <th>제목</th>
                 <th>작성자</th>
                 <th>등록일</th>
-                <th>댓글 수</th>
+                <!-- <th>댓글 수</th> -->
             </tr>
         </thead>
         <tbody id="mcBoardList">
@@ -103,10 +103,13 @@
                                                 </a>
                                             </c:otherwise>
                                         </c:choose>
+                                        <c:if test="${matchingBoard.commentCnt > 0 }">
+							        		<span class="comment_count">&nbsp;&nbsp;[${matchingBoard.commentCnt }]</span>
+							        	</c:if>
                                     </td>
                                     <td>${academyLogin.academyId}</td>
-                                    <td>${matchingBoard.matchingRegisterDate}</td>
-                                    <td>${matchingBoard.commentCnt}</td>
+                                    <td>${matchingBoard.matchingRegisterDate}</td>                                    
+                                    <%-- <td>${matchingBoard.commentCnt}</td> --%>
                                 </tr>
                             </c:forEach>
                         </c:when>

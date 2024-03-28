@@ -62,13 +62,14 @@ public class AcademyLoginController {
 	public String loginProcess(AcademyLoginVO login, Model model, RedirectAttributes ras, HttpSession session) {
 		
 		AcademyLoginVO triedAcademy = new AcademyLoginVO();
-
+		AcademyLoginVO bannedUntilAcademy = new AcademyLoginVO();
+		
 		triedAcademy.setAcademyId(login.getAcademyId());
-		Date bannedUntil = (Date) session.getAttribute("academyId");
+		bannedUntilAcademy.setAcademyId(login.getAcademyId());
 		
 		// 게정이 잠겨있을 때
-		if (bannedUntil != null && new Date().before(bannedUntil)) {
-	        long remainingTime = (bannedUntil.getTime() - new Date().getTime()) / (1000 * 60* 10); // 잔여 시간(분)
+		if (session.getAttribute("bannedUntil_" + triedAcademy.getAcademyId()) != null && new Date().before((Date)session.getAttribute("bannedUntil_" + triedAcademy.getAcademyId()))) {
+	        long remainingTime = (((Date)session.getAttribute("bannedUntil_" + triedAcademy.getAcademyId())).getTime() - new Date().getTime()) / (1000 * 60* 10); // 잔여 시간(분)
 	        ras.addFlashAttribute("errorMsg", "계정이 잠겨 있습니다. 잠금 해제 시간까지 약 " + remainingTime + "분 남았습니다.");
 	        return "redirect:/academy/login";
 	    }
@@ -318,7 +319,7 @@ public class AcademyLoginController {
 			model.addAttribute("confirmMsg", "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?");
 			return "redirect:/loginselect";
 		}
-
+		
 		// 본인 아이디 가져오기
 		String academyId = academyLoginVO.getAcademyId();
 		// 댓글 단 게시물 번호 목록 조회 
