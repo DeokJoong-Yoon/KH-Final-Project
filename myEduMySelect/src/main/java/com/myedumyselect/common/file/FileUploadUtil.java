@@ -25,8 +25,8 @@ public class FileUploadUtil {
 		// 파일명 변경 (중복되지 않게
 		if (org_name != null && (!org_name.equals(""))) {
 			real_name = fileName + "_" + System.currentTimeMillis() + "_" + org_name;
-//			String docRoot = "C:/uploadStorage/" + fileName;
-			String docRoot = "\\\\192.168.30.205/uploadStorage/" + fileName;
+			String docRoot = "C:/uploadStorage/" + fileName;
+//			String docRoot = "\\\\192.168.30.205/uploadStorage/" + fileName;
 			makeDir(docRoot);
 
 			File fileAdd = new File(docRoot + "/" + real_name);
@@ -40,8 +40,10 @@ public class FileUploadUtil {
 	public static void fileDelete(String fileName) throws IOException {
 
 		String dirName = fileName.substring(0, fileName.indexOf("_")); // 삭제할 파일이 존재하는 폴더 얻기
-		String docRoot = "\\\\\\\\192.168.30.205/uploadStorage/" + dirName;
+//		String docRoot = "\\\\\\\\192.168.30.205/uploadStorage/" + dirName;
+		String docRoot = "C:/uploadStorage/" + dirName;
 		File fileDelete = new File(docRoot + "/" + fileName);
+		
 
 		if (fileDelete.exists() && fileDelete.isFile()) {
 			fileDelete.delete();
