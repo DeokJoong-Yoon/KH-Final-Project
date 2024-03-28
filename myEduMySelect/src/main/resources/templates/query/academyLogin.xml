@@ -38,6 +38,17 @@
         WHERE
         	academy_id = #{academyId} AND academy_passwd = #{academyPasswd}
     </select>
+    
+    <!-- 로그인 시도횟수 호출 -->
+    <select id="loginTryCount" parameterType="academyLogin" resultMap="academyLoginMap">
+        SELECT 
+        	academy_id,
+        	academy_login_fail_count	        
+        FROM
+        	tb_academy
+        WHERE
+        	academy_id = #{academyId}
+    </select>
 
 	<!-- 로그인 실패 횟수 업데이트 -->
 	<update id="updateAcademyLoginFailCount" parameterType="academyLogin">

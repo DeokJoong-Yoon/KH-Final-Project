@@ -16,10 +16,16 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginDao academyLoginDao;
 
-	/// 로그인
+	// 로그인
 	@Override
 	public AcademyLoginVO loginProcess(AcademyLoginVO login) {
 		AcademyLoginVO academyLogin = academyLoginDao.loginProcess(login);
+		return academyLogin;
+	}
+	
+	// 로그인 시도 횟수	
+	public AcademyLoginVO loginTryCount(AcademyLoginVO login) {
+		AcademyLoginVO academyLogin = academyLoginDao.loginTryCount(login);
 		return academyLogin;
 	}
 
