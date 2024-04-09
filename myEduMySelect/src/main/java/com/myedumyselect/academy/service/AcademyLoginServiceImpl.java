@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Service
 public class AcademyLoginServiceImpl implements AcademyLoginService {
-
+ 
 	@Setter(onMethod_ = @Autowired)
 	private AcademyLoginDao academyLoginDao;
 
@@ -23,7 +23,7 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 		return academyLogin;
 	}
 	
-	// 로그인 시도 횟수	
+	// 로그인 시도 횟수	 
 	public AcademyLoginVO loginTryCount(AcademyLoginVO login) {
 		AcademyLoginVO academyLogin = academyLoginDao.loginTryCount(login);
 		return academyLogin;
@@ -43,9 +43,9 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 
 	// 회원가입
 	@Override
-	public int academyInsert(AcademyLoginVO login) {
+	public int insertAcademy(AcademyLoginVO login) {
 		int result = 0;
-		result = academyLoginDao.academyInsert(login);
+		result = academyLoginDao.insertAcademy(login);
 		return result;
 	}
 
@@ -58,9 +58,9 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 
 	// 마이페이지 정보 수정
 	@Override
-	public int academyUpdate(AcademyLoginVO newAcademyInfo) {
-		return academyLoginDao.academyUpdate(newAcademyInfo);
-	}
+	public int updateAcademy(AcademyLoginVO newAcademyInfo) {
+		return academyLoginDao.updateAcademy(newAcademyInfo);
+	} 
 
 	// 아이디 중복체크
 	@Override
@@ -96,9 +96,9 @@ public class AcademyLoginServiceImpl implements AcademyLoginService {
 
 	// 비밀번호 변경
 	@Override
-	public int updatePasswdChangeDate(AcademyLoginVO checkPassword) {
+	public int updatePasswdAndDate(AcademyLoginVO checkPassword) {
 		int result = 0;
-		result = academyLoginDao.updatePasswdChangeDate(checkPassword);
+		result = academyLoginDao.updatePasswdAndDate(checkPassword);
 		return result;
 	}
 }

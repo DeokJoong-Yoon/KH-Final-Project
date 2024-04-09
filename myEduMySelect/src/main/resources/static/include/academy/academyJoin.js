@@ -17,11 +17,11 @@ $(document).ready(function() {
             if (!chkRadioData("#fee1", "#fee2", "#fee3", "#fee4", "#fee5", "#fee6", "수강료를")) return;
             if (!chkRadioData("#grade1", "#grade2", "#grade3", "#grade4", "#grade5", "#grade6", "대상학년을")) return;
             if (!chkCheckboxData("#academyKeyword1", "키워드를")) return; // 변경된 부분
-
+ 
             // 유효성 검사 모두 성공한 경우 회원가입 처리
             $("#a_joinForm").attr({
                 "method": "post",
-                "action": "/academyInsert"
+                "action": "/insertAcademy"
             });
             $("#a_joinForm").submit();
         } else {

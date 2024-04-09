@@ -5,7 +5,7 @@ import java.sql.Date;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
  
 public interface AcademyLoginService {
-
+ 
 	// 로그인
 	public AcademyLoginVO loginProcess(AcademyLoginVO login);
 
@@ -19,7 +19,7 @@ public interface AcademyLoginService {
 	public int updateAccountBannedDate(String academyId, Date bannedDate);
  
 	// 회원가입
-	public int academyInsert(AcademyLoginVO login);
+	public int insertAcademy(AcademyLoginVO login);
 
 	// Id 값을 기준으로 마이페이지에 정보 불러올 때
 	public AcademyLoginVO findById(String academyId);
@@ -34,8 +34,8 @@ public interface AcademyLoginService {
 	public int checkEmail(String academyManagerEmail);
 
 	// 회원정보 수정
-	public int academyUpdate(AcademyLoginVO newAcademyInfo);
+	public int updateAcademy(AcademyLoginVO newAcademyInfo);
 
 	// 비밀번호 변경
-	public int updatePasswdChangeDate(AcademyLoginVO checkPassword);
+	public int updatePasswdAndDate(AcademyLoginVO checkPassword);
 }

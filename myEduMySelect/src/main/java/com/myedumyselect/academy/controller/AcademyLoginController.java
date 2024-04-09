@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SessionAttributes("academyLogin")
 public class AcademyLoginController {
-
+ 
    @Setter(onMethod_ = @Autowired)
    private AcademyLoginService academyLoginService;
 
@@ -75,7 +75,7 @@ public class AcademyLoginController {
        }
       
       triedAcademy = academyLoginService.loginTryCount(triedAcademy);
-       int academyLoginFailCount = triedAcademy.getAcademyLoginFailCount();
+       int academyLoginFailCount = triedAcademy.getAcademyLoginFailCount(); 
        log.info("현재 실패 횟수 : " + academyLoginFailCount);
       
       // 로그인 시도
@@ -121,11 +121,10 @@ public class AcademyLoginController {
       sessionStatus.setComplete();
       return "redirect:/loginselect";
    }
-
+   
    @GetMapping("/academy/logout")
-   public String getLogout(SessionStatus sessionStatus) {
-      sessionStatus.setComplete();
-      return "redirect:/loginselect";
+   public String getLogout() {      
+      return "main/errorPage";
    }
 
    /*************************************************************
@@ -138,10 +137,10 @@ public class AcademyLoginController {
    }
 
    // 학원회원 회원가입 POST
-   @PostMapping(value = "/academyInsert")
+   @PostMapping(value = "/insertAcademy")
    @ResponseBody
-   public String academyInsert(@RequestBody AcademyLoginVO login) {
-      academyLoginService.academyInsert(login);
+   public String insertAcademy(@RequestBody AcademyLoginVO login) {
+      academyLoginService.insertAcademy(login);
       return "TRUE";
    }
 
@@ -192,32 +191,31 @@ public class AcademyLoginController {
    }
 
    // 마이페이지 회원정보 수정
-   @PostMapping("/academyUpdate")
-   public String academyUpdate(@ModelAttribute AcademyLoginVO academyLogin,
-         @SessionAttribute("academyLogin") AcademyLoginVO sessionAcademyLogin, Model model) {
+   @PostMapping("/updateAcademy")
+   public String updateAcademy(@ModelAttribute AcademyLoginVO academyLogin,
+         @SessionAttribute("academyLogin") AcademyLoginVO newAcademyInfo, Model model) {
+	   
+	  newAcademyInfo.setAcademyManagerName(academyLogin.getAcademyManagerName());
+      newAcademyInfo.setAcademyManagerEmail(academyLogin.getAcademyManagerEmail());
+      newAcademyInfo.setAcademyManagerPhone(academyLogin.getAcademyManagerPhone());
+      newAcademyInfo.setAcademyPhone(academyLogin.getAcademyPhone());
+      newAcademyInfo.setAcademyTargetSubject(academyLogin.getAcademyTargetSubject());
+      newAcademyInfo.setAcademyTargetGrade(academyLogin.getAcademyTargetGrade());
+      newAcademyInfo.setAcademyFee(academyLogin.getAcademyFee());
+      newAcademyInfo.setAcademyKeyword1(academyLogin.getAcademyKeyword1());
+      newAcademyInfo.setAcademyKeyword2(academyLogin.getAcademyKeyword2());
+      newAcademyInfo.setAcademyKeyword3(academyLogin.getAcademyKeyword3());
+      newAcademyInfo.setAcademyKeyword4(academyLogin.getAcademyKeyword4());
+      newAcademyInfo.setAcademyKeyword5(academyLogin.getAcademyKeyword5());
 
-      System.out.println(sessionAcademyLogin.toString());
-      sessionAcademyLogin.setAcademyManagerName(academyLogin.getAcademyManagerName());
-      sessionAcademyLogin.setAcademyManagerEmail(academyLogin.getAcademyManagerEmail());
-      sessionAcademyLogin.setAcademyManagerPhone(academyLogin.getAcademyManagerPhone());
-      sessionAcademyLogin.setAcademyPhone(academyLogin.getAcademyPhone());
-      sessionAcademyLogin.setAcademyTargetSubject(academyLogin.getAcademyTargetSubject());
-      sessionAcademyLogin.setAcademyTargetGrade(academyLogin.getAcademyTargetGrade());
-      sessionAcademyLogin.setAcademyFee(academyLogin.getAcademyFee());
-      sessionAcademyLogin.setAcademyKeyword1(academyLogin.getAcademyKeyword1());
-      sessionAcademyLogin.setAcademyKeyword2(academyLogin.getAcademyKeyword2());
-      sessionAcademyLogin.setAcademyKeyword3(academyLogin.getAcademyKeyword3());
-      sessionAcademyLogin.setAcademyKeyword4(academyLogin.getAcademyKeyword4());
-      sessionAcademyLogin.setAcademyKeyword5(academyLogin.getAcademyKeyword5());
-
-      int result = academyLoginService.academyUpdate(sessionAcademyLogin);
+      int result = academyLoginService.updateAcademy(newAcademyInfo);
 
       // 업데이트가 실패하면 에러 메시지를 추가하고 로그인 페이지로 리다이렉트
       if (result == 0) {
          model.addAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
          return "redirect:/academy/mypage";
       }
-      model.addAttribute("academyLogin", sessionAcademyLogin);
+      model.addAttribute("academyLogin", newAcademyInfo);
       return "/academy/mypage";
    }
 
@@ -234,26 +232,27 @@ public class AcademyLoginController {
 
    /* 비밀번호 변경 POST */
    @ResponseBody
-   @PostMapping("/updatePasswdChangeDate")
-   public String updatePasswdChangeDate(@RequestParam("currentPassword") String currentPassword,
+   @PostMapping("/updatePasswdAndDate")
+   public String updatePasswdAndDate(@RequestParam("currentPassword") String currentPassword,
          @RequestParam("newPassword") String newPassword, @RequestParam("renewPassword") String renewPassword,
          @SessionAttribute("academyLogin") AcademyLoginVO academyLoginVO, RedirectAttributes ras, Model model) {
+	   
       AcademyLoginVO curAcademyLogin = new AcademyLoginVO();
       curAcademyLogin.setAcademyId(academyLoginVO.getAcademyId());
       curAcademyLogin.setAcademyPasswd(currentPassword);
-      AcademyLoginVO checkPassword = academyLoginService.loginProcess(curAcademyLogin);
+      AcademyLoginVO checkAcademyInfo = academyLoginService.loginProcess(curAcademyLogin);
       
       // 현재 계정의 패스워드 재확인
-      if (checkPassword != null) {
+      if (checkAcademyInfo != null) {
          if (!renewPassword.equals(newPassword)) {
             ras.addFlashAttribute("errorMsg", "새 비밀번호가 일치하지 않습니다.");
             return "FALSE";
          }
          int result = 0;
-         checkPassword.setAcademyPasswd(renewPassword);
-         result = academyLoginService.updatePasswdChangeDate(checkPassword);
+         checkAcademyInfo.setAcademyPasswd(renewPassword);
+         result = academyLoginService.updatePasswdAndDate(checkAcademyInfo);
          if (result == 1) {
-            model.addAttribute("academyLogin", academyLoginService.loginProcess(checkPassword));
+            model.addAttribute("academyLogin", academyLoginService.loginProcess(checkAcademyInfo));
             ras.addFlashAttribute("successMsg", "패스워드 변경 완료");
             return "TRUE";
          }
@@ -278,7 +277,7 @@ public class AcademyLoginController {
       /* 학원전용 GetMapping 제어 */
       if (academyLoginVO != null) {
          String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-         if (academyResult != "TRUE") {
+         if (!academyResult.equals("TRUE")) {
             return academyResult;
          }
       } else {
@@ -311,7 +310,7 @@ public class AcademyLoginController {
       /* 학원전용 GetMapping 제어 */
       if (academyLoginVO != null) {
          String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-         if (academyResult != "TRUE") {
+         if (!academyResult.equals("TRUE")) {
             ras.addFlashAttribute("errorMsg", "잘못된 접근입니다.");
             return academyResult;
          }

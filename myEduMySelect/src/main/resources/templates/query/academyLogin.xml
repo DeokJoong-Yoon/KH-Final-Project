@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myedumyselect.academy.dao.AcademyLoginDao">
- 
+  
     <resultMap type="academyLogin" id="academyLoginMap">
         <id column="academy_id" property="academyId"/>
         <result column="member_type_id" property="memberTypeId"/>
@@ -71,7 +71,7 @@
 	</update>
 	
     <!-- 회원가입 insert -->
-	<insert id="academyInsert" parameterType="academyLogin">
+	<insert id="insertAcademy" parameterType="academyLogin">
 	    INSERT INTO tb_academy (	    
 	        academy_id,	        
 	        academy_number,	        
@@ -140,8 +140,25 @@
 	        #{academyFee}	        	        
 	    )
 	</insert>
+	
+	<!-- 아이디,이메일 중복체크 및 사업자등록번호 조회 
+	<select id="checkDuplicate" parameterType="academyLogin" resultMap="academyLoginMap">
+	    select
+	        (select count(academy_id) from tb_academy where academy_id = #{academyId}) as idResult,
+	        (select count(academy_manager_email) from tb_academy where academy_manager_email = #{academyManagerEmail}) as emailResult,
+	        academy_number,
+	        academy_name,
+	        academy_gu_address,
+	        academy_road_address,
+	        academy_dong_address
+	    from
+	        tb_academy_source
+	    where
+	        academy_number = #{academyNumber}
+	</select>-->
 
-    <!-- 아이디 중복 체크 쿼리 -->
+		
+    <!-- 아이디 중복 체크 쿼리-->
     <select id="checkId" parameterType="academyLogin" resultType="int">
         select
         	count(academy_id)
@@ -151,7 +168,7 @@
         	academy_id = #{academyId}
     </select>
 
-    <!-- 이메일 중복 체크 쿼리-->
+    <!-- 이메일 중복 체크 쿼리 -->
     <select id="checkEmail" parameterType="academyLogin" resultType="int">
         select
         	count(academy_manager_email)
@@ -160,7 +177,21 @@
         where
         	academy_manager_email = #{academyManagerEmail}
     </select>
-	
+    
+	<!-- 학원정보소스테이블 정보 조회 -->
+    <select id="findByNumber" parameterType="String" resultMap="academyLoginMap">
+        select
+	        academy_number,
+	        academy_name,
+	        academy_gu_address,
+	        academy_road_address,
+	        academy_dong_address
+        from
+        	tb_academy_source
+        where
+        	academy_number = #{academyNumber}
+    </select>
+     
 	<!-- 마이페이지 정보 조회  -->
     <select id="findById" parameterType="String" resultMap="academyLoginMap">
         select
@@ -190,19 +221,7 @@
         	ACADEMY_ID = #{academyId}
     </select>
 
-    <!-- 학원정보소스테이블 정보 조회 -->
-    <select id="findByNumber" parameterType="String" resultMap="academyLoginMap">
-        select
-	        academy_number,
-	        academy_name,
-	        academy_gu_address,
-	        academy_road_address,
-	        academy_dong_address
-        from
-        	tb_academy_source
-        where
-        	academy_number = #{academyNumber}
-    </select>        
+           
 
     <!-- 비밀번호 변경 페이지 비밀번호 수정 -->
     <update id="passwdChange" parameterType="academyLogin">
@@ -216,7 +235,7 @@
     </update>
 	
 	<!-- 마이페이지 정보 수정 -->
-    <update id="academyUpdate" parameterType="academyLogin">
+    <update id="updateAcademy" parameterType="academyLogin">
         UPDATE 
         	tb_academy
         SET             
@@ -243,7 +262,7 @@
     </update>
 	
 	<!-- 비밀번호 변경 "일자" -->
-	<update id="updatePasswdChangeDate" parameterType="academyLogin">
+	<update id="updatePasswdAndDate" parameterType="academyLogin">
 	    UPDATE 
 	    	tb_academy
 	    SET 

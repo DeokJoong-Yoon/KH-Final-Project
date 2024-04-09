@@ -18,7 +18,7 @@
 		            MY PAGE<br/>
 		        </div> 
 			</div>
-		</div>
+		</div> 
 	</section>
 	<!-- End Hero -->
 	
@@ -32,7 +32,7 @@
 		</div>
 		<br/>
 		
-		<form id="academyUpdateForm" action="/academyUpdate"  method="POST" style="max-width: 800px; margin: auto;">
+		<form id="academyUpdateForm" action="/updateAcademy"  method="POST" style="max-width: 800px; margin: auto;">
 			<h4>학원 정보 조회 및 수정</h4>
 			
 			<table>

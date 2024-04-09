@@ -19,7 +19,7 @@
 		<result column="common_thumb" property="commonThumb" />
 		<result column="common_file" property="commonFile" />
 	</resultMap>	
-	
+	 
 	<!-- 전체 레코드 수 조회 -->
 	<select id="advertiseListCnt" parameterType="advertiseBoard" resultType="int">
 		<![CDATA[
@@ -29,6 +29,7 @@
 					OR  ( common_title LIKE '%' || #{keyword} || '%' )
 					OR  ( common_content LIKE '%' || #{keyword} || '%' )
 				)
+		AND academy_id = #{academyId}
 		]]>
 	</select>	
 	

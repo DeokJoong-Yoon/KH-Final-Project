@@ -11,11 +11,11 @@ function validatePassword(currentPassword, newPassword, renewPassword) {
     if (!newPasswd) {
         alert("새 비밀번호를 입력해주세요.");
         return true;
-    }
+    } 
     if (!renewPasswd) {
         alert("비밀번호 확인을 입력해주세요.");
         return true;
-    }
+    } 
 
     // 새 비밀번호 유효성 검사
 	if (!(/[a-zA-Z\d@$!%*?&]{8,20}/.test(newPasswd))) {
@@ -54,7 +54,7 @@ $(function() {
         var formData = $("#changePasswdForm").serialize();
         $.ajax({
             type:'POST',
-            url : '/updatePasswdChangeDate',
+            url : '/updatePasswdAndDate',
             data: formData, // 폼 데이터 전송
             dataType : "text",
             success: function(data) {

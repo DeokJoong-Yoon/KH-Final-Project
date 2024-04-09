@@ -7,7 +7,7 @@
     /* 회원가입 버튼 클릭 이벤트 핸들러 */
 	document.getElementById('submit-btn').addEventListener('click', function(event) {
 	    event.preventDefault(); // 기본 동작 방지
-	
+	 
 	    // 필수 입력 사항을 체크할 요소들의 배열*/
 	    var requiredInputs = document.querySelectorAll('input[required]');
 	    // 중복 체크가 필요한 요소들의 배열
@@ -133,7 +133,7 @@
 	    if (!targetInput) {
 	        // 모든 조건을 만족했을 경우 회원가입 정보 저장 AJAX 요청
 	        $.ajax({
-	            url: "/academyInsert", 
+	            url: "/insertAcademy", 
 	            type: "POST",
 	            headers : {
 					"Content-Type" : "application/json"

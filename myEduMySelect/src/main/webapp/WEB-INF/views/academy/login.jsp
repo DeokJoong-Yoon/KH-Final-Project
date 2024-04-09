@@ -14,7 +14,7 @@
   <section id="hero" class="d-flex align-items-center">
    
    <div class="container">
-         <div class="row">
+         <div class="row"> 
 			<c:if test="${empty academyLogin}">
 				<div class="loginClass col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
 					<h1>ACADEMY LOGIN</h1>
@@ -59,7 +59,9 @@
 						<h2>MyEduMySelect</h2>
 						<h1>${academyLogin.academyName} 님 환영합니다.</h1> <br>
 						<div class="buttons">
-							<button type="button" id="logoutBtn">로그아웃</button>
+							<form action="${pageContext.request.contextPath}/academy/logout" method="POST">
+								<button type="submit" id="logoutBtn">로그아웃</button>
+							</form>
 							<form action="/" class="homeForm">
 								<button class="home-button" type="submit">홈으로 가기</button>
 							</form>

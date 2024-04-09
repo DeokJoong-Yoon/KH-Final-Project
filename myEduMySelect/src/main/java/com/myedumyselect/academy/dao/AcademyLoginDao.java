@@ -11,7 +11,7 @@ public interface AcademyLoginDao {
 	// 로그인
 	public AcademyLoginVO loginProcess(AcademyLoginVO login);
 
-	// 로그인 시도 횟수
+	// 로그인 시도 횟수 
 	public AcademyLoginVO loginTryCount(AcademyLoginVO login);
 		
 	// 로그인 실패 횟수
@@ -21,7 +21,7 @@ public interface AcademyLoginDao {
 	public int updateAccountBannedDate(String academyId, Date bannedDate);
 
 	// 회원가입
-	public int academyInsert(AcademyLoginVO login);
+	public int insertAcademy(AcademyLoginVO login);
 
 	// 아이디 찾기
 	public AcademyLoginVO findById(String academyId);
@@ -36,9 +36,9 @@ public interface AcademyLoginDao {
 	public int checkEmail(String academyManagerEmail);
 
 	// 마이페이지 회원정보 수정
-	public int academyUpdate(AcademyLoginVO newAcademyInfo);
+	public int updateAcademy(AcademyLoginVO newAcademyInfo);
 
 	// 비밀번호 변경
-	public int updatePasswdChangeDate(AcademyLoginVO checkPassword);
+	public int updatePasswdAndDate(AcademyLoginVO checkPassword);
 
 }

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hideErrorMessage(managerNameInput);
         }
     });
-    
+     
     /* 유효성 실패 시 메시지 노출 */
     function showErrorMessage(inputElement, message) {
         const parentElement = inputElement.parentElement;
@@ -37,8 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
 /* 학원전화번호, 담당자전화번호, 사업자등록번호 입력 필드 유효성 검사 */
 document.addEventListener('DOMContentLoaded', function() {
     const managerPhoneInput = document.getElementById('academyManagerPhone');
+    const academyPhoneInput = document.getElementById('academyPhone');
     const regex = /^[0-9]*$/; // 숫자만 허용하는 정규표현식
-    
+        
     managerPhoneInput.addEventListener('input', function(event) {
         const inputValue = event.target.value;
         if (!regex.test(inputValue)) {
@@ -47,6 +48,15 @@ document.addEventListener('DOMContentLoaded', function() {
             hideErrorMessage(managerPhoneInput);
         }
     });
+    
+    academyPhoneInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value;
+        if (!regex.test(inputValue)) {
+            showErrorMessage(academyPhoneInput, '숫자만 입력 가능합니다.');
+        } else {
+            hideErrorMessage(academyPhoneInput);
+        }
+    }); 
     
     /* 유효성 실패 시 메시지 노출 */
     function showErrorMessage(inputElement, message) {
@@ -128,21 +138,21 @@ $(document).ready(function() {
     $("#subjectChange").on("click", function(){
       $("#subjectGroup").css("display", "block");
       $("#prevSubject").val("");
-   	});
+      });
     
     //수강료 변경 버튼 클릭 시
     $("#feeChange").on("click", function(){
       $("#feeGroup").css("display", "block");
       $("#prevFee").val("");
-   	});
+      });
    
-   	// 학년 변경 버튼 클릭 시
+      // 학년 변경 버튼 클릭 시
     $("#ageChange").on("click", function(){
       $("#ageGroup").css("display", "block");
       $("#prevAge").val("");
-   	});
+      });
    
-   	// 키워드 변경 버튼 클릭 시
+      // 키워드 변경 버튼 클릭 시
     $("#keywordChange").on("click", function(){
       $("#keywordGroup").css("display", "block");
       $("#prevKeyword1").val("");
@@ -150,10 +160,10 @@ $(document).ready(function() {
       $("#prevKeyword3").val("");
       $("#prevKeyword4").val("");
       $("#prevKeyword5").val("");
-   	});
+      });
    
-   	// 수정하기 버튼 클릭 시
-   	$("#updateBtn").on("click", function(event) {
+      // 수정하기 버튼 클릭 시
+      $("#updateBtn").on("click", function(event) {
        event.preventDefault(); // 기본 제출 동작 방지
        
        // 기존 값
@@ -179,26 +189,15 @@ $(document).ready(function() {
        var checkedCount = $("input[name='academyKeyword']:checked").length;
        var selectedKeyword = [];
        
-       // 빈 칸 확인
-       if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="") {
-         alert("빈 칸 없이 입력해 주세요.");
-         return;
-       } else if(academyFee=="" && selectedFee===undefined) {
-         alert("빈 칸 없이 입력해 주세요.");
-         return;
-       } else if(academyTargetGrade=="" && selectedAge===undefined) {
-         alert("빈 칸 없이 입력해 주세요.");
-         return;
-       } else if(academyTargetSubject=="" && selectedSubject===undefined) {
-         alert("빈 칸 없이 입력해 주세요.");
-         return;
-       } else if(keyword[0]=="" && checkedCount==0) {
-         alert("빈 칸 없이 입력해 주세요.");
-         return;
-       }
+       // 빈 칸 확인(한 줄로 합침)
+       if(academyManagerName=="" || academyManagerEmail=="" || academyPhone=="" || academyManagerPhone=="" || (academyFee=="" && selectedFee===undefined) || (academyTargetGrade=="" && selectedAge===undefined) || (academyTargetSubject=="" && selectedSubject===undefined) || (keyword[0]=="" && checkedCount==0)) {
+        alert("빈 칸 없이 입력해 주세요.");
+        return;
+      }
+
        
        // 정보 수정 시 변경
-       if(academyFee=="") {      //만약 수강료를 새롭게 선택했다면 
+       if(academyFee=="") {      //만약 수강료를 새롭게 선택했다면            
           academyFee = selectedFee;
        }  
        if(academyTargetGrade=="") {      //만약 대상 학년을 새롭게 선택했다면 
@@ -241,10 +240,10 @@ $(document).ready(function() {
        if (confirm("회원 정보를 수정하시겠습니까?")) {
            // 사용자가 확인을 누른 경우, AJAX를 통해 서버로 업데이트 요청을 전송합니다.
            $.ajax({
-               url: "/academyUpdate",
+               url: "/updateAcademy",
                type: "POST",
                data: value,
-               success: function(response) {
+               success: function() {
                    // 서버에서 성공적인 응답을 받았을 때 실행되는 부분
                    alert("회원 정보가 성공적으로 업데이트되었습니다.");
                    // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.

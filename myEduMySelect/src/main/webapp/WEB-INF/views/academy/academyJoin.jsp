@@ -17,7 +17,7 @@
 		            학원 회원가입<br/>
 		        </div>  
          </div>
-      </div>
+      </div> 
    </section>
    <!-- End Hero -->
 
@@ -27,7 +27,7 @@
 	   <div class="container">
 	      <div class="text-center">
 	
-	     	<form name="a_joinForm" id="a_joinForm" method="POST" action="academyInsert">
+	     	<form name="a_joinForm" id="a_joinForm" method="POST" action="insertAcademy">
 	         <table>
 				<tr>
 					<th>
@@ -310,18 +310,18 @@
   <!-- <script src="/resources/include/academy/academyJoin.js"></script> -->
   
 	
-	<script>
+	<!-- <script>
 	$(document).ready(function(){
 		$("#academyInsertBtn").click(function(){
 			alert("회원가입이 완료되었습니다");
 			$("#a_joinForm").attr({
 				"method":"post",
-				"action":"/academyInsert"
+				"action":"/insertAcademy"
 			});
 			$("#a_joinForm").submit();
 		})
 	})
-	</script>
+	</script> -->
 		
    	<script>
       	$(document).ready(function() {
