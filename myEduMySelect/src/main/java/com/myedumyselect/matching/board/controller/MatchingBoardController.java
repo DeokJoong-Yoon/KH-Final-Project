@@ -51,7 +51,6 @@ public class MatchingBoardController {
 				return personalResult;
 			}
 		} else {
-			System.out.println("else");
 			return "redirect:/";
 		}
 
