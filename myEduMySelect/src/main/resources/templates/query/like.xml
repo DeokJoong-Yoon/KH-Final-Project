@@ -24,7 +24,7 @@
 	<update id="toggleLike" parameterType="like">
 	    UPDATE 	tb_like
 	    SET 	like_check = CASE
-	       						WHEN like_check = 0  THEN  1
+	       						<!-- WHEN like_check = 0  THEN  1 -->
 						        WHEN like_check = 1  THEN  2
 						        WHEN like_check = 2  THEN  1
 	    END

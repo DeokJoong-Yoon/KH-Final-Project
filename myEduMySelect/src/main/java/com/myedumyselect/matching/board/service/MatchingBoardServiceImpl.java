@@ -76,7 +76,7 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		mail.setTo(emailList.toArray(new String[emailList.size()]));						//이메일 수신자
 		mail.setSubject("[MyEduMySelect] 등록된 비공개매칭을 확인하세요!");							//이메일 제목
 		mail.setText(mbVO.getPersonalId() + "님이 비공개매칭을 시작하였습니다. 지금 바로 확인하세요! \n"	//이메일 내용
-				+ "덧붙이는 말 : " + mbVO.getMatchingComment()	
+				+ "덧붙이는 말 : " + mbVO.getMatchingMemo()	
 				+ "\n매칭 상세페이지 링크 : http://localhost:8081/matching/boardDetail?matchingNo=" + number
 				+ "\n비공개 매칭 게시글 비밀번호 : " + mbVO.getMatchingPasswd());
 		
@@ -92,10 +92,8 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		List<MatchingBoardVO> list = mbDAO.mBoardList(mbVO);
 		return list;
 	}
-	
-	
 
-
+	
 	//매칭게시판 상세 보기
 	@Override
 	public MatchingBoardVO mBoardDetail(MatchingBoardVO mbVO) {
@@ -108,14 +106,6 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 	@Override
 	public int mBoardListCnt(MatchingBoardVO mbVO) {
 		return mbDAO.mBoardListCnt(mbVO);
-	}
-	
-
-	//매칭게시판 게시글 수정 폼 이동
-	@Override
-	public MatchingBoardVO mBoardUpdateForm(MatchingBoardVO mbVO) {
-		MatchingBoardVO updateData = mbDAO.mBoardDetail(mbVO);
-		return updateData;
 	}
 	
 	//매칭게시판 게시글 수정
@@ -135,20 +125,5 @@ public class MatchingBoardServiceImpl implements MatchingBoardService {
 		return result;
 	}
 
-
-	//매칭게시판 이전글 이동하기
-	@Override
-	public int prevMatchingNo(MatchingBoardVO mbVO) {
-		int prev = mbDAO.prevMatchingNo(mbVO);
-		return prev;
-	}
-
-
-	//매칭게시판 다음글 이동하기
-	@Override
-	public int nextMatchingNo(MatchingBoardVO mbVO) {
-		int next = mbDAO.nextMatchingNo(mbVO);
-		return next;
-	}
 
 }

@@ -59,7 +59,7 @@
 				<tbody>
 					<tr>
 						<th>지역</th>
-						<td>${detail.matchingGuAddress }&nbsp ${detail.matchingDongAddress}</td>
+						<td>${detail.matchingGuAddress }&nbsp; ${detail.matchingDongAddress}</td>
 					</tr>
 					<tr>
 						<th>과목</th>
@@ -76,12 +76,12 @@
 					<tr>
 						<th>키워드</th>
 						<td>
-							${detail.matchingKeyword1 }&nbsp&nbsp&nbsp ${detail.matchingKeyword2 }&nbsp&nbsp&nbsp ${detail.matchingKeyword3 }
+							${detail.matchingKeyword1 }&nbsp;&nbsp;&nbsp; ${detail.matchingKeyword2 }&nbsp;&nbsp;&nbsp; ${detail.matchingKeyword3 }
 						</td>
 					</tr>
 					<tr>
 						<th>덧붙이는 말</th>
-						<td>${detail.matchingComment }</td>
+						<td>${detail.matchingMemo }</td>
 					</tr>
 				</tbody>	
 			</table>

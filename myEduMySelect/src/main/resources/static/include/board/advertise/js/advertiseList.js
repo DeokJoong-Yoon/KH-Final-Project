@@ -1,6 +1,5 @@
 $(function(){
 	
-	let personalId = $("#personalId").val();
 	let academyId = $("#academyId").val();
 	
 	if(!academyId) {
@@ -11,8 +10,6 @@ $(function(){
 	$(".advLink").on("click", function() {
 		
 		let commonNo = $(this).closest("td").attr("data-num");		//게시글 번호
-		console.log(commonNo);
-	
 		$(this).attr("href", "/advertise/advertiseDetail?commonNo=" + commonNo);
 	})
 	

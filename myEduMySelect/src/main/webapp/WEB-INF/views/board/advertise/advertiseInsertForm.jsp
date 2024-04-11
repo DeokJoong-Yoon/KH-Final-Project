@@ -36,10 +36,7 @@
 			<div class="container">
 				<div class="insertArea">
 					
-					
 					<form id="insertForm">
-				
-										
 						<table>
 							<tr>
 								<th>작성자</th>
@@ -71,11 +68,7 @@
 								<tr>
 									<th>첨부파일</th>
 									<td>
-										<input type="file" id="file1" name="file1" class="form-control" maxlength="50" />
-										<input type="file" id="file2" name="file2" class="form-control" maxlength="50" />
-										<input type="file" id="file3" name="file3" class="form-control" maxlength="50" />
-										<input type="file" id="file4" name="file4" class="form-control" maxlength="50" />
-										<input type="file" id="file5" name="file5" class="form-control" maxlength="50" />
+										<input type="file" id="fileInput" name="files" class="form-control" maxlength="50" multiple />
 									</td>
 								</tr>
 							</tbody>	

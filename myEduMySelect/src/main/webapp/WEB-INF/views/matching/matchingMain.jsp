@@ -203,7 +203,7 @@
         	<button id="mcPrivateBtn">비공개 매칭하기</button>
    	    	<div id="mcStartArea">
        			<input type="password" placeholder="비밀번호 (숫자 4자리)" id="mcPwd" name="matchingPasswd"> <br/><br/>
-        		<textarea rows="3" placeholder="덧붙이는 말" id="plusComment" name="matchingComment"></textarea>
+        		<textarea rows="3" placeholder="덧붙이는 말" id="memoValue" name="matchingMemo"></textarea>
 	        	<button id="mcUploadBtn" type="button">매칭 시작하기</button>
         	</div>
         	
@@ -222,9 +222,12 @@
           <h2>매칭 게시판</h2>
         </div>
         
+        
+        <!-- 필요 없는 부분이라 삭제
         <form id="mcBoardPreviewForm">
         	<input type="hidden" id="mcBoardPreviewNumber" name="mcBoardPreviewNumber" />
-        </form>
+        </form> -->
+	
 	
 		<div class="mcBoardPreview">
 			<table>
@@ -307,20 +310,6 @@
   <script src="/resources/include/matching/js/matchingMain.js"></script>
   <script src="/resources/include/js/common.js"></script>
   
-	<script>
-	    window.onload = function() {
-	        var confirmMessage = "${confirmMessage}";
-	        if (confirmMessage) {
-	            var result = confirm(confirmMessage);
-	            if (result) {
-	                window.location.href = "/useraccount/login"; // 확인이 눌렸을 경우 로그인 페이지로 이동
-	            } else {
-	            	window.location.href = "/";
-	            }
-	        }
-	    };
-	</script>
-
 </body>
 
 </html>

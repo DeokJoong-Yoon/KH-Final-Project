@@ -19,7 +19,7 @@
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
-		<result column="matching_comment" property="matchingComment" />
+		<result column="matching_comment" property="matchingMemo" />
 	</resultMap>
 	
 	<!-- AcademyVo 별칭 일괄 부여 -->
@@ -66,9 +66,9 @@
 	            , 		matching_target_grade
 	            , 		personal_id
 	            , 		to_char (matching_register_date, 'YYYY-MM-DD')   as matching_register_date
-	            , 		( SELECT COUNT(matching_comment_no) 
-	            		  FROM tb_matching_comment 
-	            		  WHERE matching_no = tb_matching_board.matching_no)   as commentCnt
+	            , 		( SELECT  COUNT(matching_comment_no) 
+	            		  FROM 	  tb_matching_comment 
+	            		  WHERE   matching_no = tb_matching_board.matching_no )   as commentCnt
 	            FROM    tb_matching_board
 	            ORDER BY matching_no DESC
 	        ) WHERE ROWNUM <= 5
@@ -88,9 +88,8 @@
 					OR 	  
 					#{matchingFee} = '무관'	)
 			AND (
-					( 	#{matchingKeyword1} IS NULL 
-						OR 
-						#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+					( 	
+				    	#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
 				    AND
 				    ( 	#{matchingKeyword2} IS NULL 
 				    	OR
@@ -121,13 +120,13 @@
 				 ,  #{matchingKeyword1}
 				 ,  #{matchingKeyword2}
 				 ,  #{matchingKeyword3}
-				 ,  #{matchingComment}  
+				 ,  #{matchingMemo}  
 				)
 	</insert>
 	
 	
 	<!-- 비공개매칭 자동 등록 -->
-	<insert id="privateUpload" parameterType="matchingBoard" useGeneratedKeys="true" keyProperty="matchingNo">
+	<insert id="privateUpload" parameterType="matchingBoard" >
 		<![CDATA[
 		INSERT 	into tb_matching_board
 		VALUES 	(
@@ -145,7 +144,7 @@
 				 ,  #{matchingKeyword1}
 				 ,  #{matchingKeyword2}
 				 ,  #{matchingKeyword3}
-				 ,  #{matchingComment}  
+				 ,  #{matchingMemo}  
 				)
 		]]>
 		<selectKey keyProperty="matchingNo" resultType="int" order="AFTER">
@@ -244,7 +243,7 @@
 	<!-- 매칭게시판 게시글 수정 -->
 	<update id="mBoardUpdate" parameterType="matchingBoard">
 		UPDATE	tb_matching_board
-		SET 	matching_comment = #{matchingComment},
+		SET 	matching_comment = #{matchingMemo},
 				matching_edit_date = sysdate
 		WHERE 	matching_no = #{matchingNo}
 	</update>
@@ -256,26 +255,6 @@
 		FROM 	tb_matching_board
 	    WHERE 	matching_no = #{matchingNo}
 	</delete>
-	
-	
-	<!-- 이전 게시글 번호 추출 -->
-	<select id="prevMatchingNo" parameterType="matchingBoard" resultType="int">
-		<![CDATA[
-			SELECT	NVL ( MAX (matching_no), 0 )
-			FROM 	tb_matching_board
-			WHERE	matching_no < #{matchingNo}
-		]]>
-	</select>
-	
-	
-	<!-- 다음 게시글 번호 추출 -->
-	<select id="nextMatchingNo" parameterType="matchingBoard" resultType="int">
-		<![CDATA[
-			SELECT	NVL ( MIN (matching_no), 0)
-			FROM 	tb_matching_board
-			WHERE	matching_no > #{matchingNo}
-		]]>
-	</select>
 	
 	
 </mapper>

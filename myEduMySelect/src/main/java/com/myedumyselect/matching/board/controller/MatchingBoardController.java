@@ -38,15 +38,17 @@ public class MatchingBoardController {
 	public String mBoardListPreview(@ModelAttribute MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
+		
+		//세션 검사
 		if (academyLoginVO != null) {
 			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-			if (academyResult != "TRUE") {
+			if (!academyResult.equals("TRUE")) {
 				return academyResult;
 			}
 		} else if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (!personalResult.equals("TRUE")) {
+				return personalResult;
 			}
 		} else {
 			System.out.println("else");
@@ -58,21 +60,24 @@ public class MatchingBoardController {
 
 		return "matching/matchingMain";
 	}
+	
 
 	// 매칭게시판 전체보기 구현
 	@GetMapping("/boardList")
 	public String mBoardList(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
+		
+		//세션 검사
 		if (academyLoginVO != null) {
 			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-			if (academyResult != "TRUE") {
+			if (!academyResult.equals("TRUE")) {
 				return academyResult;
 			}
 		} else if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (!personalResult.equals("TRUE")) {
+				return personalResult;
 			}
 		} else {
 			return "redirect:/";
@@ -92,6 +97,7 @@ public class MatchingBoardController {
 		return "matching/matchingBoardList";
 	}
 
+	
 	// 맞춤형 검색 결과 구현
 	@PostMapping(value = "/result", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -99,6 +105,7 @@ public class MatchingBoardController {
 		List<AcademyLoginVO> list = mbService.mResult(mbVO);
 		return list;
 	}
+	
 
 	// 공개매칭
 	@PostMapping("/publicUpload")
@@ -110,21 +117,20 @@ public class MatchingBoardController {
 		// 세션 검사
 		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (personalResult != "TRUE") {
+			if (!personalResult.equals("TRUE")) {
 				return personalResult;
 			}
 
 		} else {
-			model.addAttribute("check", personalLoginVO);
 			return "학원 회원은 공개 매칭을 등록할 수 없습니다.";
 		}
 
 		mbService.publicUpload(mbVO);
-		model.addAttribute("check", personalLoginVO);
 
 		return "공개 매칭 게시글이 정상 등록되었습니다.";
 
 	}
+	
 
 	// 비공개매칭
 	@PostMapping("/privateUpload")
@@ -136,36 +142,37 @@ public class MatchingBoardController {
 		// 세션 검사
 		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (personalResult != "TRUE") {
+			if (!personalResult.equals("TRUE")) {
 				return personalResult;
 			}
 
 		} else {
-			model.addAttribute("check", personalLoginVO);
 			return "학원 회원은 비공개 매칭을 등록할 수 없습니다.";
 		}
 
 		mbService.privateUpload(mbVO);
 		mbService.sendEmail(mbVO);
-		model.addAttribute("check", personalLoginVO);
 
 		return "비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되었습니다.";
 	}
 
+	
 	// 매칭게시글 상세보기
 	@GetMapping("/boardDetail")
 	public String mBoardDetail(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
+		
+		//세션 검사
 		if (academyLoginVO != null) {
 			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
-			if (academyResult != "TRUE") {
+			if (!academyResult.equals("TRUE")) {
 				return academyResult;
 			}
 		} else if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (!personalResult.equals("TRUE")) {
+				return personalResult;
 			}
 		} else {
 			return "redirect:/";
@@ -176,36 +183,40 @@ public class MatchingBoardController {
 
 		return "matching/matchingDetail";
 	}
+	
 
 	// 매칭게시글 수정 폼 이동
 	@GetMapping("/boardUpdate")
 	public String mBoardUpdateForm(MatchingBoardVO mbVO, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO) {
+	
+		//세션 검사
 		if (personalLoginVO != null) {
 			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (personalResult != "TRUE") {
+			if (!personalResult.equals("TRUE")) {
 				return personalResult;
 			}
 		} else {
 			return "redirect:/";
 		}
 
-		MatchingBoardVO updateData = mbService.mBoardUpdateForm(mbVO);
+		MatchingBoardVO updateData = mbService.mBoardDetail(mbVO);
 		model.addAttribute("updateData", updateData);
 		return "matching/matchingUpdate";
 	}
 
+	
 	// 매칭게시글 수정
 	@PostMapping("/boardUpdate")
 	public String mBoardUpdate(@RequestParam("matchingNo") int matchingNo, MatchingBoardVO mbVO, RedirectAttributes ras,
 			Model model, @SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
 			throws Exception {
 
-		// 세션
+		// 세션 검사
 		if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (!personalResult.equals("TRUE")) {
+				return personalResult;
 			}
 		} else {
 			return "redirect:/loginselect";
@@ -241,6 +252,7 @@ public class MatchingBoardController {
 
 		return "redirect:" + url;
 	}
+	
 
 	// 매칭 게시글 삭제
 	@PostMapping("/boardDelete")
@@ -248,22 +260,21 @@ public class MatchingBoardController {
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
 			throws Exception {
 
-		// 세션
+		// 세션 검사
 		if (personalLoginVO != null) {
-			String pesronalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
-			if (pesronalResult != "TRUE") {
-				return pesronalResult;
+			String personalResult = sessionCheckService.isPersonalSessionCheck(personalLoginVO, model);
+			if (!personalResult.equals("TRUE")) {
+				return personalResult;
 			}
 		} else {
 			return "redirect:/loginselect";
 		}
 
-		// 게시글 상세정보 가져오기
+		// 게시글 상세 정보를 거쳐 작성자 추출하기
 		MatchingBoardVO mbvo = new MatchingBoardVO();
 		mbvo.setMatchingNo(matchingNo);
 		MatchingBoardVO detail = mbService.mBoardDetail(mbvo);
 
-		// 게시글 작성자 id 추출
 		String writer = detail.getPersonalId();
 
 		int result = 0;

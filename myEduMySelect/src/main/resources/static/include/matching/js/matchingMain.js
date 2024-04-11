@@ -2,21 +2,20 @@ $(function(){
 	
 	let academySession = $("#academyId").val();
 	
-	if(academySession) {
+	if(academySession) {							//학원회원의 세션이 있을 때 == 학원회원으로 접속했을 때 alert 띄우고 막기
 		alert("맞춤형 검색은 개인 회원만 이용 가능합니다.")
 		location.href = "/matching/boardList";
 	}
 	
 	
-	
 	//지역 선택
-	$("#gu").change(function() {
+	$("#gu").change(function() {					//change 함수 : 값이 변경될 때마다 이벤트 발생
 		const selectedGu = $(this).val();
 		const dongList = guAndDong[selectedGu];
 		
 		$("#dong").empty();
 		
-		$.each(dongList, function(index, dong) {
+		$.each(dongList, function(index, dong) {	//each함수는 인덱스와 값을 매개변수로 가짐. index가 사용되지는 않았지만 생략하면 dong이 인덱스로 인식됨
 			$("#dong").append($("<option>", {
 				value: dong, 
 				text: dong
@@ -70,12 +69,11 @@ $(function(){
 		subjectValue = $("input[name='matchingTargetSubject']:checked").val();
 		feeValue = $("input[name='matchingFee']:checked").val();
 		keywordValue = [];
-		$("input[name='matchingKeyword']:checked").each(function() {
+		$("input[name='matchingKeyword']:checked").each(function() {		//해당 checkbox에서 선택된 것들만 keywordValue라는 빈 배열에 밀어넣기
             keywordValue.push($(this).val());
         });
         
 	
-		console.log(keywordValue.length);
 		if(keywordValue.length > 3) {
 			alert("키워드는 3개까지만 선택 가능합니다.");
 		}
@@ -86,13 +84,8 @@ $(function(){
 			$(".mcResultSection").css("display", "block");
 		}
 		
-		for (let i = 0; i < keywordValue.length; i++) {
-			$("input[name='matchingKeyword" + (i+1) + "']").val(keywordValue[i]);
-		}
 		
-		
-		
-		let value = {
+		let value = {		//사용자가 선택한 조건들을 value라는 객체로 담기
 			matchingGuAddress : guValue,
 			matchingDongAddress : dongValue,
 			matchingTargetGrade : ageValue,
@@ -103,27 +96,21 @@ $(function(){
 			matchingKeyword3 : keywordValue[2]
 		}
 		
-		console.log(value);
-		
-		
-		
 		$.ajax({
-			type:'POST',
-			url : '/matching/result',
+			type:'POST',								//요청 방식
+			url : '/matching/result',					//요청 보낼 url
 			headers : {
-				"Content-Type" : "application/json"
+				"Content-Type" : "application/json"		//전송하는 데이터 형식
 			},
-			data: JSON.stringify(value),
-			dataType : "json",
-			success: function(data) {
-				console.log(data);
-				
+			data: JSON.stringify(value),				//데이터 객체를 json 형태로 컨트롤러에 보냄
+			dataType : "json",							//응답 받을 데이터 형식
+			success: function(data) {					//응답 받기 성공 시
 				// 서버로부터 받은 JSON 데이터를 테이블 형태로 변환하여 화면에 표시
 		        var result = "";
 		        
-		        if(data != null && data.length > 0) {
+		        if(data != null && data.length > 0) {				//응답 받을 데이터가 존재한다면
 					// JSON 데이터를 순회하며 각 항목을 테이블 행으로 추가
-			        for (var i = 0; i < data.length; i++) {
+			        for (var i = 0; i < data.length; i++) {			//ajax를 통해 비동기로 받은 데이터는 jsp가 아니라 js로 처리해야 함
 			            result += '<tr>';
 			            result += '<td><input type="checkbox" name="privateChecked" value="' + data[i].academyName + '" disabled></td>'; 
 			            result += '<td><b>' + data[i].academyName + '</b></td>';
@@ -135,7 +122,7 @@ $(function(){
 					result = '<tr><td colspan="4">조회 결과가 없습니다.</td></tr>';
 				}
 		
-		        // 테이블을 #resultDiv에 삽입
+		        //생성한 테이블을 #resultDiv에 삽입
 		        $("#resultDiv").html(result);
 		        
 			},
@@ -156,16 +143,12 @@ $(function(){
 		//매칭시작 버튼 클릭 시
 		$("#mcUploadBtn").off("click").on("click", function() {
 			
-			if( $("#plusComment").val().replace(/\s/g,"") == "") {
+			if( $("#memoValue").val().replace(/\s/g,"") == "") {
 				alert("덧붙이는 말을 입력해 주세요.");
-				$("#plusComment").focus();
+				$("#memoValue").focus();
 				return false;
 			} else {
 				let formData = new FormData();
-				
-				console.log(keywordValue[0]);
-				console.log(keywordValue[1]);
-				console.log(keywordValue[2]);
 				
 				if(keywordValue[1]==undefined) {
 					keywordValue[1]='';
@@ -184,7 +167,7 @@ $(function(){
 				formData.append('matchingKeyword1', keywordValue[0]);
 				formData.append('matchingKeyword2', keywordValue[1]);
 				formData.append('matchingKeyword3', keywordValue[2]);
-				formData.append('matchingComment', $("#plusComment").val());
+				formData.append('matchingMemo', $("#memoValue").val());
 				
 				$.ajax({
 		            type: "POST",
@@ -196,7 +179,7 @@ $(function(){
 			            alert(response);
 				        window.location.href = "/matching/";
 		            },
-		            error: function(xhr, status, error) {
+		            error: function() {
 		                alert("공개 매칭 게시글이 정상 등록되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
 		            	location.reload();
 		            }
@@ -219,15 +202,15 @@ $(function(){
 			
 			if($("input[name='privateChecked']:checked").length == 0) {
 				alert("비공개 매칭은 학원 선택 후에만 가능합니다.")
-					location.reload();
+				location.reload();
 			} else if( !/^\d{4}$/.test($("#mcPwd").val())){
 				alert("비밀번호는 숫자 4자리로 입력해 주세요.");
 				$("#mcPwd").val('');
 				$("#mcPwd").focus();
 				return false;
-			} else if( $("#plusComment").val().replace(/\s/g,"") == "") {
+			} else if( $("#memoValue").val().replace(/\s/g,"") == "") {
 				alert("덧붙이는 말을 입력해 주세요.");
-				$("#plusComment").focus();
+				$("#memoValue").focus();
 				return false;
 			} else {
 				
@@ -254,18 +237,9 @@ $(function(){
 				formData.append('matchingKeyword1', keywordValue[0]);
 				formData.append('matchingKeyword2', keywordValue[1]);
 				formData.append('matchingKeyword3', keywordValue[2]);
-				formData.append('matchingComment', $("#plusComment").val());
+				formData.append('matchingMemo', $("#memoValue").val());
 				formData.append('matchingPasswd', $("#mcPwd").val());
 				formData.append('privateChecked', privateCheckedName);
-				
-				console.log(privateCheckedName);
-				
-				/*if(privateCheckedName.length == 0) {
-					alert("비공개 매칭은 학원 선택 후에만 가능합니다.")
-					$("#plusComment").val('');
-					$("#mcPwd").val('');
-					
-				}*/
 				
 				if(privateCheckedName.length != 0) {
 					$.ajax({
@@ -278,16 +252,14 @@ $(function(){
 			                alert(response);
 			                window.location.href = "/matching/";
 			            },
-			            error: function(xhr, status, error) {
+			            error: function() {
 			                alert("비공개 매칭 게시글 등록과 메일 발송이 정상적으로 처리되지 않았습니다. 잠시 후 다시 시도해 주시기 바랍니다.");
 			                location.reload();
 			            }
 			        });
 				}
-								
 				
 			}
-			
 			
 		});
 	});
