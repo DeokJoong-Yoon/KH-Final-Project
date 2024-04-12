@@ -135,7 +135,27 @@ public class AcademyLoginController {
    public String academyjoinForm() {
       return "academy/academyJoin";
    }
+   
+   // 아이디 중복체크
+   @PostMapping("/checkId")
+   @ResponseBody
+   public int checkId(@RequestParam("academyId") String academyId) {
+      return academyLoginService.checkId(academyId);
+   }
 
+   // 이메일 중복체크
+   @PostMapping("/checkEmail")
+   @ResponseBody
+   public int checkEmail(@RequestParam("academyManagerEmail") String academyManagerEmail) {
+      return academyLoginService.checkEmail(academyManagerEmail);
+   }
+
+   // 사업자등록번호 조회 및 중복여부 확인
+   @PostMapping("/findByNumber")
+   @ResponseBody
+   public AcademyLoginVO findByNumber(@RequestParam("academyNumber") String academyNumber) {
+      return academyLoginService.findByNumber(academyNumber);
+   }
    // 학원회원 회원가입 POST
    @PostMapping(value = "/insertAcademy")
    @ResponseBody
@@ -143,7 +163,9 @@ public class AcademyLoginController {
       academyLoginService.insertAcademy(login);
       return "TRUE";
    }
-
+   
+   
+   
    // 학원회원 회원가입 완료 페이지로 이동
    @GetMapping("/academy/join/complete")
    public String completeSignUp(@ModelAttribute AcademyLoginVO academyLoginVO) {
@@ -169,27 +191,6 @@ public class AcademyLoginController {
       return "/academy/mypage";
    }
 
-   // 아이디 중복체크
-   @PostMapping("/checkId")
-   @ResponseBody
-   public int checkId(@RequestParam("academyId") String academyId) {
-      return academyLoginService.checkId(academyId);
-   }
-
-   // 이메일 중복체크
-   @PostMapping("/checkEmail")
-   @ResponseBody
-   public int checkEmail(@RequestParam("academyManagerEmail") String academyManagerEmail) {
-      return academyLoginService.checkEmail(academyManagerEmail);
-   }
-
-   // 사업자등록번호 조회 및 중복여부 확인
-   @PostMapping("/findByNumber")
-   @ResponseBody
-   public AcademyLoginVO findByNumber(@RequestParam("academyNumber") String academyNumber) {
-      return academyLoginService.findByNumber(academyNumber);
-   }
-
    // 마이페이지 회원정보 수정
    @PostMapping("/updateAcademy")
    public String updateAcademy(@ModelAttribute AcademyLoginVO academyLogin,
@@ -212,7 +213,7 @@ public class AcademyLoginController {
 
       // 업데이트가 실패하면 에러 메시지를 추가하고 로그인 페이지로 리다이렉트
       if (result == 0) {
-         model.addAttribute("errorMsg", "개인 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
+         model.addAttribute("errorMsg", "회원정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
          return "redirect:/academy/mypage";
       }
       model.addAttribute("academyLogin", newAcademyInfo);
