@@ -42,7 +42,7 @@ import lombok.Setter;
 public class AdminBoardController {
 
 	@Setter(onMethod_ = @Autowired)
-	private NoticeBoardService noticeBoardServcie;
+	private NoticeBoardService noticeBoardService;
 
 	@Setter(onMethod_ = @Autowired)
 	private MatchingBoardAdminService matchingBoardAdminService;
@@ -86,11 +86,11 @@ public class AdminBoardController {
 		}
 
 		// 전체 레코드 조회
-		List<NoticeBoardVO> boardList = noticeBoardServcie.boardList(noticeBoardVO);
+		List<NoticeBoardVO> boardList = noticeBoardService.boardList(noticeBoardVO);
 		model.addAttribute("boardList", boardList);
 
 		// 전체 레코드수 반환.
-		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
+		int total = noticeBoardService.boardListCnt(noticeBoardVO);
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(noticeBoardVO, total));
 
@@ -107,7 +107,7 @@ public class AdminBoardController {
 
 	@PostMapping("/noticeInsert")
 	public String boardInsert(NoticeBoardVO noticeBoardVO) throws Exception {
-		noticeBoardServcie.boardInsert(noticeBoardVO);
+		noticeBoardService.boardInsert(noticeBoardVO);
 
 		return "redirect:/adminBoard/notice";
 	}
@@ -118,14 +118,14 @@ public class AdminBoardController {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
-		NoticeBoardVO detail = noticeBoardServcie.boardDetail(noticeBoardVO);
+		NoticeBoardVO detail = noticeBoardService.boardDetail(noticeBoardVO);
 		model.addAttribute("detail", detail);
 		return "admin/board/adminNoticeBoardDetail";
 	}
 
 	@PostMapping("/boardDelete")
 	public String boardDelete(@ModelAttribute NoticeBoardVO noticeBoardVO) throws Exception {
-		noticeBoardServcie.boardDelete(noticeBoardVO);
+		noticeBoardService.boardDelete(noticeBoardVO);
 		return "redirect:/adminBoard/notice";
 	}
 
@@ -135,7 +135,7 @@ public class AdminBoardController {
 		if (adminLoginVO == null) {
 			return "redirect:/admin/login";
 		}
-		NoticeBoardVO updateData = noticeBoardServcie.updateForm(noticeBoardVO);
+		NoticeBoardVO updateData = noticeBoardService.updateForm(noticeBoardVO);
 
 		model.addAttribute("updateData", updateData);
 		return "admin/board/adminNoticeBoardUpdateForm";
@@ -146,7 +146,7 @@ public class AdminBoardController {
 		int result = 0;
 		String url = "";
 
-		result = noticeBoardServcie.boardUpdate(noticeBoardVO);
+		result = noticeBoardService.boardUpdate(noticeBoardVO);
 		if (result == 1) {
 			url = "/adminBoard/boardDetail?commonNo=" + noticeBoardVO.getCommonNo();
 		} else {

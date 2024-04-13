@@ -20,16 +20,16 @@ import lombok.Setter;
 public class NoticeBoardController {
 
 	@Setter(onMethod_ = @Autowired)
-	private NoticeBoardService noticeBoardServcie;
+	private NoticeBoardService noticeBoardService;
 
 	@GetMapping("/boardList")
 	public String noticeBoardList(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model) {
 		// 전체 레코드 조회
-		List<NoticeBoardVO> boardList = noticeBoardServcie.boardList(noticeBoardVO);
+		List<NoticeBoardVO> boardList = noticeBoardService.boardList(noticeBoardVO);
 		model.addAttribute("boardList", boardList);
 
 		// 전체 레코드수 반환.
-		int total = noticeBoardServcie.boardListCnt(noticeBoardVO);
+		int total = noticeBoardService.boardListCnt(noticeBoardVO);
 		// 페이징 처리
 		model.addAttribute("pageMaker", new PageDTO(noticeBoardVO, total));
 		return "commonboard/notice/noticeBoardList";
@@ -38,7 +38,7 @@ public class NoticeBoardController {
 	@GetMapping("/boardDetail")
 	public String boardDetail(@ModelAttribute NoticeBoardVO noticeBoardVO, Model model) {
 
-		NoticeBoardVO detail = noticeBoardServcie.boardDetail(noticeBoardVO);
+		NoticeBoardVO detail = noticeBoardService.boardDetail(noticeBoardVO);
 		model.addAttribute("detail", detail);
 		return "commonboard/notice/noticeBoardDetail";
 	}

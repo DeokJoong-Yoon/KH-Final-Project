@@ -38,29 +38,22 @@ import lombok.Setter;
 public class AdminLoginController {
 	@Setter(onMethod_ = @Autowired)
 	private AdminLoginService adminLoginService;
-
 	@Setter(onMethod_ = @Autowired)
 	private NoticeBoardService noticeBoardService;
-
 	@Setter(onMethod_ = @Autowired)
 	private MatchingBoardAdminService matchingBoardAdminService;
-
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardAdminService freeBoardAdminService;
-
 	@Setter(onMethod_ = @Autowired)
 	private AdvertiseBoardAdminService advertiseBoardAdminService;
-
 	@Setter(onMethod_ = @Autowired)
 	private AcademyAdminService academyAdminService;
-
 	@Setter(onMethod_ = @Autowired)
 	private PersonalAdminService personalAdminService;
-
 	@GetMapping("/login")
-	public String loginProcess(Model model) {
+	public String loginProcess(@SessionAttribute(value = "adminLogin", required = false) AdminLoginVO adminLoginVO, Model model) {
 
-		if (model.containsAttribute("adminLogin")) {
+		if (adminLoginVO != null) {
 
 			// Board 리스트 결과
 			NoticeBoardVO noticeBoardVO = new NoticeBoardVO();
