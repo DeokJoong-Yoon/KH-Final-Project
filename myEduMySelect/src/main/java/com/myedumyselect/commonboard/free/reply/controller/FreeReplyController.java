@@ -40,6 +40,7 @@ public class FreeReplyController {
 	}
 
 	
+	
 	/* 댓글 작성 구현 */
 	@PostMapping(value = "/freereplyInsert", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String freereplyInsert(@RequestBody FreeReplyVO frvo,
@@ -51,6 +52,7 @@ public class FreeReplyController {
 		return (result == 1) ? "SUCCESS" : "FAILURE";
 	}
 
+	
 	
 	/* 댓글 수정 구현 */
 	@PutMapping(value = "/{commonCommentNo}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -64,9 +66,11 @@ public class FreeReplyController {
 			frvo.setCommonCommentNo(commonCommentNo);
 			int result = freereplyService.freereplyUpdate(frvo);
 			return (result == 1) ? "SUCCESS" : "FAILURE";
+		}else {
+			return "FAILURE";
 		}
-		return "FAILURE";
 	}
+	
 
 	
 	/* 댓글 삭제 구현 */
@@ -82,9 +86,9 @@ public class FreeReplyController {
 			frvo.setCommonCommentNo(commonCommentNo);
 			int result = freereplyService.freereplyDelete(frvo);
 			return (result == 1) ? "SUCCESS" : "FAILURE";
+		}else {
+			return "FAILURE";
 		}
-
-		return "FAILURE";
 	}
 
 }

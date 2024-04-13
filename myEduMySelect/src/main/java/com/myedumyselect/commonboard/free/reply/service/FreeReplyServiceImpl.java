@@ -56,5 +56,12 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 	}
 	
 	
+    // FreeReplyDao를 사용하여 commonNo에 해당하는 댓글 수를 가져옴
+	@Override
+    public int freereplyCount(int commonNo) {
+        return freereplyDAO.freereplyCount(commonNo);
+    }
+	
+
 	
 }

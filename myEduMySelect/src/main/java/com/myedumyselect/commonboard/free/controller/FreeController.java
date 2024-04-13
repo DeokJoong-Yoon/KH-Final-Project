@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myedumyselect.academy.vo.AcademyLoginVO;
 import com.myedumyselect.common.util.SessionCheckService;
 import com.myedumyselect.common.vo.PageDTO;
+import com.myedumyselect.commonboard.free.reply.service.FreeReplyService;
 import com.myedumyselect.commonboard.free.service.FreeService;
 import com.myedumyselect.commonboard.free.vo.FreeVO;
 import com.myedumyselect.personal.vo.PersonalLoginVO;
@@ -32,12 +33,16 @@ public class FreeController {
 
 	@Setter(onMethod_ = @Autowired)
 	private SessionCheckService sessionCheckService;
+	
+	@Setter(onMethod_ = @Autowired)
+	private FreeReplyService freeReplyService;
 
 	/* 글 목록 구현 */
 	@GetMapping("/freeList")
 	public String freeList(@ModelAttribute FreeVO fvo, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO,
 			@SessionAttribute(required = false, value = "academyLogin") AcademyLoginVO academyLoginVO) {
+		
 		if (academyLoginVO != null) {
 			String academyResult = sessionCheckService.isAcademySessionCheck(academyLoginVO, model);
 			if (academyResult != "TRUE") {
@@ -49,19 +54,26 @@ public class FreeController {
 				return pesronalResult;
 			}
 		} else {
-			System.out.println("else");
 			return "redirect:/";
 		}
 		List<FreeVO> freeList = freeService.freeList(fvo);
 		model.addAttribute("freeList", freeList);
+		
+		for (FreeVO free : freeList) {
+		    int replyCount = freeReplyService.freereplyCount(free.getCommonNo());
+		    free.setFreeReplyCnt(replyCount);
+		}
 
 		int total = freeService.freeListCnt(fvo);
 
 		model.addAttribute("pageMaker", new PageDTO(fvo, total));
 
 		return "board/free/freeBoardList";
-
 	}
+	
+	
+	
+	
 
 	/* 글쓰기 폼 구현 */
 	@GetMapping(value = "/freeWriterForm")
@@ -84,6 +96,8 @@ public class FreeController {
 		freeService.freeInsert(fvo);
 		return "redirect:/free/freeList";
 	}
+	
+	
 
 	/* 글 상세 구현 */
 	@GetMapping("/freeDetail")
@@ -110,6 +124,9 @@ public class FreeController {
 		return "board/free/freeBoardDetail";
 	}
 
+	
+	
+	
 	/* 글 수정 구현 */
 	@GetMapping(value = "/freeUpdateForm")
 	public String freeUpdateForm(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
@@ -133,6 +150,7 @@ public class FreeController {
 		}
 	}
 
+	
 	@PostMapping("/freeUpdate")
 	public String freeUpdate(@ModelAttribute FreeVO fvo, RedirectAttributes ras, Model model,
 			@SessionAttribute(required = false, value = "personalLogin") PersonalLoginVO personalLoginVO)
@@ -145,10 +163,13 @@ public class FreeController {
 			return "board/free/freeBoardDetail";
 		} else {
 			ras.addFlashAttribute("alertMsg", "수정에 실패하였습니다.");
-			return "redirect:/free/freeList";
+			return "redirect:/free/freeUpdateForm";
 		}
 	}
 
+	
+	
+	
 	/* 글 삭제 구현 */
 	@GetMapping("/freeDelete")
 	public String freeDelete(@ModelAttribute FreeVO fvo, Model model, RedirectAttributes ras,
@@ -160,7 +181,7 @@ public class FreeController {
 				return personalResult;
 			}
 		} else {
-			return "redirect:/";
+			return "redirect:/free/freeDetail";
 		}
 		if (fvo.getPersonalId().equalsIgnoreCase(personalLoginVO.getPersonalId())) {
 			freeService.freeDelete(fvo);
@@ -171,6 +192,9 @@ public class FreeController {
 			return "redirect:/free/freeList";
 		}
 	}
+	
+	
+	
 
 	/* 댓글 갯수 구현 */
 	@ResponseBody

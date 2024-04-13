@@ -15,5 +15,5 @@ public interface FreeReplyDAO {
 	public int freereplyChoiceDelete(int commonNo);
 	public int freeReplyCnt(int commonNo);
 	public FreeReplyVO selectedFreeReply(FreeReplyVO frvo);
-
+	public int freereplyCount(int commonNo);
 }

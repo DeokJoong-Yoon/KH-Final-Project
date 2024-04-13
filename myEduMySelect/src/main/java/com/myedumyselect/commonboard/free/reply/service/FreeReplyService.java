@@ -10,4 +10,5 @@ public interface FreeReplyService {
 	public int freereplyUpdate(FreeReplyVO frvo);
 	public int freereplyDelete(FreeReplyVO frvo);
 	public FreeReplyVO selectedFreeReply(FreeReplyVO frvo);
+	public int freereplyCount(int commonNo);
 }
