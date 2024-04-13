@@ -67,7 +67,9 @@
 <br/>
 
 ### 4. 시연영상
-
+- <b>개인회원 접속 시연 영상</b> ▶️ https://www.youtube.com/watch?v=k4wLD-cFij8 
+- <b>학원회원 접속 시연 영상</b> ▶️ https://www.youtube.com/watch?v=SmIECTzCU60
+- <b>관리자 페이지 시연 영상</b> ▶️ https://www.youtube.com/watch?v=pX-2wKUAT5Q
 
 <br/>
 <hr/>
