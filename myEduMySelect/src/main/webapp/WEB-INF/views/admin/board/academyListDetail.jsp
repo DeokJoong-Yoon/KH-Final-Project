@@ -206,8 +206,6 @@
 	<script src="http://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<script src="/resources/include/admin/admin/assets/vendor/tinymce/tinymce.min.js"></script>
-	<!-- Template Main JS File -->
-	<!-- <script src="/resources/include/admin/admin/assets/js/main.js"></script> -->
 	<script src="/resources/include/admin/js/academyListDetail.js"></script>
 
 </body>
