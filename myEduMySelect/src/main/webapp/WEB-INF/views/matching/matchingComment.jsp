@@ -62,8 +62,6 @@
 			$element.find(".mcId").html(commentWriterId);
 			
 			$div.append($element);
-			
-			
 		}
 	
 	
@@ -83,16 +81,10 @@
 					let matchingCommentNickname = this.matchingCommentNickname;
 					let matchingCommentContent = this.matchingCommentContent;
 					let matchingCommentDate = this.matchingCommentDate;
-					matchingCommentContent = matchingCommentContent.replace(/(\r\n|\r\n)/g, "<br/>");
+					matchingCommentContent = matchingCommentContent.replace(/(\r\n|\n)/g, "<br/>");
 					
 					template(commentWriterId, matchingCommentNo, matchingCommentNickname, matchingCommentContent, matchingCommentDate);
-				
-					console.log("아이디 : " + commentWriterId);
-				    console.log("각각 : " + academyId);    
-					   
-					
 				});
-				
 				
 			}).fail(function() {
 				alert("댓글 목록을 불러오는 데 실패했습니다. 잠시 후에 다시 실행해 주세요.")
@@ -120,7 +112,6 @@
 						alert(textStatus + " (HTTP-" + xhr.status + " / " + errorThrown + ")");
 					},
 					success : function(result) {
-						console.log("result : " + result);
 						if(result == "SUCCESS") {
 							alert("댓글 삭제가 완료되었습니다.");
 							listAll(matchingNo);
@@ -146,16 +137,13 @@
 				dataType: 'text',
 				error: function(xhr, textStatus, errorThrown) {
 					alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
-					console.log($("#updateCommentForm").val())
 				},
 				beforeSend : function(){
 					if(!chkData("#updateCommentForm", "댓글 내용을")) return false;
 				}, 
 				success: function(result) {
-					console.log("result : " + result);
 					if(result == "SUCCESS") {
 						alert("댓글 수정이 완료되었습니다.");
-						console.log($("#updateCommentForm").val())
 						dataReset();
 						listAll(matchingNo);
 					}
@@ -213,20 +201,15 @@
 			
 			//댓글 삭제 처리
 			$(document).on("click", "#commentDeleteBtn", function(){
-				console.log("삭제 버튼 클릭");
 				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
 				
 				let commentWriter = $(this).closest(".list").find(".mcId").text();
-				console.log("댓글 작성자 : " + commentWriter);
 				
 				if(commentWriter !== academyId) {
 					alert("본인이 작성한 댓글만 삭제할 수 있습니다.");
 				} else {
 					deleteComment(matchingNo, matchingCommentNo);
 				}
-				
-				
-				console.log(matchingCommentNo);
 			})
 			
 			
@@ -235,14 +218,12 @@
 			
 			//댓글 수정 버튼 클릭 시
 			$(document).on("click", "#commentUpdateBtn", function(){
-				console.log("수정 버튼 클릭");
 				
 				//댓글 리스트와, 리스트 내 각 댓글 가져오기
 				let list = $(this).parents("div.list");
 				let matchingCommentNo = list.attr("data-num");
 				
 				let commentWriter = $(this).closest(".list").find(".mcId").text();
-				console.log("댓글 작성자 : " + commentWriter);
 				
 				if(commentWriter !== academyId) {
 					alert("본인이 작성한 댓글만 수정할 수 있습니다.");
@@ -270,18 +251,14 @@
 			
 			//댓글 수정 시 완료 버튼 클릭시
 			$(document).on("click", "#commentCompleteBtn", function(){
-				console.log("수정 완료 버튼 클릭");
 				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
 				updateComment(matchingNo, matchingCommentNo);
-				//console.log(matchingCommentNo);
-				//console.log(matchingNo);
 			})
 			
 			
 			
 			//댓글 수정 시 수정 취소 버튼 처리
 			$(document).on("click", "#commentResetBtn", function(){
-				console.log("수정 취소 버튼 클릭");
 				let matchingCommentNo = $(this).parents("div.list").attr("data-num");
 				$("#updateCommentForm").val(original);
 			}) 

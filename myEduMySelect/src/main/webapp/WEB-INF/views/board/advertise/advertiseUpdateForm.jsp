@@ -37,10 +37,8 @@
      
       <div class="container">
       
-      	<form name="formData" id="formData">
+      	<form name="updateForm" id="updateForm">
       		<input type="hidden" name="commonNo" id="commonNo" value="${updateData.commonNo }"/>
-      		<%-- <input type="hidden" name="fileVO" id="fileVO" value="${updateData.fileVO }" /> --%>
-      
 	      	
 			<div class="advDetail">
 				<table>
@@ -75,11 +73,7 @@
 						<tr>
 							<th>첨부파일</th>
 							<td>
-								<input type="file" id="file1" name="file1" class="form-control" maxlength="50" />
-								<input type="file" id="file2" name="file2" class="form-control" maxlength="50" />
-								<input type="file" id="file3" name="file3" class="form-control" maxlength="50" />
-								<input type="file" id="file4" name="file4" class="form-control" maxlength="50" />
-								<input type="file" id="file5" name="file5" class="form-control" maxlength="50" />
+								<input type="file" id="fileInput" name="files" class="form-control" maxlength="50" multiple />
 							</td>
 						</tr>
 						
@@ -118,101 +112,6 @@
  
 	
 	<script type="text/javascript">
-        $(document).ready(function() {
-        	
-        	let commonNo = ${updateData.commonNo};
-        	
-            // 페이지 로딩 시 getLike 실행
-            $.ajax({
-                type: "POST",
-                url: "/like/get",
-                data: JSON.stringify({
-                			commonNo: commonNo,
-                			likeMemberId : 'aaa111'
-                		}),
-             	headers : {"Content-Type" : "application/json"},
-                dataType: "text",
-                success: function(status) {
-                    // 결과값에 따라 이미지 변경
-                    if (status == 0) {
-                    	$("#likeMsg").text("이 학원을 찜할까요?");
-                    	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                    	$("#likeImage").on("click", function(){
-                    		$.ajax({
-                    			type: "post",
-                    			url: "/like/insert",
-                    			data: JSON.stringify({
-                        			commonNo: commonNo,
-                        			likeMemberId : 'aaa111'
-                        		}),
-                        		contentType: "application/json; charset=utf-8",
-                                dataType: "text",
-                                success: function(){
-                                	$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                                	location.reload();
-                                	alert("이 학원을 찜했습니다!");
-                                },
-                        		error: function(){
-                        			alert("insert 실패");
-                        		}
-                    		})
-                    	})
-                    } else {
-                    	if(status == 1) {
-                    		$("#likeMsg").text("찜한 학원입니다.");
-                    		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                    		$("#likeImage").on("click", function(){
-                        		$.ajax({
-                        			type: "post",
-                        			url: "/like/toggle",
-                        			data: JSON.stringify({
-                            			commonNo: commonNo,
-                            			likeMemberId : 'aaa111'
-                            		}),
-                            		contentType: "application/json; charset=utf-8",
-                                    dataType: "text",
-                                    success: function(){
-                                    	$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                                    	alert("찜을 취소했습니다.");
-                                    	location.reload();
-                                    },
-                            		error: function(){
-                            			alert("update 실패");
-                            		}
-                        		})
-                        	})
-                    	} else {
-                    		$("#likeMsg").text("이 학원을 찜할까요?");
-                    		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                    		$("#likeImage").on("click", function(){
-                        		$.ajax({
-                        			type: "post",
-                        			url: "/like/toggle",
-                        			data: JSON.stringify({
-                            			commonNo: commonNo,
-                            			likeMemberId : 'aaa111'
-                            		}),
-                            		contentType: "application/json; charset=utf-8",
-                                    dataType: "text",
-                                    success: function(){
-                                    	$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                                    	location.reload();
-                                    	alert("이 학원을 찜했습니다!");
-                                    },
-                            		error: function(){
-                            			alert("update 실패");
-                            		}
-                        		})
-                        	})
-                    	}
-                    }
-                },
-                error: function(){
-                	alert("getLike 실패");
-                }
-            });
-        });
-        
         
         $("#cancel").on("click", function(){
 			location.href="/advertise/advertiseDetail?commonNo=" + ${updateData.commonNo};

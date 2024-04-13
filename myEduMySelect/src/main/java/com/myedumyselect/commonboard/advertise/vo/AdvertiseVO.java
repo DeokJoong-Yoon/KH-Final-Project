@@ -27,7 +27,6 @@ public class AdvertiseVO extends CommonVO {
 	private int commonReadcnt = 0;
 	private String commonBlockConfirm = "";
 	private String commonBlockDate = "";
-	private String commonThumb = "";
 	private String commonFile = "";
 	private List<FileVO> fileVO; 
 }

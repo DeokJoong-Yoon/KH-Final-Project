@@ -51,7 +51,7 @@
 						<tbody>
 							<tr>
 								<th>지역</th>
-								<td>${updateData.matchingGuAddress }&nbsp ${updateData.matchingDongAddress}</td>
+								<td>${updateData.matchingGuAddress }&nbsp; ${updateData.matchingDongAddress}</td>
 							</tr>
 							<tr>
 								<th>과목</th>
@@ -68,13 +68,13 @@
 							<tr>
 								<th>키워드</th>
 								<td>
-									${updateData.matchingKeyword1 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword2 }&nbsp&nbsp&nbsp ${updateData.matchingKeyword3 }
+									${updateData.matchingKeyword1 }&nbsp;&nbsp;&nbsp; ${updateData.matchingKeyword2 }&nbsp;&nbsp;&nbsp; ${updateData.matchingKeyword3 }
 								</td>
 							</tr>
 							<tr>
 								<th>덧붙이는 말</th>
 								<td>
-									<textarea name="matchingComment" id="matchingComment" rows="10">${updateData.matchingComment }</textarea>
+									<textarea name="matchingMemo" id="matchingMemo" rows="10">${updateData.matchingMemo }</textarea>
 								</td>
 							</tr>
 						</tbody>	
@@ -121,9 +121,6 @@
 			if (popUp != "") {
 				alert(popUp);
 			}
-			
-			console.log("${detail.personalId }");
-			console.log("${detail.matchingComment }");
 		});
 		
 	</script>

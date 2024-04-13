@@ -36,7 +36,7 @@ public class LikeController {
     //좋아요 토글
     @PostMapping("/like/toggle")
     public String toggleLike(@RequestBody LikeVO likeVO, Model model) {
-        likeService.getLike(likeVO);
+        //likeService.getLike(likeVO);			불필요한 코드 삭제
         likeService.toggleLike(likeVO);
         int result = likeService.getLike(likeVO);
         

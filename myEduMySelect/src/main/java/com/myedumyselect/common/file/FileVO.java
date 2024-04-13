@@ -11,6 +11,5 @@ public class FileVO {
 
 	private int commonNo;
 	private int fileNo;
-	private String filePath;
 	private String fileName;
 }

@@ -12,8 +12,6 @@
 	    var requiredInputs = document.querySelectorAll('input[required]');
 	    // 중복 체크가 필요한 요소들의 배열
 	    var duplicateCheckInputs = document.querySelectorAll('.duplicate-check');
-	    // 모든 필드를 포함한 배열
-	    var allInputs = Array.from(requiredInputs).concat(Array.from(duplicateCheckInputs));
 	    // 포커스를 이동할 대상을 담을 변수
 	    var targetInput = null;
 	    
@@ -145,7 +143,8 @@
 						window.location.href="/academy/join/complete";
 					}
 	            },
-	            error: function(xhr, status, error) {
+	            error: function(xhr, textStatus, errorThrown) {
+					alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
 	            }
 	        });
 	    }
@@ -181,7 +180,8 @@ $(document).ready(function() {
                     $('#duplicate-message').text('이미 사용 중인 아이디입니다.');
                 }
             },
-            error: function(xhr, status, error) {
+            error: function(xhr, textStatus, errorThrown) {
+				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
             }
         });
     });
@@ -233,8 +233,9 @@ $(document).ready(function() {
 	                $('#email-check-message').text('이미 사용 중인 이메일 주소입니다, 다시 입력해주세요.');
 	            }
 	        },
-	        error: function(xhr, status, error) {
-	        }
+	        error: function(xhr, textStatus, errorThrown) {
+				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
+            }
 	    });
 	}
 	
@@ -298,8 +299,9 @@ $(document).ready(function() {
 		            $('#academyDongAddress').val('').prop('readonly', false);
 		        }
 		    },
-		    error: function(xhr, status, error) {				
-		    }
+		    error: function(xhr, textStatus, errorThrown) {
+				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
+            }
 		});
     });
 });

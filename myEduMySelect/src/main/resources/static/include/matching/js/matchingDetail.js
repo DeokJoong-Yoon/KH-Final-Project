@@ -1,13 +1,8 @@
 $(function(){
 	
-	
-	let matchingNo = $("#matchingNo").val();
-	
 	let personalId = $("#personalId").val();
-	let academyId = $("#academyId").val();
 	let writerId = $(".writerId").text();
-	
-	
+
 	
 	if(personalId) {
 		$("#matchingCommentNickname").val("댓글은 학원회원만 작성 가능합니다.");
@@ -18,12 +13,9 @@ $(function(){
 		} 
 	} else if(!personalId) {
 		$("#editPost").css("display", "none");
-			$("#deletePost").css("display", "none");
+		$("#deletePost").css("display", "none");
 	}
 	
-	console.log("개인 로그인 " + personalId);
-	console.log("학원 로그인 " +academyId);
-	console.log("글 작성자 " +writerId);	
 	
 	//게시물 수정
 	$("#editPost").on("click", function(){
@@ -47,14 +39,6 @@ $(function(){
 			$("#formData").submit();
 		
 		}
-	})
-	
-	$("#prevPost").click(function(){
-		window.location.href = "/matching/prev/" + matchingNo;
-	})
-	
-	$("#nextPost").click(function(){
-		window.location.href = "/matching/next/" + matchingNo;
 	})
 	
 	$("#gotoList").click(function(){

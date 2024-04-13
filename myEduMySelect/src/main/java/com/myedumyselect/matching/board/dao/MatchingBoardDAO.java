@@ -40,11 +40,4 @@ public interface MatchingBoardDAO {
 	//매칭게시판 게시글 삭제하기
 	public int mBoardDelete(MatchingBoardVO mbVO);
 	
-	//매칭게시판 이전글 이동하기
-	public int prevMatchingNo(MatchingBoardVO mbVO);
-	
-	//매칭게시판 다음글 이동하기
-	public int nextMatchingNo(MatchingBoardVO mbVO);
-
-	
 }

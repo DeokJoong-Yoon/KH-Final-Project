@@ -34,11 +34,11 @@ public interface AdvertiseDAO {
 	//홍보게시판 게시글만 수정
 	public int advertiseUpdate(AdvertiseVO aVO);
 	
+	//디렉토리에서 삭제할 첨부파일 추출
+	public List<FileVO> advertiseSelectFile(AdvertiseVO aVO);
+	
 	//첨부파일 삭제
 	public int advertiseDeleteFile(AdvertiseVO aVO);
-	
-	//기존에 존재하는 첨부파일 모두 가져오기
-	public List<FileVO> advertiseNowFile(int commonNo);
 	
 	//이전 게시글 번호 추출
 	public int prevCommonNo(AdvertiseVO aVO);

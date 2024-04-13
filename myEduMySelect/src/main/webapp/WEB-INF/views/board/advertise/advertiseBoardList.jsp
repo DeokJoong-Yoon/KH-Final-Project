@@ -68,7 +68,7 @@
 					                    <tr>
 					                </c:if>
 							                <td data-num="${adv.commonNo}">
-							                    <img src="${adv.commonFile }"> <br><br>
+							                    <img src="/uploadStorage/advertise/${adv.commonFile }"> <br><br>
 							                    <h5><a class="advLink" href="#">${adv.commonNickname} </a></h5> 
 							                    <p>${adv.commonTitle} </p>
 							                </td>

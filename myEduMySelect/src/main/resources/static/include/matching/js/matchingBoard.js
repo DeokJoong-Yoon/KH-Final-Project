@@ -19,12 +19,11 @@ $(function(){
 					$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 				} else {
 					alert("비밀번호가 일치하지 않습니다.");
-					$(this).attr("href", "/matching/")
+					$(this).attr("href", "/matching/boardList")
 			}
 		} else if(matchingPrivate == 'N' || personalId == writerId) {
 			$(this).attr("href", "/matching/boardDetail?matchingNo=" + boardNumber)
 		} 
-		
 		
 	})
 	

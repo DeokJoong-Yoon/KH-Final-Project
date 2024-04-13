@@ -128,8 +128,8 @@ $(document).ready(function() {
                     $('#email-check-message').text('이미 사용 중인 이메일 주소입니다, 다시 입력해주세요.');
                 }
             },
-            error: function(xhr, status, error) {
-                console.error("서버 에러 발생: " + error);
+            error: function(xhr, textStatus, errorThrown) {
+				alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
             }
         });
     }
@@ -249,9 +249,9 @@ $(document).ready(function() {
                    // 성공한 경우 페이지를 새로고침하여 변경된 정보를 반영할 수 있도록 한다.
                    location.reload();
                },
-               error: function(xhr, status, error) {
-                   alert("회원 정보 업데이트에 실패했습니다. 다시 시도해 주세요.");
-               }
+               error: function(xhr, textStatus, errorThrown) {
+				   alert(textStatus + " ( HTTP-" + xhr.status + " / " + errorThrown + ")");
+	           }
            });
        } else {
            return false;
