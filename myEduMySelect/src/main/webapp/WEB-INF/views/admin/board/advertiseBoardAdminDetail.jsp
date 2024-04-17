@@ -141,7 +141,7 @@
 											<div class="md-3 row">
 												<label class="col-sm-2 col-form-label">image</label>
 												<c:forEach var="file" items="${detail.fileVO }">
-													<img src="${file.filePath}" alt="이미지">
+													<img src="/uploadStorage/advertise/${file.fileName}" alt="이미지">
 												</c:forEach>
 											</div>
 										</td>

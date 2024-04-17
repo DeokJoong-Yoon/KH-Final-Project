@@ -49,11 +49,6 @@
 					<h2>교육은 여러분의 선택이지만, 공지는 필수입니다.</h2>
 				</div>
 			</div>
-			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in"
-				data-aos-delay="200">
-				<img src="/resources/include/assets/img/hero-img.png"
-					class="img-fluid animated" alt="">
-			</div>
 		</div>
 	</section>
 	<!-- End Hero -->

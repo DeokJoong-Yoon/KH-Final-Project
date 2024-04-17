@@ -145,13 +145,16 @@
            		contentType: "application/json; charset=utf-8",
                    dataType: "text",
                    success: function(returnVal){
-                   	if(returnVal == "좋아요 취소") {
-                   		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
-                       	alert("찜을 취소했습니다.");
-                   	} else if(returnVal == "좋아요 등록") {
-                   		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
-                       	alert("이 학원을 찜했습니다!");
-                   	}
+                	   if(returnVal == "좋아요 취소") {
+                      		$("#likeImage").attr('src', "/uploadStorage/like/likeNo.png");
+                          	alert("찜을 취소했습니다.");
+                          	$("#likeMsg").text("이 학원을 찜할까요?");
+                          	
+                      	} else if(returnVal == "좋아요 등록") {
+                      		$("#likeImage").attr('src', "/uploadStorage/like/likeYes.png");
+                          	alert("이 학원을 찜했습니다!");
+                          	$("#likeMsg").text("찜한 학원입니다.");
+                      	}
                    },
            		error: function(){
            			alert("update 실패");

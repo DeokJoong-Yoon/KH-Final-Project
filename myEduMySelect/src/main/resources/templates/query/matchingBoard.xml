@@ -79,25 +79,27 @@
 	<!-- 맞춤형 검색 -->
 	<select id="mResult" parameterType="matchingBoard" resultMap="academyMap">
 		SELECT  *
-		FROM    tb_academy 
-		WHERE   academy_gu_address 		= 	#{matchingGuAddress} 
-			AND academy_dong_address 	LIKE '%' || #{matchingDongAddress} || '%'
-			AND academy_target_grade 	= 	#{matchingTargetGrade}
-			AND academy_target_subject 	= 	#{matchingTargetSubject}
-			AND (	academy_fee = #{matchingFee} 	
+		FROM    tb_academy  a
+		JOIN	tb_payment  p  ON  a.academy_id = p.academy_id
+		WHERE   TO_DATE(p.payment_date, 'YYYYMMDD') >= TRUNC(SYSDATE) - 30
+			AND a.academy_gu_address 		= 	#{matchingGuAddress} 
+			AND a.academy_dong_address 	LIKE '%' || #{matchingDongAddress} || '%'
+			AND a.academy_target_grade 	= 	#{matchingTargetGrade}
+			AND a.academy_target_subject 	= 	#{matchingTargetSubject}
+			AND (	a.academy_fee = #{matchingFee} 	
 					OR 	  
 					#{matchingFee} = '무관'	)
 			AND (
 					( 	
-				    	#{matchingKeyword1} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+				    	#{matchingKeyword1} IN (a.academy_keyword1, a.academy_keyword2, a.academy_keyword3, a.academy_keyword4, a.academy_keyword5) )
 				    AND
 				    ( 	#{matchingKeyword2} IS NULL 
 				    	OR
-				    	#{matchingKeyword2} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+				    	#{matchingKeyword2} IN (a.academy_keyword1, a.academy_keyword2, a.academy_keyword3, a.academy_keyword4, a.academy_keyword5) )
 				    AND
 				    ( 	#{matchingKeyword3} IS NULL 
 				    	OR 
-				    	#{matchingKeyword3} IN (academy_keyword1, academy_keyword2, academy_keyword3, academy_keyword4, academy_keyword5) )
+				    	#{matchingKeyword3} IN (a.academy_keyword1, a.academy_keyword2, a.academy_keyword3, a.academy_keyword4, a.academy_keyword5) )
 			)
 	</select> 
 	

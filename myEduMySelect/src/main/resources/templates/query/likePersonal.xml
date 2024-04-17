@@ -19,7 +19,6 @@
 		<result column="common_block_confirm"
 			property="commonBlockConfirm" />
 		<result column="common_block_date" property="commonBlockDate" />
-		<result column="common_thumb" property="commonThumb" />
 		<result column="common_file" property="commonFile" />
 	</resultMap>
 

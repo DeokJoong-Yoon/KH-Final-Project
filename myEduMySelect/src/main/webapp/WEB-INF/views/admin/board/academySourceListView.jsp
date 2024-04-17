@@ -112,7 +112,7 @@
 														<tr data-num="${academySource.academyNumber}">
 															<th scope="row">${academySource.academyNumber}</th>
 															<th class="goDetail text-start">${academySource.academyName}</th>
-															<td class="goDetail text-start">${academySource.academyGuAddress} ${academySource.academyRoadAddress} ${academySource.academyDongAddress}</td>
+															<td class="goDetail text-start">${academySource.academyRoadAddress} ${academySource.academyDongAddress}</td>
 															<td class="goDetail text-start">${academySource.academyOpenDate}</td>
 														</tr>
 												</c:forEach>

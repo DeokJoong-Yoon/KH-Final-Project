@@ -107,7 +107,7 @@
 										<td>
 											<div class="md-3 row">
 												<label for="matchingComment" class="col-sm-2 col-form-label">Comment</label>
-												<div class="col-sm-10 mt-2 mb-2">${detail.matchingComment}</div>
+												<div class="col-sm-10 mt-2 mb-2">${detail.matchingMemo}</div>
 											</div>
 										</td>
 									</tr>

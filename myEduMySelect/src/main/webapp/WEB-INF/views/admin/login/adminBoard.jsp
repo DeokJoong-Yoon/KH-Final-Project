@@ -139,8 +139,8 @@
 														<td>${advertise.commonReadcnt}</td>
 														<td>
 					                                 	<c:if test="${not empty advertise.commonFile}">
-					                                 		<%-- <img src="/uploadStorage/board/${advertise.commonFile}" class="rounded w-50 h-50"/> --%>
-					                                 		<img src="${advertise.commonFile}" class="thumnail rounded w-10 h-10"/>
+					                                 		<img src="/uploadStorage/advertise/${advertise.commonFile}" class="rounded w-50 h-50" style="max-height:50px; "/>
+					                                 		<%-- <img src="${advertise.commonFile}" class="thumnail rounded w-10 h-10"/> --%>
 					                                 	</c:if>
 					                                 	<c:if test="${empty advertise.commonFile}">
 					                                 		<img src="/uploadStorage/image/noimage.png" class="thumnail rounded w-10 h-10"/>

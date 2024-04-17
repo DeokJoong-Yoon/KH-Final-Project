@@ -18,7 +18,6 @@
 		<result column="common_block_confirm"
 			property="commonBlockConfirm" />
 		<result column="common_block_date" property="commonBlockDate" />
-		<result column="common_thumb" property="commonThumb" />
 		<result column="common_file" property="commonFile" />
 	</resultMap>
 
@@ -34,7 +33,6 @@
 		, 		to_char(common_register_date,'YYYY-MM-DD') as common_register_date
 		, 		common_readcnt
 		,		common_block_confirm
-		,		common_thumb
 		,		common_file
 		FROM 	(
 				SELECT /*+ INDEX_DESC(tb_common_board PK_TB_COMMON_BOARD) */
@@ -47,7 +45,6 @@
 				,		common_register_date
 				,		common_readcnt
 				,		common_block_confirm
-				,		common_thumb
 				,		common_file
 	            FROM	(
 	            SELECT cb.common_no,
@@ -63,7 +60,6 @@
 				       cb.common_readcnt,
 				       cb.common_block_confirm,
 				       cb.common_block_date,
-				       cb.common_thumb,
 				       cb.common_file
 				FROM tb_common_board cb
 				JOIN tb_payment p ON cb.academy_id = p.academy_id

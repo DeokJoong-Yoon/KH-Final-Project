@@ -70,7 +70,7 @@
 									<tr>
 										<th>이미지</th>
 										<td>
-											<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="max-width:200px; max-height:200px;" />
+											<img src="/uploadStorage/free/${detail.commonFile}" class="rounded" style="max-width:600px; " />
 										</td>
 									</tr>
 								</c:if>

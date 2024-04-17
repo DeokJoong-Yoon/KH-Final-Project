@@ -19,7 +19,7 @@
 		<result column="matching_keyword1" property="matchingKeyword1" />
 		<result column="matching_keyword2" property="matchingKeyword2" />
 		<result column="matching_keyword3" property="matchingKeyword3" />
-		<result column="matching_comment" property="matchingComment" />
+		<result column="matching_comment" property="matchingMemo" />
 	</resultMap>
 
 	<sql id="boardSearch">

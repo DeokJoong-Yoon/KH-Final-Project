@@ -172,7 +172,7 @@
 	<insert id="advertiseInsertFile" parameterType="file">
 		INSERT INTO tb_file (common_no, file_no, file_name)
 		VALUES (	#{commonNo}
-				, notice_board_file_seq.nextval
+				, advertise_board_file_seq.nextval
 				, #{fileName}  )
 	</insert>
 
